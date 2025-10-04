@@ -41,47 +41,76 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border-l-4 p-4 hover:shadow-md transition-shadow" style={{ borderColor: color }}>
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-sm font-semibold" style={{ color }}>
-              {religionInfo?.name}
+    <div className="group bg-white rounded-2xl shadow-soft hover:shadow-soft-lg border border-sage-200 overflow-hidden transition-all duration-300">
+      {/* Color accent bar */}
+      <div className="h-1.5" style={{ backgroundColor: color }}></div>
+      
+      <div className="p-5 sm:p-6">
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-4">
+          <div 
+            className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-soft"
+            style={{ backgroundColor: `${color}15` }}
+          >
+            <span className="text-lg font-bold" style={{ color }}>
+              {religionInfo?.name.charAt(0)}
             </span>
-            <span className="text-sm text-gray-600">•</span>
-            <span className="text-sm font-medium text-gray-700">{verse.reference}</span>
           </div>
-          <p className="text-gray-800 leading-relaxed">{verse.text}</p>
+          <div className="flex-1 min-w-0">
+            <h4 className="font-bold text-sage-900 text-sm sm:text-base truncate">
+              {religionInfo?.name}
+            </h4>
+            <p className="text-xs sm:text-sm font-medium text-sage-500 truncate">
+              {verse.reference}
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
-        <button
-          onClick={onChatClick}
-          className="flex items-center gap-1 px-3 py-1.5 text-sm text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
-        >
-          <MessageCircle className="w-4 h-4" />
-          Chat
-        </button>
-        <button
-          onClick={handleSave}
-          disabled={isSaved}
-          className={`flex items-center gap-1 px-3 py-1.5 text-sm rounded-lg transition-colors ${
-            isSaved
-              ? 'text-green-600 bg-green-50 cursor-default'
-              : 'text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <BookmarkPlus className="w-4 h-4" />}
-          {isSaved ? 'Saved' : 'Save'}
-        </button>
-        <button
-          onClick={handleShare}
-          className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
-        >
-          <Share2 className="w-4 h-4" />
-          Share
-        </button>
+        {/* Content */}
+        <div className="mb-5">
+          <p className="text-sage-800 leading-relaxed text-sm sm:text-base font-serif">
+            "{verse.text}"
+          </p>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-sage-100">
+          <button
+            onClick={onChatClick}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors duration-200"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>Discuss</span>
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={isSaved}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              isSaved
+                ? 'text-green-700 bg-green-50 cursor-default'
+                : 'text-sage-700 bg-sage-100 hover:bg-sage-200'
+            }`}
+          >
+            {isSaved ? (
+              <>
+                <BookmarkCheck className="w-4 h-4" />
+                <span>Saved</span>
+              </>
+            ) : (
+              <>
+                <BookmarkPlus className="w-4 h-4" />
+                <span>Save</span>
+              </>
+            )}
+          </button>
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-sage-700 bg-sage-100 hover:bg-sage-200 rounded-lg transition-colors duration-200"
+          >
+            <Share2 className="w-4 h-4" />
+            <span className="hidden sm:inline">Share</span>
+          </button>
+        </div>
       </div>
     </div>
   );

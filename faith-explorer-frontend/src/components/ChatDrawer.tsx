@@ -1,4 +1,4 @@
-import { X, Send, Loader2 } from 'lucide-react';
+import { X, Send, Bot, User } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { useStore } from '../store/useStore';
 import { chatAboutVerse } from '../services/api';
@@ -56,88 +56,137 @@ export function ChatDrawer() {
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 w-full md:w-[500px] bg-white shadow-2xl border-l border-gray-200 flex flex-col z-50">
-      {/* Header */}
-      <div className="bg-primary-600 text-white p-4 flex items-start justify-between">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-semibold">{religionInfo?.name}</span>
-            <span className="text-primary-200">•</span>
-            <span className="text-sm text-primary-100">{activeVerseChat.verseReference}</span>
-          </div>
-          <p className="text-sm text-primary-100 line-clamp-2">{activeVerseChat.verseText}</p>
-        </div>
-        <button
-          onClick={() => setActiveVerseChat(null)}
-          className="p-1 hover:bg-primary-700 rounded transition-colors"
+    <>
+      {/* Backdrop */}
+      <div 
+        className="fixed inset-0 bg-sage-900/20 backdrop-blur-sm z-40 lg:hidden"
+        onClick={() => setActiveVerseChat(null)}
+      ></div>
+
+      {/* Drawer */}
+      <div className="fixed inset-y-0 right-0 w-full sm:w-[480px] lg:w-[520px] bg-white shadow-soft-2xl flex flex-col z-50 animate-slide-in">
+        {/* Header */}
+        <div 
+          className="relative px-6 py-5 text-white overflow-hidden"
+          style={{ backgroundColor: religionInfo?.color || '#6366f1' }}
         >
-          <X className="w-5 h-5" />
-        </button>
-      </div>
-
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {activeVerseChat.messages.length === 0 && (
-          <div className="text-center text-gray-500 mt-8">
-            <p className="mb-2">Ask questions about this verse</p>
-            <p className="text-sm">I'll help you understand its meaning and context</p>
-          </div>
-        )}
-
-        {activeVerseChat.messages.map((message, idx) => (
-          <div
-            key={idx}
-            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
-            <div
-              className={`max-w-[80%] rounded-lg p-3 ${
-                message.role === 'user'
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-gray-100 text-gray-900'
-              }`}
+          {/* Subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-10" style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+            backgroundSize: '24px 24px'
+          }}></div>
+          
+          <div className="relative flex items-start justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-2">
+                <h3 className="font-bold text-lg truncate">{religionInfo?.name}</h3>
+              </div>
+              <p className="text-sm opacity-90 font-medium mb-2">{activeVerseChat.verseReference}</p>
+              <p className="text-sm opacity-80 line-clamp-2 font-serif italic">
+                "{activeVerseChat.verseText}"
+              </p>
+            </div>
+            <button
+              onClick={() => setActiveVerseChat(null)}
+              className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-white/20 hover:bg-white/30 transition-colors"
             >
-              <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-sage-50">
+          {activeVerseChat.messages.length === 0 && (
+            <div className="flex flex-col items-center justify-center h-full text-center px-4">
+              <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mb-4">
+                <Bot className="w-8 h-8 text-primary-600" />
+              </div>
+              <h4 className="text-lg font-bold text-sage-900 mb-2">
+                Ask About This Verse
+              </h4>
+              <p className="text-sm text-sage-600 max-w-sm">
+                I can help explain the meaning, context, and significance of this passage. What would you like to know?
+              </p>
             </div>
-          </div>
-        ))}
+          )}
 
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-gray-100 rounded-lg p-3">
-              <Loader2 className="w-5 h-5 text-gray-600 animate-spin" />
+          {activeVerseChat.messages.map((message, idx) => (
+            <div
+              key={idx}
+              className={`flex gap-3 ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
+            >
+              {/* Avatar */}
+              <div className={`flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center ${
+                message.role === 'user' 
+                  ? 'bg-primary-600 text-white' 
+                  : 'bg-white border-2 border-sage-200 text-primary-600'
+              }`}>
+                {message.role === 'user' ? (
+                  <User className="w-4 h-4" />
+                ) : (
+                  <Bot className="w-4 h-4" />
+                )}
+              </div>
+
+              {/* Message */}
+              <div
+                className={`flex-1 max-w-[80%] rounded-2xl p-4 ${
+                  message.role === 'user'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-white border border-sage-200 text-sage-800 shadow-soft'
+                }`}
+              >
+                <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+              </div>
             </div>
-          </div>
-        )}
+          ))}
 
-        <div ref={messagesEndRef} />
-      </div>
+          {isLoading && (
+            <div className="flex gap-3">
+              <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-white border-2 border-sage-200 flex items-center justify-center">
+                <Bot className="w-4 h-4 text-primary-600" />
+              </div>
+              <div className="bg-white border border-sage-200 rounded-2xl p-4 shadow-soft">
+                <div className="flex gap-2">
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                </div>
+              </div>
+            </div>
+          )}
 
-      {/* Input */}
-      <div className="border-t border-gray-200 p-4">
-        {!usage.isPremium && (
-          <div className="text-xs text-gray-600 mb-2">
-            {usage.chatLimit - usage.chatMessagesUsed} messages remaining
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <div className="border-t border-sage-200 bg-white p-4 sm:p-6">
+          {!usage.isPremium && (
+            <div className="mb-3 text-xs text-sage-600 font-medium">
+              {usage.chatLimit - usage.chatMessagesUsed} messages remaining
+            </div>
+          )}
+          <div className="flex gap-3">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
+              placeholder="Ask a question about this verse..."
+              className="flex-1 px-4 py-3 bg-sage-50 border-2 border-transparent rounded-xl focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-50 text-sm placeholder-sage-400 text-sage-900 transition-all duration-200"
+              disabled={isLoading}
+            />
+            <button
+              onClick={handleSend}
+              disabled={!input.trim() || isLoading}
+              className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 disabled:opacity-50 disabled:cursor-not-allowed shadow-soft hover:shadow-soft-lg transition-all duration-200 flex items-center justify-center"
+            >
+              <Send className="w-5 h-5" />
+            </button>
           </div>
-        )}
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Ask about this verse..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
-            disabled={isLoading}
-          />
-          <button
-            onClick={handleSend}
-            disabled={!input.trim() || isLoading}
-            className="p-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <Send className="w-5 h-5" />
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

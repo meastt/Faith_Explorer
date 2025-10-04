@@ -71,15 +71,15 @@ export interface FreemiumUsage {
 }
 
 export const RELIGIONS: ReligionInfo[] = [
-  { id: 'christianity', name: 'Christianity', text: 'Bible', color: '#DC2626' },
+  { id: 'christianity', name: 'Christianity', text: 'Bible', color: '#dc2626' },
   { id: 'islam', name: 'Islam', text: 'Quran & Hadith', color: '#059669' },
-  { id: 'judaism', name: 'Judaism', text: 'Torah', color: '#2563EB' },
-  { id: 'hinduism', name: 'Hinduism', text: 'Bhagavad Gita', color: '#D97706' },
-  { id: 'buddhism', name: 'Buddhism', text: 'Dhammapada', color: '#7C3AED' },
-  { id: 'sikhism', name: 'Sikhism', text: 'Guru Granth Sahib', color: '#EA580C' },
-  { id: 'taoism', name: 'Taoism', text: 'Tao Te Ching', color: '#0891B2' },
-  { id: 'confucianism', name: 'Confucianism', text: 'Analects', color: '#BE123C' },
-  { id: 'shinto', name: 'Shinto', text: 'Kojiki', color: '#DB2777' },
+  { id: 'judaism', name: 'Judaism', text: 'Torah', color: '#2563eb' },
+  { id: 'hinduism', name: 'Hinduism', text: 'Bhagavad Gita', color: '#ea580c' },
+  { id: 'buddhism', name: 'Buddhism', text: 'Dhammapada', color: '#7c3aed' },
+  { id: 'sikhism', name: 'Sikhism', text: 'Guru Granth Sahib', color: '#c2410c' },
+  { id: 'taoism', name: 'Taoism', text: 'Tao Te Ching', color: '#0891b2' },
+  { id: 'confucianism', name: 'Confucianism', text: 'Analects', color: '#be123c' },
+  { id: 'shinto', name: 'Shinto', text: 'Kojiki', color: '#db2777' },
 ];
 
 export const FREE_TIER_LIMITS = {
