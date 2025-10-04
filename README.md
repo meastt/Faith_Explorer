@@ -42,26 +42,26 @@ A comprehensive interfaith API that provides access to sacred texts from 9 major
    cd faith-explorer
    ```
 
-2. **Install dependencies**
+2. **Set up the backend**
    ```bash
    cd faith-explorer-backend
    npm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
    cp .env.example .env
    # Edit .env and add your ANTHROPIC_API_KEY
-   ```
-   
-   **⚠️ Security Note**: Never commit your actual `.env` file to version control. The `.env.example` file shows the required format without exposing your API key.
-
-4. **Start the server**
-   ```bash
    npm start
    ```
 
+   **⚠️ Security Note**: Never commit your actual `.env` file to version control. The `.env.example` file shows the required format without exposing your API key.
+
+3. **Set up the frontend** (in a new terminal)
+   ```bash
+   cd faith-explorer-frontend
+   npm install
+   npm run dev
+   ```
+
 The API will be available at `http://localhost:3001`
+The web app will be available at `http://localhost:5173`
 
 ## 📖 API Usage
 
@@ -127,6 +127,14 @@ faith-explorer/
 │   ├── data/                       # Religious text data (JSON)
 │   ├── server.js                   # Express server
 │   ├── search.js                   # Text search functionality
+│   └── package.json
+├── faith-explorer-frontend/        # React web application
+│   ├── src/                       # Source code
+│   │   ├── components/           # React components
+│   │   ├── services/            # API integration
+│   │   ├── store/               # State management
+│   │   ├── types/               # TypeScript types
+│   │   └── utils/               # Helper functions
 │   └── package.json
 ├── faith-explorer-data/            # Data processing
 │   ├── processed-files/           # Clean, structured JSON files
@@ -205,7 +213,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔮 Roadmap
 
-- [ ] **Frontend Web Interface**
+- [x] **Frontend Web Interface** ✅
+- [ ] **User Authentication & Accounts**
+- [ ] **Payment Integration (Stripe)**
 - [ ] **Mobile App (React Native)**
 - [ ] **Additional Religious Traditions**
 - [ ] **Multi-language Support**
