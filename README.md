@@ -53,6 +53,8 @@ A comprehensive interfaith API that provides access to sacred texts from 9 major
    cp .env.example .env
    # Edit .env and add your ANTHROPIC_API_KEY
    ```
+   
+   **⚠️ Security Note**: Never commit your actual `.env` file to version control. The `.env.example` file shows the required format without exposing your API key.
 
 4. **Start the server**
    ```bash
