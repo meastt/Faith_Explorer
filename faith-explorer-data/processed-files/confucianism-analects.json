@@ -1,0 +1,87 @@
+{
+  "religion": "confucianism",
+  "source": "The Analects of Confucius",
+  "version": "James Legge Translation",
+  "verses": [
+    {
+      "id": "analects_1_1",
+      "reference": "Analects 1:1",
+      "book": "Analects",
+      "chapter": 1,
+      "verse": 1,
+      "text": "The Master said, 'Is it not pleasant to learn with a constant perseverance and application? Is it not delightful to have friends coming from distant quarters? Is he not a man of complete virtue, who feels no discomposure though men may take no note of him?'"
+    },
+    {
+      "id": "analects_1_2",
+      "reference": "Analects 1:2",
+      "book": "Analects",
+      "chapter": 1,
+      "verse": 2,
+      "text": "The philosopher Yu said, 'They are few who, being filial and fraternal, are fond of offending against their superiors. There have been none, who, not liking to offend against their superiors, have been fond of stirring up confusion.'"
+    },
+    {
+      "id": "analects_2_1",
+      "reference": "Analects 2:1",
+      "book": "Analects",
+      "chapter": 2,
+      "verse": 1,
+      "text": "The Master said, 'He who exercises government by means of his virtue may be compared to the north polar star, which keeps its place and all the stars turn towards it.'"
+    },
+    {
+      "id": "analects_2_2",
+      "reference": "Analects 2:2",
+      "book": "Analects",
+      "chapter": 2,
+      "verse": 2,
+      "text": "The Master said, 'In the Book of Poetry are three hundred pieces, but the design of them all may be embraced in one sentence - \"Having no depraved thoughts.\"'"
+    },
+    {
+      "id": "analects_4_1",
+      "reference": "Analects 4:1",
+      "book": "Analects",
+      "chapter": 4,
+      "verse": 1,
+      "text": "The Master said, 'It is virtuous manners which constitute the excellence of a neighborhood. If a man in selecting a residence do not fix on one where such prevail, how can he be wise?'"
+    },
+    {
+      "id": "analects_6_20",
+      "reference": "Analects 6:20",
+      "book": "Analects",
+      "chapter": 6,
+      "verse": 20,
+      "text": "The Master said, 'They who know the truth are not equal to those who love it, and they who love it are not equal to those who delight in it.'"
+    },
+    {
+      "id": "analects_7_1",
+      "reference": "Analects 7:1",
+      "book": "Analects",
+      "chapter": 7,
+      "verse": 1,
+      "text": "The Master said, 'A transmitter and not a maker, believing in and loving the ancients, I venture to compare myself with our old P'ang.'"
+    },
+    {
+      "id": "analects_12_1",
+      "reference": "Analects 12:1",
+      "book": "Analects",
+      "chapter": 12,
+      "verse": 1,
+      "text": "Yen Yuan asked about perfect virtue. The Master said, 'To subdue one's self and return to propriety, is perfect virtue. If a man can for one day subdue himself and return to propriety, all under heaven will ascribe perfect virtue to him.'"
+    },
+    {
+      "id": "analects_15_24",
+      "reference": "Analects 15:24",
+      "book": "Analects",
+      "chapter": 15,
+      "verse": 24,
+      "text": "Tsze-kung asked, saying, 'Is there one word which may serve as a rule of practice for all one's life?' The Master said, 'Is not reciprocity such a word? What you do not want done to yourself, do not do to others.'"
+    },
+    {
+      "id": "analects_17_6",
+      "reference": "Analects 17:6",
+      "book": "Analects",
+      "chapter": 17,
+      "verse": 6,
+      "text": "The Master said, 'By nature, men are nearly alike; by practice, they get to be wide apart.'"
+    }
+  ]
+}

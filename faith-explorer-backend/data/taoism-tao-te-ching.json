@@ -1,0 +1,87 @@
+{
+  "religion": "taoism",
+  "source": "Tao Te Ching",
+  "version": "James Legge Translation",
+  "verses": [
+    {
+      "id": "tao_te_ching_1_1",
+      "reference": "Tao Te Ching 1:1",
+      "book": "Tao Te Ching",
+      "chapter": 1,
+      "verse": 1,
+      "text": "The Dao that can be trodden is not the enduring and unchanging Dao. The name that can be named is not the enduring and unchanging name. (Conceived of as) having no name, it is the Originator of heaven and earth; (conceived of as) having a name, it is the Mother of all things."
+    },
+    {
+      "id": "tao_te_ching_1_2",
+      "reference": "Tao Te Ching 1:2",
+      "book": "Tao Te Ching",
+      "chapter": 1,
+      "verse": 2,
+      "text": "Always without desire we must be found, If its deep mystery we would sound; But if desire always within us be, Its outer fringe is all that we shall see."
+    },
+    {
+      "id": "tao_te_ching_1_3",
+      "reference": "Tao Te Ching 1:3",
+      "book": "Tao Te Ching",
+      "chapter": 1,
+      "verse": 3,
+      "text": "Under these two aspects, it is really the same; but as development takes place, it receives the different names. Together we call them the Mystery. Where the Mystery is the deepest is the gate of all that is subtle and wonderful."
+    },
+    {
+      "id": "tao_te_ching_2_1",
+      "reference": "Tao Te Ching 2:1",
+      "book": "Tao Te Ching",
+      "chapter": 2,
+      "verse": 1,
+      "text": "All in the world know the beauty of the beautiful, and in doing this they have (the idea of) what ugliness is; they all know the skill of the skillful, and in doing this they have (the idea of) what the want of skill is."
+    },
+    {
+      "id": "tao_te_ching_2_2",
+      "reference": "Tao Te Ching 2:2",
+      "book": "Tao Te Ching",
+      "chapter": 2,
+      "verse": 2,
+      "text": "So it is that existence and non-existence give birth the one to (the idea of) the other; that difficulty and ease produce the one (the idea of) the other; that length and shortness fashion out the one the figure of the other; that (the ideas of) height and lowness arise from the contrast of the one with the other."
+    },
+    {
+      "id": "tao_te_ching_2_3",
+      "reference": "Tao Te Ching 2:3",
+      "book": "Tao Te Ching",
+      "chapter": 2,
+      "verse": 3,
+      "text": "That being and non-being are produced the one by the other; that difficulty and ease are completed the one by the other; that length and shortness are contrasted the one with the other; that the ideas of height and lowness are distinguished the one from the other; and that (the sounds of) speech and the notes of music are harmonized the one with the other."
+    },
+    {
+      "id": "tao_te_ching_3_1",
+      "reference": "Tao Te Ching 3:1",
+      "book": "Tao Te Ching",
+      "chapter": 3,
+      "verse": 1,
+      "text": "Not to value and employ men of superior ability is the way to keep the people from rivalry among themselves; not to prize articles which are difficult to procure is the way to keep them from becoming thieves; not to show them what is likely to excite their desires is the way to keep their minds from disorder."
+    },
+    {
+      "id": "tao_te_ching_4_1",
+      "reference": "Tao Te Ching 4:1",
+      "book": "Tao Te Ching",
+      "chapter": 4,
+      "verse": 1,
+      "text": "The Dao is (like) the emptiness of a vessel; and in our employment of it we must be on our guard against all fulness. How deep and unfathomable it is, as if it were the Honored Ancestor of all things!"
+    },
+    {
+      "id": "tao_te_ching_5_1",
+      "reference": "Tao Te Ching 5:1",
+      "book": "Tao Te Ching",
+      "chapter": 5,
+      "verse": 1,
+      "text": "Heaven and earth do not act from (the impulse of) any wish to be benevolent; they deal with all things as the dogs of grass are dealt with. The sages do not act from (any wish to be) benevolent; they deal with the people as the dogs of grass are dealt with."
+    },
+    {
+      "id": "tao_te_ching_6_1",
+      "reference": "Tao Te Ching 6:1",
+      "book": "Tao Te Ching",
+      "chapter": 6,
+      "verse": 1,
+      "text": "The valley spirit dies not, aye the same; The female mystery thus do we name. Its gate, from which at first they issued forth, Is called the root from which grew heaven and earth. Long and unbroken does its power remain, Used gently, and without the touch of pain."
+    }
+  ]
+}

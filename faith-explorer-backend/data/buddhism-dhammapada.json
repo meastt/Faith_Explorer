@@ -1,0 +1,39 @@
+{
+  "religion": "buddhism",
+  "source": "Dhammapada",
+  "version": "Public Domain Translation",
+  "verses": [
+    {
+      "id": "dhammapada_1_1",
+      "reference": "Dhammapada 1:1",
+      "book": "Dhammapada",
+      "chapter": 1,
+      "verse": 1,
+      "text": "Mind precedes all mental states. Mind is their chief; they are all mind-wrought. If with an impure mind a person speaks or acts suffering follows him like the wheel that follows the foot of the ox."
+    },
+    {
+      "id": "dhammapada_1_2",
+      "reference": "Dhammapada 1:2",
+      "book": "Dhammapada",
+      "chapter": 1,
+      "verse": 2,
+      "text": "Mind precedes all mental states. Mind is their chief; they are all mind-wrought. If with a pure mind a person speaks or acts happiness follows him like his never-departing shadow."
+    },
+    {
+      "id": "dhammapada_5_61",
+      "reference": "Dhammapada 5:61",
+      "book": "Dhammapada",
+      "chapter": 5,
+      "verse": 61,
+      "text": "If you do not get a prudent companion who is fit and wise to live with, then like a king who leaves behind a conquered kingdom, or like a lone elephant in the elephant forest, you should go alone. There is no fellowship with a fool."
+    },
+    {
+      "id": "dhammapada_8_100",
+      "reference": "Dhammapada 8:100",
+      "book": "Dhammapada",
+      "chapter": 8,
+      "verse": 100,
+      "text": "Better than a thousand useless words is one useful word, hearing which one attains peace."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "religion": "sikhism",
+  "source": "Guru Granth Sahib",
+  "version": "Public Domain Translation",
+  "verses": [
+    {
+      "id": "guru_granth_sahib_1_1",
+      "reference": "Guru Granth Sahib 1:1",
+      "book": "Guru Granth Sahib",
+      "chapter": 1,
+      "verse": 1,
+      "text": "There is One God. Truth by name, the Creator, devoid of fear and enmity, immortal, unborn, self-existent, great and bountiful."
+    },
+    {
+      "id": "guru_granth_sahib_1_2",
+      "reference": "Guru Granth Sahib 1:2",
+      "book": "Guru Granth Sahib",
+      "chapter": 1,
+      "verse": 2,
+      "text": "By the grace of the True Guru, meditate on Him."
+    },
+    {
+      "id": "guru_granth_sahib_2_1",
+      "reference": "Guru Granth Sahib 2:1",
+      "book": "Guru Granth Sahib",
+      "chapter": 2,
+      "verse": 1,
+      "text": "He was True in the beginning, He was True when the ages commenced, He has been True from eternity, He is True now, and He will be True in the future."
+    },
+    {
+      "id": "guru_granth_sahib_3_1",
+      "reference": "Guru Granth Sahib 3:1",
+      "book": "Guru Granth Sahib",
+      "chapter": 3,
+      "verse": 1,
+      "text": "By thinking, He cannot be reduced to thought, even by thinking hundreds of thousands of times."
+    }
+  ]
+}

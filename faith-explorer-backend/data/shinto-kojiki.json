@@ -1,0 +1,71 @@
+{
+  "religion": "shinto",
+  "source": "Kojiki",
+  "version": "Basil Hall Chamberlain Translation",
+  "verses": [
+    {
+      "id": "kojiki_1_1",
+      "reference": "Kojiki 1:1",
+      "book": "Kojiki",
+      "chapter": 1,
+      "verse": 1,
+      "text": "The names of the deities that were born in the Plain of High Heaven when the Heaven and Earth began were the deity Master-of-the-August-Center-of-Heaven; next, the High-August-Producing-Wondrous deity; next, the Divine-Producing-Wondrous deity."
+    },
+    {
+      "id": "kojiki_1_2",
+      "reference": "Kojiki 1:2",
+      "book": "Kojiki",
+      "chapter": 1,
+      "verse": 2,
+      "text": "These three deities were all deities born alone, and hid their persons. The names of the deities that were born next from a thing that sprouted up like unto a reed-shoot when the earth, young and like unto floating oil, drifted about medusa-like, were the Pleasant-Reed-Shoot-Prince-Elder deity, next the Heavenly-Eternally-Standing deity."
+    },
+    {
+      "id": "kojiki_1_3",
+      "reference": "Kojiki 1:3",
+      "book": "Kojiki",
+      "chapter": 1,
+      "verse": 3,
+      "text": "These two deities likewise were born alone, and hid their persons. The five deities in the above section are separate Heavenly deities."
+    },
+    {
+      "id": "kojiki_2_1",
+      "reference": "Kojiki 2:1",
+      "book": "Kojiki",
+      "chapter": 2,
+      "verse": 1,
+      "text": "The names of the deities that were born next were the Earthly-Eternally-Standing deity; next, the Luxuriant-Integrating-Master deity. These two deities likewise were born alone, and hid their persons."
+    },
+    {
+      "id": "kojiki_8_1",
+      "reference": "Kojiki 8:1",
+      "book": "Kojiki",
+      "chapter": 8,
+      "verse": 1,
+      "text": "So when the Heaven and Earth began, three deities were produced in the Plain of High Heaven, and their names were the deity Master-of-the-August-Center-of-Heaven; next, the High-August-Producing-Wondrous deity; next, the Divine-Producing-Wondrous deity."
+    },
+    {
+      "id": "kojiki_11_1",
+      "reference": "Kojiki 11:1",
+      "book": "Kojiki",
+      "chapter": 11,
+      "verse": 1,
+      "text": "The names of the deities that were born next were the deity Great-Male-of-the-Great-Thing; next, the deity Rock-Earth-Prince; next, the deity Rock-Nest-Princess; next, the deity Great-Door-Sun-Youth; next, the deity Heavenly-Blowing-Male; next, the deity Great-House-Prince; next, the deity Youth-of-the-Wind-Breath-the-Great-Male; next, the deity Sea-Deity, whose name was the deity Great-Ocean-Possessor; next, the deity Mountain-Deity, whose name was the deity Great-Mountain-Possessor; next, the deity Moor-Deity, whose name was the deity Heavenly-Elder-of-the-Moor; next, the deity Valley-Deity, whose name was the deity Heavenly-Elder-of-the-Valley."
+    },
+    {
+      "id": "kojiki_15_1",
+      "reference": "Kojiki 15:1",
+      "book": "Kojiki",
+      "chapter": 15,
+      "verse": 1,
+      "text": "So when His Impetuous-Male-Augustness had been banished, His Augustness the Deity-Master-of-the-Great-Land went to the land of Izumo. At this time some chopsticks came floating down the stream."
+    },
+    {
+      "id": "kojiki_25_1",
+      "reference": "Kojiki 25:1",
+      "book": "Kojiki",
+      "chapter": 25,
+      "verse": 1,
+      "text": "The deity Great-Mountain-Possessor had eighty deities, his brethren, but they all left the land to the deity Master-of-the-Great-Land. The reason for their leaving it was this: Each of them said that the land was a very small one, and they therefore went away to other countries."
+    }
+  ]
+}
