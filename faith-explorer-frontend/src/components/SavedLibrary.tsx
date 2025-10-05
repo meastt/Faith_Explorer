@@ -6,7 +6,7 @@ import { exportCollection } from '../utils/export';
 import { RELIGIONS, type Religion } from '../types';
 
 export function SavedLibrary() {
-  const { savedVerses, updateVerseNotes, deleteVerse, setActiveVerseChat } = useStore();
+  const { savedVerses, updateVerseNotes, deleteVerse, setActiveVerseChat, readingPreferences } = useStore();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editNotes, setEditNotes] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -63,12 +63,12 @@ export function SavedLibrary() {
 
   if (savedVerses.length === 0) {
     return (
-      <div className="bg-white rounded-2xl shadow-soft border border-sage-200 p-12 sm:p-16 text-center">
-        <div className="w-20 h-20 bg-sage-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <BookmarkCheck className="w-10 h-10 text-sage-400" />
+      <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-soft border border-sage-200 dark:border-gray-700 sepia:border-amber-200 p-12 sm:p-16 text-center">
+        <div className="w-20 h-20 bg-sage-100 dark:bg-gray-700 sepia:bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <BookmarkCheck className="w-10 h-10 text-sage-400 dark:text-gray-400 sepia:text-amber-600" />
         </div>
-        <h3 className="text-xl font-bold text-sage-900 mb-2">No Saved Verses Yet</h3>
-        <p className="text-sage-600 max-w-md mx-auto">
+        <h3 className="text-xl font-bold text-sage-900 dark:text-gray-100 sepia:text-amber-900 mb-2">No Saved Verses Yet</h3>
+        <p className="text-sage-600 dark:text-gray-400 sepia:text-amber-700 max-w-md mx-auto">
           Save meaningful verses while searching to build your personal collection of wisdom
         </p>
       </div>
@@ -86,8 +86,8 @@ export function SavedLibrary() {
     <div className="space-y-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-sage-900">Your Saved Collection</h2>
-          <p className="text-sm text-sage-600 mt-1">
+          <h2 className="text-2xl font-bold text-sage-900 dark:text-gray-100 sepia:text-amber-900">Your Saved Collection</h2>
+          <p className="text-sm text-sage-600 dark:text-gray-400 sepia:text-amber-700 mt-1">
             {filteredVerses.length} of {savedVerses.length} {savedVerses.length === 1 ? 'verse' : 'verses'}
           </p>
         </div>
@@ -108,16 +108,16 @@ export function SavedLibrary() {
                   className="fixed inset-0 z-10"
                   onClick={() => setShowExportMenu(false)}
                 />
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 z-20 py-2">
+                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 z-20 py-2">
                   <button
                     onClick={() => handleExport('markdown')}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 transition-colors"
+                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 transition-colors"
                   >
-                    <div className="font-medium text-gray-900">Markdown</div>
-                    <div className="text-xs text-gray-600">Formatted document</div>
+                    <div className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Markdown</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400 sepia:text-amber-700">Formatted document</div>
                   </button>
-                  <div className="border-t border-gray-100 my-1" />
-                  <div className="px-4 py-1 text-xs font-semibold text-gray-500">Citations</div>
+                  <div className="border-t border-gray-100 dark:border-gray-700 sepia:border-amber-200 my-1" />
+                  <div className="px-4 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 sepia:text-amber-600">Citations</div>
                   <button
                     onClick={() => handleExport('mla')}
                     className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 transition-colors"
@@ -152,7 +152,7 @@ export function SavedLibrary() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search your saved verses..."
-            className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
+            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-800 sepia:bg-amber-50 border border-gray-300 dark:border-gray-600 sepia:border-amber-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-gray-100 sepia:text-amber-900 placeholder-gray-500 dark:placeholder-gray-400 sepia:placeholder-amber-600"
           />
         </div>
 
@@ -161,7 +161,7 @@ export function SavedLibrary() {
           <select
             value={filterReligion}
             onChange={(e) => setFilterReligion(e.target.value as Religion | 'all')}
-            className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 appearance-none"
+            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-800 sepia:bg-amber-50 border border-gray-300 dark:border-gray-600 sepia:border-amber-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-gray-100 sepia:text-amber-900 appearance-none"
           >
             <option value="all">All Religions</option>
             {savedReligions.map(religionId => {
@@ -178,12 +178,12 @@ export function SavedLibrary() {
 
       {/* Results */}
       {filteredVerses.length === 0 ? (
-        <div className="bg-white rounded-2xl shadow-soft border border-sage-200 p-12 text-center">
-          <div className="w-16 h-16 bg-sage-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Search className="w-8 h-8 text-sage-400" />
+        <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-soft border border-sage-200 dark:border-gray-700 sepia:border-amber-200 p-12 text-center">
+          <div className="w-16 h-16 bg-sage-100 dark:bg-gray-700 sepia:bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Search className="w-8 h-8 text-sage-400 dark:text-gray-400 sepia:text-amber-600" />
           </div>
-          <h3 className="text-lg font-bold text-sage-900 mb-2">No verses found</h3>
-          <p className="text-sm text-sage-600">
+          <h3 className="text-lg font-bold text-sage-900 dark:text-gray-100 sepia:text-amber-900 mb-2">No verses found</h3>
+          <p className="text-sm text-sage-600 dark:text-gray-400 sepia:text-amber-700">
             Try adjusting your search or filter
           </p>
         </div>
@@ -196,7 +196,7 @@ export function SavedLibrary() {
           return (
             <div
               key={verse.id}
-              className="group bg-white rounded-2xl shadow-soft hover:shadow-soft-lg border border-sage-200 overflow-hidden transition-all duration-300"
+              className="group bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-soft hover:shadow-soft-lg border border-sage-200 dark:border-gray-700 sepia:border-amber-200 overflow-hidden transition-all duration-300"
             >
               {/* Color accent bar */}
               <div className="h-1.5" style={{ backgroundColor: religionInfo?.color }}></div>
@@ -214,15 +214,15 @@ export function SavedLibrary() {
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-bold text-sage-900 text-sm sm:text-base truncate">
+                      <h4 className="font-bold text-sage-900 dark:text-gray-100 sepia:text-amber-900 text-sm sm:text-base truncate">
                         {religionInfo?.name}
                       </h4>
-                      <p className="text-xs sm:text-sm font-medium text-sage-500 truncate">
+                      <p className="text-xs sm:text-sm font-medium text-sage-500 dark:text-gray-400 sepia:text-amber-600 truncate">
                         {verse.reference}
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-sage-500 flex-shrink-0">
+                  <div className="flex items-center gap-2 text-xs text-sage-500 dark:text-gray-400 sepia:text-amber-600 flex-shrink-0">
                     <Calendar className="w-3.5 h-3.5" />
                     <span className="hidden sm:inline">{formatDate(verse.savedAt)}</span>
                   </div>
@@ -230,20 +230,20 @@ export function SavedLibrary() {
 
                 {/* Content */}
                 <div className="mb-4">
-                  <p className="text-sage-800 leading-relaxed text-sm sm:text-base font-serif">
+                  <p className="text-sage-800 dark:text-gray-200 sepia:text-amber-800 leading-relaxed text-sm sm:text-base font-serif">
                     "{verse.text}"
                   </p>
                 </div>
 
                 {/* Notes Section */}
-                <div className="pt-4 border-t border-sage-100">
+                <div className="pt-4 border-t border-sage-100 dark:border-gray-700 sepia:border-amber-200">
                   {isEditing ? (
                     <div className="space-y-3">
                       <textarea
                         value={editNotes}
                         onChange={(e) => setEditNotes(e.target.value)}
                         placeholder="Add your personal notes and reflections..."
-                        className="w-full px-4 py-3 bg-sage-50 border-2 border-transparent rounded-xl focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-50 text-sm placeholder-sage-400 text-sage-900 resize-none transition-all duration-200"
+                        className="w-full px-4 py-3 bg-sage-50 dark:bg-gray-700 sepia:bg-amber-100 border-2 border-transparent rounded-xl focus:bg-white dark:focus:bg-gray-600 sepia:focus:bg-amber-50 focus:border-primary-500 focus:ring-4 focus:ring-primary-50 text-sm placeholder-sage-400 dark:placeholder-gray-400 sepia:placeholder-amber-600 text-sage-900 dark:text-gray-100 sepia:text-amber-900 resize-none transition-all duration-200"
                         rows={3}
                       />
                       <div className="flex gap-2">
@@ -264,8 +264,8 @@ export function SavedLibrary() {
                   ) : (
                     <>
                       {verse.notes && (
-                        <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-xl">
-                          <p className="text-sm text-amber-900 italic leading-relaxed">
+                        <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 sepia:bg-amber-100 border border-amber-200 dark:border-amber-700/30 sepia:border-amber-300 rounded-xl">
+                          <p className="text-sm text-amber-900 dark:text-amber-100 sepia:text-amber-800 italic leading-relaxed">
                             {verse.notes}
                           </p>
                         </div>
@@ -273,7 +273,7 @@ export function SavedLibrary() {
                       <div className="flex flex-wrap items-center gap-2">
                         <button
                           onClick={() => handleEditNotes(verse.id, verse.notes)}
-                          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-sage-700 bg-sage-100 hover:bg-sage-200 rounded-lg transition-colors duration-200"
+                          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-sage-700 dark:text-gray-300 sepia:text-amber-700 bg-sage-100 dark:bg-gray-700 sepia:bg-amber-100 hover:bg-sage-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded-lg transition-colors duration-200"
                         >
                           <Edit3 className="w-4 h-4" />
                           <span>{verse.notes ? 'Edit Notes' : 'Add Notes'}</span>
@@ -289,14 +289,14 @@ export function SavedLibrary() {
                               });
                             }
                           }}
-                          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors duration-200"
+                          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary-700 dark:text-primary-300 sepia:text-primary-700 bg-primary-50 dark:bg-primary-900/20 sepia:bg-primary-100 hover:bg-primary-100 dark:hover:bg-primary-900/30 sepia:hover:bg-primary-200 rounded-lg transition-colors duration-200"
                         >
                           <MessageCircle className="w-4 h-4" />
                           <span>Discuss</span>
                         </button>
                         <button
                           onClick={() => handleShare(verse.reference, verse.text, verse.notes)}
-                          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-sage-700 bg-sage-100 hover:bg-sage-200 rounded-lg transition-colors duration-200"
+                          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-sage-700 dark:text-gray-300 sepia:text-amber-700 bg-sage-100 dark:bg-gray-700 sepia:bg-amber-100 hover:bg-sage-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded-lg transition-colors duration-200"
                         >
                           <Share2 className="w-4 h-4" />
                           <span className="hidden sm:inline">Share</span>
@@ -307,7 +307,7 @@ export function SavedLibrary() {
                               deleteVerse(verse.id);
                             }
                           }}
-                          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-red-700 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-200 ml-auto"
+                          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-red-700 dark:text-red-300 sepia:text-red-700 bg-red-50 dark:bg-red-900/20 sepia:bg-red-100 hover:bg-red-100 dark:hover:bg-red-900/30 sepia:hover:bg-red-200 rounded-lg transition-colors duration-200 ml-auto"
                         >
                           <Trash2 className="w-4 h-4" />
                           <span className="hidden sm:inline">Delete</span>

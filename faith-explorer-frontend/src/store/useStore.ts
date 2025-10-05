@@ -87,7 +87,7 @@ export const useStore = create<AppState>()(
       readingPreferences: {
         theme: 'light',
         fontSize: 16,
-        fontFamily: 'serif',
+        fontFamily: 'sans',
       },
 
       // Actions

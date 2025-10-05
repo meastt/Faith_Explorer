@@ -96,7 +96,7 @@ function App() {
   // Apply theme classes
   const themeClasses = {
     light: 'bg-gray-50',
-    dark: 'bg-gray-900',
+    dark: 'bg-gray-900 dark',
     sepia: 'bg-amber-50',
   };
 
@@ -126,8 +126,8 @@ function App() {
             onClick={() => setActiveTab('search')}
             className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === 'search'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'
+                ? 'bg-white dark:bg-gray-800 sepia:bg-amber-100 text-gray-900 dark:text-gray-100 sepia:text-amber-900 shadow-sm'
+                : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-white/50 dark:hover:bg-gray-800/50 sepia:hover:bg-amber-100/50'
             }`}
           >
             <Search className="w-4 h-4" />
@@ -137,8 +137,8 @@ function App() {
             onClick={() => setActiveTab('saved')}
             className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === 'saved'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'
+                ? 'bg-white dark:bg-gray-800 sepia:bg-amber-100 text-gray-900 dark:text-gray-100 sepia:text-amber-900 shadow-sm'
+                : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-white/50 dark:hover:bg-gray-800/50 sepia:hover:bg-amber-100/50'
             }`}
           >
             <Bookmark className="w-4 h-4" />

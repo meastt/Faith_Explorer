@@ -43,7 +43,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
+    <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
@@ -54,27 +54,27 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
             {religionInfo?.name.charAt(0)}
           </div>
           <div>
-            <h4 className="font-medium text-gray-900">{religionInfo?.name}</h4>
-            <p className="text-sm text-gray-500">{verse.reference}</p>
+            <h4 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{religionInfo?.name}</h4>
+            <p className="text-sm text-gray-500 dark:text-gray-400 sepia:text-amber-700">{verse.reference}</p>
           </div>
         </div>
       </div>
 
       {/* Content */}
       <div className="mb-6">
-        <blockquote className="text-gray-700 italic leading-relaxed">
+        <blockquote className="text-gray-700 dark:text-gray-300 sepia:text-amber-800 italic leading-relaxed">
           "{verse.text}"
         </blockquote>
       </div>
 
       {/* Context Section */}
       {showContext && (
-        <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-900 sepia:bg-amber-100 rounded-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-300">
           <div className="flex items-start gap-2 mb-3">
-            <BookOpen className="w-4 h-4 text-gray-500 mt-0.5" />
+            <BookOpen className="w-4 h-4 text-gray-500 dark:text-gray-400 sepia:text-amber-600 mt-0.5" />
             <div className="flex-1">
-              <h5 className="text-sm font-semibold text-gray-900 mb-2">Context & Information</h5>
-              <div className="space-y-2 text-sm text-gray-700">
+              <h5 className="text-sm font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">Context & Information</h5>
+              <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
                 <div>
                   <span className="font-medium">Source:</span> {religionInfo?.text}
                 </div>
@@ -82,8 +82,8 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
                   <span className="font-medium">Reference:</span> {verse.reference}
                 </div>
                 {verse.reference.includes(':') && (
-                  <div className="mt-3 p-3 bg-blue-50 rounded border border-blue-100">
-                    <p className="text-xs text-blue-800">
+                    <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/30 sepia:bg-amber-100 rounded border border-blue-100 dark:border-blue-800 sepia:border-amber-300">
+                    <p className="text-xs text-blue-800 dark:text-blue-200 sepia:text-amber-800">
                       <span className="font-semibold">Tip:</span> Click "Discuss" to ask about the surrounding context, historical background, or different interpretations of this passage.
                     </p>
                   </div>
@@ -95,17 +95,17 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
       )}
 
       {/* Actions */}
-      <div className="flex items-center flex-wrap gap-2 pt-4 border-t border-gray-100">
+      <div className="flex items-center flex-wrap gap-2 pt-4 border-t border-gray-100 dark:border-gray-700 sepia:border-amber-200">
         <button
           onClick={onChatClick}
-          className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-md transition-colors"
+          className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 sepia:text-amber-700 hover:text-blue-700 dark:hover:text-blue-300 sepia:hover:text-amber-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 sepia:hover:bg-amber-100 rounded-md transition-colors"
         >
           <MessageCircle className="w-4 h-4" />
           <span>Discuss</span>
         </button>
         <button
           onClick={() => setShowContext(!showContext)}
-          className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
+          className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-colors"
         >
           <BookOpen className="w-4 h-4" />
           <span>Context</span>
@@ -116,8 +116,8 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
           disabled={isSaved}
           className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
             isSaved
-              ? 'text-green-600 bg-green-50'
-              : 'text-gray-600 hover:text-gray-700 hover:bg-gray-50'
+              ? 'text-green-600 dark:text-green-400 sepia:text-green-700 bg-green-50 dark:bg-green-900/30 sepia:bg-green-100/50'
+              : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
           }`}
         >
           {isSaved ? (
@@ -134,7 +134,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
         </button>
         <button
           onClick={handleShare}
-          className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
+          className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-colors"
         >
           <Share2 className="w-4 h-4" />
           <span>Share</span>
