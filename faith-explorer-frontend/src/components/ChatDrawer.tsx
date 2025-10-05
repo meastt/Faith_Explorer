@@ -6,7 +6,7 @@ import { RELIGIONS } from '../types';
 import { formatAIResponse } from '../utils/markdown';
 
 export function ChatDrawer() {
-  const { activeVerseChat, setActiveVerseChat, addChatMessage, incrementChatUsage, usage, readingPreferences } = useStore();
+  const { activeVerseChat, setActiveVerseChat, addChatMessage, incrementChatUsage, usage } = useStore();
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);

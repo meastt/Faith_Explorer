@@ -100,12 +100,6 @@ function App() {
     sepia: 'bg-amber-50',
   };
 
-  const textThemeClasses = {
-    light: 'text-gray-900',
-    dark: 'text-gray-100',
-    sepia: 'text-amber-900',
-  };
-
   const fontFamilyClasses = {
     sans: 'font-sans',
     serif: 'font-serif',

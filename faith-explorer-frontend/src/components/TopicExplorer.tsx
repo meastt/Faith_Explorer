@@ -1,5 +1,4 @@
 import { Compass, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
 
 interface Topic {
   id: string;
@@ -73,7 +72,7 @@ interface TopicExplorerProps {
 }
 
 export function TopicExplorer({ onTopicSelect }: TopicExplorerProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  // const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">

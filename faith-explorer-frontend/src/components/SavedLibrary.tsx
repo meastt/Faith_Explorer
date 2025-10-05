@@ -6,7 +6,7 @@ import { exportCollection } from '../utils/export';
 import { RELIGIONS, type Religion } from '../types';
 
 export function SavedLibrary() {
-  const { savedVerses, updateVerseNotes, deleteVerse, setActiveVerseChat, readingPreferences } = useStore();
+  const { savedVerses, updateVerseNotes, deleteVerse, setActiveVerseChat } = useStore();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editNotes, setEditNotes] = useState('');
   const [searchQuery, setSearchQuery] = useState('');

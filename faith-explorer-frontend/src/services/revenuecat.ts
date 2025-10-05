@@ -10,7 +10,6 @@ export interface SubscriptionStatus {
 
 class RevenueCatService {
   private apiKey: string | null = null;
-  private userId: string | null = null;
 
   async initialize(apiKey: string) {
     this.apiKey = apiKey;
@@ -19,7 +18,6 @@ class RevenueCatService {
   }
 
   async identify(userId: string) {
-    this.userId = userId;
     // Identify user with RevenueCat
     console.log('User identified:', userId);
   }

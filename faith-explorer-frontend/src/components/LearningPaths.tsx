@@ -1,4 +1,4 @@
-import { Route, Check, Lock } from 'lucide-react';
+import { Route, Check } from 'lucide-react';
 import { useState } from 'react';
 
 interface LearningPath {

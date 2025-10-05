@@ -1,4 +1,4 @@
-import { Settings, Sun, Moon, Type } from 'lucide-react';
+import { Settings, Sun, Moon } from 'lucide-react';
 import { useState } from 'react';
 import { useStore } from '../store/useStore';
 
