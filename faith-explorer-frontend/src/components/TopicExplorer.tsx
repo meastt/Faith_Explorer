@@ -87,7 +87,7 @@ export function TopicExplorer({ onTopicSelect }: TopicExplorerProps) {
           <button
             key={topic.id}
             onClick={() => onTopicSelect(topic.query)}
-            className="group p-3 text-left bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 sepia:from-amber-100 sepia:to-amber-50 border border-gray-200 dark:border-gray-600 sepia:border-amber-300 rounded-lg hover:border-purple-400 dark:hover:border-purple-500 sepia:hover:border-amber-400 hover:shadow-soft transition-all duration-200"
+            className="group p-3 text-left bg-white dark:bg-gray-700 sepia:bg-amber-50 border border-gray-200 dark:border-gray-600 sepia:border-amber-300 rounded-lg hover:border-purple-400 dark:hover:border-purple-500 sepia:hover:border-amber-400 hover:shadow-soft transition-all duration-200"
           >
             <div className="text-xl mb-2">{topic.icon}</div>
             <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100 sepia:text-amber-900 group-hover:text-purple-600 dark:group-hover:text-purple-400 sepia:group-hover:text-amber-700 transition-colors">

@@ -115,7 +115,7 @@ function App() {
     >
       <Header />
 
-      <main className="max-w-4xl mx-auto px-4 py-6 pb-safe">
+      <main className="max-w-4xl mx-auto px-4 pt-8 pb-6 pb-safe">
         {/* Navigation */}
         <nav className="flex space-x-2 mb-8">
           <TabButton

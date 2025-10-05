@@ -80,12 +80,12 @@ export function LearningPaths({ onStepSelect }: LearningPathsProps) {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm h-full">
+    <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-4 shadow-soft h-full">
       <div className="flex items-center gap-2 mb-3">
         <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
           <Route className="w-4 h-4 text-white" />
         </div>
-        <h3 className="text-base font-bold text-gray-900">Learning Paths</h3>
+        <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">Learning Paths</h3>
       </div>
 
       <div className="space-y-2">
@@ -93,35 +93,35 @@ export function LearningPaths({ onStepSelect }: LearningPathsProps) {
           const isExpanded = expandedPath === path.id;
 
           return (
-            <div key={path.id} className="border border-gray-200 rounded-lg overflow-hidden transition-all">
+            <div key={path.id} className="border border-gray-200 dark:border-gray-600 sepia:border-amber-300 rounded-lg overflow-hidden transition-all">
               <button
                 onClick={() => setExpandedPath(isExpanded ? null : path.id)}
-                className="w-full p-3 text-left hover:bg-gray-50 transition-colors"
+                className="w-full p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 transition-colors"
               >
                 <div className="flex items-center gap-2">
                   <div className={`w-9 h-9 bg-gradient-to-br ${colorClasses[path.color as keyof typeof colorClasses]} rounded-lg flex items-center justify-center text-lg flex-shrink-0`}>
                     {path.icon}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-semibold text-sm text-gray-900 truncate">{path.title}</h4>
-                    <p className="text-xs text-gray-500">{path.steps.length} steps</p>
+                    <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100 sepia:text-amber-900 truncate">{path.title}</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-600">{path.steps.length} steps</p>
                   </div>
                 </div>
               </button>
 
               {isExpanded && (
-                <div className="border-t border-gray-200 p-2 bg-gray-50">
+                <div className="border-t border-gray-200 dark:border-gray-600 sepia:border-amber-300 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100">
                   <div className="space-y-1">
                     {path.steps.map((step, stepIndex) => (
                       <button
                         key={stepIndex}
                         onClick={() => onStepSelect(step.query, path.id, stepIndex)}
-                        className="w-full flex items-center gap-2 p-2 bg-white hover:bg-gray-100 border border-gray-200 rounded-md transition-colors text-left group"
+                        className="w-full flex items-center gap-2 p-2 bg-white dark:bg-gray-600 sepia:bg-amber-50 hover:bg-gray-100 dark:hover:bg-gray-500 sepia:hover:bg-amber-200 border border-gray-200 dark:border-gray-500 sepia:border-amber-300 rounded-md transition-colors text-left group"
                       >
-                        <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-100 text-gray-500">
+                        <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-100 dark:bg-gray-400 sepia:bg-amber-200 text-gray-500 dark:text-gray-800 sepia:text-amber-800">
                           <span className="text-xs font-semibold">{stepIndex + 1}</span>
                         </div>
-                        <p className="text-xs font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                        <p className="text-xs font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 group-hover:text-blue-600 dark:group-hover:text-blue-400 sepia:group-hover:text-amber-700 transition-colors">
                           {step.title}
                         </p>
                       </button>

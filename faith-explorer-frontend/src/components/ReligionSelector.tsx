@@ -68,7 +68,7 @@ export function ReligionSelector() {
     <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-6 shadow-soft">
       {/* Mode Toggle */}
       <div className="mb-6">
-        <div className="flex space-x-2 bg-gray-100 dark:bg-gray-700 sepia:bg-amber-200 p-1 rounded-xl">
+        <div className="flex space-x-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-200 p-1 rounded-xl">
           <button
             onClick={() => handleModeChange('single')}
             className={`flex-1 px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${

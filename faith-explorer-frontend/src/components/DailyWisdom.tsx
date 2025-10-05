@@ -84,7 +84,7 @@ export function DailyWisdom() {
   return (
     <div
       onClick={() => !isLoading && setIsExpanded(!isExpanded)}
-      className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-950 dark:via-purple-950 dark:to-pink-950 sepia:from-amber-100 sepia:via-amber-50 sepia:to-amber-200 rounded-xl border border-indigo-200 dark:border-indigo-800 sepia:border-amber-300 p-4 shadow-soft cursor-pointer transition-all hover:shadow-medium"
+      className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-800 sepia:from-amber-100 sepia:via-amber-50 sepia:to-amber-200 rounded-2xl border border-indigo-200 dark:border-gray-700 sepia:border-amber-300 p-4 shadow-soft cursor-pointer transition-all hover:shadow-medium"
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 flex-1 min-w-0">

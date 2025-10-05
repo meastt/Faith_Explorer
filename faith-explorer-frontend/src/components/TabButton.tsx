@@ -1,4 +1,4 @@
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { ICON_SIZES } from '../styles/design-system';
 
 interface TabButtonProps {

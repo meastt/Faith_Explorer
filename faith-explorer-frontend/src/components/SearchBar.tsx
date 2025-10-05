@@ -51,7 +51,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
                 ? 'Search for wisdom, guidance, or teachings...'
                 : 'Compare perspectives across traditions...'
             }
-            className="block w-full pl-12 pr-24 py-4 border border-gray-300 dark:border-gray-600 sepia:border-amber-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900 dark:text-gray-100 sepia:text-amber-900 dark:bg-gray-700 sepia:bg-amber-100 placeholder-gray-500 dark:placeholder-gray-400 sepia:placeholder-amber-600 transition-all duration-200"
+            className="block w-full pl-12 pr-24 py-4 border border-gray-300 dark:border-gray-600 sepia:border-amber-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900 dark:text-gray-100 sepia:text-amber-900 bg-white dark:bg-gray-700 sepia:bg-amber-100 placeholder-gray-500 dark:placeholder-gray-400 sepia:placeholder-amber-600 transition-all duration-200"
             disabled={isSearching}
           />
           <button
