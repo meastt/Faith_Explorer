@@ -1,18 +1,21 @@
-import { Search as SearchIcon } from 'lucide-react';
+import { Search as SearchIcon, Sparkles } from 'lucide-react';
 import type { Religion, Verse } from '../types';
 import { VerseCard } from './VerseCard';
 import { useStore } from '../store/useStore';
 import { RELIGIONS } from '../types';
+import { formatAIResponse } from '../utils/markdown';
 
 interface SearchResultsProps {
   results: {
     religion: Religion;
+    answer: string;
     verses: Verse[];
   }[];
   isLoading: boolean;
+  comparativeAnalysis?: string;
 }
 
-export function SearchResults({ results, isLoading }: SearchResultsProps) {
+export function SearchResults({ results, isLoading, comparativeAnalysis }: SearchResultsProps) {
   const { setActiveVerseChat, viewMode } = useStore();
 
   const handleChatClick = (verse: Verse, religion: Religion) => {
@@ -42,9 +45,9 @@ export function SearchResults({ results, isLoading }: SearchResultsProps) {
 
   // Single religion view
   if (viewMode === 'single') {
-    const { religion, verses } = results[0];
+    const { religion, answer, verses } = results[0];
     const religionInfo = RELIGIONS.find((r) => r.id === religion);
-    
+
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -55,6 +58,25 @@ export function SearchResults({ results, isLoading }: SearchResultsProps) {
             </p>
           </div>
         </div>
+
+        {/* AI Answer */}
+        {answer && (
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-soft border-2 border-blue-200 p-6 sm:p-8">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-1">AI Insight</h3>
+                <p className="text-sm text-gray-600">Based on {religionInfo?.text}</p>
+              </div>
+            </div>
+            <div
+              className="prose prose-sm max-w-none text-gray-800 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: formatAIResponse(answer) }}
+            />
+          </div>
+        )}
 
         {verses.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-soft border border-sage-200 p-12 sm:p-16 text-center">
@@ -67,15 +89,18 @@ export function SearchResults({ results, isLoading }: SearchResultsProps) {
             </p>
           </div>
         ) : (
-          <div className="grid gap-4">
-            {verses.map((verse, idx) => (
-              <VerseCard
-                key={`${verse.reference}-${idx}`}
-                verse={verse}
-                religion={religion}
-                onChatClick={() => handleChatClick(verse, religion)}
-              />
-            ))}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Source Passages</h3>
+            <div className="grid gap-4">
+              {verses.map((verse, idx) => (
+                <VerseCard
+                  key={`${verse.reference}-${idx}`}
+                  verse={verse}
+                  religion={religion}
+                  onChatClick={() => handleChatClick(verse, religion)}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -92,14 +117,33 @@ export function SearchResults({ results, isLoading }: SearchResultsProps) {
         </p>
       </div>
 
-      {results.map(({ religion, verses }) => {
+      {/* Comparative Analysis */}
+      {comparativeAnalysis && (
+        <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl shadow-soft border-2 border-purple-200 p-6 sm:p-8">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Sparkles className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-gray-900 mb-1">Comparative Analysis</h3>
+              <p className="text-sm text-gray-600">Synthesis across traditions</p>
+            </div>
+          </div>
+          <div
+            className="prose prose-sm max-w-none text-gray-800 leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: formatAIResponse(comparativeAnalysis) }}
+          />
+        </div>
+      )}
+
+      {results.map(({ religion, answer, verses }) => {
         const religionInfo = RELIGIONS.find((r) => r.id === religion);
-        
+
         return (
           <div key={religion} className="space-y-4">
             {/* Section Header */}
             <div className="flex items-center gap-3 pb-3 border-b-2" style={{ borderColor: religionInfo?.color }}>
-              <div 
+              <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center shadow-soft flex-shrink-0"
                 style={{ backgroundColor: `${religionInfo?.color}15` }}
               >
@@ -117,6 +161,34 @@ export function SearchResults({ results, isLoading }: SearchResultsProps) {
               </div>
             </div>
 
+            {/* AI Answer */}
+            {answer && (
+              <div
+                className="rounded-xl shadow-soft border-2 p-5"
+                style={{
+                  backgroundColor: `${religionInfo?.color}08`,
+                  borderColor: `${religionInfo?.color}40`
+                }}
+              >
+                <div className="flex items-start gap-3 mb-3">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: religionInfo?.color }}
+                  >
+                    <Sparkles className="w-4 h-4 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900">{religionInfo?.name} Perspective</h4>
+                    <p className="text-xs text-gray-600">Based on {religionInfo?.text}</p>
+                  </div>
+                </div>
+                <div
+                  className="text-sm text-gray-800 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: formatAIResponse(answer) }}
+                />
+              </div>
+            )}
+
             {/* Verses */}
             {verses.length === 0 ? (
               <div className="bg-sage-50 border border-sage-200 rounded-xl p-6 text-center">
@@ -125,15 +197,18 @@ export function SearchResults({ results, isLoading }: SearchResultsProps) {
                 </p>
               </div>
             ) : (
-              <div className="grid gap-4">
-                {verses.map((verse, idx) => (
-                  <VerseCard
-                    key={`${religion}-${verse.reference}-${idx}`}
-                    verse={verse}
-                    religion={religion}
-                    onChatClick={() => handleChatClick(verse, religion)}
-                  />
-                ))}
+              <div>
+                <h4 className="text-sm font-semibold text-gray-700 mb-3">Source Passages</h4>
+                <div className="grid gap-3">
+                  {verses.map((verse, idx) => (
+                    <VerseCard
+                      key={`${religion}-${verse.reference}-${idx}`}
+                      verse={verse}
+                      religion={religion}
+                      onChatClick={() => handleChatClick(verse, religion)}
+                    />
+                  ))}
+                </div>
               </div>
             )}
           </div>

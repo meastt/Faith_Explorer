@@ -9,6 +9,12 @@ import type {
   FreemiumUsage,
 } from '../types';
 
+export interface ReadingPreferences {
+  theme: 'light' | 'dark' | 'sepia';
+  fontSize: number;
+  fontFamily: 'sans' | 'serif' | 'dyslexic';
+}
+
 interface AppState {
   // View mode
   viewMode: ViewMode;
@@ -48,6 +54,10 @@ interface AppState {
   incrementChatUsage: () => boolean; // returns true if allowed
   setPremium: (isPremium: boolean) => void;
   resetUsage: () => void;
+
+  // Reading preferences
+  readingPreferences: ReadingPreferences;
+  setReadingPreferences: (preferences: ReadingPreferences) => void;
 }
 
 const getInitialUsage = (): FreemiumUsage => {
@@ -74,6 +84,11 @@ export const useStore = create<AppState>()(
       savedComparisons: [],
       activeVerseChat: null,
       usage: getInitialUsage(),
+      readingPreferences: {
+        theme: 'light',
+        fontSize: 16,
+        fontFamily: 'serif',
+      },
 
       // Actions
       setViewMode: (mode) => set({ viewMode: mode }),
@@ -210,6 +225,8 @@ export const useStore = create<AppState>()(
             resetDate: Date.now() + 30 * 24 * 60 * 60 * 1000,
           },
         })),
+
+      setReadingPreferences: (preferences) => set({ readingPreferences: preferences }),
     }),
     {
       name: 'faith-explorer-storage',

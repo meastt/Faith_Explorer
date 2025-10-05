@@ -14,6 +14,8 @@ export interface ReligionInfo {
   name: string;
   text: string;
   color: string;
+  verseCount?: number;
+  coverage?: 'full' | 'partial' | 'limited';
 }
 
 export interface Verse {
@@ -71,15 +73,15 @@ export interface FreemiumUsage {
 }
 
 export const RELIGIONS: ReligionInfo[] = [
-  { id: 'christianity', name: 'Christianity', text: 'Bible', color: '#dc2626' },
-  { id: 'islam', name: 'Islam', text: 'Quran & Hadith', color: '#059669' },
-  { id: 'judaism', name: 'Judaism', text: 'Torah', color: '#2563eb' },
-  { id: 'hinduism', name: 'Hinduism', text: 'Bhagavad Gita', color: '#ea580c' },
-  { id: 'buddhism', name: 'Buddhism', text: 'Dhammapada', color: '#7c3aed' },
-  { id: 'sikhism', name: 'Sikhism', text: 'Guru Granth Sahib', color: '#c2410c' },
-  { id: 'taoism', name: 'Taoism', text: 'Tao Te Ching', color: '#0891b2' },
-  { id: 'confucianism', name: 'Confucianism', text: 'Analects', color: '#be123c' },
-  { id: 'shinto', name: 'Shinto', text: 'Kojiki', color: '#db2777' },
+  { id: 'christianity', name: 'Christianity', text: 'Bible (KJV)', color: '#dc2626', verseCount: 31102, coverage: 'full' },
+  { id: 'islam', name: 'Islam', text: 'Quran & Hadith', color: '#059669', verseCount: 13799, coverage: 'full' },
+  { id: 'judaism', name: 'Judaism', text: 'Torah', color: '#2563eb', verseCount: 5846, coverage: 'full' },
+  { id: 'hinduism', name: 'Hinduism', text: 'Bhagavad Gita', color: '#ea580c', verseCount: 4, coverage: 'limited' },
+  { id: 'buddhism', name: 'Buddhism', text: 'Dhammapada', color: '#7c3aed', verseCount: 4, coverage: 'limited' },
+  { id: 'sikhism', name: 'Sikhism', text: 'Guru Granth Sahib', color: '#c2410c', verseCount: 4, coverage: 'limited' },
+  { id: 'taoism', name: 'Taoism', text: 'Tao Te Ching', color: '#0891b2', verseCount: 10, coverage: 'limited' },
+  { id: 'confucianism', name: 'Confucianism', text: 'Analects', color: '#be123c', verseCount: 10, coverage: 'limited' },
+  { id: 'shinto', name: 'Shinto', text: 'Kojiki', color: '#db2777', verseCount: 8, coverage: 'limited' },
 ];
 
 export const FREE_TIER_LIMITS = {

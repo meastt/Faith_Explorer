@@ -28,7 +28,7 @@ app.post('/api/ask', async (req, res) => {
       });
     }
     
-    const relevantVerses = searchScriptures(religion, question, 5);
+    const relevantVerses = searchScriptures(religion, question, 15);
     
     if (relevantVerses.length === 0) {
       return res.json({
@@ -109,6 +109,78 @@ Provide a clear response based on these scriptures.`
     res.status(500).json({ 
       error: 'Internal server error',
       message: error.message 
+    });
+  }
+});
+
+app.post('/api/compare', async (req, res) => {
+  try {
+    const { religions, question, results } = req.body;
+
+    if (!religions || !question || !results) {
+      return res.status(400).json({
+        error: 'Missing required fields: religions, question, and results'
+      });
+    }
+
+    // Check if API key exists
+    if (!process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY === 'your_api_key_here') {
+      return res.json({
+        comparison: 'API key not configured. Unable to generate comparative analysis.',
+        error: 'ANTHROPIC_API_KEY not set in .env file'
+      });
+    }
+
+    // Build context from all religions' answers
+    const contextParts = results.map(r => {
+      const religionName = religions.find(rel => rel === r.religion) || r.religion;
+      return `**${religionName.toUpperCase()}**:\n${r.answer}\n`;
+    }).join('\n');
+
+    const claudeResponse = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        messages: [{
+          role: 'user',
+          content: `You are a comparative religion scholar. Based on the following perspectives from different religious traditions on the question "${question}", provide a thoughtful comparative analysis.
+
+${contextParts}
+
+Your analysis should:
+1. Identify key similarities and common themes across traditions
+2. Highlight meaningful differences in perspective or approach
+3. Note any unique insights from specific traditions
+4. Be respectful and balanced, avoiding judgment
+5. Be concise (2-3 paragraphs maximum)
+
+Provide your comparative analysis:`
+        }]
+      })
+    });
+
+    if (!claudeResponse.ok) {
+      const errorText = await claudeResponse.text();
+      throw new Error(`Claude API error: ${claudeResponse.status} - ${errorText}`);
+    }
+
+    const claudeData = await claudeResponse.json();
+
+    res.json({
+      comparison: claudeData.content[0].text
+    });
+
+  } catch (error) {
+    console.error('Comparison error:', error);
+    res.status(500).json({
+      error: 'Internal server error',
+      message: error.message
     });
   }
 });

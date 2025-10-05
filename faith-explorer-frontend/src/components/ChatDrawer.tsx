@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useStore } from '../store/useStore';
 import { chatAboutVerse } from '../services/api';
 import { RELIGIONS } from '../types';
+import { formatAIResponse } from '../utils/markdown';
 
 export function ChatDrawer() {
   const { activeVerseChat, setActiveVerseChat, addChatMessage, incrementChatUsage, usage } = useStore();
@@ -58,15 +59,20 @@ export function ChatDrawer() {
   return (
     <>
       {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-sage-900/20 backdrop-blur-sm z-40 lg:hidden"
+      <div
+        className="fixed inset-0 bg-sage-900/20 backdrop-blur-sm z-40"
         onClick={() => setActiveVerseChat(null)}
       ></div>
 
-      {/* Drawer */}
-      <div className="fixed inset-y-0 right-0 w-full sm:w-[480px] lg:w-[520px] bg-white shadow-soft-2xl flex flex-col z-50 animate-slide-in">
+      {/* Drawer - Bottom sheet on mobile, side drawer on desktop */}
+      <div className="fixed bottom-0 left-0 right-0 sm:inset-y-0 sm:left-auto sm:right-0 w-full sm:w-[480px] lg:w-[520px] bg-white shadow-soft-2xl flex flex-col z-50 animate-slide-in rounded-t-3xl sm:rounded-none max-h-[85vh] sm:max-h-none">
+        {/* Mobile drag handle */}
+        <div className="sm:hidden pt-2 pb-1 flex justify-center bg-white rounded-t-3xl">
+          <div className="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+        </div>
+
         {/* Header */}
-        <div 
+        <div
           className="relative px-6 py-5 text-white overflow-hidden"
           style={{ backgroundColor: religionInfo?.color || '#6366f1' }}
         >
@@ -137,7 +143,14 @@ export function ChatDrawer() {
                     : 'bg-white border border-sage-200 text-sage-800 shadow-soft'
                 }`}
               >
-                <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                {message.role === 'user' ? (
+                  <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                ) : (
+                  <div
+                    className="text-sm leading-relaxed prose prose-sm max-w-none prose-p:my-2 prose-strong:font-semibold prose-strong:text-sage-900 prose-li:my-1"
+                    dangerouslySetInnerHTML={{ __html: formatAIResponse(message.content) }}
+                  />
+                )}
               </div>
             </div>
           ))}

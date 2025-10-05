@@ -53,3 +53,24 @@ export async function searchMultipleReligions(
 
   return Promise.all(promises);
 }
+
+export async function getComparativeAnalysis(
+  religions: Religion[],
+  question: string,
+  results: { religion: Religion; answer: string }[]
+): Promise<string> {
+  const response = await fetch(`${API_BASE_URL}/api/compare`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ religions, question, results }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to get comparative analysis');
+  }
+
+  const data = await response.json();
+  return data.comparison;
+}

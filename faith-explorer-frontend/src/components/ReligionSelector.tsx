@@ -76,10 +76,30 @@ export function ReligionSelector() {
                   backgroundColor: isSelected ? `${religion.color}10` : undefined,
                 }}
               >
-                <div className="font-medium text-gray-900 mb-1" style={{ color: religion.color }}>
-                  {religion.name}
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-gray-900 mb-1" style={{ color: religion.color }}>
+                      {religion.name}
+                    </div>
+                    <div className="text-sm text-gray-600">{religion.text}</div>
+                    {religion.verseCount && (
+                      <div className="text-xs text-gray-500 mt-1">
+                        {religion.verseCount.toLocaleString()} verses
+                      </div>
+                    )}
+                  </div>
+                  {religion.coverage && (
+                    <div className={`text-xs px-2 py-1 rounded-full font-medium flex-shrink-0 ${
+                      religion.coverage === 'full'
+                        ? 'bg-green-100 text-green-700'
+                        : religion.coverage === 'partial'
+                        ? 'bg-yellow-100 text-yellow-700'
+                        : 'bg-orange-100 text-orange-700'
+                    }`}>
+                      {religion.coverage === 'full' ? '✓ Full' : religion.coverage === 'partial' ? 'Partial' : 'Limited'}
+                    </div>
+                  )}
                 </div>
-                <div className="text-sm text-gray-600">{religion.text}</div>
               </button>
             );
           })}

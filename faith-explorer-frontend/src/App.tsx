@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Bookmark } from 'lucide-react';
 import { Header } from './components/Header';
 import { ReligionSelector } from './components/ReligionSelector';
@@ -6,17 +6,41 @@ import { SearchBar } from './components/SearchBar';
 import { SearchResults } from './components/SearchResults';
 import { ChatDrawer } from './components/ChatDrawer';
 import { SavedLibrary } from './components/SavedLibrary';
+import { OnboardingModal } from './components/OnboardingModal';
+import { TopicExplorer } from './components/TopicExplorer';
+import { DailyWisdom } from './components/DailyWisdom';
+import { LearningPaths } from './components/LearningPaths';
 import { useStore } from './store/useStore';
-import { searchReligion, searchMultipleReligions } from './services/api';
+import { searchReligion, searchMultipleReligions, getComparativeAnalysis } from './services/api';
 import type { Religion, Verse } from './types';
 
 type Tab = 'search' | 'saved';
 
+export interface SearchResultWithAnswer {
+  religion: Religion;
+  answer: string;
+  verses: Verse[];
+}
+
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('search');
   const { viewMode, selectedReligions, setIsSearching, incrementSearchUsage } = useStore();
-  const [searchResults, setSearchResults] = useState<{ religion: Religion; verses: Verse[] }[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResultWithAnswer[]>([]);
+  const [comparativeAnalysis, setComparativeAnalysis] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    const hasSeenOnboarding = localStorage.getItem('faithExplorer_hasSeenOnboarding');
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
+  }, []);
+
+  const handleCloseOnboarding = () => {
+    setShowOnboarding(false);
+    localStorage.setItem('faithExplorer_hasSeenOnboarding', 'true');
+  };
 
   const handleSearch = async (query: string) => {
     // Check usage limit
@@ -28,20 +52,35 @@ function App() {
     setIsLoading(true);
     setIsSearching(true);
     setSearchResults([]);
+    setComparativeAnalysis('');
 
     try {
       if (viewMode === 'single') {
         const religion = selectedReligions[0];
         const result = await searchReligion(religion, query);
-        setSearchResults([{ religion, verses: result.sources }]);
+        setSearchResults([{ religion, answer: result.answer, verses: result.sources }]);
       } else {
         const results = await searchMultipleReligions(selectedReligions, query);
-        setSearchResults(
-          results.map(({ religion, result }) => ({
-            religion,
-            verses: result.sources,
-          }))
-        );
+        const formattedResults = results.map(({ religion, result }) => ({
+          religion,
+          answer: result.answer,
+          verses: result.sources,
+        }));
+        setSearchResults(formattedResults);
+
+        // Get comparative analysis if we have results from multiple religions
+        if (formattedResults.length >= 2 && formattedResults.some(r => r.answer)) {
+          try {
+            const analysis = await getComparativeAnalysis(
+              selectedReligions,
+              query,
+              formattedResults.map(r => ({ religion: r.religion, answer: r.answer }))
+            );
+            setComparativeAnalysis(analysis);
+          } catch (error) {
+            console.error('Comparative analysis error:', error);
+          }
+        }
       }
     } catch (error) {
       console.error('Search error:', error);
@@ -52,8 +91,32 @@ function App() {
     }
   };
 
+  const { readingPreferences } = useStore();
+
+  // Apply theme classes
+  const themeClasses = {
+    light: 'bg-gray-50',
+    dark: 'bg-gray-900',
+    sepia: 'bg-amber-50',
+  };
+
+  const textThemeClasses = {
+    light: 'text-gray-900',
+    dark: 'text-gray-100',
+    sepia: 'text-amber-900',
+  };
+
+  const fontFamilyClasses = {
+    sans: 'font-sans',
+    serif: 'font-serif',
+    dyslexic: 'font-mono',
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div
+      className={`min-h-screen ${themeClasses[readingPreferences.theme]} ${fontFamilyClasses[readingPreferences.fontFamily]}`}
+      style={{ fontSize: `${readingPreferences.fontSize}px` }}
+    >
       <Header />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
@@ -86,9 +149,16 @@ function App() {
         {/* Content */}
         {activeTab === 'search' ? (
           <div className="space-y-8">
+            {searchResults.length === 0 && !isLoading && <DailyWisdom />}
             <ReligionSelector />
             <SearchBar onSearch={handleSearch} />
-            <SearchResults results={searchResults} isLoading={isLoading} />
+            {searchResults.length === 0 && !isLoading && (
+              <>
+                <TopicExplorer onTopicSelect={handleSearch} />
+                <LearningPaths onStepSelect={(query) => handleSearch(query)} />
+              </>
+            )}
+            <SearchResults results={searchResults} isLoading={isLoading} comparativeAnalysis={comparativeAnalysis} />
           </div>
         ) : (
           <SavedLibrary />
@@ -96,6 +166,7 @@ function App() {
       </main>
 
       <ChatDrawer />
+      {showOnboarding && <OnboardingModal onClose={handleCloseOnboarding} />}
     </div>
   );
 }
