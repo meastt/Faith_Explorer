@@ -6,6 +6,7 @@ import { ReadingPreferences } from './ReadingPreferences';
 import { About } from './About';
 import { Settings } from './Settings';
 import { revenueCat } from '../services/revenuecat';
+import { ICON_SIZES } from '../styles/design-system';
 
 export function Header() {
   const { usage, setPremium } = useStore();
@@ -14,6 +15,8 @@ export function Header() {
   const [showAbout, setShowAbout] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   useEffect(() => {
     // Initialize RevenueCat with PUBLIC key (safe for frontend)
@@ -41,6 +44,29 @@ export function Header() {
     setPremium(true);
   };
 
+  // Swipe gesture handlers
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientY);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientY);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isUpSwipe = distance > minSwipeDistance;
+
+    if (isUpSwipe) {
+      setShowMobileMenu(false);
+    }
+  };
+
   return (
     <>
       <header className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 sticky top-0 z-50 shadow-lg pt-safe">
@@ -57,7 +83,7 @@ export function Header() {
             {/* Logo & Title */}
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg border border-white/30">
-                <BookOpen className="w-4 h-4 text-white" strokeWidth={2.5} />
+                <BookOpen className={`${ICON_SIZES.SM} text-white`} strokeWidth={2.5} />
               </div>
               <div>
                 <h1 className="text-base font-bold text-white tracking-tight">Faith Explorer</h1>
@@ -77,7 +103,7 @@ export function Header() {
                     : 'bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 hover:shadow-lg'
                 }`}
               >
-                <Star className={`w-3.5 h-3.5 ${isPremium ? 'fill-current' : ''}`} />
+                <Star className={`${ICON_SIZES.SM} ${isPremium ? 'fill-current' : ''}`} />
                 <span>{isPremium ? 'Pro' : 'Go Pro'}</span>
               </button>
 
@@ -86,7 +112,7 @@ export function Header() {
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
                 className="sm:hidden w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/20 transition-colors"
               >
-                {showMobileMenu ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+                {showMobileMenu ? <X className={`${ICON_SIZES.MD} text-white`} /> : <Menu className={`${ICON_SIZES.MD} text-white`} />}
               </button>
             </div>
           </div>
@@ -95,7 +121,16 @@ export function Header() {
 
       {/* Mobile Menu */}
       {showMobileMenu && (
-        <div className="sm:hidden bg-white dark:bg-gray-800 sepia:bg-amber-50 border-t border-gray-200 dark:border-gray-700 sepia:border-amber-300 shadow-lg">
+        <div
+          className="sm:hidden bg-white dark:bg-gray-800 sepia:bg-amber-50 border-t border-gray-200 dark:border-gray-700 sepia:border-amber-300 shadow-lg animate-slide-down"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          {/* Swipe indicator */}
+          <div className="pt-2 pb-1 flex justify-center">
+            <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+          </div>
           <div className="px-4 py-3 space-y-2">
             <button
               onClick={() => {
@@ -108,7 +143,7 @@ export function Header() {
                   : 'bg-indigo-600 text-white hover:bg-indigo-700'
               }`}
             >
-              <Star className={`w-4 h-4 ${isPremium ? 'fill-current' : ''}`} />
+              <Star className={`${ICON_SIZES.SM} ${isPremium ? 'fill-current' : ''}`} />
               <span>{isPremium ? 'Pro' : 'Go Pro'}</span>
             </button>
             

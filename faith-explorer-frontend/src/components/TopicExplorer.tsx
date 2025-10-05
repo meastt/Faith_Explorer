@@ -1,4 +1,5 @@
 import { Compass } from 'lucide-react';
+import { ICON_SIZES } from '../styles/design-system';
 
 interface Topic {
   id: string;
@@ -76,7 +77,7 @@ export function TopicExplorer({ onTopicSelect }: TopicExplorerProps) {
     <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-4 shadow-soft h-full">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-          <Compass className="w-4 h-4 text-white" />
+          <Compass className={`${ICON_SIZES.SM} text-white`} />
         </div>
         <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">Quick Topics</h3>
       </div>

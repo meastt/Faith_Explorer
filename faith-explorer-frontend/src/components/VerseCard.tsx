@@ -4,6 +4,7 @@ import type { Verse, Religion } from '../types';
 import { useStore } from '../store/useStore';
 import { generateId, shareVerse, copyToClipboard, getReligionColor } from '../utils/helpers';
 import { RELIGIONS } from '../types';
+import { ICON_SIZES } from '../styles/design-system';
 
 interface VerseCardProps {
   verse: Verse;
@@ -71,7 +72,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
       {showContext && (
         <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-900 sepia:bg-amber-100 rounded-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-300">
           <div className="flex items-start gap-2 mb-3">
-            <BookOpen className="w-4 h-4 text-gray-500 dark:text-gray-400 sepia:text-amber-600 mt-0.5" />
+            <BookOpen className={`${ICON_SIZES.SM} text-gray-500 dark:text-gray-400 sepia:text-amber-600 mt-0.5`} />
             <div className="flex-1">
               <h5 className="text-sm font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">Context & Information</h5>
               <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
@@ -100,16 +101,16 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
           onClick={onChatClick}
           className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 sepia:text-amber-700 hover:text-primary-700 dark:hover:text-primary-300 sepia:hover:text-amber-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 sepia:hover:bg-amber-100 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
         >
-          <MessageCircle className="w-4 h-4" />
+          <MessageCircle className={ICON_SIZES.SM} />
           <span>Discuss</span>
         </button>
         <button
           onClick={() => setShowContext(!showContext)}
           className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
         >
-          <BookOpen className="w-4 h-4" />
-          <span>Context</span>
-          {showContext ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+          <BookOpen className={ICON_SIZES.SM} />
+          <span className="hidden sm:inline">Context</span>
+          {showContext ? <ChevronUp className={ICON_SIZES.SM} /> : <ChevronDown className={ICON_SIZES.SM} />}
         </button>
         <button
           onClick={handleSave}
@@ -122,12 +123,12 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
         >
           {isSaved ? (
             <>
-              <BookmarkCheck className="w-4 h-4" />
+              <BookmarkCheck className={ICON_SIZES.SM} />
               <span>Saved</span>
             </>
           ) : (
             <>
-              <BookmarkPlus className="w-4 h-4" />
+              <BookmarkPlus className={ICON_SIZES.SM} />
               <span>Save</span>
             </>
           )}
@@ -136,8 +137,8 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
           onClick={handleShare}
           className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
         >
-          <Share2 className="w-4 h-4" />
-          <span>Share</span>
+          <Share2 className={ICON_SIZES.SM} />
+          <span className="hidden sm:inline">Share</span>
         </button>
       </div>
     </div>

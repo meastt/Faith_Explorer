@@ -117,23 +117,37 @@ export function SearchResults({ results, isLoading, comparativeAnalysis }: Searc
         </p>
       </div>
 
-      {/* Comparative Analysis */}
+      {/* Comparative Analysis - Now at the TOP */}
       {comparativeAnalysis && (
-        <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 sepia:from-amber-100 sepia:to-amber-200 rounded-2xl shadow-soft border-2 border-purple-200 dark:border-purple-800 sepia:border-amber-300 p-6 sm:p-8">
-          <div className="flex items-start gap-3 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0">
-              <Sparkles className="w-5 h-5 text-white" />
+        <>
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 sepia:from-amber-100 sepia:to-amber-200 rounded-2xl shadow-soft border-2 border-purple-200 dark:border-purple-800 sepia:border-amber-300 p-6 sm:p-8">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-1">Comparative Analysis</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Synthesis across traditions</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-1">Comparative Analysis</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Synthesis across traditions</p>
+            <div
+              className="prose prose-sm max-w-none text-gray-800 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
+              dangerouslySetInnerHTML={{ __html: formatAIResponse(comparativeAnalysis) }}
+            />
+          </div>
+
+          {/* Separator */}
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300 dark:border-gray-600 sepia:border-amber-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-gray-50 dark:bg-gray-900 sepia:bg-amber-50 text-gray-600 dark:text-gray-400 sepia:text-amber-700 font-medium">
+                Individual Perspectives
+              </span>
             </div>
           </div>
-          <div
-            className="prose prose-sm max-w-none text-gray-800 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
-            dangerouslySetInnerHTML={{ __html: formatAIResponse(comparativeAnalysis) }}
-          />
-        </div>
+        </>
       )}
 
       {results.map(({ religion, answer, verses }) => {

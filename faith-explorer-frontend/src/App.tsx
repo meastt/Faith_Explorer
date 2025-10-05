@@ -10,6 +10,8 @@ import { OnboardingModal } from './components/OnboardingModal';
 import { TopicExplorer } from './components/TopicExplorer';
 import { DailyWisdom } from './components/DailyWisdom';
 import { LearningPaths } from './components/LearningPaths';
+import { TabButton } from './components/TabButton';
+import { Footer } from './components/Footer';
 import { useStore } from './store/useStore';
 import { searchReligion, searchMultipleReligions, getComparativeAnalysis } from './services/api';
 import type { Religion, Verse } from './types';
@@ -116,28 +118,18 @@ function App() {
       <main className="max-w-4xl mx-auto px-4 py-6 pb-safe">
         {/* Navigation */}
         <nav className="flex space-x-2 mb-8">
-          <button
+          <TabButton
+            active={activeTab === 'search'}
             onClick={() => setActiveTab('search')}
-            className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
-              activeTab === 'search'
-                ? 'bg-white dark:bg-gray-800 sepia:bg-amber-100 text-gray-900 dark:text-gray-100 sepia:text-amber-900 shadow-soft border border-gray-200 dark:border-gray-700 sepia:border-amber-200'
-                : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-white/50 dark:hover:bg-gray-800/50 sepia:hover:bg-amber-100/50 hover:shadow-soft'
-            }`}
-          >
-            <Search className="w-4 h-4" />
-            <span>Search</span>
-          </button>
-          <button
+            icon={Search}
+            label="Search"
+          />
+          <TabButton
+            active={activeTab === 'saved'}
             onClick={() => setActiveTab('saved')}
-            className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
-              activeTab === 'saved'
-                ? 'bg-white dark:bg-gray-800 sepia:bg-amber-100 text-gray-900 dark:text-gray-100 sepia:text-amber-900 shadow-soft border border-gray-200 dark:border-gray-700 sepia:border-amber-200'
-                : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-white/50 dark:hover:bg-gray-800/50 sepia:hover:bg-amber-100/50 hover:shadow-soft'
-            }`}
-          >
-            <Bookmark className="w-4 h-4" />
-            <span>Saved</span>
-          </button>
+            icon={Bookmark}
+            label="Saved"
+          />
         </nav>
 
         {/* Content */}
@@ -159,6 +151,7 @@ function App() {
         )}
       </main>
 
+      <Footer />
       <ChatDrawer />
       {showOnboarding && <OnboardingModal onClose={handleCloseOnboarding} />}
     </div>

@@ -123,9 +123,16 @@ export function DailyWisdom() {
       </div>
 
       {isLoading ? (
-        <div className="mt-3 animate-pulse space-y-2">
-          <div className="h-3 bg-indigo-200 dark:bg-indigo-800 sepia:bg-amber-300 rounded w-3/4"></div>
-          <div className="h-3 bg-indigo-200 dark:bg-indigo-800 sepia:bg-amber-300 rounded w-full"></div>
+        <div className="mt-4 pt-4 border-t border-indigo-200 dark:border-indigo-800 sepia:border-amber-300">
+          <div className="flex items-center gap-2 mb-3 animate-pulse">
+            <div className="w-16 h-4 bg-indigo-200 dark:bg-indigo-800 sepia:bg-amber-300 rounded"></div>
+            <div className="w-24 h-4 bg-indigo-200 dark:bg-indigo-800 sepia:bg-amber-300 rounded"></div>
+          </div>
+          <div className="space-y-2 animate-pulse">
+            <div className="h-3 bg-indigo-200 dark:bg-indigo-800 sepia:bg-amber-300 rounded w-full"></div>
+            <div className="h-3 bg-indigo-200 dark:bg-indigo-800 sepia:bg-amber-300 rounded w-11/12"></div>
+            <div className="h-3 bg-indigo-200 dark:bg-indigo-800 sepia:bg-amber-300 rounded w-5/6"></div>
+          </div>
         </div>
       ) : wisdom && (
         <>

@@ -1,6 +1,7 @@
 import { Search } from 'lucide-react';
 import { useState } from 'react';
 import { useStore } from '../store/useStore';
+import { ICON_SIZES } from '../styles/design-system';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -39,7 +40,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
       <form onSubmit={handleSubmit}>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-gray-400 dark:text-gray-500 sepia:text-amber-600" />
+            <Search className={`${ICON_SIZES.MD} text-gray-400 dark:text-gray-500 sepia:text-amber-600`} />
           </div>
           <input
             type="text"
@@ -67,6 +68,14 @@ export function SearchBar({ onSearch }: SearchBarProps) {
             </span>
           </button>
         </div>
+        {!isSearching && query.trim() && (
+          <div className="mt-2 flex items-center justify-end gap-2 text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-600">
+            <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 sepia:bg-amber-100 border border-gray-300 dark:border-gray-600 sepia:border-amber-300 rounded font-mono text-gray-700 dark:text-gray-300 sepia:text-amber-800">
+              Enter
+            </kbd>
+            <span>to search</span>
+          </div>
+        )}
       </form>
     </div>
   );

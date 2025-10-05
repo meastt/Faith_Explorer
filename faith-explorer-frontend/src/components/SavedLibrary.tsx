@@ -1,9 +1,11 @@
-import { BookmarkCheck, Trash2, Edit3, Share2, MessageCircle, Calendar, Search, Filter, Download } from 'lucide-react';
+import { BookmarkCheck, Trash2, Edit3, Share2, MessageCircle, Calendar, Search, Filter, Download, ArrowUpDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { useStore } from '../store/useStore';
 import { formatDate, shareVerse, copyToClipboard } from '../utils/helpers';
 import { exportCollection } from '../utils/export';
 import { RELIGIONS, type Religion } from '../types';
+
+type SortOption = 'date-desc' | 'date-asc' | 'religion' | 'reference';
 
 export function SavedLibrary() {
   const { savedVerses, updateVerseNotes, deleteVerse, setActiveVerseChat } = useStore();
@@ -11,6 +13,7 @@ export function SavedLibrary() {
   const [editNotes, setEditNotes] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterReligion, setFilterReligion] = useState<Religion | 'all'>('all');
+  const [sortBy, setSortBy] = useState<SortOption>('date-desc');
 
   const handleEditNotes = (id: string, currentNotes: string) => {
     setEditingId(id);
@@ -32,9 +35,9 @@ export function SavedLibrary() {
     }
   };
 
-  // Filter and search verses
+  // Filter, search, and sort verses
   const filteredVerses = useMemo(() => {
-    return savedVerses.filter(verse => {
+    let filtered = savedVerses.filter(verse => {
       // Religion filter
       if (filterReligion !== 'all' && verse.religion !== filterReligion) {
         return false;
@@ -53,7 +56,25 @@ export function SavedLibrary() {
 
       return true;
     });
-  }, [savedVerses, searchQuery, filterReligion]);
+
+    // Sort filtered verses
+    return filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'date-desc':
+          return b.savedAt - a.savedAt;
+        case 'date-asc':
+          return a.savedAt - b.savedAt;
+        case 'religion':
+          const religionA = RELIGIONS.find(r => r.id === a.religion)?.name || '';
+          const religionB = RELIGIONS.find(r => r.id === b.religion)?.name || '';
+          return religionA.localeCompare(religionB);
+        case 'reference':
+          return a.reference.localeCompare(b.reference);
+        default:
+          return 0;
+      }
+    });
+  }, [savedVerses, searchQuery, filterReligion, sortBy]);
 
   // Get unique religions from saved verses
   const savedReligions = useMemo(() => {
@@ -143,7 +164,7 @@ export function SavedLibrary() {
         )}
       </div>
 
-      {/* Search and Filter */}
+      {/* Search, Filter, and Sort */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -172,6 +193,20 @@ export function SavedLibrary() {
                 </option>
               ) : null;
             })}
+          </select>
+        </div>
+
+        <div className="relative sm:w-48">
+          <ArrowUpDown className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as SortOption)}
+            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-800 sepia:bg-amber-50 border border-gray-300 dark:border-gray-600 sepia:border-amber-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-gray-100 sepia:text-amber-900 appearance-none"
+          >
+            <option value="date-desc">Newest First</option>
+            <option value="date-asc">Oldest First</option>
+            <option value="religion">By Religion</option>
+            <option value="reference">By Reference</option>
           </select>
         </div>
       </div>

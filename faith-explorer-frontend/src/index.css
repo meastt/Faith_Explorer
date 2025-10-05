@@ -14,6 +14,38 @@
   --safe-area-inset-right: env(safe-area-inset-right);
 }
 
+/* Theme CSS Variables */
+:root {
+  /* Light theme (default) */
+  --bg-primary: #f9fafb;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
+}
+
+[data-theme="dark"], .dark {
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-tertiary: #374151;
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --border-primary: #374151;
+  --border-secondary: #4b5563;
+}
+
+[data-theme="sepia"], .sepia {
+  --bg-primary: #fef9c3;
+  --bg-secondary: #fefce8;
+  --bg-tertiary: #fef08a;
+  --text-primary: #713f12;
+  --text-secondary: #a16207;
+  --border-primary: #fde047;
+  --border-secondary: #facc15;
+}
+
 .pt-safe {
   padding-top: var(--safe-area-inset-top);
 }
@@ -39,10 +71,18 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #f9fafb;
-  color: #111827;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.6;
 }
+
+/* Proportional line-height for font size scaling */
+[style*="font-size: 14px"] { line-height: 1.5; }
+[style*="font-size: 16px"] { line-height: 1.6; }
+[style*="font-size: 18px"] { line-height: 1.65; }
+[style*="font-size: 20px"] { line-height: 1.7; }
+[style*="font-size: 22px"] { line-height: 1.75; }
+[style*="font-size: 24px"] { line-height: 1.8; }
 
 /* Improved focus styles for accessibility */
 *:focus {

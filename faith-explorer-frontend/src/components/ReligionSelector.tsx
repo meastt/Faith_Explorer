@@ -97,8 +97,8 @@ export function ReligionSelector() {
         <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-4">
           {viewMode === 'single' ? 'Select a Religion' : 'Select Religions to Compare'}
         </h3>
-        
-        <div className="grid grid-cols-2 gap-4">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {RELIGIONS.map((religion) => {
             const isSelected = selectedReligions.includes(religion.id);
             const canSelect =
@@ -121,13 +121,13 @@ export function ReligionSelector() {
                 disabled={!canSelect}
                 className={`p-6 text-center border-2 rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
                   isSelected
-                    ? 'border-primary-500 dark:border-primary-400 sepia:border-amber-600 bg-primary-50 dark:bg-primary-900/30 sepia:bg-amber-100 shadow-soft'
+                    ? 'shadow-soft'
                     : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400 bg-white dark:bg-gray-700 sepia:bg-amber-50 hover:shadow-soft'
                 } ${!canSelect ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                style={{
-                  borderColor: isSelected ? religion.color : undefined,
-                  backgroundColor: isSelected ? `${religion.color}10` : undefined,
-                }}
+                style={isSelected ? {
+                  borderColor: religion.color,
+                  backgroundColor: `color-mix(in srgb, ${religion.color} 10%, transparent)`,
+                } : undefined}
               >
                 <div className="flex flex-col items-center space-y-2">
                   {/* Religion Icon */}
