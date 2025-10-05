@@ -1,5 +1,5 @@
-import { X, Check, Sparkles } from 'lucide-react';
-import { useState } from 'react';
+import { X, Check, Sparkles, AlertCircle, Loader2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { revenueCat } from '../services/revenuecat';
 
 interface SubscriptionModalProps {
@@ -9,16 +9,64 @@ interface SubscriptionModalProps {
 
 export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [offerings, setOfferings] = useState<any>(null);
+
+  useEffect(() => {
+    // Load offerings when modal opens
+    const loadOfferings = async () => {
+      try {
+        const offeringsData = await revenueCat.getOfferings();
+        setOfferings(offeringsData);
+      } catch (error) {
+        console.error('Failed to load offerings:', error);
+      }
+    };
+    loadOfferings();
+  }, []);
 
   const handleSubscribe = async () => {
     setIsLoading(true);
+    setError(null);
+    
     try {
-      await revenueCat.purchaseSubscription('premium_monthly');
-      onSubscribe();
-      onClose();
-    } catch (error) {
+      console.log('Starting subscription process...');
+      
+      // Use the first available package if no specific one is found
+      const packageId = offerings?.current?.availablePackages?.[0]?.identifier || 'premium_monthly';
+      
+      const success = await revenueCat.purchaseSubscription(packageId);
+      
+      if (success) {
+        console.log('Subscription successful!');
+        onSubscribe();
+        onClose();
+      } else {
+        throw new Error('Purchase was not successful');
+      }
+    } catch (error: any) {
       console.error('Subscription error:', error);
-      alert('Failed to process subscription. Please try again.');
+      setError(error.message || 'Failed to process subscription. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleRestore = async () => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const status = await revenueCat.restorePurchases();
+      if (status.isSubscribed) {
+        onSubscribe();
+        onClose();
+      } else {
+        setError('No previous purchases found to restore.');
+      }
+    } catch (error: any) {
+      console.error('Restore error:', error);
+      setError(error.message || 'Failed to restore purchases. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -86,22 +134,48 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
 
         <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-4 mb-6">
           <div className="flex items-baseline justify-center gap-2">
-            <span className="text-3xl font-bold text-gray-900">$9.99</span>
+            <span className="text-3xl font-bold text-gray-900">
+              {offerings?.current?.availablePackages?.[0]?.storeProduct?.priceString || '$9.99'}
+            </span>
             <span className="text-gray-600">/month</span>
           </div>
           <p className="text-center text-sm text-gray-600 mt-1">Cancel anytime</p>
         </div>
 
-        <button
-          onClick={handleSubscribe}
-          disabled={isLoading}
-          className="w-full py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
-        >
-          {isLoading ? 'Processing...' : 'Subscribe Now'}
-        </button>
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+            <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-red-800">{error}</p>
+          </div>
+        )}
+
+        <div className="space-y-3">
+          <button
+            onClick={handleSubscribe}
+            disabled={isLoading}
+            className="w-full py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              'Subscribe Now'
+            )}
+          </button>
+
+          <button
+            onClick={handleRestore}
+            disabled={isLoading}
+            className="w-full py-2 text-gray-600 hover:text-gray-800 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            Restore Purchases
+          </button>
+        </div>
 
         <p className="text-xs text-center text-gray-500 mt-4">
-          Subscription managed through RevenueCat. Cancel anytime from your account settings.
+          Subscription managed through App Store. Cancel anytime from your account settings.
         </p>
       </div>
     </div>

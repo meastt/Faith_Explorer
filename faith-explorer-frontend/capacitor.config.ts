@@ -20,6 +20,9 @@ const config: CapacitorConfig = {
       spinnerColor: "#999999",
       splashFullScreen: true,
       splashImmersive: true
+    },
+    Purchases: {
+      apiKey: 'your_revenuecat_public_key_here'
     }
   }
 };
