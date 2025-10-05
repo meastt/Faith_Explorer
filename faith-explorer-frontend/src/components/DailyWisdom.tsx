@@ -84,16 +84,16 @@ export function DailyWisdom() {
   return (
     <div
       onClick={() => !isLoading && setIsExpanded(!isExpanded)}
-      className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-950 dark:via-purple-950 dark:to-pink-950 sepia:from-amber-100 sepia:via-amber-50 sepia:to-amber-200 rounded-2xl border-2 border-indigo-200 dark:border-indigo-800 sepia:border-amber-300 p-4 shadow-lg cursor-pointer transition-all hover:shadow-xl"
+      className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-950 dark:via-purple-950 dark:to-pink-950 sepia:from-amber-100 sepia:via-amber-50 sepia:to-amber-200 rounded-xl border border-indigo-200 dark:border-indigo-800 sepia:border-amber-300 p-4 shadow-soft cursor-pointer transition-all hover:shadow-medium"
     >
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Sparkles className="w-5 h-5 text-white" />
+          <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+            <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">Daily Wisdom</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700 truncate">
+            <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">Daily Wisdom</h3>
+            <p className="text-xs text-gray-600 dark:text-gray-400 sepia:text-amber-700 truncate">
               {wisdom ? wisdom.query : 'Loading...'}
             </p>
           </div>
