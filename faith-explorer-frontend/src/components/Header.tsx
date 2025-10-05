@@ -7,7 +7,7 @@ import { revenueCat } from '../services/revenuecat';
 
 export function Header() {
   const { usage, setPremium } = useStore();
-  const { isPremium, searchesUsed, searchLimit, chatMessagesUsed, chatLimit } = usage;
+  const { isPremium } = usage;
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
 
   useEffect(() => {
@@ -38,41 +38,42 @@ export function Header() {
 
   return (
     <>
-      <header className="bg-white dark:bg-gray-800 sepia:bg-amber-50 border-b border-gray-200 dark:border-gray-700 sepia:border-amber-200">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-white" />
+      <header className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 sticky top-0 z-50 shadow-lg pt-safe">
+        {/* Decorative Pattern Overlay */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+            backgroundSize: '32px 32px'
+          }}></div>
+        </div>
+
+        <div className="relative max-w-4xl mx-auto px-4">
+          <div className="flex items-center justify-between h-14">
+            {/* Logo & Title */}
+            <div className="flex items-center space-x-2.5">
+              <div className="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg border border-white/30">
+                <BookOpen className="w-5 h-5 text-white" strokeWidth={2.5} />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">Faith Explorer</h1>
-                <p className="text-sm text-gray-500 dark:text-gray-400 sepia:text-amber-700">Explore sacred texts across traditions</p>
+                <h1 className="text-lg font-bold text-white tracking-tight">Faith Explorer</h1>
+                <p className="text-xs text-white/80 -mt-0.5">Sacred wisdom across traditions</p>
               </div>
             </div>
 
-            {/* Usage & Premium */}
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              {!isPremium && (
-                <div className="hidden md:block text-right text-sm text-gray-500 dark:text-gray-400 sepia:text-amber-700">
-                  <div>{searchLimit - searchesUsed} searches left</div>
-                  <div>{chatLimit - chatMessagesUsed} chats left</div>
-                </div>
-              )}
-
+            {/* Actions */}
+            <div className="flex items-center space-x-1.5">
               <ReadingPreferences />
 
               <button
                 onClick={handleUpgradeClick}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-semibold transition-all text-xs shadow-md ${
                   isPremium
-                    ? 'bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 sepia:from-amber-200 sepia:to-amber-300 text-yellow-900 dark:text-yellow-200 sepia:text-amber-900 border border-yellow-300 dark:border-yellow-700 sepia:border-amber-400'
-                    : 'bg-blue-600 dark:bg-blue-700 sepia:bg-amber-700 text-white hover:bg-blue-700 dark:hover:bg-blue-800 sepia:hover:bg-amber-800'
+                    ? 'bg-gradient-to-r from-yellow-300 to-amber-400 text-amber-900 border border-yellow-400/50 shadow-yellow-500/25'
+                    : 'bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 hover:shadow-lg'
                 }`}
               >
-                <Star className={`w-4 h-4 ${isPremium ? 'fill-current' : ''}`} />
-                <span>{isPremium ? 'Premium' : 'Upgrade'}</span>
+                <Star className={`w-3.5 h-3.5 ${isPremium ? 'fill-current' : ''}`} />
+                <span>{isPremium ? 'Pro' : 'Go Pro'}</span>
               </button>
             </div>
           </div>

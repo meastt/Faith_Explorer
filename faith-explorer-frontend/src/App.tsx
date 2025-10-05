@@ -113,7 +113,7 @@ function App() {
     >
       <Header />
 
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="max-w-4xl mx-auto px-4 py-6 pb-safe">
         {/* Navigation */}
         <nav className="flex space-x-1 mb-8">
           <button
@@ -142,15 +142,15 @@ function App() {
 
         {/* Content */}
         {activeTab === 'search' ? (
-          <div className="space-y-8">
+          <div className="space-y-4">
             {searchResults.length === 0 && !isLoading && <DailyWisdom />}
             <ReligionSelector />
             <SearchBar onSearch={handleSearch} />
             {searchResults.length === 0 && !isLoading && (
-              <>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TopicExplorer onTopicSelect={handleSearch} />
                 <LearningPaths onStepSelect={(query) => handleSearch(query)} />
-              </>
+              </div>
             )}
             <SearchResults results={searchResults} isLoading={isLoading} comparativeAnalysis={comparativeAnalysis} />
           </div>

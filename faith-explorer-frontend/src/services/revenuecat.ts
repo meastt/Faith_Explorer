@@ -43,8 +43,8 @@ class RevenueCatService {
     }
 
     // In production, this would trigger RevenueCat purchase flow
-    // For now, we'll simulate it
-    console.log('Purchasing subscription:', productId);
+    // Product SKU: FE001
+    console.log('Purchasing subscription:', productId, 'SKU: FE001');
 
     // Simulate successful purchase
     localStorage.setItem('faithExplorer_premium', 'true');

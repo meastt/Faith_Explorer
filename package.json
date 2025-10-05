@@ -1,0 +1,14 @@
+{
+  "name": "faith-explorer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd faith-explorer-frontend && npm run dev",
+    "build": "cd faith-explorer-frontend && npm run build",
+    "preview": "cd faith-explorer-frontend && npm run preview",
+    "lint": "cd faith-explorer-frontend && npm run lint",
+    "sync": "cd faith-explorer-frontend && npx cap sync ios",
+    "open": "cd faith-explorer-frontend && npx cap open ios",
+    "ios": "cd faith-explorer-frontend && npm run build && npx cap sync ios && npx cap open ios"
+  }
+}

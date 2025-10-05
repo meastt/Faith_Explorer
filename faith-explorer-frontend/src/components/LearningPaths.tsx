@@ -1,4 +1,4 @@
-import { Route, Check } from 'lucide-react';
+import { Route } from 'lucide-react';
 import { useState } from 'react';
 
 interface LearningPath {
@@ -80,72 +80,52 @@ export function LearningPaths({ onStepSelect }: LearningPathsProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-          <Route className="w-5 h-5 text-white" />
+    <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm h-full">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+          <Route className="w-4 h-4 text-white" />
         </div>
-        <div>
-          <h3 className="text-lg font-bold text-gray-900">Learning Paths</h3>
-          <p className="text-sm text-gray-600">Guided journeys through faith traditions</p>
-        </div>
+        <h3 className="text-base font-bold text-gray-900">Learning Paths</h3>
       </div>
 
-      <div className="space-y-3">
-        {LEARNING_PATHS.map((path) => {
+      <div className="space-y-2">
+        {LEARNING_PATHS.slice(0, 3).map((path) => {
           const isExpanded = expandedPath === path.id;
 
           return (
-            <div key={path.id} className="border-2 border-gray-200 rounded-xl overflow-hidden transition-all">
+            <div key={path.id} className="border border-gray-200 rounded-lg overflow-hidden transition-all">
               <button
                 onClick={() => setExpandedPath(isExpanded ? null : path.id)}
-                className="w-full p-4 text-left hover:bg-gray-50 transition-colors"
+                className="w-full p-3 text-left hover:bg-gray-50 transition-colors"
               >
-                <div className="flex items-center gap-3">
-                  <div className={`w-12 h-12 bg-gradient-to-br ${colorClasses[path.color as keyof typeof colorClasses]} rounded-xl flex items-center justify-center text-2xl flex-shrink-0`}>
+                <div className="flex items-center gap-2">
+                  <div className={`w-9 h-9 bg-gradient-to-br ${colorClasses[path.color as keyof typeof colorClasses]} rounded-lg flex items-center justify-center text-lg flex-shrink-0`}>
                     {path.icon}
                   </div>
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">{path.title}</h4>
-                    <p className="text-sm text-gray-600">{path.description}</p>
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {path.steps.length} steps
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-sm text-gray-900 truncate">{path.title}</h4>
+                    <p className="text-xs text-gray-500">{path.steps.length} steps</p>
                   </div>
                 </div>
               </button>
 
               {isExpanded && (
-                <div className="border-t border-gray-200 p-4 bg-gray-50">
-                  <div className="space-y-2">
-                    {path.steps.map((step, stepIndex) => {
-                      const completed = step.completed || false;
-
-                      return (
-                        <button
-                          key={stepIndex}
-                          onClick={() => onStepSelect(step.query, path.id, stepIndex)}
-                          className="w-full flex items-center gap-3 p-3 bg-white hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors text-left group"
-                        >
-                          <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                            completed
-                              ? 'bg-green-100 text-green-600'
-                              : 'bg-gray-100 text-gray-400'
-                          }`}>
-                            {completed ? (
-                              <Check className="w-4 h-4" />
-                            ) : (
-                              <span className="text-xs font-semibold">{stepIndex + 1}</span>
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <p className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
-                              {step.title}
-                            </p>
-                          </div>
-                        </button>
-                      );
-                    })}
+                <div className="border-t border-gray-200 p-2 bg-gray-50">
+                  <div className="space-y-1">
+                    {path.steps.map((step, stepIndex) => (
+                      <button
+                        key={stepIndex}
+                        onClick={() => onStepSelect(step.query, path.id, stepIndex)}
+                        className="w-full flex items-center gap-2 p-2 bg-white hover:bg-gray-100 border border-gray-200 rounded-md transition-colors text-left group"
+                      >
+                        <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-100 text-gray-500">
+                          <span className="text-xs font-semibold">{stepIndex + 1}</span>
+                        </div>
+                        <p className="text-xs font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                          {step.title}
+                        </p>
+                      </button>
+                    ))}
                   </div>
                 </div>
               )}
