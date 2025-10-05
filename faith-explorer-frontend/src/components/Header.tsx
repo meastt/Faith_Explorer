@@ -93,49 +93,48 @@ export function Header() {
         </div>
       </header>
 
-        {/* Mobile Menu */}
-        {showMobileMenu && (
-          <div className="sm:hidden bg-white dark:bg-gray-800 sepia:bg-amber-50 border-t border-gray-200 dark:border-gray-700 sepia:border-amber-300 shadow-lg">
-            <div className="px-4 py-3 space-y-2">
+      {/* Mobile Menu */}
+      {showMobileMenu && (
+        <div className="sm:hidden bg-white dark:bg-gray-800 sepia:bg-amber-50 border-t border-gray-200 dark:border-gray-700 sepia:border-amber-300 shadow-lg">
+          <div className="px-4 py-3 space-y-2">
+            <button
+              onClick={() => {
+                setShowMobileMenu(false);
+                handleUpgradeClick();
+              }}
+              className={`w-full flex items-center justify-center space-x-2 px-4 py-2 rounded-lg font-semibold transition-all text-sm ${
+                isPremium
+                  ? 'bg-gradient-to-r from-yellow-300 to-amber-400 text-amber-900'
+                  : 'bg-indigo-600 text-white hover:bg-indigo-700'
+              }`}
+            >
+              <Star className={`w-4 h-4 ${isPremium ? 'fill-current' : ''}`} />
+              <span>{isPremium ? 'Pro' : 'Go Pro'}</span>
+            </button>
+            
+            <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => {
                   setShowMobileMenu(false);
-                  handleUpgradeClick();
+                  setShowAbout(true);
                 }}
-                className={`w-full flex items-center justify-center space-x-2 px-4 py-2 rounded-lg font-semibold transition-all text-sm ${
-                  isPremium
-                    ? 'bg-gradient-to-r from-yellow-300 to-amber-400 text-amber-900'
-                    : 'bg-indigo-600 text-white hover:bg-indigo-700'
-                }`}
+                className="flex items-center justify-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-300 sepia:text-amber-800 hover:bg-gray-100 dark:hover:bg-gray-700 sepia:hover:bg-amber-200 rounded-lg transition-colors"
               >
-                <Star className={`w-4 h-4 ${isPremium ? 'fill-current' : ''}`} />
-                <span>{isPremium ? 'Pro' : 'Go Pro'}</span>
+                <span className="text-sm font-medium">About</span>
               </button>
-              
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => {
-                    setShowMobileMenu(false);
-                    setShowAbout(true);
-                  }}
-                  className="flex items-center justify-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-300 sepia:text-amber-800 hover:bg-gray-100 dark:hover:bg-gray-700 sepia:hover:bg-amber-200 rounded-lg transition-colors"
-                >
-                  <span className="text-sm font-medium">About</span>
-                </button>
-                <button
-                  onClick={() => {
-                    setShowMobileMenu(false);
-                    setShowSettings(true);
-                  }}
-                  className="flex items-center justify-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-300 sepia:text-amber-800 hover:bg-gray-100 dark:hover:bg-gray-700 sepia:hover:bg-amber-200 rounded-lg transition-colors"
-                >
-                  <span className="text-sm font-medium">Settings</span>
-                </button>
-              </div>
+              <button
+                onClick={() => {
+                  setShowMobileMenu(false);
+                  setShowSettings(true);
+                }}
+                className="flex items-center justify-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-300 sepia:text-amber-800 hover:bg-gray-100 dark:hover:bg-gray-700 sepia:hover:bg-amber-200 rounded-lg transition-colors"
+              >
+                <span className="text-sm font-medium">Settings</span>
+              </button>
             </div>
           </div>
-        )}
-      </header>
+        </div>
+      )}
 
       {/* Desktop Menu - Hidden on mobile */}
       <div className="hidden sm:block">

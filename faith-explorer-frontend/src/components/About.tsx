@@ -1,4 +1,4 @@
-import { X, Heart, BookOpen, Users, Globe, Shield, ExternalLink } from 'lucide-react';
+import { X, Heart, BookOpen, Users, Globe, Shield } from 'lucide-react';
 
 interface AboutProps {
   onClose: () => void;

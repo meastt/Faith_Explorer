@@ -73,25 +73,28 @@ interface TopicExplorerProps {
 
 export function TopicExplorer({ onTopicSelect }: TopicExplorerProps) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm h-full">
-      <div className="flex items-center gap-2 mb-3">
+    <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-4 shadow-soft h-full">
+      <div className="flex items-center gap-3 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
           <Compass className="w-4 h-4 text-white" />
         </div>
-        <h3 className="text-base font-bold text-gray-900">Quick Topics</h3>
+        <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">Quick Topics</h3>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-3">
         {TOPICS.slice(0, 6).map((topic) => (
           <button
             key={topic.id}
             onClick={() => onTopicSelect(topic.query)}
-            className="group p-3 text-left bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-lg hover:border-purple-400 hover:shadow-sm transition-all"
+            className="group p-3 text-left bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 sepia:from-amber-100 sepia:to-amber-50 border border-gray-200 dark:border-gray-600 sepia:border-amber-300 rounded-lg hover:border-purple-400 dark:hover:border-purple-500 sepia:hover:border-amber-400 hover:shadow-soft transition-all duration-200"
           >
-            <div className="text-xl mb-1">{topic.icon}</div>
-            <h4 className="font-semibold text-sm text-gray-900 group-hover:text-purple-600 transition-colors">
+            <div className="text-xl mb-2">{topic.icon}</div>
+            <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100 sepia:text-amber-900 group-hover:text-purple-600 dark:group-hover:text-purple-400 sepia:group-hover:text-amber-700 transition-colors">
               {topic.title}
             </h4>
+            <p className="text-xs text-gray-600 dark:text-gray-400 sepia:text-amber-700 mt-1 line-clamp-2">
+              {topic.description}
+            </p>
           </button>
         ))}
       </div>

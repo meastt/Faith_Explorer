@@ -9,13 +9,10 @@ export interface SubscriptionStatus {
 }
 
 class RevenueCatService {
-  private apiKey: string | null = null;
   private isInitialized = false;
 
   async initialize(apiKey: string) {
     if (this.isInitialized) return;
-    
-    this.apiKey = apiKey;
     
     try {
       // Only initialize on native platforms
@@ -57,7 +54,7 @@ class RevenueCatService {
 
     try {
       if (Capacitor.isNativePlatform()) {
-        const customerInfo = await Purchases.getCustomerInfo();
+        const { customerInfo } = await Purchases.getCustomerInfo();
         const isSubscribed = customerInfo.entitlements.active['premium'] !== undefined;
         const premiumEntitlement = customerInfo.entitlements.active['premium'];
         
@@ -105,7 +102,7 @@ class RevenueCatService {
 
         // Find the package for the product
         const packageToPurchase = currentOffering.availablePackages.find(
-          pkg => pkg.identifier === productId || pkg.storeProduct.identifier === productId
+          pkg => pkg.identifier === productId
         );
 
         if (!packageToPurchase) {
@@ -147,7 +144,7 @@ class RevenueCatService {
     try {
       if (Capacitor.isNativePlatform()) {
         console.log('Restoring purchases...');
-        const customerInfo = await Purchases.restorePurchases();
+        const { customerInfo } = await Purchases.restorePurchases();
         const isSubscribed = customerInfo.entitlements.active['premium'] !== undefined;
         const premiumEntitlement = customerInfo.entitlements.active['premium'];
         
