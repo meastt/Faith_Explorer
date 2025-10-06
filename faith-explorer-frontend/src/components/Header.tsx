@@ -70,7 +70,7 @@ export function Header() {
 
   return (
     <>
-      <div className="sticky top-0 z-50">
+      <div className="fixed top-0 left-0 right-0 z-50">
         <header className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 shadow-lg">
           {/* Decorative Pattern Overlay */}
           <div className="absolute inset-0 opacity-10">
@@ -95,7 +95,7 @@ export function Header() {
 
               {/* Actions */}
               <div className="flex items-center space-x-1.5">
-                <UsageStatusIndicator />
+                <UsageStatusIndicator onClick={handleUpgradeClick} />
                 <button
                   onClick={handleUpgradeClick}
                   className={`hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-semibold transition-all text-xs shadow-md ${

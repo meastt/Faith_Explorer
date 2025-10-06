@@ -95,12 +95,12 @@ export function ReligionSelector() {
     <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-6 shadow-soft">
       {/* Mode Toggle */}
       <div className="mb-6">
-        <div className="flex space-x-2 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 sepia:from-amber-200 sepia:to-amber-300 p-1 rounded-xl border border-gray-200 dark:border-gray-600 sepia:border-amber-300">
+        <div className="flex space-x-2 bg-gray-100 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800 sepia:from-amber-200 sepia:to-amber-300 p-1 rounded-xl border border-gray-200 dark:border-gray-600 sepia:border-amber-300">
           <button
             onClick={() => handleModeChange('single')}
             className={`flex-1 px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
               viewMode === 'single'
-                ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg transform scale-105'
                 : 'text-gray-700 dark:text-gray-300 sepia:text-amber-700 hover:text-gray-900 dark:hover:text-gray-100 sepia:hover:text-amber-900 hover:bg-white/70 dark:hover:bg-gray-600/70 sepia:hover:bg-amber-100/70'
             }`}
           >
@@ -110,7 +110,7 @@ export function ReligionSelector() {
             onClick={() => handleModeChange('comparison')}
             className={`flex-1 px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
               viewMode === 'comparison'
-                ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg transform scale-105'
                 : 'text-gray-700 dark:text-gray-300 sepia:text-amber-700 hover:text-gray-900 dark:hover:text-gray-100 sepia:hover:text-amber-900 hover:bg-white/70 dark:hover:bg-gray-600/70 sepia:hover:bg-amber-100/70'
             }`}
           >
@@ -127,7 +127,7 @@ export function ReligionSelector() {
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-200 rounded-xl border border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-300 transition-colors"
+            className="w-full flex items-center justify-between p-4 bg-white dark:bg-gray-700 sepia:bg-amber-200 rounded-xl border border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:bg-gray-50 dark:hover:bg-gray-600 sepia:hover:bg-amber-300 transition-colors"
           >
             <div className="flex items-center space-x-3">
               <div 
@@ -198,7 +198,7 @@ export function ReligionSelector() {
                       ? 'border-primary-500 bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-950 dark:to-primary-900 sepia:from-amber-100 sepia:to-amber-200 shadow-md'
                       : isDisabled
                       ? 'border-gray-200 dark:border-gray-700 sepia:border-amber-200 bg-gray-50 dark:bg-gray-800 sepia:bg-amber-50 cursor-not-allowed opacity-60'
-                      : 'border-gray-200 dark:border-gray-700 sepia:border-amber-200 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 sepia:from-amber-50 sepia:to-amber-100 hover:border-gray-300 dark:hover:border-gray-600 sepia:hover:border-amber-300 hover:shadow-sm'
+                      : 'border-gray-200 dark:border-gray-700 sepia:border-amber-200 bg-white dark:bg-gray-800 sepia:from-amber-50 sepia:to-amber-100 hover:border-gray-300 dark:hover:border-gray-600 sepia:hover:border-amber-300 hover:shadow-sm'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -232,7 +232,7 @@ export function ReligionSelector() {
 
       {/* Selected Summary */}
       {selectedSubsets.length > 0 && (
-        <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-200 rounded-xl">
+        <div className="mt-6 p-4 bg-blue-50 dark:bg-gray-700 sepia:bg-amber-200 rounded-xl border border-blue-100 dark:border-gray-600 sepia:border-amber-300">
           <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">
             Selected Texts ({selectedSubsets.length}):
           </h4>

@@ -8,7 +8,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative mt-16 bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 overflow-hidden">
+    <footer className="relative mt-auto bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 overflow-hidden">
       {/* Decorative Pattern Overlay */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{

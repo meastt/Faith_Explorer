@@ -11,6 +11,7 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [offerings, setOfferings] = useState<any>(null);
+  const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
 
   useEffect(() => {
     // Load offerings when modal opens
@@ -28,13 +29,15 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
   const handleSubscribe = async () => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       console.log('Starting subscription process...');
-      
-      // Use the first available package if no specific one is found
-      const packageId = offerings?.current?.availablePackages?.[0]?.identifier || 'premium_monthly';
-      
+
+      // Use selected plan or fallback
+      const packageId = selectedPlan === 'annual'
+        ? (offerings?.current?.annual?.identifier || 'premium_annual')
+        : (offerings?.current?.monthly?.identifier || 'premium_monthly');
+
       const success = await revenueCat.purchaseSubscription(packageId);
       
       if (success) {
@@ -74,15 +77,15 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
+          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors z-10"
         >
-          <X className="w-5 h-5 text-gray-500" />
+          <X className="w-6 h-6 text-gray-600" />
         </button>
 
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Sparkles className="w-8 h-8 text-white" />
           </div>
@@ -90,7 +93,7 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
           <p className="text-gray-600">Unlock unlimited access to Faith Explorer</p>
         </div>
 
-        <div className="space-y-4 mb-8">
+        <div className="space-y-3 mb-6">
           <div className="flex items-start gap-3">
             <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
               <Check className="w-4 h-4 text-green-600" />
@@ -132,14 +135,41 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-4 mb-6">
-          <div className="flex items-baseline justify-center gap-2">
-            <span className="text-3xl font-bold text-gray-900">
-              {offerings?.current?.availablePackages?.[0]?.storeProduct?.priceString || '$9.99'}
-            </span>
-            <span className="text-gray-600">/month</span>
-          </div>
-          <p className="text-center text-sm text-gray-600 mt-1">Cancel anytime</p>
+        <div className="space-y-3 mb-6">
+          {/* Monthly Plan */}
+          <button
+            onClick={() => setSelectedPlan('monthly')}
+            className={`w-full bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-4 border-2 transition-all ${
+              selectedPlan === 'monthly' ? 'border-purple-500 ring-2 ring-purple-200' : 'border-purple-200 hover:border-purple-300'
+            }`}
+          >
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-3xl font-bold text-gray-900">
+                {offerings?.current?.monthly?.storeProduct?.priceString || '$4.99'}
+              </span>
+              <span className="text-gray-600">/month</span>
+            </div>
+            <p className="text-center text-sm text-gray-600 mt-1">Cancel anytime</p>
+          </button>
+
+          {/* Annual Plan with Badge */}
+          <button
+            onClick={() => setSelectedPlan('annual')}
+            className={`w-full bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border-2 transition-all relative ${
+              selectedPlan === 'annual' ? 'border-green-500 ring-2 ring-green-200' : 'border-green-300 hover:border-green-400'
+            }`}
+          >
+            <div className="absolute -top-3 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+              SAVE 33%
+            </div>
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-3xl font-bold text-gray-900">
+                {offerings?.current?.annual?.storeProduct?.priceString || '$39.99'}
+              </span>
+              <span className="text-gray-600">/year</span>
+            </div>
+            <p className="text-center text-sm text-gray-600 mt-1">Just $3.33/month • Best value</p>
+          </button>
         </div>
 
         {error && (

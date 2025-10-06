@@ -44,7 +44,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-6 shadow-soft hover:shadow-medium transition-all duration-200">
+    <div className="bg-gray-50 dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-6 shadow-soft hover:shadow-medium transition-all duration-200">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">

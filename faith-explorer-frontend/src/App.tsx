@@ -60,7 +60,7 @@ function App() {
   const handleSearch = async (query: string) => {
     // Check usage limit
     if (!incrementSearchUsage()) {
-      alert('You have reached your free search limit. Please upgrade to Premium for unlimited searches.');
+      alert('You\'ve reached your free search limit (10/month). Upgrade to Premium for unlimited searches starting at just $4.99/month!');
       return;
     }
 
@@ -140,12 +140,12 @@ function App() {
 
   return (
     <div
-      className={`min-h-screen transition-colors duration-300 ${themeClasses[readingPreferences.theme]} ${fontFamilyClasses[readingPreferences.fontFamily]}`}
+      className={`min-h-screen flex flex-col transition-colors duration-300 ${themeClasses[readingPreferences.theme]} ${fontFamilyClasses[readingPreferences.fontFamily]}`}
       style={{ fontSize: `${readingPreferences.fontSize}px` }}
     >
       <Header />
 
-      <main className="max-w-4xl mx-auto px-4 pt-8 pb-6 pb-safe">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-24 pb-6 pb-safe">
         {/* Navigation */}
         <nav className="flex space-x-2 mb-8">
           <TabButton
@@ -166,18 +166,18 @@ function App() {
         {activeTab === 'search' ? (
           <div className="space-y-4">
             {searchResults.length === 0 && !isLoading && <DailyWisdom />}
-            <ReligionSelector />
-            <SearchBar onSearch={handleSearch} />
+            {searchResults.length === 0 && !isLoading && <ReligionSelector />}
+            {searchResults.length === 0 && !isLoading && <SearchBar onSearch={handleSearch} />}
             {searchResults.length === 0 && !isLoading && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TopicExplorer onTopicSelect={handleSearch} />
                 <LearningPaths onStepSelect={(query) => handleSearch(query)} />
               </div>
             )}
-            <SearchResults 
-              results={searchResults} 
-              isLoading={isLoading} 
-              comparativeAnalysis={comparativeAnalysis} 
+            <SearchResults
+              results={searchResults}
+              isLoading={isLoading}
+              comparativeAnalysis={comparativeAnalysis}
               onBack={searchResults.length > 0 ? handleClearResults : undefined}
             />
           </div>

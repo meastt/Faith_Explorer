@@ -33,10 +33,19 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
     return (
       <div className="flex flex-col items-center justify-center py-16 sm:py-20">
         <div className="relative">
-          <div className="w-16 h-16 border-4 border-primary-200 dark:border-primary-800 sepia:border-amber-300 border-t-primary-600 dark:border-t-primary-400 sepia:border-t-amber-600 rounded-full animate-spin"></div>
-          <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-b-primary-400 dark:border-b-primary-500 sepia:border-b-amber-500 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1s' }}></div>
+          <div className="w-16 h-16 border-4 border-transparent border-t-purple-600 dark:border-t-purple-400 rounded-full animate-spin" style={{
+            borderImage: 'linear-gradient(to right, #9333ea, #4f46e5) 1',
+            background: 'linear-gradient(to right, rgba(147, 51, 234, 0.1), rgba(79, 70, 229, 0.1))',
+            borderRadius: '50%'
+          }}></div>
+          <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-b-indigo-600 dark:border-b-indigo-400 rounded-full animate-spin" style={{
+            animationDirection: 'reverse',
+            animationDuration: '1s',
+            borderImage: 'linear-gradient(to left, #4f46e5, #9333ea) 1',
+            borderRadius: '50%'
+          }}></div>
         </div>
-        <p className="mt-6 text-sage-600 dark:text-sage-400 sepia:text-amber-700 font-medium">Searching sacred texts...</p>
+        <p className="mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-indigo-400 sepia:from-amber-700 sepia:to-amber-600 font-medium">Searching sacred texts...</p>
       </div>
     );
   }
@@ -53,11 +62,11 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
 
     return (
       <div className="space-y-6 relative">
-        {/* Floating Back Button */}
+        {/* Back Button - positioned below header */}
         {onBack && (
           <button
             onClick={onBack}
-            className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 sepia:bg-amber-50 text-sage-600 dark:text-sage-400 sepia:text-amber-700 hover:text-sage-700 dark:hover:text-sage-300 sepia:hover:text-amber-800 hover:bg-sage-50 dark:hover:bg-sage-900/20 sepia:hover:bg-amber-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200"
+            className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 sepia:bg-amber-50 text-sage-600 dark:text-sage-400 sepia:text-amber-700 hover:text-sage-700 dark:hover:text-sage-300 sepia:hover:text-amber-800 hover:bg-sage-50 dark:hover:bg-sage-900/20 sepia:hover:bg-amber-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back
@@ -77,7 +86,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
         {answer && (
           <div className="bg-gradient-to-br from-primary-50 to-indigo-50 dark:from-primary-950 dark:to-indigo-950 sepia:from-amber-100 sepia:to-amber-200 rounded-2xl shadow-soft border-2 border-primary-200 dark:border-primary-800 sepia:border-amber-300 p-6 sm:p-8">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-soft">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-soft">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -86,7 +95,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
               </div>
             </div>
             <div
-              className="prose prose-sm max-w-none text-gray-800 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
+              className="prose prose-sm max-w-none text-gray-900 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
               dangerouslySetInnerHTML={{ __html: formatAIResponse(answer) }}
             />
           </div>
@@ -124,11 +133,11 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
   // Comparison view
   return (
     <div className="space-y-8 relative">
-      {/* Floating Back Button */}
+      {/* Back Button - positioned below header */}
       {onBack && (
         <button
           onClick={onBack}
-          className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 sepia:bg-amber-50 text-sage-600 dark:text-sage-400 sepia:text-amber-700 hover:text-sage-700 dark:hover:text-sage-300 sepia:hover:text-amber-800 hover:bg-sage-50 dark:hover:bg-sage-900/20 sepia:hover:bg-amber-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200"
+          className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 sepia:bg-amber-50 text-sage-600 dark:text-sage-400 sepia:text-amber-700 hover:text-sage-700 dark:hover:text-sage-300 sepia:hover:text-amber-800 hover:bg-sage-50 dark:hover:bg-sage-900/20 sepia:hover:bg-amber-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200 mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           Back
@@ -158,7 +167,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
               </div>
             </div>
             <div
-              className="prose prose-sm max-w-none text-gray-800 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
+              className="prose prose-sm max-w-none text-gray-900 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
               dangerouslySetInnerHTML={{ __html: formatAIResponse(comparativeAnalysis) }}
             />
             
@@ -241,7 +250,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
                   </div>
                 </div>
                 <div
-                  className="prose prose-sm max-w-none text-gray-800 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
+                  className="prose prose-sm max-w-none text-gray-900 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
                   dangerouslySetInnerHTML={{ __html: formatAIResponse(answer) }}
                 />
               </div>

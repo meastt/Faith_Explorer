@@ -24,7 +24,7 @@ export function ChatDrawer() {
 
     // Check chat limit
     if (!incrementChatUsage()) {
-      alert('You have reached your free chat limit. Please upgrade to Premium for unlimited chat.');
+      alert('You\'ve reached your free chat limit (20/month). Upgrade to Premium for unlimited chat starting at just $4.99/month!');
       return;
     }
 

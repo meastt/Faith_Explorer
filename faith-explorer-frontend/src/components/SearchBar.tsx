@@ -17,7 +17,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
       // Check if user has exceeded search limit
       const { isPremium, searchesUsed, searchLimit } = usage;
       if (!isPremium && searchesUsed >= searchLimit) {
-        alert('You have reached your free search limit. Please upgrade to Premium for unlimited searches.');
+        alert('You\'ve reached your free search limit (10/month). Upgrade to Premium for unlimited searches starting at just $4.99/month!');
         return;
       }
 
@@ -37,7 +37,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 sepia:from-amber-50 sepia:to-orange-100 rounded-2xl border border-blue-200 dark:border-blue-800 sepia:border-amber-300 p-6 shadow-soft">
+    <div className="bg-white dark:bg-gradient-to-br dark:from-blue-950 dark:to-indigo-950 sepia:from-amber-50 sepia:to-orange-100 rounded-2xl border border-gray-200 dark:border-blue-800 sepia:border-amber-300 p-6 shadow-soft">
       <form onSubmit={handleSubmit}>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -52,7 +52,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
                 ? 'Search for wisdom, guidance, or teachings...'
                 : 'Compare perspectives across traditions...'
             }
-            className="block w-full pl-12 pr-24 py-4 border border-gray-300 dark:border-gray-600 sepia:border-amber-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900 dark:text-gray-100 sepia:text-amber-900 bg-white dark:bg-gray-700 sepia:bg-amber-100 placeholder-gray-500 dark:placeholder-gray-400 sepia:placeholder-amber-600 transition-all duration-200"
+            className="block w-full pl-12 pr-24 py-4 border border-gray-200 dark:border-gray-600 sepia:border-amber-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-900 dark:text-gray-100 sepia:text-amber-900 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 placeholder-gray-400 dark:placeholder-gray-400 sepia:placeholder-amber-600 transition-all duration-200"
             disabled={isSearching}
           />
           <button

@@ -73,8 +73,8 @@ const getInitialUsage = (): FreemiumUsage => {
   return {
     searchesUsed: 0,
     chatMessagesUsed: 0,
-    searchLimit: 50,
-    chatLimit: 100,
+    searchLimit: 10,
+    chatLimit: 20,
     isPremium: false,
     resetDate: now + 30 * 24 * 60 * 60 * 1000, // 30 days from now
   };
