@@ -18,7 +18,7 @@ interface SearchResultsProps {
 }
 
 export function SearchResults({ results, isLoading, comparativeAnalysis, onBack }: SearchResultsProps) {
-  const { setActiveVerseChat, viewMode } = useStore();
+  const { setActiveVerseChat, viewMode, saveComparison } = useStore();
 
   const handleChatClick = (verse: Verse, religion: Religion) => {
     setActiveVerseChat({
@@ -27,6 +27,34 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
       religion,
       messages: [],
     });
+  };
+
+  const handleSaveComparison = () => {
+    if (comparativeAnalysis && results.length > 0) {
+      saveComparison({
+        id: Date.now().toString(),
+        searchTerm: 'Comparative Analysis',
+        religions: results.map(r => r.religion),
+        results: results.map(r => ({
+          religion: r.religion,
+          verses: r.verses,
+        })),
+        savedAt: Date.now(),
+        notes: comparativeAnalysis,
+      });
+      alert('Comparison saved to your library!');
+    }
+  };
+
+  const handleShareComparison = async () => {
+    if (comparativeAnalysis) {
+      try {
+        await navigator.clipboard.writeText(comparativeAnalysis);
+        alert('Analysis copied to clipboard!');
+      } catch (error) {
+        console.error('Failed to copy:', error);
+      }
+    }
   };
 
   if (isLoading) {
@@ -173,15 +201,24 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
             
             {/* Comparison Actions */}
             <div className="flex items-center gap-2 mt-4 pt-4 border-t border-purple-200 dark:border-purple-700 sepia:border-amber-300">
-              <button className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-purple-600 dark:text-purple-400 sepia:text-amber-700 hover:text-purple-700 dark:hover:text-purple-300 sepia:hover:text-amber-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200">
+              <button
+                onClick={() => alert('Chat feature coming soon! For now, you can discuss specific verses by clicking "Discuss" on individual verses below.')}
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-purple-600 dark:text-purple-400 sepia:text-amber-700 hover:text-purple-700 dark:hover:text-purple-300 sepia:hover:text-amber-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+              >
                 <MessageCircle className="w-3 h-3" />
                 <span className="hidden sm:inline">Discuss</span>
               </button>
-              <button className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200">
+              <button
+                onClick={handleSaveComparison}
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+              >
                 <BookmarkPlus className="w-3 h-3" />
                 <span className="hidden sm:inline">Save</span>
               </button>
-              <button className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200">
+              <button
+                onClick={handleShareComparison}
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+              >
                 <Share2 className="w-3 h-3" />
                 <span className="hidden sm:inline">Share</span>
               </button>
