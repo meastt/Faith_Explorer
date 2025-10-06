@@ -39,6 +39,39 @@ function App() {
     initializeScriptures();
   }, []);
 
+  // Check app version and clear cache if needed
+  useEffect(() => {
+    const currentVersion = '2.0.1-9'; // version-build
+    const storedVersion = localStorage.getItem('faithExplorer_appVersion');
+
+    if (storedVersion !== currentVersion) {
+      console.log(`App updated from ${storedVersion} to ${currentVersion}, clearing cache...`);
+
+      // Clear specific cached data that might be stale
+      // Keep user preferences and saved data
+      const keysToKeep = [
+        'faithExplorer_hasSeenOnboarding',
+        'faithExplorer_premium',
+        'faithExplorer_usage',
+        'faithExplorer-storage', // Zustand persist key
+      ];
+
+      // Get all keys
+      const allKeys = Object.keys(localStorage);
+
+      // Remove keys that aren't in the keep list
+      allKeys.forEach(key => {
+        if (!keysToKeep.some(keepKey => key.includes(keepKey))) {
+          localStorage.removeItem(key);
+        }
+      });
+
+      // Update stored version
+      localStorage.setItem('faithExplorer_appVersion', currentVersion);
+      console.log('Cache cleared for app update');
+    }
+  }, []);
+
   useEffect(() => {
     const hasSeenOnboarding = localStorage.getItem('faithExplorer_hasSeenOnboarding');
     if (!hasSeenOnboarding) {
