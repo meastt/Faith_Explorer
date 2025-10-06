@@ -44,12 +44,14 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
       let packageToUse = null;
 
       if (selectedPlan === 'annual') {
-        // Try to find annual package by packageType first, then by identifier
-        packageToUse = packages.find((pkg: any) => pkg.packageType === 'ANNUAL') ||
+        // Try to find annual package by exact ID first, then packageType, then identifier pattern
+        packageToUse = packages.find((pkg: any) => pkg.identifier === 'prod_734d9efaca') ||
+                      packages.find((pkg: any) => pkg.packageType === 'ANNUAL') ||
                       packages.find((pkg: any) => pkg.identifier?.toLowerCase().includes('annual') || pkg.identifier?.toLowerCase().includes('yearly'));
       } else {
-        // Try to find monthly package by packageType first, then by identifier
-        packageToUse = packages.find((pkg: any) => pkg.packageType === 'MONTHLY') ||
+        // Try to find monthly package by exact ID first, then packageType, then identifier pattern
+        packageToUse = packages.find((pkg: any) => pkg.identifier === 'prod_e0339d2171') ||
+                      packages.find((pkg: any) => pkg.packageType === 'MONTHLY') ||
                       packages.find((pkg: any) => pkg.identifier?.toLowerCase().includes('monthly') || pkg.identifier?.toLowerCase().includes('month'));
       }
 
