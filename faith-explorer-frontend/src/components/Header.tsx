@@ -34,9 +34,11 @@ export function Header() {
 
   const handleUpgradeClick = () => {
     if (isPremium) {
-      // Show manage subscription options
-      alert('Subscription managed through your app store. To cancel, visit your subscription settings.');
+      // For premium users, show how to manage subscription
+      // On iOS, this should direct them to App Store settings
+      alert('Your subscription is active! To manage or cancel, go to Settings > [Your Name] > Subscriptions on your device.');
     } else {
+      // For non-premium users, show the subscription modal
       setShowSubscriptionModal(true);
     }
   };
@@ -70,8 +72,8 @@ export function Header() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50">
-        <header className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 shadow-lg">
+      <div className="fixed top-0 left-0 right-0 z-50 shadow-md">
+        <header className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700">
           {/* Decorative Pattern Overlay */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0" style={{
@@ -79,29 +81,32 @@ export function Header() {
               backgroundSize: '32px 32px'
             }}></div>
           </div>
+          
+          {/* Subtle gradient shine effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
           <div className="relative max-w-4xl mx-auto px-4 pt-safe">
-            <div className="flex items-center justify-between h-16">
+            <div className="flex items-center justify-between h-14">
               {/* Logo & Title */}
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg border border-white/30">
+              <div className="flex items-center space-x-2.5">
+                <div className="w-9 h-9 bg-white/25 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg border border-white/40 ring-2 ring-white/20">
                   <BookOpen className={`${ICON_SIZES.SM} text-white`} strokeWidth={2.5} />
                 </div>
                 <div>
-                  <h1 className="text-base font-bold text-white tracking-tight">Faith Explorer</h1>
-                  <p className="text-xs text-white/70 -mt-0.5 hidden sm:block">Sacred wisdom across traditions</p>
+                  <h1 className="text-lg font-bold text-white tracking-tight drop-shadow-sm">Faith Explorer</h1>
+                  <p className="text-xs text-white/80 -mt-0.5 hidden sm:block font-medium">Sacred wisdom across traditions</p>
                 </div>
               </div>
 
               {/* Actions */}
-              <div className="flex items-center space-x-1.5">
+              <div className="flex items-center space-x-2">
                 <UsageStatusIndicator onClick={handleUpgradeClick} />
                 <button
                   onClick={handleUpgradeClick}
-                  className={`hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-semibold transition-all text-xs shadow-md ${
+                  className={`hidden sm:flex items-center space-x-1.5 px-3.5 py-2 rounded-lg font-semibold transition-all text-xs shadow-lg hover:shadow-xl transform hover:scale-105 ${
                     isPremium
                       ? 'bg-gradient-to-r from-yellow-300 to-amber-400 text-amber-900 border border-yellow-400/50 shadow-yellow-500/25'
-                      : 'bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 hover:shadow-lg'
+                      : 'bg-white/25 backdrop-blur-md text-white border border-white/40 hover:bg-white/35'
                   }`}
                 >
                   <Star className={`${ICON_SIZES.SM} ${isPremium ? 'fill-current' : ''}`} />
@@ -114,7 +119,7 @@ export function Header() {
                     setShowMobileMenu(!showMobileMenu);
                     setShowDesktopMenu(!showDesktopMenu);
                   }}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/20 transition-colors"
+                  className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/25 transition-all backdrop-blur-sm border border-white/20"
                 >
                   {(showMobileMenu || showDesktopMenu) ? <X className={`${ICON_SIZES.MD} text-white`} /> : <Menu className={`${ICON_SIZES.MD} text-white`} />}
                 </button>

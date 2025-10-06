@@ -32,13 +32,40 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
 
     try {
       console.log('Starting subscription process...');
+      console.log('Current offerings:', offerings);
 
-      // Use selected plan or fallback
-      const packageId = selectedPlan === 'annual'
-        ? (offerings?.current?.annual?.identifier || 'premium_annual')
-        : (offerings?.current?.monthly?.identifier || 'premium_monthly');
+      // Find the appropriate package from available packages
+      if (!offerings?.current?.availablePackages || offerings.current.availablePackages.length === 0) {
+        throw new Error('No subscription packages available. Please check your RevenueCat configuration.');
+      }
 
-      const success = await revenueCat.purchaseSubscription(packageId);
+      // Look for packages by packageType or identifier
+      const packages = offerings.current.availablePackages;
+      let packageToUse = null;
+
+      if (selectedPlan === 'annual') {
+        // Try to find annual package by packageType first, then by identifier
+        packageToUse = packages.find((pkg: any) => pkg.packageType === 'ANNUAL') ||
+                      packages.find((pkg: any) => pkg.identifier?.toLowerCase().includes('annual') || pkg.identifier?.toLowerCase().includes('yearly'));
+      } else {
+        // Try to find monthly package by packageType first, then by identifier
+        packageToUse = packages.find((pkg: any) => pkg.packageType === 'MONTHLY') ||
+                      packages.find((pkg: any) => pkg.identifier?.toLowerCase().includes('monthly') || pkg.identifier?.toLowerCase().includes('month'));
+      }
+
+      // Fallback to first package if no match found
+      if (!packageToUse && packages.length > 0) {
+        console.warn('Could not find matching package, using first available package');
+        packageToUse = packages[0];
+      }
+
+      if (!packageToUse) {
+        throw new Error('No subscription package found. Please contact support.');
+      }
+
+      console.log('Purchasing package:', packageToUse.identifier);
+
+      const success = await revenueCat.purchaseSubscription(packageToUse.identifier);
       
       if (success) {
         console.log('Subscription successful!');
@@ -49,7 +76,13 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
       }
     } catch (error: any) {
       console.error('Subscription error:', error);
-      setError(error.message || 'Failed to process subscription. Please try again.');
+      
+      // Handle user cancellation gracefully
+      if (error.message?.includes('cancelled') || error.message?.includes('cancel')) {
+        setError('Purchase cancelled');
+      } else {
+        setError(error.message || 'Failed to process subscription. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -145,7 +178,11 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
           >
             <div className="flex items-baseline justify-center gap-2">
               <span className="text-3xl font-bold text-gray-900">
-                {offerings?.current?.monthly?.storeProduct?.priceString || '$4.99'}
+                {offerings?.current?.availablePackages?.find((pkg: any) => 
+                  pkg.packageType === 'MONTHLY' || 
+                  pkg.identifier?.toLowerCase().includes('monthly') || 
+                  pkg.identifier?.toLowerCase().includes('month')
+                )?.storeProduct?.priceString || '$4.99'}
               </span>
               <span className="text-gray-600">/month</span>
             </div>
@@ -164,7 +201,11 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
             </div>
             <div className="flex items-baseline justify-center gap-2">
               <span className="text-3xl font-bold text-gray-900">
-                {offerings?.current?.annual?.storeProduct?.priceString || '$39.99'}
+                {offerings?.current?.availablePackages?.find((pkg: any) => 
+                  pkg.packageType === 'ANNUAL' || 
+                  pkg.identifier?.toLowerCase().includes('annual') || 
+                  pkg.identifier?.toLowerCase().includes('yearly')
+                )?.storeProduct?.priceString || '$39.99'}
               </span>
               <span className="text-gray-600">/year</span>
             </div>
