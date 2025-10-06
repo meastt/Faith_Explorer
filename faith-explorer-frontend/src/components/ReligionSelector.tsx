@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { RELIGIONS, type Religion } from '../types';
+import { ChevronDown, ChevronUp, Check } from 'lucide-react';
+import { RELIGIONS, type Religion, type ReligionSubsetId } from '../types';
 import { useStore } from '../store/useStore';
 
 // Religion icons as SVG paths
@@ -54,151 +54,204 @@ function getReligionIcon(religionId: Religion): React.ReactElement {
 }
 
 export function ReligionSelector() {
-  const { viewMode, setViewMode, selectedReligions, toggleReligion, setSelectedReligions } = useStore();
-  const [expandedReligion, setExpandedReligion] = useState<string | null>(null);
+  const { viewMode, setViewMode, selectedSubsets, toggleSubset, setSelectedSubsets } = useStore();
+  const [selectedReligion, setSelectedReligion] = useState<Religion>('christianity');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleModeChange = (mode: 'single' | 'comparison') => {
     setViewMode(mode);
-    if (mode === 'single' && selectedReligions.length > 1) {
-      setSelectedReligions([selectedReligions[0]]);
+    if (mode === 'single' && selectedSubsets.length > 1) {
+      setSelectedSubsets([selectedSubsets[0]]);
     }
   };
+
+  const handleReligionChange = (religion: Religion) => {
+    setSelectedReligion(religion);
+    setIsDropdownOpen(false);
+    
+    // Auto-select first available subset if none selected for this religion
+    const religionInfo = RELIGIONS.find(r => r.id === religion);
+    if (religionInfo?.subsets) {
+      const availableSubsets = religionInfo.subsets.filter(s => !s.comingSoon);
+      if (availableSubsets.length > 0 && !selectedSubsets.some(s => s.religion === religion)) {
+        toggleSubset(religion, availableSubsets[0].id);
+      }
+    }
+  };
+
+  const handleSubsetToggle = (religion: Religion, subset: ReligionSubsetId) => {
+    if (viewMode === 'single') {
+      // In single mode, replace current selection
+      setSelectedSubsets([{ religion, subset }]);
+    } else {
+      // In comparison mode, toggle selection
+      toggleSubset(religion, subset);
+    }
+  };
+
+  const selectedReligionInfo = RELIGIONS.find(r => r.id === selectedReligion);
 
   return (
     <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-6 shadow-soft">
       {/* Mode Toggle */}
       <div className="mb-6">
-        <div className="flex space-x-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-200 p-1 rounded-xl">
+        <div className="flex space-x-2 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 sepia:from-amber-200 sepia:to-amber-300 p-1 rounded-xl border border-gray-200 dark:border-gray-600 sepia:border-amber-300">
           <button
             onClick={() => handleModeChange('single')}
             className={`flex-1 px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
               viewMode === 'single'
-                ? 'bg-white dark:bg-gray-800 sepia:bg-amber-100 text-gray-900 dark:text-gray-100 sepia:text-amber-900 shadow-soft'
-                : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-900 dark:hover:text-gray-100 sepia:hover:text-amber-900 hover:bg-white/50 dark:hover:bg-gray-600/50 sepia:hover:bg-amber-100/50'
+                ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105'
+                : 'text-gray-700 dark:text-gray-300 sepia:text-amber-700 hover:text-gray-900 dark:hover:text-gray-100 sepia:hover:text-amber-900 hover:bg-white/70 dark:hover:bg-gray-600/70 sepia:hover:bg-amber-100/70'
             }`}
           >
-            Single Religion
+            Single Text
           </button>
           <button
             onClick={() => handleModeChange('comparison')}
             className={`flex-1 px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
               viewMode === 'comparison'
-                ? 'bg-white dark:bg-gray-800 sepia:bg-amber-100 text-gray-900 dark:text-gray-100 sepia:text-amber-900 shadow-soft'
-                : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-900 dark:hover:text-gray-100 sepia:hover:text-amber-900 hover:bg-white/50 dark:hover:bg-gray-600/50 sepia:hover:bg-amber-100/50'
+                ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105'
+                : 'text-gray-700 dark:text-gray-300 sepia:text-amber-700 hover:text-gray-900 dark:hover:text-gray-100 sepia:hover:text-amber-900 hover:bg-white/70 dark:hover:bg-gray-600/70 sepia:hover:bg-amber-100/70'
             }`}
           >
-            Compare Religions
+            Compare Texts
           </button>
         </div>
       </div>
 
-      {/* Religion Selection */}
-      <div>
+      {/* Religion Dropdown */}
+      <div className="mb-6">
         <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-4">
-          {viewMode === 'single' ? 'Select a Religion' : 'Select Religions to Compare'}
+          Select Religion
         </h3>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {RELIGIONS.map((religion) => {
-            const isSelected = selectedReligions.includes(religion.id);
-            const canSelect =
-              viewMode === 'single'
-                ? true
-                : selectedReligions.length < 7 || isSelected;
-
-            return (
-              <button
-                key={religion.id}
-                onClick={() => {
-                  if (viewMode === 'single') {
-                    setSelectedReligions([religion.id]);
-                  } else {
-                    if (canSelect) {
-                      toggleReligion(religion.id);
-                    }
-                  }
-                }}
-                disabled={!canSelect}
-                className={`p-6 text-center border-2 rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
-                  isSelected
-                    ? 'shadow-soft'
-                    : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400 bg-white dark:bg-gray-700 sepia:bg-amber-50 hover:shadow-soft'
-                } ${!canSelect ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                style={isSelected ? {
-                  borderColor: religion.color,
-                  backgroundColor: `color-mix(in srgb, ${religion.color} 10%, transparent)`,
-                } : undefined}
+        <div className="relative">
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="w-full flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-200 rounded-xl border border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-300 transition-colors"
+          >
+            <div className="flex items-center space-x-3">
+              <div 
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm"
+                style={{ backgroundColor: selectedReligionInfo?.color }}
               >
-                <div className="flex flex-col items-center space-y-2">
-                  {/* Religion Icon */}
-                  <div className="w-12 h-12 flex items-center justify-center rounded-full" style={{ backgroundColor: `${religion.color}20` }}>
-                    <svg className="w-6 h-6" style={{ color: religion.color }} fill="currentColor" viewBox="0 0 24 24">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  {getReligionIcon(selectedReligion)}
+                </svg>
+              </div>
+              <span className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">
+                {selectedReligionInfo?.name}
+              </span>
+            </div>
+            {isDropdownOpen ? <ChevronUp className="w-5 h-5 text-gray-500" /> : <ChevronDown className="w-5 h-5 text-gray-500" />}
+          </button>
+
+          {isDropdownOpen && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 shadow-lg z-10 max-h-64 overflow-y-auto">
+              {RELIGIONS.map((religion) => (
+                <button
+                  key={religion.id}
+                  onClick={() => handleReligionChange(religion.id)}
+                  className="w-full flex items-center space-x-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 transition-colors first:rounded-t-xl last:rounded-b-xl"
+                >
+                  <div 
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm"
+                    style={{ backgroundColor: religion.color }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                       {getReligionIcon(religion.id)}
                     </svg>
                   </div>
-                  
-                  {/* Religion Name with Subset Indicator */}
-                  <div className="flex items-center gap-1">
-                    <div className="font-medium text-sm text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-center" style={{ color: religion.color }}>
+                  <div className="flex-1 text-left">
+                    <div className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">
                       {religion.name}
                     </div>
-                    {religion.subsets && religion.subsets.length > 0 && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setExpandedReligion(expandedReligion === religion.id ? null : religion.id);
-                        }}
-                        className="p-0.5 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-300 rounded"
-                      >
-                        {expandedReligion === religion.id ? (
-                          <ChevronUp className="w-3 h-3 text-gray-500" />
-                        ) : (
-                          <ChevronDown className="w-3 h-3 text-gray-500" />
-                        )}
-                      </button>
-                    )}
+                    <div className="text-sm text-gray-500 dark:text-gray-400 sepia:text-amber-600">
+                      {religion.verseCount?.toLocaleString()} verses
+                    </div>
                   </div>
-                </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
 
-                {/* Subsets Dropdown */}
-                {expandedReligion === religion.id && religion.subsets && (
-                  <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600 sepia:border-amber-300 space-y-1" onClick={(e) => e.stopPropagation()}>
-                    {religion.subsets.map((subset) => (
-                      <div
-                        key={subset.id}
-                        className={`flex items-center justify-between p-2 rounded-md text-xs ${
-                          subset.comingSoon
-                            ? 'bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 opacity-60 cursor-not-allowed'
-                            : 'bg-blue-50 dark:bg-blue-900/30 sepia:bg-amber-200 border border-blue-200 dark:border-blue-700 sepia:border-amber-400'
-                        }`}
-                      >
-                        <div>
-                          <div className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{subset.name}</div>
-                          <div className="text-gray-600 dark:text-gray-400 sepia:text-amber-700">{subset.description}</div>
-                        </div>
+      {/* Subset Selection */}
+      {selectedReligionInfo && (
+        <div>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-4">
+            {viewMode === 'single' ? 'Select a Text' : 'Select Texts to Compare'}
+          </h3>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {selectedReligionInfo.subsets?.map((subset) => {
+              const isSelected = selectedSubsets.some(s => s.religion === selectedReligion && s.subset === subset.id);
+              const isDisabled = subset.comingSoon;
+              
+              return (
+                <button
+                  key={subset.id}
+                  onClick={() => !isDisabled && handleSubsetToggle(selectedReligion, subset.id)}
+                  disabled={isDisabled}
+                  className={`p-4 rounded-xl border-2 transition-all duration-200 text-left ${
+                    isSelected
+                      ? 'border-primary-500 bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-950 dark:to-primary-900 sepia:from-amber-100 sepia:to-amber-200 shadow-md'
+                      : isDisabled
+                      ? 'border-gray-200 dark:border-gray-700 sepia:border-amber-200 bg-gray-50 dark:bg-gray-800 sepia:bg-amber-50 cursor-not-allowed opacity-60'
+                      : 'border-gray-200 dark:border-gray-700 sepia:border-amber-200 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 sepia:from-amber-50 sepia:to-amber-100 hover:border-gray-300 dark:hover:border-gray-600 sepia:hover:border-amber-300 hover:shadow-sm'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-1">
+                        <h4 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">
+                          {subset.name}
+                        </h4>
                         {subset.comingSoon && (
-                          <span className="px-2 py-0.5 bg-gray-200 dark:bg-gray-600 sepia:bg-amber-300 text-gray-700 dark:text-gray-300 sepia:text-amber-800 rounded-full text-xs font-semibold">
+                          <span className="text-xs bg-gray-200 dark:bg-gray-700 sepia:bg-amber-300 text-gray-600 dark:text-gray-400 sepia:text-amber-700 px-2 py-1 rounded-full">
                             Coming Soon
                           </span>
                         )}
                       </div>
-                    ))}
+                      <p className="text-sm text-gray-500 dark:text-gray-400 sepia:text-amber-600">
+                        {subset.description}
+                      </p>
+                    </div>
+                    {isSelected && (
+                      <div className="ml-3">
+                        <Check className="w-5 h-5 text-primary-600 dark:text-primary-400 sepia:text-amber-600" />
+                      </div>
+                    )}
                   </div>
-                )}
-
-              </button>
-            );
-          })}
-        </div>
-
-        {viewMode === 'comparison' && selectedReligions.length < 2 && (
-          <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <p className="text-sm text-yellow-800">
-              Please select at least 2 religions to compare
-            </p>
+                </button>
+              );
+            })}
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
+      {/* Selected Summary */}
+      {selectedSubsets.length > 0 && (
+        <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-200 rounded-xl">
+          <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">
+            Selected Texts ({selectedSubsets.length}):
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {selectedSubsets.map((selected, index) => {
+              const religionInfo = RELIGIONS.find(r => r.id === selected.religion);
+              const subsetInfo = religionInfo?.subsets?.find(s => s.id === selected.subset);
+              return (
+                <span
+                  key={index}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 dark:bg-primary-900 sepia:bg-amber-200 text-primary-800 dark:text-primary-200 sepia:text-amber-800"
+                >
+                  {religionInfo?.name}: {subsetInfo?.name}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

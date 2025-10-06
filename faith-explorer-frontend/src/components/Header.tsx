@@ -4,6 +4,7 @@ import { useStore } from '../store/useStore';
 import { SubscriptionModal } from './SubscriptionModal';
 import { About } from './About';
 import { Settings } from './Settings';
+import { UsageStatusIndicator } from './UsageStatusIndicator';
 import { revenueCat } from '../services/revenuecat';
 import { ICON_SIZES } from '../styles/design-system';
 
@@ -94,6 +95,7 @@ export function Header() {
 
               {/* Actions */}
               <div className="flex items-center space-x-1.5">
+                <UsageStatusIndicator />
                 <button
                   onClick={handleUpgradeClick}
                   className={`hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-semibold transition-all text-xs shadow-md ${

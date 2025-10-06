@@ -2,11 +2,13 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type {
   Religion,
+  ReligionSubsetId,
   ViewMode,
   SavedVerse,
   SavedComparison,
   VerseChat,
   FreemiumUsage,
+  SelectedSubset,
 } from '../types';
 
 export interface ReadingPreferences {
@@ -20,10 +22,16 @@ interface AppState {
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
 
-  // Selected religions
+  // Selected religions (legacy - for backward compatibility)
   selectedReligions: Religion[];
   setSelectedReligions: (religions: Religion[]) => void;
   toggleReligion: (religion: Religion) => void;
+
+  // Selected subsets (new approach)
+  selectedSubsets: SelectedSubset[];
+  setSelectedSubsets: (subsets: SelectedSubset[]) => void;
+  toggleSubset: (religion: Religion, subset: ReligionSubsetId) => void;
+  clearSelectedSubsets: () => void;
 
   // Search
   searchTerm: string;
@@ -78,6 +86,7 @@ export const useStore = create<AppState>()(
       // Initial state
       viewMode: 'single',
       selectedReligions: ['christianity'],
+      selectedSubsets: [{ religion: 'christianity', subset: 'kjv' }],
       searchTerm: '',
       isSearching: false,
       savedVerses: [],
@@ -108,6 +117,30 @@ export const useStore = create<AppState>()(
             };
           }
         }),
+
+      setSelectedSubsets: (subsets) => set({ selectedSubsets: subsets }),
+
+      toggleSubset: (religion, subset) =>
+        set((state) => {
+          const current = state.selectedSubsets;
+          const existing = current.find(
+            (s) => s.religion === religion && s.subset === subset
+          );
+          
+          if (existing) {
+            return {
+              selectedSubsets: current.filter(
+                (s) => !(s.religion === religion && s.subset === subset)
+              ),
+            };
+          } else {
+            return {
+              selectedSubsets: [...current, { religion, subset }],
+            };
+          }
+        }),
+
+      clearSelectedSubsets: () => set({ selectedSubsets: [] }),
 
       setSearchTerm: (term) => set({ searchTerm: term }),
 

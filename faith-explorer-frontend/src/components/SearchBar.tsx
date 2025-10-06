@@ -9,7 +9,7 @@ interface SearchBarProps {
 
 export function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState('');
-  const { isSearching, viewMode, selectedReligions, usage } = useStore();
+  const { isSearching, viewMode, selectedSubsets, usage } = useStore();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,22 +21,23 @@ export function SearchBar({ onSearch }: SearchBarProps) {
         return;
       }
 
-      if (viewMode === 'comparison' && selectedReligions.length < 2) {
-        alert('Please select at least 2 religions to compare');
+      if (viewMode === 'comparison' && selectedSubsets.length < 2) {
+        alert('Please select at least 2 religious texts to compare');
         return;
       }
 
-      if (selectedReligions.length === 0) {
-        alert('Please select at least one religion');
+      if (selectedSubsets.length === 0) {
+        alert('Please select at least one religious text');
         return;
       }
 
       onSearch(query.trim());
+      setQuery(''); // Clear input after search
     }
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-6 shadow-soft">
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 sepia:from-amber-50 sepia:to-orange-100 rounded-2xl border border-blue-200 dark:border-blue-800 sepia:border-amber-300 p-6 shadow-soft">
       <form onSubmit={handleSubmit}>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">

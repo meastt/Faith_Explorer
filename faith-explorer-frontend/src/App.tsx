@@ -13,24 +13,31 @@ import { LearningPaths } from './components/LearningPaths';
 import { TabButton } from './components/TabButton';
 import { Footer } from './components/Footer';
 import { useStore } from './store/useStore';
-import { searchReligion, searchMultipleReligions, getComparativeAnalysis } from './services/api';
-import type { Religion, Verse } from './types';
+import { searchSubsets, getComparativeAnalysis } from './services/api';
+import { initializeScriptures } from './services/search';
+import type { Religion, Verse, ReligionSubsetId } from './types';
 
 type Tab = 'search' | 'saved';
 
 export interface SearchResultWithAnswer {
   religion: Religion;
+  subset: ReligionSubsetId;
   answer: string;
   verses: Verse[];
 }
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('search');
-  const { viewMode, selectedReligions, setIsSearching, incrementSearchUsage } = useStore();
+  const { viewMode, selectedSubsets, setIsSearching, incrementSearchUsage, clearSelectedSubsets } = useStore();
   const [searchResults, setSearchResults] = useState<SearchResultWithAnswer[]>([]);
   const [comparativeAnalysis, setComparativeAnalysis] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Initialize scriptures on app start
+  useEffect(() => {
+    initializeScriptures();
+  }, []);
 
   useEffect(() => {
     const hasSeenOnboarding = localStorage.getItem('faithExplorer_hasSeenOnboarding');
@@ -42,6 +49,12 @@ function App() {
   const handleCloseOnboarding = () => {
     setShowOnboarding(false);
     localStorage.setItem('faithExplorer_hasSeenOnboarding', 'true');
+  };
+
+  const handleClearResults = () => {
+    setSearchResults([]);
+    setComparativeAnalysis('');
+    clearSelectedSubsets(); // Reset selected religions/subsets
   };
 
   const handleSearch = async (query: string) => {
@@ -57,26 +70,43 @@ function App() {
     setComparativeAnalysis('');
 
     try {
-      if (viewMode === 'single') {
-        const religion = selectedReligions[0];
-        const result = await searchReligion(religion, query);
-        setSearchResults([{ religion, answer: result.answer, verses: result.sources }]);
-      } else {
-        const results = await searchMultipleReligions(selectedReligions, query);
-        const formattedResults = results.map(({ religion, result }) => ({
-          religion,
-          answer: result.answer,
-          verses: result.sources,
-        }));
-        setSearchResults(formattedResults);
+      if (selectedSubsets.length === 0) {
+        alert('Please select at least one religious text to search.');
+        return;
+      }
 
-        // Get comparative analysis if we have results from multiple religions
-        if (formattedResults.length >= 2 && formattedResults.some(r => r.answer)) {
+      if (viewMode === 'single') {
+        // For single mode, search all selected subsets together
+        const result = await searchSubsets(selectedSubsets, query);
+        setSearchResults([{ 
+          religion: selectedSubsets[0].religion, 
+          subset: selectedSubsets[0].subset,
+          answer: result.answer, 
+          verses: result.sources 
+        }]);
+      } else {
+        // For comparison mode, search each subset separately
+        const results = await Promise.all(
+          selectedSubsets.map(async (selectedSubset) => {
+            const result = await searchSubsets([selectedSubset], query);
+            return {
+              religion: selectedSubset.religion,
+              subset: selectedSubset.subset,
+              answer: result.answer,
+              verses: result.sources,
+            };
+          })
+        );
+        
+        setSearchResults(results);
+
+        // Get comparative analysis if we have results from multiple subsets
+        if (results.length >= 2 && results.some(r => r.answer)) {
           try {
             const analysis = await getComparativeAnalysis(
-              selectedReligions,
+              selectedSubsets.map(s => s.religion),
               query,
-              formattedResults.map(r => ({ religion: r.religion, answer: r.answer }))
+              results.map(r => ({ religion: r.religion, answer: r.answer }))
             );
             setComparativeAnalysis(analysis);
           } catch (error) {
@@ -144,7 +174,12 @@ function App() {
                 <LearningPaths onStepSelect={(query) => handleSearch(query)} />
               </div>
             )}
-            <SearchResults results={searchResults} isLoading={isLoading} comparativeAnalysis={comparativeAnalysis} />
+            <SearchResults 
+              results={searchResults} 
+              isLoading={isLoading} 
+              comparativeAnalysis={comparativeAnalysis} 
+              onBack={searchResults.length > 0 ? handleClearResults : undefined}
+            />
           </div>
         ) : (
           <SavedLibrary />

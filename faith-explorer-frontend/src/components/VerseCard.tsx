@@ -96,26 +96,26 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
       )}
 
       {/* Actions */}
-      <div className="flex items-center flex-wrap gap-3 pt-4 border-t border-gray-100 dark:border-gray-700 sepia:border-amber-200">
+      <div className="flex items-center flex-wrap gap-1 pt-4 border-t border-gray-100 dark:border-gray-700 sepia:border-amber-200">
         <button
           onClick={onChatClick}
-          className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 sepia:text-amber-700 hover:text-primary-700 dark:hover:text-primary-300 sepia:hover:text-amber-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 sepia:hover:bg-amber-100 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+          className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 sepia:text-amber-700 hover:text-primary-700 dark:hover:text-primary-300 sepia:hover:text-amber-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
         >
-          <MessageCircle className={ICON_SIZES.SM} />
-          <span>Discuss</span>
+          <MessageCircle className="w-4 h-4" />
+          <span className="hidden sm:inline">Discuss</span>
         </button>
         <button
           onClick={() => setShowContext(!showContext)}
-          className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+          className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
         >
-          <BookOpen className={ICON_SIZES.SM} />
+          <BookOpen className="w-4 h-4" />
           <span className="hidden sm:inline">Context</span>
-          {showContext ? <ChevronUp className={ICON_SIZES.SM} /> : <ChevronDown className={ICON_SIZES.SM} />}
+          {showContext ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </button>
         <button
           onClick={handleSave}
           disabled={isSaved}
-          className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
+          className={`flex items-center space-x-1.5 px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
             isSaved
               ? 'text-green-600 dark:text-green-400 sepia:text-green-700 bg-green-50 dark:bg-green-900/30 sepia:bg-green-100/50'
               : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
@@ -123,21 +123,21 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
         >
           {isSaved ? (
             <>
-              <BookmarkCheck className={ICON_SIZES.SM} />
-              <span>Saved</span>
+              <BookmarkCheck className="w-4 h-4" />
+              <span className="hidden sm:inline">Saved</span>
             </>
           ) : (
             <>
-              <BookmarkPlus className={ICON_SIZES.SM} />
-              <span>Save</span>
+              <BookmarkPlus className="w-4 h-4" />
+              <span className="hidden sm:inline">Save</span>
             </>
           )}
         </button>
         <button
           onClick={handleShare}
-          className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+          className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
         >
-          <Share2 className={ICON_SIZES.SM} />
+          <Share2 className="w-4 h-4" />
           <span className="hidden sm:inline">Share</span>
         </button>
       </div>

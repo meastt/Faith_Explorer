@@ -1,5 +1,5 @@
-import { Search as SearchIcon, Sparkles } from 'lucide-react';
-import type { Religion, Verse } from '../types';
+import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2 } from 'lucide-react';
+import type { Religion, Verse, ReligionSubsetId } from '../types';
 import { VerseCard } from './VerseCard';
 import { useStore } from '../store/useStore';
 import { RELIGIONS } from '../types';
@@ -8,14 +8,16 @@ import { formatAIResponse } from '../utils/markdown';
 interface SearchResultsProps {
   results: {
     religion: Religion;
+    subset: ReligionSubsetId;
     answer: string;
     verses: Verse[];
   }[];
   isLoading: boolean;
   comparativeAnalysis?: string;
+  onBack?: () => void;
 }
 
-export function SearchResults({ results, isLoading, comparativeAnalysis }: SearchResultsProps) {
+export function SearchResults({ results, isLoading, comparativeAnalysis, onBack }: SearchResultsProps) {
   const { setActiveVerseChat, viewMode } = useStore();
 
   const handleChatClick = (verse: Verse, religion: Religion) => {
@@ -45,16 +47,28 @@ export function SearchResults({ results, isLoading, comparativeAnalysis }: Searc
 
   // Single religion view
   if (viewMode === 'single') {
-    const { religion, answer, verses } = results[0];
+    const { religion, subset, answer, verses } = results[0];
     const religionInfo = RELIGIONS.find((r) => r.id === religion);
+    const subsetInfo = religionInfo?.subsets?.find((s) => s.id === subset);
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 relative">
+        {/* Floating Back Button */}
+        {onBack && (
+          <button
+            onClick={onBack}
+            className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 sepia:bg-amber-50 text-sage-600 dark:text-sage-400 sepia:text-amber-700 hover:text-sage-700 dark:hover:text-sage-300 sepia:hover:text-amber-800 hover:bg-sage-50 dark:hover:bg-sage-900/20 sepia:hover:bg-amber-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </button>
+        )}
+        
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">Search Results</h2>
             <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700 mt-1">
-              {verses.length} {verses.length === 1 ? 'verse' : 'verses'} found in {religionInfo?.name}
+              {verses.length} {verses.length === 1 ? 'verse' : 'verses'} found in {subsetInfo?.name || religionInfo?.name}
             </p>
           </div>
         </div>
@@ -68,7 +82,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis }: Searc
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-1">AI Insight</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Based on {religionInfo?.text}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Based on {subsetInfo?.name || religionInfo?.text}</p>
               </div>
             </div>
             <div
@@ -109,12 +123,25 @@ export function SearchResults({ results, isLoading, comparativeAnalysis }: Searc
 
   // Comparison view
   return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">Comparison Results</h2>
-        <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700 mt-1">
-          Exploring perspectives across {results.length} traditions
-        </p>
+    <div className="space-y-8 relative">
+      {/* Floating Back Button */}
+      {onBack && (
+        <button
+          onClick={onBack}
+          className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 sepia:bg-amber-50 text-sage-600 dark:text-sage-400 sepia:text-amber-700 hover:text-sage-700 dark:hover:text-sage-300 sepia:hover:text-amber-800 hover:bg-sage-50 dark:hover:bg-sage-900/20 sepia:hover:bg-amber-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back
+        </button>
+      )}
+      
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">Comparison Results</h2>
+          <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700 mt-1">
+            Exploring perspectives across {results.length} traditions
+          </p>
+        </div>
       </div>
 
       {/* Comparative Analysis - Now at the TOP */}
@@ -134,6 +161,22 @@ export function SearchResults({ results, isLoading, comparativeAnalysis }: Searc
               className="prose prose-sm max-w-none text-gray-800 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
               dangerouslySetInnerHTML={{ __html: formatAIResponse(comparativeAnalysis) }}
             />
+            
+            {/* Comparison Actions */}
+            <div className="flex items-center gap-2 mt-4 pt-4 border-t border-purple-200 dark:border-purple-700 sepia:border-amber-300">
+              <button className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-purple-600 dark:text-purple-400 sepia:text-amber-700 hover:text-purple-700 dark:hover:text-purple-300 sepia:hover:text-amber-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200">
+                <MessageCircle className="w-3 h-3" />
+                <span className="hidden sm:inline">Discuss</span>
+              </button>
+              <button className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200">
+                <BookmarkPlus className="w-3 h-3" />
+                <span className="hidden sm:inline">Save</span>
+              </button>
+              <button className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200">
+                <Share2 className="w-3 h-3" />
+                <span className="hidden sm:inline">Share</span>
+              </button>
+            </div>
           </div>
 
           {/* Separator */}
@@ -150,11 +193,12 @@ export function SearchResults({ results, isLoading, comparativeAnalysis }: Searc
         </>
       )}
 
-      {results.map(({ religion, answer, verses }) => {
+      {results.map(({ religion, subset, answer, verses }) => {
         const religionInfo = RELIGIONS.find((r) => r.id === religion);
+        const subsetInfo = religionInfo?.subsets?.find((s) => s.id === subset);
 
         return (
-          <div key={religion} className="space-y-4">
+          <div key={`${religion}-${subset}`} className="space-y-4">
             {/* Section Header */}
             <div className="flex items-center gap-3 pb-3 border-b-2" style={{ borderColor: religionInfo?.color }}>
               <div
@@ -167,7 +211,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis }: Searc
               </div>
               <div>
                 <h3 className="text-xl font-bold" style={{ color: religionInfo?.color }}>
-                  {religionInfo?.name}
+                  {subsetInfo?.name || religionInfo?.name}
                 </h3>
                 <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700">
                   {verses.length} {verses.length === 1 ? 'result' : 'results'} found
@@ -192,12 +236,12 @@ export function SearchResults({ results, isLoading, comparativeAnalysis }: Searc
                     <Sparkles className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{religionInfo?.name} Perspective</h4>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 sepia:text-amber-700">Based on {religionInfo?.text}</p>
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{subsetInfo?.name || religionInfo?.name} Perspective</h4>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 sepia:text-amber-700">Based on {subsetInfo?.name || religionInfo?.text}</p>
                   </div>
                 </div>
                 <div
-                  className="text-sm text-gray-800 dark:text-gray-200 sepia:text-amber-800 leading-relaxed"
+                  className="prose prose-sm max-w-none text-gray-800 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
                   dangerouslySetInnerHTML={{ __html: formatAIResponse(answer) }}
                 />
               </div>
