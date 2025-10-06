@@ -9,8 +9,7 @@ const config: CapacitorConfig = {
   },
   ios: {
     contentInset: 'always',
-    scheme: 'faithexplorer',
-    path: 'ios/App'
+    scheme: 'faithexplorer'
   },
   plugins: {
     SplashScreen: {
