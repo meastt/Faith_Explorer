@@ -145,9 +145,9 @@ function App() {
     >
       <Header />
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-20 pb-6 pb-safe">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-40 pb-6 pb-safe">
         {/* Navigation */}
-        <nav className="flex space-x-2 mb-6 mt-2">
+        <nav className="flex space-x-2 mb-6">
           <TabButton
             active={activeTab === 'search'}
             onClick={() => setActiveTab('search')}
