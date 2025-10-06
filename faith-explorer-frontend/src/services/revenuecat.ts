@@ -186,7 +186,16 @@ class RevenueCatService {
 
     try {
       if (Capacitor.isNativePlatform()) {
-        return await Purchases.getOfferings();
+        const offerings = await Purchases.getOfferings();
+        console.log('Raw offerings from RevenueCat:', JSON.stringify(offerings, null, 2));
+
+        // Check if offerings exist
+        if (!offerings || !offerings.current) {
+          console.error('No current offering found in RevenueCat');
+          console.log('All offerings:', offerings?.all);
+        }
+
+        return offerings;
       } else {
         // Return mock offerings for web
         return {

@@ -125,11 +125,26 @@ function App() {
 
   const { readingPreferences } = useStore();
 
+  // Ensure theme class is applied to document root for proper Tailwind dark mode
+  useEffect(() => {
+    const root = document.documentElement;
+
+    // Remove all theme classes first
+    root.classList.remove('dark', 'sepia');
+
+    // Add the appropriate theme class
+    if (readingPreferences.theme === 'dark') {
+      root.classList.add('dark');
+    } else if (readingPreferences.theme === 'sepia') {
+      root.classList.add('sepia');
+    }
+  }, [readingPreferences.theme]);
+
   // Apply theme classes
   const themeClasses = {
     light: 'bg-gray-50',
     dark: 'bg-gray-900 dark',
-    sepia: 'bg-amber-50',
+    sepia: 'bg-amber-50 sepia',
   };
 
   const fontFamilyClasses = {

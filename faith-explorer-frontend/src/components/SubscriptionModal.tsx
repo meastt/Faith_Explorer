@@ -17,10 +17,30 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
     // Load offerings when modal opens
     const loadOfferings = async () => {
       try {
-        const offeringsData = await revenueCat.getOfferings();
+        const offeringsData: any = await revenueCat.getOfferings();
+        console.log('Loaded offerings:', offeringsData);
+
+        // Check if we have a current offering
+        if (!offeringsData?.current) {
+          console.error('No current offering found');
+
+          // Try to use the first available offering if current is not set
+          if (offeringsData?.all) {
+            const allOfferings = offeringsData.all as Record<string, any>;
+            const firstOfferingKey = Object.keys(allOfferings)[0];
+            if (firstOfferingKey) {
+              console.log('Using first available offering:', firstOfferingKey);
+              const updatedOfferings = { ...offeringsData, current: allOfferings[firstOfferingKey] };
+              setOfferings(updatedOfferings);
+              return;
+            }
+          }
+        }
+
         setOfferings(offeringsData);
       } catch (error) {
         console.error('Failed to load offerings:', error);
+        setError('Failed to load subscription options. Please check your internet connection and try again.');
       }
     };
     loadOfferings();
@@ -36,7 +56,8 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
 
       // Find the appropriate package from available packages
       if (!offerings?.current?.availablePackages || offerings.current.availablePackages.length === 0) {
-        throw new Error('No subscription packages available. Please check your RevenueCat configuration.');
+        console.error('Offerings structure:', offerings);
+        throw new Error('No subscription packages available. Please make sure:\n1. You have created products in RevenueCat\n2. Products are attached to an Offering\n3. The offering is set as "Current" in RevenueCat dashboard');
       }
 
       // Look for packages by packageType or identifier
