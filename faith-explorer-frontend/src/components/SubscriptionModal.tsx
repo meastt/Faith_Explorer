@@ -62,16 +62,24 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
 
       // Look for packages by packageType or identifier
       const packages = offerings.current.availablePackages;
+      console.log('Available packages:', packages.map((pkg: any) => ({
+        identifier: pkg.identifier,
+        packageType: pkg.packageType,
+        price: pkg.storeProduct?.priceString
+      })));
+
       let packageToUse = null;
 
       if (selectedPlan === 'annual') {
-        // Try to find annual package by exact ID first, then packageType, then identifier pattern
-        packageToUse = packages.find((pkg: any) => pkg.identifier === 'prod_734d9efaca') ||
+        // Try to find annual package - check RevenueCat defaults, custom IDs, packageType, then pattern
+        packageToUse = packages.find((pkg: any) => pkg.identifier === '$rc_annual') ||
+                      packages.find((pkg: any) => pkg.identifier === 'prod_734d9efaca') ||
                       packages.find((pkg: any) => pkg.packageType === 'ANNUAL') ||
                       packages.find((pkg: any) => pkg.identifier?.toLowerCase().includes('annual') || pkg.identifier?.toLowerCase().includes('yearly'));
       } else {
-        // Try to find monthly package by exact ID first, then packageType, then identifier pattern
-        packageToUse = packages.find((pkg: any) => pkg.identifier === 'prod_e0339d2171') ||
+        // Try to find monthly package - check RevenueCat defaults, custom IDs, packageType, then pattern
+        packageToUse = packages.find((pkg: any) => pkg.identifier === '$rc_monthly') ||
+                      packages.find((pkg: any) => pkg.identifier === 'prod_e0339d2171') ||
                       packages.find((pkg: any) => pkg.packageType === 'MONTHLY') ||
                       packages.find((pkg: any) => pkg.identifier?.toLowerCase().includes('monthly') || pkg.identifier?.toLowerCase().includes('month'));
       }
