@@ -352,6 +352,7 @@
 				DEVELOPMENT_TEAM = 22PNSFRQ8G;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Faith Explorer";
+				INFOPLIST_KEY_CFBundleName = "Faith Explorer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -375,6 +376,7 @@
 				DEVELOPMENT_TEAM = 22PNSFRQ8G;
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Faith Explorer";
+				INFOPLIST_KEY_CFBundleName = "Faith Explorer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

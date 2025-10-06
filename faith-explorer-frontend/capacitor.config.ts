@@ -4,8 +4,13 @@ const config: CapacitorConfig = {
   appId: 'com.faithexplorer.ios',
   appName: 'Faith Explorer',
   webDir: 'dist',
+  server: {
+    androidScheme: 'https'
+  },
   ios: {
-    contentInset: 'always'
+    contentInset: 'always',
+    scheme: 'faithexplorer',
+    path: 'ios/App'
   },
   plugins: {
     SplashScreen: {
