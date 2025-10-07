@@ -1,4 +1,4 @@
-import { X, Settings as SettingsIcon, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette } from 'lucide-react';
+import { X, Settings as SettingsIcon, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette, Trash2, RefreshCw } from 'lucide-react';
 import { useState } from 'react';
 import { useStore } from '../store/useStore';
 
@@ -7,8 +7,23 @@ interface SettingsProps {
 }
 
 export function Settings({ onClose }: SettingsProps) {
-  const { readingPreferences, setReadingPreferences } = useStore();
-  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'support'>('main');
+  const { readingPreferences, setReadingPreferences, resetUsage } = useStore();
+  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'support' | 'legal' | 'data' | 'purchases'>('main');
+
+  const clearLocalData = () => {
+    try {
+      // Clear zustand persisted store and app-specific local storage keys
+      localStorage.removeItem('faith-explorer-storage');
+      localStorage.removeItem('faithExplorer_appVersion');
+      localStorage.removeItem('faithExplorer_hasSeenOnboarding');
+      localStorage.removeItem('faithExplorer_premium');
+      localStorage.removeItem('faithExplorer_usage');
+      resetUsage();
+      alert('All local data has been deleted from this device.');
+    } catch (e) {
+      alert('Failed to delete local data.');
+    }
+  };
 
   const handleThemeChange = (theme: 'light' | 'dark' | 'sepia') => {
     setReadingPreferences({
@@ -58,11 +73,10 @@ export function Settings({ onClose }: SettingsProps) {
           <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">View our privacy policy and terms</p>
         </div>
         <button
-          onClick={() => openExternalLink('https://faithexplorer.app/privacy')}
-          className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1"
+          onClick={() => setActiveSection('legal')}
+          className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded"
         >
-          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">Open</span>
-          <ExternalLink className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+          <ChevronRight className="w-4 h-4 text-gray-500" />
         </button>
       </div>
 
@@ -213,6 +227,72 @@ export function Settings({ onClose }: SettingsProps) {
     </div>
   );
 
+  const LegalSettings = () => (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+        <div>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Privacy Policy</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">How we protect your data</p>
+        </div>
+        <button onClick={() => openExternalLink('https://faithexplorer.app/privacy')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">View</span>
+          <ExternalLink className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+        </button>
+      </div>
+      <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+        <div>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Terms of Use</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Read our terms</p>
+        </div>
+        <button onClick={() => openExternalLink('https://faithexplorer.app/terms/')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">View</span>
+          <ExternalLink className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+        </button>
+      </div>
+    </div>
+  );
+
+  const PurchasesSettings = () => (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+        <div>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Manage Subscription</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Open iOS Subscriptions</p>
+        </div>
+        <a href="itms-apps://apps.apple.com/account/subscriptions" className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">Open</span>
+          <ExternalLink className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+        </a>
+      </div>
+      <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+        <div>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Restore Purchases</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Re-activate previous purchases</p>
+        </div>
+        <button onClick={() => window.dispatchEvent(new CustomEvent('fe_restore_purchases'))} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">Restore</span>
+          <RefreshCw className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+        </button>
+      </div>
+      <p className="text-xs text-gray-500">Subscriptions are managed by Apple. You can cancel anytime from your device settings.</p>
+    </div>
+  );
+
+  const DataSettings = () => (
+    <div className="space-y-4">
+      <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 sepia:bg-amber-100 rounded-lg">
+        <h4 className="font-medium text-yellow-900 dark:text-yellow-100 sepia:text-amber-900 mb-1">Delete Local Data</h4>
+        <p className="text-sm text-yellow-800 dark:text-yellow-200 sepia:text-amber-800">
+          This app does not create user accounts or store personal data on servers. You can delete all data stored on this device at any time.
+        </p>
+      </div>
+      <button onClick={clearLocalData} className="w-full flex items-center justify-center gap-2 p-3 bg-red-600 hover:bg-red-700 text-white rounded-lg">
+        <Trash2 className="w-4 h-4" />
+        Delete Local Data
+      </button>
+    </div>
+  );
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
@@ -251,9 +331,48 @@ export function Settings({ onClose }: SettingsProps) {
           </div>
 
           {/* Content */}
-          {activeSection === 'main' && <MainSettings />}
+          {activeSection === 'main' && (
+            <>
+              <MainSettings />
+              <div className="mt-6 space-y-3">
+                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+                  <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Legal</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Privacy Policy and Terms of Use</p>
+                  </div>
+                  <button onClick={() => setActiveSection('legal')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded">
+                    <ChevronRight className="w-4 h-4 text-gray-500" />
+                  </button>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+                  <RefreshCw className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Purchases</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Manage or restore subscriptions</p>
+                  </div>
+                  <button onClick={() => setActiveSection('purchases')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded">
+                    <ChevronRight className="w-4 h-4 text-gray-500" />
+                  </button>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+                  <Trash2 className="w-5 h-5 text-red-600" />
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Data</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Delete all local data on this device</p>
+                  </div>
+                  <button onClick={() => setActiveSection('data')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded">
+                    <ChevronRight className="w-4 h-4 text-gray-500" />
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
           {activeSection === 'appearance' && <AppearanceSettings />}
           {activeSection === 'support' && <SupportSettings />}
+          {activeSection === 'legal' && <LegalSettings />}
+          {activeSection === 'purchases' && <PurchasesSettings />}
+          {activeSection === 'data' && <DataSettings />}
         </div>
       </div>
     </div>

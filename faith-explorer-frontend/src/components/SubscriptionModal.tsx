@@ -276,9 +276,48 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
           </button>
         </div>
 
-        <p className="text-xs text-center text-gray-500 mt-4">
-          Subscription managed through App Store. Cancel anytime from your account settings.
-        </p>
+        <div className="mt-4 space-y-2">
+          <p className="text-xs text-center text-gray-500">
+            Faith Explorer Pro is an auto-renewing subscription. Length: Monthly or Annual. Price shown above varies by region.
+          </p>
+          <div className="flex flex-col items-center gap-2 text-xs text-gray-500">
+            <div className="flex items-center gap-3 flex-wrap justify-center">
+              <a
+                href="https://faithexplorer.app/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-700"
+              >
+                Privacy Policy
+              </a>
+              <span>•</span>
+              <a
+                href="https://faithexplorer.app/terms/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-700"
+              >
+                Terms of Use
+              </a>
+            </div>
+            <div className="flex items-center gap-3 flex-wrap justify-center">
+              <a
+                href="itms-apps://apps.apple.com/account/subscriptions"
+                className="underline hover:text-gray-700"
+              >
+                Manage Subscription
+              </a>
+              <span>•</span>
+              <button
+                onClick={handleRestore}
+                disabled={isLoading}
+                className="underline hover:text-gray-700 disabled:opacity-50"
+              >
+                Restore Purchases
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
