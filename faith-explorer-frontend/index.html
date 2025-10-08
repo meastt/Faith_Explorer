@@ -10,10 +10,31 @@
     <link rel="manifest" href="/manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#6366f1" />
+    <meta name="color-scheme" content="light" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <title>Faith Explorer</title>
+    <script>
+      // Apply theme immediately to prevent flash of wrong theme
+      // This runs before React hydrates
+      (function() {
+        try {
+          const stored = localStorage.getItem('faith-explorer-storage');
+          if (stored) {
+            const data = JSON.parse(stored);
+            const theme = data?.state?.readingPreferences?.theme || 'light';
+            if (theme === 'dark') {
+              document.documentElement.classList.add('dark');
+            } else if (theme === 'sepia') {
+              document.documentElement.classList.add('sepia');
+            }
+          }
+        } catch (e) {
+          // Fail silently, default to light theme
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
