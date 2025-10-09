@@ -204,7 +204,7 @@ export function ReligionSelector() {
               return (
                 <button
                   key={subset.id}
-                  onClick={() => !isDisabled && handleSubsetToggle(selectedReligion, subset.id)}
+                  onClick={() => !isDisabled && selectedReligion && handleSubsetToggle(selectedReligion, subset.id)}
                   disabled={isDisabled}
                   className={`p-4 rounded-xl border-2 transition-all duration-200 text-left ${
                     isSelected
@@ -255,7 +255,7 @@ export function ReligionSelector() {
               const subsetInfo = religionInfo?.subsets?.find(s => s.id === selected.subset);
               return (
                 <span
-                  key={index}
+                  key={`${selected.religion}-${selected.subset}-${index}`}
                   className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 dark:bg-primary-900 sepia:bg-amber-200 text-primary-800 dark:text-primary-200 sepia:text-amber-800"
                 >
                   {religionInfo?.name}: {subsetInfo?.name}

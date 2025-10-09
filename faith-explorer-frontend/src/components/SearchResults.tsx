@@ -1,9 +1,11 @@
-import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2 } from 'lucide-react';
+import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2, ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 import type { Religion, Verse, ReligionSubsetId } from '../types';
-import { VerseCard } from './VerseCard';
+import { CompactVerseCard } from './CompactVerseCard';
 import { useStore } from '../store/useStore';
 import { RELIGIONS } from '../types';
 import { formatAIResponse } from '../utils/markdown';
+import { shareInsight, shareComparison, copyToClipboard } from '../utils/helpers';
 
 interface SearchResultsProps {
   results: {
@@ -18,7 +20,11 @@ interface SearchResultsProps {
 }
 
 export function SearchResults({ results, isLoading, comparativeAnalysis, onBack }: SearchResultsProps) {
-  const { setActiveVerseChat, viewMode, saveComparison } = useStore();
+  const { setActiveVerseChat, viewMode, saveComparison, incrementShareCount, saveVerse } = useStore();
+  const [expandedVerseId, setExpandedVerseId] = useState<string | null>(null);
+  const [showAllVerses, setShowAllVerses] = useState(false);
+  
+  const INITIAL_VERSE_COUNT = 5;
 
   const handleChatClick = (verse: Verse, religion: Religion) => {
     setActiveVerseChat({
@@ -27,6 +33,10 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
       religion,
       messages: [],
     });
+  };
+
+  const handleVerseToggle = (verseId: string) => {
+    setExpandedVerseId(expandedVerseId === verseId ? null : verseId);
   };
 
   const handleSaveComparison = () => {
@@ -49,12 +59,58 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
   const handleShareComparison = async () => {
     if (comparativeAnalysis) {
       try {
-        await navigator.clipboard.writeText(comparativeAnalysis);
+        const religions = results.map(r => {
+          const religionInfo = RELIGIONS.find(ri => ri.id === r.religion);
+          return religionInfo?.name || r.religion;
+        });
+        const formattedText = shareComparison(comparativeAnalysis, religions);
+        await copyToClipboard(formattedText);
+        incrementShareCount();
         alert('Analysis copied to clipboard!');
       } catch (error) {
         console.error('Failed to copy:', error);
       }
     }
+  };
+
+  const handleShareInsight = async (text: string, religion?: Religion) => {
+    try {
+      const religionInfo = religion ? RELIGIONS.find(r => r.id === religion) : undefined;
+      const formattedText = shareInsight(text, religionInfo?.name);
+      await copyToClipboard(formattedText);
+      incrementShareCount();
+      alert('Insight copied to clipboard!');
+    } catch (error) {
+      console.error('Failed to copy:', error);
+    }
+  };
+
+  const handleChatWithInsight = (insightText: string, religion: Religion) => {
+    setActiveVerseChat({
+      verseReference: 'AI Insight',
+      verseText: insightText,
+      religion,
+      messages: [],
+    });
+  };
+
+  const handleSaveInsight = (insightText: string, religion: Religion, subset?: ReligionSubsetId) => {
+    const religionInfo = RELIGIONS.find(r => r.id === religion);
+    const subsetInfo = religionInfo?.subsets?.find(s => s.id === subset);
+    
+    // Strip HTML tags for clean storage
+    const plainText = insightText.replace(/<[^>]*>/g, '').replace(/\n\n+/g, '\n\n');
+    
+    saveVerse({
+      reference: `AI Insight: ${subsetInfo?.name || religionInfo?.name}`,
+      text: plainText,
+      religion,
+      id: `insight-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      savedAt: Date.now(),
+      notes: '',
+      tags: ['AI Insight'],
+    });
+    alert('AI Insight saved to your library!');
   };
 
   if (isLoading) {
@@ -126,6 +182,31 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
               className="prose prose-sm max-w-none text-gray-900 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
               dangerouslySetInnerHTML={{ __html: formatAIResponse(answer) }}
             />
+            
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2 mt-4 pt-4 border-t border-primary-200 dark:border-primary-700 sepia:border-amber-300">
+              <button
+                onClick={() => handleChatWithInsight(answer, religion)}
+                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 sepia:text-amber-700 hover:text-primary-700 dark:hover:text-primary-300 sepia:hover:text-amber-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span className="hidden sm:inline">Discuss</span>
+              </button>
+              <button
+                onClick={() => handleSaveInsight(answer, religion, subset)}
+                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+              >
+                <BookmarkPlus className="w-4 h-4" />
+                <span className="hidden sm:inline">Save</span>
+              </button>
+              <button
+                onClick={() => handleShareInsight(answer, religion)}
+                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+              >
+                <Share2 className="w-4 h-4" />
+                <span className="hidden sm:inline">Share</span>
+              </button>
+            </div>
           </div>
         )}
 
@@ -141,17 +222,32 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
           </div>
         ) : (
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-4">Source Passages</h3>
-            <div className="grid gap-4">
-              {verses.map((verse, idx) => (
-                <VerseCard
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-3">
+              Source Passages ({verses.length})
+            </h3>
+            <div className="space-y-2">
+              {verses.slice(0, showAllVerses ? verses.length : INITIAL_VERSE_COUNT).map((verse, idx) => (
+                <CompactVerseCard
                   key={`${verse.reference}-${idx}`}
                   verse={verse}
                   religion={religion}
+                  isExpanded={expandedVerseId === `${verse.reference}-${idx}`}
+                  onToggle={() => handleVerseToggle(`${verse.reference}-${idx}`)}
                   onChatClick={() => handleChatClick(verse, religion)}
                 />
               ))}
             </div>
+            
+            {/* Show More Button */}
+            {verses.length > INITIAL_VERSE_COUNT && !showAllVerses && (
+              <button
+                onClick={() => setShowAllVerses(true)}
+                className="w-full mt-3 py-3 px-4 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 sepia:from-amber-100 sepia:to-amber-200 text-indigo-700 dark:text-indigo-300 sepia:text-amber-800 font-medium rounded-xl border border-indigo-200 dark:border-indigo-800 sepia:border-amber-300 hover:from-indigo-100 hover:to-purple-100 dark:hover:from-indigo-900/30 dark:hover:to-purple-900/30 sepia:hover:from-amber-200 sepia:hover:to-amber-300 transition-all duration-200 flex items-center justify-center gap-2"
+              >
+                <ChevronDown className="w-4 h-4" />
+                Show {verses.length - INITIAL_VERSE_COUNT} More Verses
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -290,6 +386,32 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
                   className="prose prose-sm max-w-none text-gray-900 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
                   dangerouslySetInnerHTML={{ __html: formatAIResponse(answer) }}
                 />
+                
+                {/* Action Buttons */}
+                <div className="flex items-center gap-2 mt-4 pt-4 border-t" style={{ borderColor: `${religionInfo?.color}40` }}>
+                  <button
+                    onClick={() => handleChatWithInsight(answer, religion)}
+                    className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+                    style={{ color: religionInfo?.color }}
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span className="hidden sm:inline">Discuss</span>
+                  </button>
+                  <button
+                    onClick={() => handleSaveInsight(answer, religion, subset)}
+                    className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+                  >
+                    <BookmarkPlus className="w-4 h-4" />
+                    <span className="hidden sm:inline">Save</span>
+                  </button>
+                  <button
+                    onClick={() => handleShareInsight(answer, religion)}
+                    className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+                  >
+                    <Share2 className="w-4 h-4" />
+                    <span className="hidden sm:inline">Share</span>
+                  </button>
+                </div>
               </div>
             )}
 
@@ -302,17 +424,26 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
               </div>
             ) : (
               <div>
-                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 sepia:text-amber-800 mb-3">Source Passages</h4>
-                <div className="grid gap-3">
-                  {verses.map((verse, idx) => (
-                    <VerseCard
+                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 sepia:text-amber-800 mb-2">
+                  Source Passages ({verses.length})
+                </h4>
+                <div className="space-y-2">
+                  {verses.slice(0, 3).map((verse, idx) => (
+                    <CompactVerseCard
                       key={`${religion}-${verse.reference}-${idx}`}
                       verse={verse}
                       religion={religion}
+                      isExpanded={expandedVerseId === `${religion}-${verse.reference}-${idx}`}
+                      onToggle={() => handleVerseToggle(`${religion}-${verse.reference}-${idx}`)}
                       onChatClick={() => handleChatClick(verse, religion)}
                     />
                   ))}
                 </div>
+                {verses.length > 3 && (
+                  <p className="text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-600 mt-2 text-center">
+                    + {verses.length - 3} more passages in {religionInfo?.name}
+                  </p>
+                )}
               </div>
             )}
           </div>

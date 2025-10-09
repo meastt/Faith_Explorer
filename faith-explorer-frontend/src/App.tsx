@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Search, Bookmark } from 'lucide-react';
 import { Header } from './components/Header';
 import { ReligionSelector } from './components/ReligionSelector';
 import { SearchBar } from './components/SearchBar';
@@ -11,7 +10,6 @@ import { ReviewPromptModal } from './components/ReviewPromptModal';
 import { TopicExplorer } from './components/TopicExplorer';
 import { DailyWisdom } from './components/DailyWisdom';
 import { LearningPaths } from './components/LearningPaths';
-import { TabButton } from './components/TabButton';
 import { BottomNav } from './components/BottomNav';
 import { Settings } from './components/Settings';
 import { useStore } from './store/useStore';
@@ -51,28 +49,26 @@ function App() {
     if (storedVersion !== currentVersion) {
       console.log(`App updated from ${storedVersion} to ${currentVersion}, clearing cache...`);
 
+      // Clear Zustand storage to reset default selections
+      localStorage.removeItem('faith-explorer-storage');
+      
       // Clear specific cached data that might be stale
-      // Keep user preferences and saved data
-      const keysToKeep = [
-        'faithExplorer_hasSeenOnboarding',
-        'faithExplorer_premium',
-        'faithExplorer_usage',
-        'faithExplorer-storage', // Zustand persist key
-      ];
-
-      // Get all keys
       const allKeys = Object.keys(localStorage);
-
-      // Remove keys that aren't in the keep list
       allKeys.forEach(key => {
-        if (!keysToKeep.some(keepKey => key.includes(keepKey))) {
+        if (!key.includes('faithExplorer_hasSeenOnboarding') && 
+            !key.includes('faithExplorer_premium') && 
+            !key.includes('faithExplorer_usage') &&
+            key !== 'faithExplorer_appVersion') {
           localStorage.removeItem(key);
         }
       });
 
       // Update stored version
       localStorage.setItem('faithExplorer_appVersion', currentVersion);
-      console.log('Cache cleared for app update');
+      console.log('Cache cleared for app update - all selections reset');
+      
+      // Force page reload to ensure clean state
+      window.location.reload();
     }
   }, []);
 
@@ -218,7 +214,7 @@ function App() {
     >
       <Header />
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-40 pb-20 pb-safe">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-40 pb-28">
         {/* Content */}
         {activeTab === 'search' ? (
           <div className="space-y-4">
