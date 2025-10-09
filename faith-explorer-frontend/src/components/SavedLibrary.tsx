@@ -8,7 +8,7 @@ import { RELIGIONS, type Religion } from '../types';
 type SortOption = 'date-desc' | 'date-asc' | 'religion' | 'reference';
 
 export function SavedLibrary() {
-  const { savedVerses, updateVerseNotes, deleteVerse, setActiveVerseChat } = useStore();
+  const { savedVerses, updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount } = useStore();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editNotes, setEditNotes] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -29,6 +29,7 @@ export function SavedLibrary() {
     const shareText = shareVerse(reference, text, notes);
     try {
       await copyToClipboard(shareText);
+      incrementShareCount();
       alert('Verse copied to clipboard!');
     } catch (error) {
       console.error('Failed to copy:', error);
@@ -100,6 +101,7 @@ export function SavedLibrary() {
 
   const handleExport = (format: 'markdown' | 'mla' | 'apa' | 'chicago') => {
     exportCollection(filteredVerses, format);
+    incrementShareCount();
     setShowExportMenu(false);
   };
 

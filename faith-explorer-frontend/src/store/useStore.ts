@@ -17,6 +17,14 @@ export interface ReadingPreferences {
   fontFamily: 'sans' | 'serif' | 'dyslexic';
 }
 
+export interface ReviewPromptState {
+  savesCount: number;
+  sharesCount: number;
+  timesShown: number;
+  lastShownDate: number | null;
+  status: 'pending' | 'later' | 'reviewed' | 'dismissed';
+}
+
 interface AppState {
   // View mode
   viewMode: ViewMode;
@@ -66,6 +74,14 @@ interface AppState {
   // Reading preferences
   readingPreferences: ReadingPreferences;
   setReadingPreferences: (preferences: ReadingPreferences) => void;
+
+  // Review prompt
+  reviewPrompt: ReviewPromptState;
+  incrementSaveCount: () => void;
+  incrementShareCount: () => void;
+  setReviewPromptShown: () => void;
+  setReviewPromptStatus: (status: 'later' | 'reviewed' | 'dismissed') => void;
+  shouldShowReviewPrompt: () => boolean;
 }
 
 const getInitialUsage = (): FreemiumUsage => {
@@ -97,6 +113,13 @@ export const useStore = create<AppState>()(
         theme: 'light',
         fontSize: 16,
         fontFamily: 'sans',
+      },
+      reviewPrompt: {
+        savesCount: 0,
+        sharesCount: 0,
+        timesShown: 0,
+        lastShownDate: null,
+        status: 'pending',
       },
 
       // Actions
@@ -260,6 +283,68 @@ export const useStore = create<AppState>()(
         })),
 
       setReadingPreferences: (preferences) => set({ readingPreferences: preferences }),
+
+      incrementSaveCount: () =>
+        set((state) => ({
+          reviewPrompt: {
+            ...state.reviewPrompt,
+            savesCount: state.reviewPrompt.savesCount + 1,
+          },
+        })),
+
+      incrementShareCount: () =>
+        set((state) => ({
+          reviewPrompt: {
+            ...state.reviewPrompt,
+            sharesCount: state.reviewPrompt.sharesCount + 1,
+          },
+        })),
+
+      setReviewPromptShown: () =>
+        set((state) => ({
+          reviewPrompt: {
+            ...state.reviewPrompt,
+            timesShown: state.reviewPrompt.timesShown + 1,
+            lastShownDate: Date.now(),
+          },
+        })),
+
+      setReviewPromptStatus: (status) =>
+        set((state) => ({
+          reviewPrompt: {
+            ...state.reviewPrompt,
+            status,
+          },
+        })),
+
+      shouldShowReviewPrompt: () => {
+        const state = get();
+        const { reviewPrompt } = state;
+
+        // Don't show if already reviewed or dismissed
+        if (reviewPrompt.status === 'reviewed' || reviewPrompt.status === 'dismissed') {
+          return false;
+        }
+
+        // Don't show more than 3 times total
+        if (reviewPrompt.timesShown >= 3) {
+          return false;
+        }
+
+        // If status is 'later', wait 14 days before showing again
+        if (reviewPrompt.status === 'later' && reviewPrompt.lastShownDate) {
+          const daysSinceLastShown = (Date.now() - reviewPrompt.lastShownDate) / (1000 * 60 * 60 * 24);
+          if (daysSinceLastShown < 14) {
+            return false;
+          }
+        }
+
+        // Show on 3rd, 7th, or 15th save/share
+        const totalActions = reviewPrompt.savesCount + reviewPrompt.sharesCount;
+        const milestones = [3, 7, 15];
+        
+        return milestones.includes(totalActions);
+      },
     }),
     {
       name: 'faith-explorer-storage',

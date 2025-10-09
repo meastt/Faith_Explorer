@@ -7,6 +7,7 @@ import { SearchResults } from './components/SearchResults';
 import { ChatDrawer } from './components/ChatDrawer';
 import { SavedLibrary } from './components/SavedLibrary';
 import { OnboardingModal } from './components/OnboardingModal';
+import { ReviewPromptModal } from './components/ReviewPromptModal';
 import { TopicExplorer } from './components/TopicExplorer';
 import { DailyWisdom } from './components/DailyWisdom';
 import { LearningPaths } from './components/LearningPaths';
@@ -28,11 +29,12 @@ export interface SearchResultWithAnswer {
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('search');
-  const { viewMode, selectedSubsets, setIsSearching, incrementSearchUsage, clearSelectedSubsets } = useStore();
+  const { viewMode, selectedSubsets, setIsSearching, incrementSearchUsage, clearSelectedSubsets, shouldShowReviewPrompt, reviewPrompt } = useStore();
   const [searchResults, setSearchResults] = useState<SearchResultWithAnswer[]>([]);
   const [comparativeAnalysis, setComparativeAnalysis] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showReviewPrompt, setShowReviewPrompt] = useState(false);
 
   // Initialize scriptures on app start
   useEffect(() => {
@@ -41,7 +43,7 @@ function App() {
 
   // Check app version and clear cache if needed
   useEffect(() => {
-    const currentVersion = '2.0.1-9'; // version-build
+    const currentVersion = '2.0.2-10'; // version-build
     const storedVersion = localStorage.getItem('faithExplorer_appVersion');
 
     if (storedVersion !== currentVersion) {
@@ -78,6 +80,16 @@ function App() {
       setShowOnboarding(true);
     }
   }, []);
+
+  // Check if we should show the review prompt
+  useEffect(() => {
+    if (shouldShowReviewPrompt()) {
+      // Delay slightly to ensure the save action completes
+      setTimeout(() => {
+        setShowReviewPrompt(true);
+      }, 500);
+    }
+  }, [reviewPrompt.savesCount, reviewPrompt.sharesCount, shouldShowReviewPrompt]);
 
   const handleCloseOnboarding = () => {
     setShowOnboarding(false);
@@ -248,6 +260,7 @@ function App() {
       <Footer />
       <ChatDrawer />
       {showOnboarding && <OnboardingModal onClose={handleCloseOnboarding} />}
+      {showReviewPrompt && <ReviewPromptModal onClose={() => setShowReviewPrompt(false)} />}
     </div>
   );
 }

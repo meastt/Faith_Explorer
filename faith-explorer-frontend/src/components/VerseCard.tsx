@@ -13,7 +13,7 @@ interface VerseCardProps {
 }
 
 export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
-  const { saveVerse, savedVerses } = useStore();
+  const { saveVerse, savedVerses, incrementSaveCount, incrementShareCount } = useStore();
   const isSaved = savedVerses.some((v) => v.reference === verse.reference && v.text === verse.text);
   const [showContext, setShowContext] = useState(false);
 
@@ -30,6 +30,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
         notes: '',
         tags: [],
       });
+      incrementSaveCount();
     }
   };
 
@@ -37,6 +38,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
     const shareText = shareVerse(verse.reference, verse.text);
     try {
       await copyToClipboard(shareText);
+      incrementShareCount();
       alert('Verse copied to clipboard!');
     } catch (error) {
       console.error('Failed to copy:', error);
