@@ -12,7 +12,8 @@ import { TopicExplorer } from './components/TopicExplorer';
 import { DailyWisdom } from './components/DailyWisdom';
 import { LearningPaths } from './components/LearningPaths';
 import { TabButton } from './components/TabButton';
-import { Footer } from './components/Footer';
+import { BottomNav } from './components/BottomNav';
+import { Settings } from './components/Settings';
 import { useStore } from './store/useStore';
 import { searchSubsets, getComparativeAnalysis } from './services/api';
 import { initializeScriptures } from './services/search';
@@ -35,6 +36,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showReviewPrompt, setShowReviewPrompt] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   // Initialize scriptures on app start
   useEffect(() => {
@@ -216,23 +218,7 @@ function App() {
     >
       <Header />
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-40 pb-6 pb-safe">
-        {/* Navigation */}
-        <nav className="flex space-x-2 mb-6">
-          <TabButton
-            active={activeTab === 'search'}
-            onClick={() => setActiveTab('search')}
-            icon={Search}
-            label="Search"
-          />
-          <TabButton
-            active={activeTab === 'saved'}
-            onClick={() => setActiveTab('saved')}
-            icon={Bookmark}
-            label="Saved"
-          />
-        </nav>
-
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-40 pb-20 pb-safe">
         {/* Content */}
         {activeTab === 'search' ? (
           <div className="space-y-4">
@@ -257,10 +243,15 @@ function App() {
         )}
       </main>
 
-      <Footer />
+      <BottomNav 
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onSettingsClick={() => setShowSettings(true)}
+      />
       <ChatDrawer />
       {showOnboarding && <OnboardingModal onClose={handleCloseOnboarding} />}
       {showReviewPrompt && <ReviewPromptModal onClose={() => setShowReviewPrompt(false)} />}
+      {showSettings && <Settings onClose={() => setShowSettings(false)} />}
     </div>
   );
 }

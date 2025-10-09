@@ -55,7 +55,7 @@ function getReligionIcon(religionId: Religion): React.ReactElement {
 
 export function ReligionSelector() {
   const { viewMode, setViewMode, selectedSubsets, toggleSubset, setSelectedSubsets } = useStore();
-  const [selectedReligion, setSelectedReligion] = useState<Religion>('christianity');
+  const [selectedReligion, setSelectedReligion] = useState<Religion | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleModeChange = (mode: 'single' | 'comparison') => {
@@ -68,15 +68,6 @@ export function ReligionSelector() {
   const handleReligionChange = (religion: Religion) => {
     setSelectedReligion(religion);
     setIsDropdownOpen(false);
-    
-    // Auto-select first available subset if none selected for this religion
-    const religionInfo = RELIGIONS.find(r => r.id === religion);
-    if (religionInfo?.subsets) {
-      const availableSubsets = religionInfo.subsets.filter(s => !s.comingSoon);
-      if (availableSubsets.length > 0 && !selectedSubsets.some(s => s.religion === religion)) {
-        toggleSubset(religion, availableSubsets[0].id);
-      }
-    }
   };
 
   const handleSubsetToggle = (religion: Religion, subset: ReligionSubsetId) => {
@@ -89,10 +80,24 @@ export function ReligionSelector() {
     }
   };
 
-  const selectedReligionInfo = RELIGIONS.find(r => r.id === selectedReligion);
+  const selectedReligionInfo = selectedReligion ? RELIGIONS.find(r => r.id === selectedReligion) : null;
 
   return (
     <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 p-6 shadow-soft">
+      {/* Instructional Header - Only show when nothing is selected */}
+      {selectedSubsets.length === 0 && (
+        <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 sepia:from-amber-100 sepia:to-amber-200 rounded-xl border border-blue-200 dark:border-blue-800 sepia:border-amber-300">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">
+            ✨ Get Started
+          </h3>
+          <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800 space-y-2">
+            <p><strong>Step 1:</strong> Choose to explore a single text or compare multiple faiths</p>
+            <p><strong>Step 2:</strong> Select a religion and its text from the dropdown below</p>
+            <p><strong>Step 3:</strong> Search for a life question or browse topics at the bottom</p>
+          </div>
+        </div>
+      )}
+
       {/* Mode Toggle */}
       <div className="mb-6">
         <div className="flex space-x-2 bg-gray-100 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800 sepia:from-amber-200 sepia:to-amber-300 p-1 rounded-xl border border-gray-200 dark:border-gray-600 sepia:border-amber-300">
@@ -130,17 +135,25 @@ export function ReligionSelector() {
             className="w-full flex items-center justify-between p-4 bg-white dark:bg-gray-700 sepia:bg-amber-200 rounded-xl border border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:bg-gray-50 dark:hover:bg-gray-600 sepia:hover:bg-amber-300 transition-colors"
           >
             <div className="flex items-center space-x-3">
-              <div 
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm"
-                style={{ backgroundColor: selectedReligionInfo?.color }}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  {getReligionIcon(selectedReligion)}
-                </svg>
-              </div>
-              <span className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">
-                {selectedReligionInfo?.name}
-              </span>
+              {selectedReligionInfo ? (
+                <>
+                  <div 
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm"
+                    style={{ backgroundColor: selectedReligionInfo.color }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      {getReligionIcon(selectedReligion!)}
+                    </svg>
+                  </div>
+                  <span className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">
+                    {selectedReligionInfo.name}
+                  </span>
+                </>
+              ) : (
+                <span className="font-medium text-gray-500 dark:text-gray-400 sepia:text-amber-600">
+                  Choose a religion...
+                </span>
+              )}
             </div>
             {isDropdownOpen ? <ChevronUp className="w-5 h-5 text-gray-500" /> : <ChevronDown className="w-5 h-5 text-gray-500" />}
           </button>

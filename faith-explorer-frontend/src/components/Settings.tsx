@@ -1,4 +1,4 @@
-import { X, Settings as SettingsIcon, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette, Trash2, RefreshCw } from 'lucide-react';
+import { X, Settings as SettingsIcon, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette, Trash2, RefreshCw, Info, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { useStore } from '../store/useStore';
 
@@ -8,7 +8,7 @@ interface SettingsProps {
 
 export function Settings({ onClose }: SettingsProps) {
   const { readingPreferences, setReadingPreferences, resetUsage } = useStore();
-  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'support' | 'legal' | 'data' | 'purchases'>('main');
+  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'support' | 'legal' | 'data' | 'purchases' | 'about'>('main');
 
   const clearLocalData = () => {
     try {
@@ -52,47 +52,41 @@ export function Settings({ onClose }: SettingsProps) {
 
   const MainSettings = () => (
     <div className="space-y-4">
-      <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+      <button
+        onClick={() => setActiveSection('appearance')}
+        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+      >
         <Palette className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-        <div className="flex-1">
+        <div className="flex-1 text-left">
           <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Appearance</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Customize your reading experience</p>
         </div>
-        <button
-          onClick={() => setActiveSection('appearance')}
-          className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded"
-        >
-          <ChevronRight className="w-4 h-4 text-gray-500" />
-        </button>
-      </div>
+        <ChevronRight className="w-4 h-4 text-gray-500" />
+      </button>
 
-      <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+      <button
+        onClick={() => setActiveSection('legal')}
+        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+      >
         <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-        <div className="flex-1">
+        <div className="flex-1 text-left">
           <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Privacy & Terms</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">View our privacy policy and terms</p>
         </div>
-        <button
-          onClick={() => setActiveSection('legal')}
-          className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded"
-        >
-          <ChevronRight className="w-4 h-4 text-gray-500" />
-        </button>
-      </div>
+        <ChevronRight className="w-4 h-4 text-gray-500" />
+      </button>
 
-      <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+      <button
+        onClick={() => setActiveSection('support')}
+        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+      >
         <HelpCircle className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-        <div className="flex-1">
+        <div className="flex-1 text-left">
           <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Support</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Get help and contact us</p>
         </div>
-        <button
-          onClick={() => setActiveSection('support')}
-          className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded"
-        >
-          <ChevronRight className="w-4 h-4 text-gray-500" />
-        </button>
-      </div>
+        <ChevronRight className="w-4 h-4 text-gray-500" />
+      </button>
     </div>
   );
 
@@ -293,6 +287,54 @@ export function Settings({ onClose }: SettingsProps) {
     </div>
   );
 
+  const AboutSettings = () => (
+    <div className="space-y-4">
+      <div className="p-4 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 sepia:from-amber-100 sepia:to-amber-200 rounded-lg">
+        <h4 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">Faith Explorer</h4>
+        <p className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800 mb-3">
+          Explore sacred texts from major world religions. Compare teachings, search for wisdom on life's questions, and discover the common threads of spirituality across faiths.
+        </p>
+        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">
+          <Heart className="w-4 h-4 text-pink-500 fill-current" />
+          <span>Made with love for seekers of wisdom</span>
+        </div>
+      </div>
+
+      <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg space-y-2">
+        <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
+          <strong>Version:</strong> 2.0.2 (Build 10)
+        </div>
+        <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
+          <strong>Copyright:</strong> © {new Date().getFullYear()} Faith Explorer
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2 text-sm">
+        <button
+          onClick={() => openExternalLink('https://faithexplorer.app/privacy')}
+          className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+        >
+          <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">Privacy Policy</span>
+          <ExternalLink className="w-4 h-4 text-gray-500" />
+        </button>
+        <button
+          onClick={() => openExternalLink('https://faithexplorer.app/terms')}
+          className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+        >
+          <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">Terms of Service</span>
+          <ExternalLink className="w-4 h-4 text-gray-500" />
+        </button>
+        <button
+          onClick={() => window.location.href = 'mailto:support@faithexplorer.app'}
+          className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+        >
+          <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">Contact Support</span>
+          <Mail className="w-4 h-4 text-gray-500" />
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
@@ -335,36 +377,50 @@ export function Settings({ onClose }: SettingsProps) {
             <>
               <MainSettings />
               <div className="mt-6 space-y-3">
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+                <button
+                  onClick={() => setActiveSection('legal')}
+                  className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+                >
                   <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-                  <div className="flex-1">
+                  <div className="flex-1 text-left">
                     <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Legal</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Privacy Policy and Terms of Use</p>
                   </div>
-                  <button onClick={() => setActiveSection('legal')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded">
-                    <ChevronRight className="w-4 h-4 text-gray-500" />
-                  </button>
-                </div>
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+                  <ChevronRight className="w-4 h-4 text-gray-500" />
+                </button>
+                <button
+                  onClick={() => setActiveSection('purchases')}
+                  className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+                >
                   <RefreshCw className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-                  <div className="flex-1">
+                  <div className="flex-1 text-left">
                     <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Purchases</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Manage or restore subscriptions</p>
                   </div>
-                  <button onClick={() => setActiveSection('purchases')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded">
-                    <ChevronRight className="w-4 h-4 text-gray-500" />
-                  </button>
-                </div>
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+                  <ChevronRight className="w-4 h-4 text-gray-500" />
+                </button>
+                <button
+                  onClick={() => setActiveSection('data')}
+                  className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+                >
                   <Trash2 className="w-5 h-5 text-red-600" />
-                  <div className="flex-1">
+                  <div className="flex-1 text-left">
                     <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Data</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Delete all local data on this device</p>
                   </div>
-                  <button onClick={() => setActiveSection('data')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded">
-                    <ChevronRight className="w-4 h-4 text-gray-500" />
-                  </button>
-                </div>
+                  <ChevronRight className="w-4 h-4 text-gray-500" />
+                </button>
+                <button
+                  onClick={() => setActiveSection('about')}
+                  className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+                >
+                  <Info className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+                  <div className="flex-1 text-left">
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">About</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">App info, version, and credits</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-gray-500" />
+                </button>
               </div>
             </>
           )}
@@ -373,6 +429,7 @@ export function Settings({ onClose }: SettingsProps) {
           {activeSection === 'legal' && <LegalSettings />}
           {activeSection === 'purchases' && <PurchasesSettings />}
           {activeSection === 'data' && <DataSettings />}
+          {activeSection === 'about' && <AboutSettings />}
         </div>
       </div>
     </div>

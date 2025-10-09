@@ -101,8 +101,8 @@ export const useStore = create<AppState>()(
     (set, get) => ({
       // Initial state
       viewMode: 'single',
-      selectedReligions: ['christianity'],
-      selectedSubsets: [{ religion: 'christianity', subset: 'kjv' }],
+      selectedReligions: [],
+      selectedSubsets: [],
       searchTerm: '',
       isSearching: false,
       savedVerses: [],
