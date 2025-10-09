@@ -98,8 +98,14 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
     const religionInfo = RELIGIONS.find(r => r.id === religion);
     const subsetInfo = religionInfo?.subsets?.find(s => s.id === subset);
     
-    // Strip HTML tags for clean storage
-    const plainText = insightText.replace(/<[^>]*>/g, '').replace(/\n\n+/g, '\n\n');
+    // Strip HTML tags and markdown formatting for clean storage
+    let plainText = insightText
+      .replace(/<[^>]*>/g, '')           // Remove HTML tags
+      .replace(/\*\*/g, '')               // Remove bold markdown
+      .replace(/##\s+/g, '')              // Remove heading markers
+      .replace(/\n\n+/g, '\n\n')          // Normalize line breaks
+      .replace(/^\s+|\s+$/g, '')          // Trim whitespace
+      .trim();
     
     saveVerse({
       reference: `AI Insight: ${subsetInfo?.name || religionInfo?.name}`,

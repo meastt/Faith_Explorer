@@ -1,6 +1,7 @@
 import { X, Star, Sparkles } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { ICON_SIZES, Z_INDEX } from '../styles/design-system';
+import { Capacitor } from '@capacitor/core';
 
 interface ReviewPromptModalProps {
   onClose: () => void;
@@ -9,14 +10,29 @@ interface ReviewPromptModalProps {
 export function ReviewPromptModal({ onClose }: ReviewPromptModalProps) {
   const { setReviewPromptShown, setReviewPromptStatus } = useStore();
 
-  const handleReview = () => {
+  const handleReview = async () => {
     setReviewPromptShown();
     setReviewPromptStatus('reviewed');
     
-    // Open App Store review page
-    // For iOS apps, this opens the native review prompt
-    const appStoreUrl = 'itms-apps://itunes.apple.com/app/id6745939537?action=write-review';
-    window.location.href = appStoreUrl;
+    const APP_STORE_ID = '6745939537';
+    
+    // Check if we're on a native iOS device
+    if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios') {
+      // On real iOS devices, use the App Store URL scheme
+      // This will exit the app and open the App Store review page
+      const appStoreUrl = `itms-apps://apps.apple.com/app/id${APP_STORE_ID}?action=write-review`;
+      window.location.href = appStoreUrl;
+      
+      console.log('Opening App Store on iOS device:', appStoreUrl);
+    } else {
+      // For simulator, web, or development
+      // Open in web browser as fallback
+      const webUrl = `https://apps.apple.com/app/id${APP_STORE_ID}?action=write-review`;
+      window.open(webUrl, '_blank');
+      
+      console.log('Opening App Store in browser (simulator/web):', webUrl);
+      alert('In the simulator, this opens in browser. On a real device, it opens the App Store app.');
+    }
     
     onClose();
   };
