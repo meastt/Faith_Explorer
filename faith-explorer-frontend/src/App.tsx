@@ -171,6 +171,17 @@ function App() {
     } else if (readingPreferences.theme === 'sepia') {
       root.classList.add('sepia');
     }
+
+    // Update color-scheme meta tag to prevent iOS WebView from forcing its own appearance
+    let metaColorScheme = document.querySelector('meta[name="color-scheme"]');
+    if (!metaColorScheme) {
+      metaColorScheme = document.createElement('meta');
+      metaColorScheme.setAttribute('name', 'color-scheme');
+      document.head.appendChild(metaColorScheme);
+    }
+    // Always set to 'light' to prevent iOS from applying dark mode automatically
+    // Our app handles dark mode via CSS classes
+    metaColorScheme.setAttribute('content', 'light');
   }, [readingPreferences.theme]);
 
   // Apply theme classes

@@ -12,6 +12,9 @@
   --safe-area-inset-bottom: env(safe-area-inset-bottom);
   --safe-area-inset-left: env(safe-area-inset-left);
   --safe-area-inset-right: env(safe-area-inset-right);
+  
+  /* Force light color scheme to prevent iOS WebView auto-appearance */
+  color-scheme: light;
 }
 
 /* Theme CSS Variables */
@@ -34,6 +37,8 @@
   --text-secondary: #9ca3af;
   --border-primary: #374151;
   --border-secondary: #4b5563;
+  /* Keep color-scheme as light to prevent iOS WebView auto-dark-mode */
+  color-scheme: light;
 }
 
 [data-theme="sepia"], .sepia {
@@ -44,6 +49,8 @@
   --text-secondary: #a16207;
   --border-primary: #fde047;
   --border-secondary: #facc15;
+  /* Keep color-scheme as light to prevent iOS WebView auto-dark-mode */
+  color-scheme: light;
 }
 
 .pt-safe {
