@@ -302,7 +302,7 @@ export function Settings({ onClose }: SettingsProps) {
 
       <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg space-y-2">
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
-          <strong>Version:</strong> 2.0.2 (Build 10)
+          <strong>Version:</strong> 2.0.2 (Build 11)
         </div>
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
           <strong>Copyright:</strong> © {new Date().getFullYear()} Faith Explorer
@@ -318,7 +318,7 @@ export function Settings({ onClose }: SettingsProps) {
           <ExternalLink className="w-4 h-4 text-gray-500" />
         </button>
         <button
-          onClick={() => openExternalLink('https://faithexplorer.app/terms')}
+          onClick={() => openExternalLink('https://faithexplorer.app/terms/')}
           className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
         >
           <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">Terms of Service</span>

@@ -29,7 +29,7 @@ export function Footer() {
               <ExternalLink className="w-3 h-3" />
             </button>
             <button
-              onClick={() => openExternalLink('https://faithexplorer.app/terms')}
+              onClick={() => openExternalLink('https://faithexplorer.app/terms/')}
               className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors"
             >
               <span>Terms of Service</span>

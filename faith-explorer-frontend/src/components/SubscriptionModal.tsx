@@ -276,17 +276,42 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
           </button>
         </div>
 
-        <div className="mt-4 space-y-2">
-          <p className="text-xs text-center text-gray-500">
-            Faith Explorer Pro is an auto-renewing subscription. Length: Monthly or Annual. Price shown above varies by region.
-          </p>
-          <div className="flex flex-col items-center gap-2 text-xs text-gray-500">
+        <div className="mt-4 space-y-3 border-t border-gray-200 pt-4">
+          {/* Required Subscription Information */}
+          <div className="text-xs text-gray-600 space-y-1.5">
+            <p className="font-semibold text-gray-700">Subscription Details:</p>
+            <ul className="space-y-1 pl-3">
+              <li><strong>Title:</strong> Faith Explorer Pro Auto-Renewable Subscription</li>
+              <li><strong>Length:</strong> Monthly (1 month) or Annual (12 months)</li>
+              <li><strong>Price:</strong> {
+                offerings?.current?.availablePackages?.find((pkg: any) => 
+                  pkg.packageType === 'MONTHLY' || 
+                  pkg.identifier?.toLowerCase().includes('monthly')
+                )?.storeProduct?.priceString || '$4.99'
+              }/month or {
+                offerings?.current?.availablePackages?.find((pkg: any) => 
+                  pkg.packageType === 'ANNUAL' || 
+                  pkg.identifier?.toLowerCase().includes('annual')
+                )?.storeProduct?.priceString || '$39.99'
+              }/year ($3.33/month)</li>
+            </ul>
+            <p className="pt-1">
+              Payment will be charged to your Apple ID account at confirmation of purchase. 
+              Subscription automatically renews unless it is canceled at least 24 hours before 
+              the end of the current period. Your account will be charged for renewal within 
+              24 hours prior to the end of the current period. You can manage and cancel your 
+              subscriptions by going to your account settings on the App Store after purchase.
+            </p>
+          </div>
+
+          {/* Required Links */}
+          <div className="flex flex-col items-center gap-2 text-xs text-gray-600">
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <a
                 href="https://faithexplorer.app/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-gray-700"
+                className="underline hover:text-gray-800 font-medium"
               >
                 Privacy Policy
               </a>
@@ -295,15 +320,15 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
                 href="https://faithexplorer.app/terms/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-gray-700"
+                className="underline hover:text-gray-800 font-medium"
               >
-                Terms of Use
+                Terms of Use (EULA)
               </a>
             </div>
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <a
                 href="itms-apps://apps.apple.com/account/subscriptions"
-                className="underline hover:text-gray-700"
+                className="underline hover:text-gray-800"
               >
                 Manage Subscription
               </a>
@@ -311,7 +336,7 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
               <button
                 onClick={handleRestore}
                 disabled={isLoading}
-                className="underline hover:text-gray-700 disabled:opacity-50"
+                className="underline hover:text-gray-800 disabled:opacity-50"
               >
                 Restore Purchases
               </button>
