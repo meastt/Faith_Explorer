@@ -25,27 +25,10 @@ async function loadScripture(fileName: string): Promise<Verse[]> {
   }
 }
 
-// Preload all scriptures on app start
+// Initialize scriptures - now using lazy loading, so this is a no-op
+// Scriptures are loaded on-demand when first needed
 export async function initializeScriptures() {
-  const scriptureFiles = [
-    'christianity-kjv.json',
-    'christianity-mormon.json', 
-    'christianity-doctrine-covenants.json',
-    'islam-quran-sahih.json',
-    'islam-hadith-bukhari.json',
-    'judaism-torah.json',
-    'judaism-talmud.json',
-    'hinduism-bhagavad-gita-complete.json',
-    'buddhism-dhammapada.json',
-    'sikhism-guru-granth-sahib.json',
-    'taoism-tao-te-ching.json',
-    'confucianism-analects.json',
-    'shinto-kojiki.json'
-  ];
-
-  console.log('Loading religious texts...');
-  await Promise.all(scriptureFiles.map(file => loadScripture(file)));
-  console.log('✅ All religious texts loaded');
+  console.log('✅ Scripture lazy loading enabled - files will load on demand');
 }
 
 const STOP_WORDS = new Set([
