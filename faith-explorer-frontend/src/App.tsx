@@ -43,7 +43,7 @@ function App() {
 
   // Check app version and clear cache if needed
   useEffect(() => {
-    const currentVersion = '2.0.2-10'; // version-build
+    const currentVersion = '2.0.3-12'; // version-build
     const storedVersion = localStorage.getItem('faithExplorer_appVersion');
 
     if (storedVersion !== currentVersion) {

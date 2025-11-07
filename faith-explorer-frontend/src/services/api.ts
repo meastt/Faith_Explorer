@@ -1,5 +1,4 @@
 import type { Religion, Verse, SelectedSubset } from '../types';
-import { searchScriptures } from './search';
 
 // Get API URL from environment or use default
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';

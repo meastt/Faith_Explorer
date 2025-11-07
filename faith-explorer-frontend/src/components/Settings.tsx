@@ -302,7 +302,7 @@ export function Settings({ onClose }: SettingsProps) {
 
       <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg space-y-2">
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
-          <strong>Version:</strong> 2.0.2 (Build 11)
+          <strong>Version:</strong> 2.0.3 (Build 12)
         </div>
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
           <strong>Copyright:</strong> © {new Date().getFullYear()} Faith Explorer
