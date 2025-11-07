@@ -49,26 +49,30 @@ function App() {
     if (storedVersion !== currentVersion) {
       console.log(`App updated from ${storedVersion} to ${currentVersion}, clearing cache...`);
 
+      // Update stored version FIRST to prevent reload loops
+      localStorage.setItem('faithExplorer_appVersion', currentVersion);
+
       // Clear Zustand storage to reset default selections
       localStorage.removeItem('faith-explorer-storage');
-      
+
       // Clear specific cached data that might be stale
       const allKeys = Object.keys(localStorage);
       allKeys.forEach(key => {
-        if (!key.includes('faithExplorer_hasSeenOnboarding') && 
-            !key.includes('faithExplorer_premium') && 
+        if (!key.includes('faithExplorer_hasSeenOnboarding') &&
+            !key.includes('faithExplorer_premium') &&
             !key.includes('faithExplorer_usage') &&
             key !== 'faithExplorer_appVersion') {
           localStorage.removeItem(key);
         }
       });
 
-      // Update stored version
-      localStorage.setItem('faithExplorer_appVersion', currentVersion);
       console.log('Cache cleared for app update - all selections reset');
-      
-      // Force page reload to ensure clean state
-      window.location.reload();
+
+      // Only reload in production builds, not during development
+      if (import.meta.env.PROD) {
+        // Force page reload to ensure clean state
+        window.location.reload();
+      }
     }
   }, []);
 
