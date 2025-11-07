@@ -66,8 +66,10 @@ interface AppState {
 
   // Freemium usage
   usage: FreemiumUsage;
-  incrementSearchUsage: () => boolean; // returns true if allowed
-  incrementChatUsage: () => boolean; // returns true if allowed
+  canSearch: () => boolean; // checks if search is allowed without incrementing
+  incrementSearchUsage: () => boolean; // returns true if allowed and increments
+  canChat: () => boolean; // checks if chat is allowed without incrementing
+  incrementChatUsage: () => boolean; // returns true if allowed and increments
   setPremium: (isPremium: boolean) => void;
   resetUsage: () => void;
 
@@ -219,7 +221,7 @@ export const useStore = create<AppState>()(
           };
         }),
 
-      incrementSearchUsage: () => {
+      canSearch: () => {
         const state = get();
 
         // Check if usage needs reset
@@ -229,6 +231,22 @@ export const useStore = create<AppState>()(
         }
 
         if (state.usage.isPremium) return true;
+
+        return state.usage.searchesUsed < state.usage.searchLimit;
+      },
+
+      incrementSearchUsage: () => {
+        const state = get();
+
+        // Check if usage needs reset
+        if (Date.now() > state.usage.resetDate) {
+          get().resetUsage();
+          return true;
+        }
+
+        if (state.usage.isPremium) {
+          return true;
+        }
 
         if (state.usage.searchesUsed >= state.usage.searchLimit) {
           return false;
@@ -241,6 +259,20 @@ export const useStore = create<AppState>()(
           },
         }));
         return true;
+      },
+
+      canChat: () => {
+        const state = get();
+
+        // Check if usage needs reset
+        if (Date.now() > state.usage.resetDate) {
+          get().resetUsage();
+          return true;
+        }
+
+        if (state.usage.isPremium) return true;
+
+        return state.usage.chatMessagesUsed < state.usage.chatLimit;
       },
 
       incrementChatUsage: () => {

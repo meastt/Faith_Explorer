@@ -28,7 +28,7 @@ export interface SearchResultWithAnswer {
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('search');
-  const { viewMode, selectedSubsets, setIsSearching, incrementSearchUsage, clearSelectedSubsets, shouldShowReviewPrompt, reviewPrompt } = useStore();
+  const { viewMode, selectedSubsets, setIsSearching, clearSelectedSubsets, shouldShowReviewPrompt, reviewPrompt } = useStore();
   const [searchResults, setSearchResults] = useState<SearchResultWithAnswer[]>([]);
   const [comparativeAnalysis, setComparativeAnalysis] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +43,7 @@ function App() {
 
   // Check app version and clear cache if needed
   useEffect(() => {
-    const currentVersion = '2.0.3-12'; // version-build
+    const currentVersion = '2.0.4-13'; // version-build
     const storedVersion = localStorage.getItem('faithExplorer_appVersion');
 
     if (storedVersion !== currentVersion) {
@@ -105,8 +105,9 @@ function App() {
   };
 
   const handleSearch = async (query: string) => {
-    // Check usage limit
-    if (!incrementSearchUsage()) {
+    // Check usage limit first (without incrementing)
+    const { canSearch, incrementSearchUsage } = useStore.getState();
+    if (!canSearch()) {
       alert('You\'ve reached your free search limit (10/month). Upgrade to Premium for unlimited searches starting at just $4.99/month!');
       return;
     }
@@ -122,6 +123,8 @@ function App() {
         return;
       }
 
+      let searchSuccessful = false;
+
       if (viewMode === 'single') {
         // For single mode, search all selected subsets together
         const result = await searchSubsets(selectedSubsets, query);
@@ -131,6 +134,7 @@ function App() {
           answer: result.answer, 
           verses: result.sources 
         }]);
+        searchSuccessful = true;
       } else {
         // For comparison mode, search each subset separately
         const results = await Promise.all(
@@ -146,6 +150,7 @@ function App() {
         );
         
         setSearchResults(results);
+        searchSuccessful = results.length > 0;
 
         // Get comparative analysis if we have results from multiple subsets
         if (results.length >= 2 && results.some(r => r.answer)) {
@@ -158,12 +163,19 @@ function App() {
             setComparativeAnalysis(analysis);
           } catch (error) {
             console.error('Comparative analysis error:', error);
+            // Don't fail the whole search if comparative analysis fails
           }
         }
+      }
+
+      // Only increment usage if search was successful
+      if (searchSuccessful) {
+        incrementSearchUsage();
       }
     } catch (error) {
       console.error('Search error:', error);
       alert('Search failed. Please try again.');
+      // Don't increment usage on failure
     } finally {
       setIsLoading(false);
       setIsSearching(false);

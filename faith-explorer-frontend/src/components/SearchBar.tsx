@@ -9,14 +9,13 @@ interface SearchBarProps {
 
 export function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState('');
-  const { isSearching, viewMode, selectedSubsets, usage } = useStore();
+  const { isSearching, viewMode, selectedSubsets, canSearch } = useStore();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim() && !isSearching) {
       // Check if user has exceeded search limit
-      const { isPremium, searchesUsed, searchLimit } = usage;
-      if (!isPremium && searchesUsed >= searchLimit) {
+      if (!canSearch()) {
         alert('You\'ve reached your free search limit (10/month). Upgrade to Premium for unlimited searches starting at just $4.99/month!');
         return;
       }
