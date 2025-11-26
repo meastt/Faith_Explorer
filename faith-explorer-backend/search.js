@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
+const Fuse = require('fuse.js');
 
 // Cache for loaded scriptures (lazy loading)
 const scriptureCache = {};
@@ -59,52 +60,37 @@ async function loadScripture(subsetId) {
   }
 }
 
-const STOP_WORDS = new Set([
-  'what', 'does', 'your', 'this', 'that', 'with', 'from', 'have',
-  'will', 'would', 'should', 'could', 'there', 'their', 'they',
-  'about', 'when', 'where', 'which', 'whom', 'whose', 'these', 'those'
-]);
-
+/**
+ * NEW LOGIC: Uses Fuse.js for fuzzy searching
+ * This allows for typos and better relevance scoring than simple keyword matching.
+ */
 function searchVerses(verses, question, maxResults = 10) {
   if (!verses || verses.length === 0) return [];
 
-  const keywords = question
-    .toLowerCase()
-    .replace(/[^\w\s]/g, ' ')
-    .split(/\s+/)
-    .filter(w => w.length > 3 && !STOP_WORDS.has(w));
+  // Configure Fuse options
+  const options = {
+    includeScore: true,
+    // Search in both the text content and the reference (e.g. "John 3:16")
+    keys: ['text', 'reference'],
+    // Threshold: 0.0 is exact match, 1.0 is match anything. 
+    // 0.4 is a good balance for natural language.
+    threshold: 0.4,
+    // Ignore where the word appears in the string
+    ignoreLocation: true,
+    // Minimum number of characters to match
+    minMatchCharLength: 3
+  };
 
-  if (keywords.length === 0) return [];
+  const fuse = new Fuse(verses, options);
+  const result = fuse.search(question);
 
-  const scored = verses.map(verse => {
-    const text = verse.text.toLowerCase();
-    let score = 0;
-
-    // Check for exact phrase match (big bonus)
-    if (text.includes(question.toLowerCase())) {
-      score += 100;
-    }
-
-    // Individual keyword matching
-    keywords.forEach(keyword => {
-      const regex = new RegExp(`\\b${keyword}`, 'i');
-      if (regex.test(text)) {
-        score += 1;
-      }
-    });
-
-    // Bonus for matching multiple keywords
-    if (score >= keywords.length) {
-      score += 5;
-    }
-
-    return { ...verse, score };
-  });
-
-  return scored
-    .filter(v => v.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, maxResults);
+  // Map Fuse results back to clean verse objects
+  return result
+    .slice(0, maxResults)
+    .map(r => ({
+      ...r.item,
+      score: r.score // Keep score for potential debugging/sorting
+    }));
 }
 
 async function searchScriptures(religion, question, maxResults = 10) {

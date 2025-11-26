@@ -1,137 +1,123 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
+/* 
+  Define the Design System directly in CSS (Tailwind v4 Standard)
+*/
+@theme {
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Crimson Pro', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Color Palette: Sand */
+  --color-sand-50: #fdfcfb;
+  --color-sand-100: #fbf9f6;
+  --color-sand-200: #f5f0eb;
+  --color-sand-300: #ede4db;
+  --color-sand-400: #dfcca9;
+  --color-sand-500: #a68f75;
+  --color-sand-900: #4a453e;
+
+  /* Color Palette: Bronze */
+  --color-bronze-50: #fbf8f3;
+  --color-bronze-100: #f5efe4;
+  --color-bronze-200: #eadbc3;
+  --color-bronze-300: #debfa0;
+  --color-bronze-400: #d09e72;
+  --color-bronze-500: #b87d4b;
+  --color-bronze-600: #9c633e;
+  --color-bronze-700: #7e4d34;
+  --color-bronze-800: #663d2e;
+  --color-bronze-900: #533328;
+
+  /* Color Palette: Stone */
+  --color-stone-50: #fafaf9;
+  --color-stone-100: #f5f5f4;
+  --color-stone-200: #e7e5e4;
+  --color-stone-300: #d6d3d1;
+  --color-stone-400: #a8a29e;
+  --color-stone-500: #78716c;
+  --color-stone-600: #57534e;
+  --color-stone-700: #44403c;
+  --color-stone-800: #292524;
+  --color-stone-900: #1c1917;
+  --color-stone-950: #0c0a09;
+
+  /* Animations */
+  --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-slide-up: slideUp 0.4s ease-out forwards;
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+  @keyframes slideUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* Shadows */
+  --shadow-paper: 0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  --shadow-float: 0 10px 30px -10px rgba(78, 61, 52, 0.15);
+  --shadow-glow: 0 0 20px rgba(184, 125, 75, 0.2);
+}
+
+/* Base Styles */
 @layer base {
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-sans);
+    background-color: var(--color-sand-50);
+    color: var(--color-sand-900);
+    -webkit-font-smoothing: antialiased;
+    
+    /* Subtle Texture */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  .dark body {
+    background-color: var(--color-stone-900);
+    color: var(--color-stone-200);
+    background-image: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.025em;
+    font-weight: 500;
   }
 }
 
-/* iOS Safe Area Support */
-:root {
-  --safe-area-inset-top: env(safe-area-inset-top);
-  --safe-area-inset-bottom: env(safe-area-inset-bottom);
-  --safe-area-inset-left: env(safe-area-inset-left);
-  --safe-area-inset-right: env(safe-area-inset-right);
-  
-  /* Force light color scheme to prevent iOS WebView auto-appearance */
-  color-scheme: light;
-}
-
-/* Theme CSS Variables */
-:root {
-  /* Light theme (default) */
-  --bg-primary: #f9fafb;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f3f4f6;
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --border-primary: #e5e7eb;
-  --border-secondary: #d1d5db;
-}
-
-[data-theme="dark"], .dark {
-  --bg-primary: #111827;
-  --bg-secondary: #1f2937;
-  --bg-tertiary: #374151;
-  --text-primary: #f9fafb;
-  --text-secondary: #9ca3af;
-  --border-primary: #374151;
-  --border-secondary: #4b5563;
-  /* Keep color-scheme as light to prevent iOS WebView auto-dark-mode */
-  color-scheme: light;
-}
-
-[data-theme="sepia"], .sepia {
-  --bg-primary: #fef9c3;
-  --bg-secondary: #fefce8;
-  --bg-tertiary: #fef08a;
-  --text-primary: #713f12;
-  --text-secondary: #a16207;
-  --border-primary: #fde047;
-  --border-secondary: #facc15;
-  /* Keep color-scheme as light to prevent iOS WebView auto-dark-mode */
-  color-scheme: light;
-}
-
-.pt-safe {
-  padding-top: var(--safe-area-inset-top);
-}
-
-.pb-safe {
-  padding-bottom: var(--safe-area-inset-bottom);
-}
-
-.pl-safe {
-  padding-left: var(--safe-area-inset-left);
-}
-
-.pr-safe {
-  padding-right: var(--safe-area-inset-right);
-}
-
-/* Clean, minimal global styles */
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-}
-
-/* Proportional line-height for font size scaling */
-[style*="font-size: 14px"] { line-height: 1.5; }
-[style*="font-size: 16px"] { line-height: 1.6; }
-[style*="font-size: 18px"] { line-height: 1.65; }
-[style*="font-size: 20px"] { line-height: 1.7; }
-[style*="font-size: 22px"] { line-height: 1.75; }
-[style*="font-size: 24px"] { line-height: 1.8; }
-
-/* Improved focus styles for accessibility */
-*:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-*:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-}
-
-/* Clean scrollbar */
+/* Utilities */
 ::-webkit-scrollbar {
   width: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #f3f4f6;
+  background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 3px;
+  background-color: var(--color-sand-300);
+  border-radius: 9999px;
 }
-
+.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--color-stone-700);
+}
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background-color: var(--color-bronze-400);
 }
 
-/* Smooth transitions */
-button, a, input, textarea {
-  transition: all 0.15s ease;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Focus styles */
-input:focus, textarea:focus {
-  outline: none;
-}
-
-/* Selection */
-::selection {
-  background-color: #dbeafe;
-  color: #1e40af;
-}
+.pt-safe { padding-top: env(safe-area-inset-top); }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
