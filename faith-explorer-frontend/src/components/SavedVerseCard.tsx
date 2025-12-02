@@ -1,6 +1,6 @@
-import { MessageCircle, Share2, Trash2, Edit3, ChevronDown, ChevronUp, Calendar, Folder as FolderIcon, Tag, Plus, X as XIcon } from 'lucide-react';
-import { useState } from 'react';
-import type { SavedVerse } from '../types';
+import { MessageCircle, Share2, Trash2, Edit3, ChevronDown, ChevronUp, Calendar, Folder as FolderIcon, Tag, Plus, X as XIcon, Highlighter } from 'lucide-react';
+import { useState, useRef } from 'react';
+import type { SavedVerse, Highlight } from '../types';
 import { useStore } from '../store/useStore';
 import { shareVerse, copyToClipboard, formatDate } from '../utils/helpers';
 import { RELIGIONS } from '../types';
@@ -12,12 +12,15 @@ interface SavedVerseCardProps {
 }
 
 export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardProps) {
-  const { updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount, folders, moveVerseToFolder, addTagToVerse, removeTagFromVerse } = useStore();
+  const { updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount, folders, moveVerseToFolder, addTagToVerse, removeTagFromVerse, addHighlightToVerse, removeHighlightFromVerse, updateHighlightColor } = useStore();
   const [isEditing, setIsEditing] = useState(false);
   const [editNotes, setEditNotes] = useState(verse.notes);
   const [showFolderMenu, setShowFolderMenu] = useState(false);
   const [isAddingTag, setIsAddingTag] = useState(false);
   const [newTag, setNewTag] = useState('');
+  const [isHighlighting, setIsHighlighting] = useState(false);
+  const [selectedHighlightColor, setSelectedHighlightColor] = useState<Highlight['color']>('yellow');
+  const verseTextRef = useRef<HTMLDivElement>(null);
 
   const religionInfo = RELIGIONS.find((r) => r.id === verse.religion);
   const color = religionInfo?.color || '#6B7280';
@@ -80,6 +83,106 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
   const handleRemoveTag = (tag: string, e: React.MouseEvent) => {
     e.stopPropagation();
     removeTagFromVerse(verse.id, tag);
+  };
+
+  const handleTextSelection = () => {
+    if (!isHighlighting) return;
+
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+
+    const range = selection.getRangeAt(0);
+    const selectedText = selection.toString().trim();
+
+    if (selectedText.length === 0) return;
+
+    // Calculate start and end positions in the verse text
+    const preRange = document.createRange();
+    preRange.selectNodeContents(verseTextRef.current!);
+    preRange.setEnd(range.startContainer, range.startOffset);
+    const start = preRange.toString().length;
+    const end = start + selectedText.length;
+
+    // Create highlight
+    const highlight: Highlight = {
+      id: `highlight-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      start,
+      end,
+      color: selectedHighlightColor,
+    };
+
+    addHighlightToVerse(verse.id, highlight);
+
+    // Clear selection
+    selection.removeAllRanges();
+  };
+
+  const handleRemoveHighlight = (highlightId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    removeHighlightFromVerse(verse.id, highlightId);
+  };
+
+  const highlightColorMap = {
+    yellow: '#fef08a',
+    green: '#86efac',
+    blue: '#93c5fd',
+    red: '#fca5a5',
+  };
+
+  // Render text with highlights
+  const renderHighlightedText = () => {
+    const highlights = verse.highlights || [];
+    if (highlights.length === 0) {
+      return <span>{verse.text}</span>;
+    }
+
+    // Sort highlights by start position
+    const sortedHighlights = [...highlights].sort((a, b) => a.start - b.start);
+
+    const segments: JSX.Element[] = [];
+    let lastEnd = 0;
+
+    sortedHighlights.forEach((highlight, idx) => {
+      // Add text before highlight
+      if (highlight.start > lastEnd) {
+        segments.push(
+          <span key={`text-${idx}`}>
+            {verse.text.slice(lastEnd, highlight.start)}
+          </span>
+        );
+      }
+
+      // Add highlighted text
+      segments.push(
+        <mark
+          key={`highlight-${highlight.id}`}
+          style={{ backgroundColor: highlightColorMap[highlight.color] }}
+          className="px-0.5 rounded cursor-pointer hover:opacity-80 transition-opacity"
+          onClick={(e) => {
+            if (isHighlighting) {
+              e.stopPropagation();
+              handleRemoveHighlight(highlight.id, e);
+            }
+          }}
+          title={isHighlighting ? "Click to remove highlight" : ""}
+        >
+          {verse.text.slice(highlight.start, highlight.end)}
+        </mark>
+      );
+
+      lastEnd = highlight.end;
+    });
+
+    // Add remaining text
+    if (lastEnd < verse.text.length) {
+      segments.push(
+        <span key="text-end">
+          {verse.text.slice(lastEnd)}
+        </span>
+      );
+    }
+
+    return <>{segments}</>;
   };
 
   // Get current folder
@@ -162,8 +265,45 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
       {/* Expanded Content */}
       {isExpanded && (
         <div className="px-3 pb-3 space-y-3">
-          <blockquote className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800 leading-relaxed pl-3 border-l-2" style={{ borderColor: color }}>
-            "{verse.text}"
+          {/* Highlighting Controls */}
+          {isHighlighting && (
+            <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+              <Highlighter className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
+                Select text to highlight
+              </span>
+              <div className="flex gap-1 ml-auto">
+                {(['yellow', 'green', 'blue', 'red'] as const).map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setSelectedHighlightColor(c)}
+                    className={`w-6 h-6 rounded-full border-2 transition-transform ${
+                      selectedHighlightColor === c ? 'border-gray-700 dark:border-gray-300 scale-110' : 'border-gray-300 dark:border-gray-600'
+                    }`}
+                    style={{ backgroundColor: highlightColorMap[c] }}
+                    title={`${c} highlight`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsHighlighting(false);
+                }}
+                className="ml-2 text-xs font-medium text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+              >
+                Done
+              </button>
+            </div>
+          )}
+
+          <blockquote
+            ref={verseTextRef}
+            onMouseUp={handleTextSelection}
+            className={`text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800 leading-relaxed pl-3 border-l-2 ${isHighlighting ? 'select-text cursor-text' : ''}`}
+            style={{ borderColor: color }}
+          >
+            "{renderHighlightedText()}"
           </blockquote>
 
           {/* Tags Section */}
@@ -317,6 +457,22 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
             </>
           )}
         </div>
+
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsHighlighting(!isHighlighting);
+          }}
+          className={`flex items-center gap-1 px-2 py-1.5 text-xs font-medium transition-all duration-200 rounded-md ${
+            isHighlighting
+              ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+              : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
+          }`}
+          title="Highlight text"
+        >
+          <Highlighter className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Highlight</span>
+        </button>
 
         <button
           onClick={handleEditClick}

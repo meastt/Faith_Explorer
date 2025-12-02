@@ -57,12 +57,20 @@ export interface Folder {
   color?: string;
 }
 
+export interface Highlight {
+  id: string;
+  start: number;
+  end: number;
+  color: 'yellow' | 'green' | 'blue' | 'red';
+}
+
 export interface SavedVerse extends Verse {
   id: string;
   savedAt: number;
   notes: string;
   tags: string[];
   folderId?: string | null;
+  highlights: Highlight[];
 }
 
 export interface ComparisonResult {

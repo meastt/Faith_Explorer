@@ -10,6 +10,7 @@ import type {
   FreemiumUsage,
   SelectedSubset,
   Folder,
+  Highlight,
 } from '../types';
 
 export interface ReadingPreferences {
@@ -61,6 +62,9 @@ interface AppState {
   updateVerseTags: (id: string, tags: string[]) => void;
   addTagToVerse: (id: string, tag: string) => void;
   removeTagFromVerse: (id: string, tag: string) => void;
+  addHighlightToVerse: (id: string, highlight: Highlight) => void;
+  removeHighlightFromVerse: (id: string, highlightId: string) => void;
+  updateHighlightColor: (verseId: string, highlightId: string, color: Highlight['color']) => void;
   moveVerseToFolder: (verseId: string, folderId: string | null) => void;
   deleteVerse: (id: string) => void;
 
@@ -254,6 +258,38 @@ export const useStore = create<AppState>()(
           savedVerses: state.savedVerses.map((v) =>
             v.id === id
               ? { ...v, tags: v.tags.filter((t) => t !== tag) }
+              : v
+          ),
+        })),
+
+      addHighlightToVerse: (id, highlight) =>
+        set((state) => ({
+          savedVerses: state.savedVerses.map((v) =>
+            v.id === id
+              ? { ...v, highlights: [...(v.highlights || []), highlight] }
+              : v
+          ),
+        })),
+
+      removeHighlightFromVerse: (id, highlightId) =>
+        set((state) => ({
+          savedVerses: state.savedVerses.map((v) =>
+            v.id === id
+              ? { ...v, highlights: (v.highlights || []).filter((h) => h.id !== highlightId) }
+              : v
+          ),
+        })),
+
+      updateHighlightColor: (verseId, highlightId, color) =>
+        set((state) => ({
+          savedVerses: state.savedVerses.map((v) =>
+            v.id === verseId
+              ? {
+                  ...v,
+                  highlights: (v.highlights || []).map((h) =>
+                    h.id === highlightId ? { ...h, color } : h
+                  ),
+                }
               : v
           ),
         })),
