@@ -2,6 +2,7 @@ import { BookmarkCheck, Search, Filter, Download, ArrowUpDown, FolderPlus, Folde
 import { useState, useMemo } from 'react';
 import { useStore } from '../store/useStore';
 import { SavedVerseCard } from './SavedVerseCard';
+import { LibraryStats } from './LibraryStats';
 import { exportCollection } from '../utils/export';
 import { RELIGIONS, type Religion } from '../types';
 
@@ -236,6 +237,9 @@ export function SavedLibrary() {
           </div>
         )}
       </div>
+
+      {/* Library Stats Dashboard */}
+      <LibraryStats />
 
       {/* Folders Section */}
       <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-soft border border-sage-200 dark:border-gray-700 sepia:border-amber-200 p-4">
