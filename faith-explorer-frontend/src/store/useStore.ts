@@ -11,6 +11,8 @@ import type {
   SelectedSubset,
   Folder,
   Highlight,
+  Badge,
+  BadgeId,
 } from '../types';
 
 export interface ReadingPreferences {
@@ -110,6 +112,12 @@ interface AppState {
   updateStreak: () => void; // Call this when user is active
   useStreakFreeze: () => boolean; // Returns true if freeze was applied
 
+  // Achievement Badges
+  badges: Badge[];
+  checkAndUnlockBadges: () => void; // Check all badge conditions and unlock new ones
+  getUnlockedBadges: () => Badge[];
+  getLockedBadges: () => Badge[];
+
   // Review prompt
   reviewPrompt: ReviewPromptState;
   incrementSaveCount: () => void;
@@ -129,6 +137,53 @@ const getInitialUsage = (): FreemiumUsage => {
     isPremium: false,
     resetDate: now + 30 * 24 * 60 * 60 * 1000, // 30 days from now
   };
+};
+
+const getInitialBadges = (): Badge[] => {
+  return [
+    {
+      id: 'first-search',
+      name: 'First Search',
+      description: 'Complete your first search',
+      icon: '🔍',
+      unlockedAt: null,
+    },
+    {
+      id: 'week-warrior',
+      name: 'Week Warrior',
+      description: 'Maintain a 7-day streak',
+      icon: '🔥',
+      unlockedAt: null,
+    },
+    {
+      id: 'interfaith-explorer',
+      name: 'Interfaith Explorer',
+      description: 'Search across 3 or more religions',
+      icon: '🌍',
+      unlockedAt: null,
+    },
+    {
+      id: 'deep-thinker',
+      name: 'Deep Thinker',
+      description: 'Send 50+ chat messages',
+      icon: '💭',
+      unlockedAt: null,
+    },
+    {
+      id: 'library-keeper',
+      name: 'Library Keeper',
+      description: 'Save 25 or more verses',
+      icon: '📚',
+      unlockedAt: null,
+    },
+    {
+      id: 'wisdom-seeker',
+      name: 'Wisdom Seeker',
+      description: 'Maintain a 30-day streak',
+      icon: '⭐',
+      unlockedAt: null,
+    },
+  ];
 };
 
 const getDefaultFolders = (): Folder[] => {
@@ -167,6 +222,7 @@ export const useStore = create<AppState>()(
         freezesAvailable: 1,
         lastFreezeResetDate: null,
       },
+      badges: getInitialBadges(),
       reviewPrompt: {
         savesCount: 0,
         sharesCount: 0,
@@ -573,6 +629,74 @@ export const useStore = create<AppState>()(
         }));
 
         return true;
+      },
+
+      checkAndUnlockBadges: () => {
+        const state = get();
+        const now = Date.now();
+        let badgesUpdated = false;
+
+        const updatedBadges = state.badges.map((badge) => {
+          // Skip if already unlocked
+          if (badge.unlockedAt !== null) return badge;
+
+          let shouldUnlock = false;
+
+          switch (badge.id) {
+            case 'first-search':
+              // Unlock if user has done at least 1 search
+              shouldUnlock = state.usage.searchesUsed > 0;
+              break;
+
+            case 'week-warrior':
+              // Unlock if current streak is 7 or more days
+              shouldUnlock = state.streak.current >= 7;
+              break;
+
+            case 'interfaith-explorer':
+              // Count unique religions user has searched
+              const uniqueReligions = new Set<string>();
+              state.savedVerses.forEach((verse) => {
+                if (verse.religion) uniqueReligions.add(verse.religion);
+              });
+              shouldUnlock = uniqueReligions.size >= 3;
+              break;
+
+            case 'deep-thinker':
+              // Unlock if user has sent 50+ chat messages
+              shouldUnlock = state.usage.chatMessagesUsed >= 50;
+              break;
+
+            case 'library-keeper':
+              // Unlock if user has saved 25+ verses
+              shouldUnlock = state.savedVerses.length >= 25;
+              break;
+
+            case 'wisdom-seeker':
+              // Unlock if current streak is 30 or more days
+              shouldUnlock = state.streak.current >= 30;
+              break;
+          }
+
+          if (shouldUnlock) {
+            badgesUpdated = true;
+            return { ...badge, unlockedAt: now };
+          }
+
+          return badge;
+        });
+
+        if (badgesUpdated) {
+          set({ badges: updatedBadges });
+        }
+      },
+
+      getUnlockedBadges: () => {
+        return get().badges.filter((badge) => badge.unlockedAt !== null);
+      },
+
+      getLockedBadges: () => {
+        return get().badges.filter((badge) => badge.unlockedAt === null);
       },
 
       incrementSaveCount: () =>

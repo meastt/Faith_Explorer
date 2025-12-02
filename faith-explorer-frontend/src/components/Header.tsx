@@ -5,7 +5,7 @@ import { SubscriptionModal } from './SubscriptionModal';
 import { revenueCat } from '../services/revenuecat';
 
 export function Header() {
-  const { usage, setPremium, streak, updateStreak, useStreakFreeze } = useStore();
+  const { usage, setPremium, streak, updateStreak, useStreakFreeze, checkAndUnlockBadges } = useStore();
   const { isPremium } = usage;
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [showStreakFreeze, setShowStreakFreeze] = useState(false);
@@ -13,7 +13,9 @@ export function Header() {
   // Update streak when component mounts
   useEffect(() => {
     updateStreak();
-  }, [updateStreak]);
+    // Check for streak-based badge unlocks
+    checkAndUnlockBadges();
+  }, [updateStreak, checkAndUnlockBadges]);
 
   useEffect(() => {
     const publicKey = import.meta.env.VITE_REVENUECAT_PUBLIC_KEY;

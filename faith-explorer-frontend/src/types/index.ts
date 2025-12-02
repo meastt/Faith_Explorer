@@ -114,6 +114,22 @@ export interface FreemiumUsage {
   resetDate: number;
 }
 
+export type BadgeId =
+  | 'first-search'
+  | 'week-warrior'
+  | 'interfaith-explorer'
+  | 'deep-thinker'
+  | 'library-keeper'
+  | 'wisdom-seeker';
+
+export interface Badge {
+  id: BadgeId;
+  name: string;
+  description: string;
+  icon: string; // emoji
+  unlockedAt: number | null; // timestamp when unlocked, null if locked
+}
+
 export const RELIGIONS: ReligionInfo[] = [
   {
     id: 'christianity',
