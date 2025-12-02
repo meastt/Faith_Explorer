@@ -110,7 +110,7 @@ function App() {
 
   const handleSearch = async (query: string) => {
     // Check usage limit first (without incrementing)
-    const { canSearch, incrementSearchUsage } = useStore.getState();
+    const { canSearch, incrementSearchUsage, addRecentTopic } = useStore.getState();
     const hasSearchesLeft = canSearch();
 
     // Soft gating: Allow search to proceed even if limit reached, but mark as gated
@@ -176,6 +176,11 @@ function App() {
       // Only increment usage if search was successful AND not gated
       if (searchSuccessful && !isSearchGated) {
         incrementSearchUsage();
+      }
+
+      // Track topic for personalized recommendations (regardless of gated status)
+      if (searchSuccessful) {
+        addRecentTopic(query);
       }
     } catch (error) {
       console.error('Search error:', error);

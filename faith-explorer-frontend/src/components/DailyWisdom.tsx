@@ -13,11 +13,11 @@ const WISDOM_QUERIES = [
 ];
 
 export function DailyWisdom() {
-  const [wisdom, setWisdom] = useState<{ answer: string; religion: Religion; query: string } | null>(null);
+  const [wisdom, setWisdom] = useState<{ answer: string; religion: Religion; query: string; personalizedIntro?: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
-  const { usage, setPremium, setActiveVerseChat } = useStore();
+  const { usage, setPremium, setActiveVerseChat, savedVerses, getTopRecentTopics } = useStore();
 
   const loadDailyWisdom = async () => {
     setIsLoading(true);
@@ -30,7 +30,18 @@ export function DailyWisdom() {
       const religion = fullCoverageReligions[religionIndex].id;
 
       const result = await searchReligion(religion, query);
-      setWisdom({ answer: result.answer, religion, query });
+
+      // Generate personalized intro based on recent topics
+      let personalizedIntro: string | undefined;
+      if (usage.isPremium) {
+        const topTopics = getTopRecentTopics(2);
+        if (topTopics.length > 0) {
+          const topics = topTopics.join(' and ');
+          personalizedIntro = `Based on your recent interest in ${topics}, today's wisdom explores ${query.toLowerCase()}`;
+        }
+      }
+
+      setWisdom({ answer: result.answer, religion, query, personalizedIntro });
     } catch (error) {
       console.error('Failed to load daily wisdom:', error);
     } finally {
@@ -141,6 +152,15 @@ export function DailyWisdom() {
 
           {isExpanded && (
             <div className="mt-4 pt-4 border-t border-sand-100 dark:border-stone-700 animate-slide-up">
+              {/* Personalized Intro for Premium users */}
+              {wisdom.personalizedIntro && usage.isPremium && (
+                <div className="mb-4 p-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                  <p className="text-sm text-amber-900 dark:text-amber-200 italic">
+                    ✨ {wisdom.personalizedIntro}
+                  </p>
+                </div>
+              )}
+
               <p className="text-xs font-bold text-stone-500 dark:text-stone-400 mb-3 uppercase tracking-wide">
                 From {religionInfo?.name}
               </p>

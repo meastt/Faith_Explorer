@@ -92,6 +92,11 @@ interface AppState {
   readingPreferences: ReadingPreferences;
   setReadingPreferences: (preferences: ReadingPreferences) => void;
 
+  // Recent topics (for personalized Daily Wisdom)
+  recentTopics: string[];
+  addRecentTopic: (topic: string) => void;
+  getTopRecentTopics: (count?: number) => string[];
+
   // Review prompt
   reviewPrompt: ReviewPromptState;
   incrementSaveCount: () => void;
@@ -141,6 +146,7 @@ export const useStore = create<AppState>()(
         fontSize: 16,
         fontFamily: 'sans',
       },
+      recentTopics: [],
       reviewPrompt: {
         savesCount: 0,
         sharesCount: 0,
@@ -433,6 +439,33 @@ export const useStore = create<AppState>()(
         })),
 
       setReadingPreferences: (preferences) => set({ readingPreferences: preferences }),
+
+      addRecentTopic: (topic) =>
+        set((state) => {
+          const normalized = topic.toLowerCase().trim();
+          if (!normalized || normalized.length < 3) return state;
+
+          // Remove topic if it already exists (to move it to front)
+          const filtered = state.recentTopics.filter((t) => t !== normalized);
+          // Add to front and limit to 20 topics
+          return {
+            recentTopics: [normalized, ...filtered].slice(0, 20),
+          };
+        }),
+
+      getTopRecentTopics: (count = 3) => {
+        const state = get();
+        // Count frequency of topics
+        const topicCounts: Record<string, number> = {};
+        state.recentTopics.forEach((topic) => {
+          topicCounts[topic] = (topicCounts[topic] || 0) + 1;
+        });
+        // Sort by frequency and return top N
+        return Object.entries(topicCounts)
+          .sort(([, a], [, b]) => b - a)
+          .slice(0, count)
+          .map(([topic]) => topic);
+      },
 
       incrementSaveCount: () =>
         set((state) => ({
