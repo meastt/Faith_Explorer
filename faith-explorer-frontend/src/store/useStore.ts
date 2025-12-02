@@ -27,6 +27,14 @@ export interface ReviewPromptState {
   status: 'pending' | 'later' | 'reviewed' | 'dismissed';
 }
 
+export interface StreakData {
+  current: number;
+  longest: number;
+  lastActiveDate: string | null; // ISO date string (YYYY-MM-DD)
+  freezesAvailable: number;
+  lastFreezeResetDate: string | null; // ISO date string for monthly freeze reset
+}
+
 interface AppState {
   // View mode
   viewMode: ViewMode;
@@ -97,6 +105,11 @@ interface AppState {
   addRecentTopic: (topic: string) => void;
   getTopRecentTopics: (count?: number) => string[];
 
+  // Streak tracking
+  streak: StreakData;
+  updateStreak: () => void; // Call this when user is active
+  useStreakFreeze: () => boolean; // Returns true if freeze was applied
+
   // Review prompt
   reviewPrompt: ReviewPromptState;
   incrementSaveCount: () => void;
@@ -147,6 +160,13 @@ export const useStore = create<AppState>()(
         fontFamily: 'sans',
       },
       recentTopics: [],
+      streak: {
+        current: 0,
+        longest: 0,
+        lastActiveDate: null,
+        freezesAvailable: 1,
+        lastFreezeResetDate: null,
+      },
       reviewPrompt: {
         savesCount: 0,
         sharesCount: 0,
@@ -465,6 +485,94 @@ export const useStore = create<AppState>()(
           .sort(([, a], [, b]) => b - a)
           .slice(0, count)
           .map(([topic]) => topic);
+      },
+
+      updateStreak: () =>
+        set((state) => {
+          const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+          const lastActive = state.streak.lastActiveDate;
+
+          // If already active today, no change
+          if (lastActive === today) return state;
+
+          let newCurrent = 1;
+          let newLongest = state.streak.longest;
+          let newFreezesAvailable = state.streak.freezesAvailable;
+          let newFreezeResetDate = state.streak.lastFreezeResetDate;
+
+          if (lastActive) {
+            const lastDate = new Date(lastActive);
+            const todayDate = new Date(today);
+            const diffDays = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 1) {
+              // Consecutive day - increment streak
+              newCurrent = state.streak.current + 1;
+            } else if (diffDays > 1) {
+              // Missed a day - streak broken, reset to 1
+              newCurrent = 1;
+            }
+          }
+
+          // Update longest streak if current is higher
+          if (newCurrent > newLongest) {
+            newLongest = newCurrent;
+          }
+
+          // Reset monthly freeze (1st of each month)
+          const currentMonth = new Date(today).getMonth();
+          const lastResetMonth = newFreezeResetDate ? new Date(newFreezeResetDate).getMonth() : -1;
+          if (currentMonth !== lastResetMonth && state.usage.isPremium) {
+            newFreezesAvailable = 1;
+            newFreezeResetDate = today;
+          }
+
+          return {
+            streak: {
+              current: newCurrent,
+              longest: newLongest,
+              lastActiveDate: today,
+              freezesAvailable: newFreezesAvailable,
+              lastFreezeResetDate: newFreezeResetDate,
+            },
+          };
+        }),
+
+      useStreakFreeze: () => {
+        const state = get();
+
+        // Only premium users can use streak freeze
+        if (!state.usage.isPremium) return false;
+
+        // Check if freezes available
+        if (state.streak.freezesAvailable <= 0) return false;
+
+        const today = new Date().toISOString().split('T')[0];
+        const lastActive = state.streak.lastActiveDate;
+
+        if (!lastActive) return false;
+
+        const lastDate = new Date(lastActive);
+        const todayDate = new Date(today);
+        const diffDays = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+
+        // Only allow freeze if exactly 1 day was missed
+        if (diffDays !== 2) return false;
+
+        // Apply freeze - extend lastActiveDate by 1 day
+        const yesterday = new Date(todayDate);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+        set((state) => ({
+          streak: {
+            ...state.streak,
+            lastActiveDate: yesterdayStr,
+            freezesAvailable: state.streak.freezesAvailable - 1,
+          },
+        }));
+
+        return true;
       },
 
       incrementSaveCount: () =>

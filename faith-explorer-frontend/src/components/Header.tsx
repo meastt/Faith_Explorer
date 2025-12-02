@@ -1,13 +1,19 @@
-import { Star, Menu } from 'lucide-react';
+import { Star, Menu, Flame } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useStore } from '../store/useStore';
 import { SubscriptionModal } from './SubscriptionModal';
 import { revenueCat } from '../services/revenuecat';
 
 export function Header() {
-  const { usage, setPremium } = useStore();
+  const { usage, setPremium, streak, updateStreak, useStreakFreeze } = useStore();
   const { isPremium } = usage;
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
+  const [showStreakFreeze, setShowStreakFreeze] = useState(false);
+
+  // Update streak when component mounts
+  useEffect(() => {
+    updateStreak();
+  }, [updateStreak]);
 
   useEffect(() => {
     const publicKey = import.meta.env.VITE_REVENUECAT_PUBLIC_KEY;
@@ -19,6 +25,26 @@ export function Header() {
 
   const handleUpgradeClick = () => {
     if (!isPremium) setShowSubscriptionModal(true);
+  };
+
+  const handleStreakClick = () => {
+    // Check if streak is broken and freeze is available
+    const today = new Date().toISOString().split('T')[0];
+    const lastActive = streak.lastActiveDate;
+    if (lastActive) {
+      const diffDays = Math.floor((new Date(today).getTime() - new Date(lastActive).getTime()) / (1000 * 60 * 60 * 24));
+      if (diffDays === 2 && isPremium && streak.freezesAvailable > 0) {
+        setShowStreakFreeze(true);
+      }
+    }
+  };
+
+  const applyStreakFreeze = () => {
+    const success = useStreakFreeze();
+    if (success) {
+      updateStreak();
+      setShowStreakFreeze(false);
+    }
   };
 
   return (
@@ -46,6 +72,20 @@ export function Header() {
 
               {/* Actions */}
               <div className="flex items-center gap-3">
+                {/* Streak Counter */}
+                {streak.current > 0 && (
+                  <button
+                    onClick={handleStreakClick}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 border border-orange-200 dark:border-orange-800 transition-all duration-300 hover:scale-105"
+                    title={`Longest: ${streak.longest} days${isPremium && streak.freezesAvailable > 0 ? ` • ${streak.freezesAvailable} freeze available` : ''}`}
+                  >
+                    <Flame className="w-4 h-4 text-orange-600 dark:text-orange-400" />
+                    <span className="text-sm font-bold text-orange-900 dark:text-orange-200">
+                      {streak.current}
+                    </span>
+                  </button>
+                )}
+
                 <button
                   onClick={handleUpgradeClick}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
@@ -68,6 +108,44 @@ export function Header() {
           onClose={() => setShowSubscriptionModal(false)}
           onSubscribe={() => setPremium(true)}
         />
+      )}
+
+      {/* Streak Freeze Modal */}
+      {showStreakFreeze && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-stone-800 rounded-2xl shadow-2xl max-w-md w-full p-6 border border-sand-200 dark:border-stone-700">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-orange-300 dark:border-orange-700">
+                <Flame className="w-8 h-8 text-orange-600 dark:text-orange-400" />
+              </div>
+              <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-2">
+                Streak Freeze Available!
+              </h3>
+              <p className="text-sm text-stone-600 dark:text-stone-400 mb-6">
+                You missed yesterday, but you can use your monthly streak freeze (Premium perk) to keep your {streak.current}-day streak alive!
+              </p>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowStreakFreeze(false)}
+                  className="flex-1 px-4 py-3 rounded-xl border border-sand-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 font-medium hover:bg-sand-50 dark:hover:bg-stone-700 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={applyStreakFreeze}
+                  className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-medium hover:from-orange-600 hover:to-red-600 transition-all shadow-md hover:shadow-lg"
+                >
+                  Use Freeze
+                </button>
+              </div>
+
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-4">
+                You have {streak.freezesAvailable} freeze{streak.freezesAvailable !== 1 ? 's' : ''} available this month
+              </p>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
