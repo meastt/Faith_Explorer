@@ -9,6 +9,7 @@ import type {
   VerseChat,
   FreemiumUsage,
   SelectedSubset,
+  Folder,
 } from '../types';
 
 export interface ReadingPreferences {
@@ -47,10 +48,17 @@ interface AppState {
   isSearching: boolean;
   setIsSearching: (loading: boolean) => void;
 
+  // Folders
+  folders: Folder[];
+  createFolder: (name: string, color?: string) => Folder;
+  renameFolder: (id: string, name: string) => void;
+  deleteFolder: (id: string) => void;
+
   // Saved verses
   savedVerses: SavedVerse[];
   saveVerse: (verse: SavedVerse) => void;
   updateVerseNotes: (id: string, notes: string) => void;
+  moveVerseToFolder: (verseId: string, folderId: string | null) => void;
   deleteVerse: (id: string) => void;
 
   // Saved comparisons
@@ -98,6 +106,15 @@ const getInitialUsage = (): FreemiumUsage => {
   };
 };
 
+const getDefaultFolders = (): Folder[] => {
+  const now = Date.now();
+  return [
+    { id: 'favorites', name: 'Favorites', createdAt: now, color: '#f59e0b' },
+    { id: 'to-study', name: 'To Study', createdAt: now, color: '#3b82f6' },
+    { id: 'shared', name: 'Shared', createdAt: now, color: '#10b981' },
+  ];
+};
+
 export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
@@ -107,6 +124,7 @@ export const useStore = create<AppState>()(
       selectedSubsets: [],
       searchTerm: '',
       isSearching: false,
+      folders: getDefaultFolders(),
       savedVerses: [],
       savedComparisons: [],
       activeVerseChat: null,
@@ -171,6 +189,35 @@ export const useStore = create<AppState>()(
 
       setIsSearching: (loading) => set({ isSearching: loading }),
 
+      createFolder: (name, color) => {
+        const folder: Folder = {
+          id: `folder-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          name,
+          createdAt: Date.now(),
+          color,
+        };
+        set((state) => ({
+          folders: [...state.folders, folder],
+        }));
+        return folder;
+      },
+
+      renameFolder: (id, name) =>
+        set((state) => ({
+          folders: state.folders.map((f) =>
+            f.id === id ? { ...f, name } : f
+          ),
+        })),
+
+      deleteFolder: (id) =>
+        set((state) => ({
+          folders: state.folders.filter((f) => f.id !== id),
+          // Move all verses in this folder to no folder
+          savedVerses: state.savedVerses.map((v) =>
+            v.folderId === id ? { ...v, folderId: null } : v
+          ),
+        })),
+
       saveVerse: (verse) =>
         set((state) => ({
           savedVerses: [verse, ...state.savedVerses],
@@ -180,6 +227,13 @@ export const useStore = create<AppState>()(
         set((state) => ({
           savedVerses: state.savedVerses.map((v) =>
             v.id === id ? { ...v, notes } : v
+          ),
+        })),
+
+      moveVerseToFolder: (verseId, folderId) =>
+        set((state) => ({
+          savedVerses: state.savedVerses.map((v) =>
+            v.id === verseId ? { ...v, folderId } : v
           ),
         })),
 

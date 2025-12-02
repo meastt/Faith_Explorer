@@ -1,4 +1,4 @@
-import { MessageCircle, Share2, Trash2, Edit3, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
+import { MessageCircle, Share2, Trash2, Edit3, ChevronDown, ChevronUp, Calendar, Folder as FolderIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { SavedVerse } from '../types';
 import { useStore } from '../store/useStore';
@@ -12,9 +12,10 @@ interface SavedVerseCardProps {
 }
 
 export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardProps) {
-  const { updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount } = useStore();
+  const { updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount, folders, moveVerseToFolder } = useStore();
   const [isEditing, setIsEditing] = useState(false);
   const [editNotes, setEditNotes] = useState(verse.notes);
+  const [showFolderMenu, setShowFolderMenu] = useState(false);
 
   const religionInfo = RELIGIONS.find((r) => r.id === verse.religion);
   const color = religionInfo?.color || '#6B7280';
@@ -60,6 +61,14 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
     setIsEditing(true);
   };
 
+  const handleMoveToFolder = (folderId: string | null) => {
+    moveVerseToFolder(verse.id, folderId);
+    setShowFolderMenu(false);
+  };
+
+  // Get current folder
+  const currentFolder = folders.find(f => f.id === verse.folderId);
+
   // Get preview text (first 120 characters)
   const previewText = verse.text.length > 120 ? verse.text.slice(0, 120) + '...' : verse.text;
 
@@ -89,10 +98,22 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
             
             {/* Reference & Preview */}
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
                 <p className="font-semibold text-sm text-gray-900 dark:text-gray-100 sepia:text-amber-900">
                   {verse.reference}
                 </p>
+                {currentFolder && (
+                  <span
+                    className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-medium"
+                    style={{
+                      backgroundColor: `${currentFolder.color}20`,
+                      color: currentFolder.color
+                    }}
+                  >
+                    <FolderIcon className="w-2.5 h-2.5 mr-0.5" />
+                    {currentFolder.name}
+                  </span>
+                )}
                 {verse.tags?.includes('AI Insight') && (
                   <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
                     AI
@@ -177,6 +198,56 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
           <MessageCircle className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Discuss</span>
         </button>
+
+        {/* Folder Menu */}
+        <div className="relative">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowFolderMenu(!showFolderMenu);
+            }}
+            className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+            title="Move to folder"
+          >
+            <FolderIcon className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Folder</span>
+          </button>
+
+          {showFolderMenu && (
+            <>
+              <div
+                className="fixed inset-0 z-10"
+                onClick={() => setShowFolderMenu(false)}
+              />
+              <div className="absolute bottom-full left-0 mb-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-20 py-1 max-h-64 overflow-y-auto">
+                <div className="px-2 py-1 text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  Move to folder
+                </div>
+                <button
+                  onClick={() => handleMoveToFolder(null)}
+                  className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                    !verse.folderId ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'
+                  }`}
+                >
+                  Unfiled
+                </button>
+                {folders.map(folder => (
+                  <button
+                    key={folder.id}
+                    onClick={() => handleMoveToFolder(folder.id)}
+                    className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-1.5 ${
+                      verse.folderId === folder.id ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'
+                    }`}
+                  >
+                    <FolderIcon className="w-3 h-3" style={{ color: folder.color }} />
+                    <span>{folder.name}</span>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
         <button
           onClick={handleEditClick}
           className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"

@@ -1,4 +1,4 @@
-import { BookmarkCheck, Search, Filter, Download, ArrowUpDown } from 'lucide-react';
+import { BookmarkCheck, Search, Filter, Download, ArrowUpDown, FolderPlus, Folder as FolderIcon, Edit2, Trash2, X, Check } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { useStore } from '../store/useStore';
 import { SavedVerseCard } from './SavedVerseCard';
@@ -8,11 +8,16 @@ import { RELIGIONS, type Religion } from '../types';
 type SortOption = 'date-desc' | 'date-asc' | 'religion' | 'reference';
 
 export function SavedLibrary() {
-  const { savedVerses } = useStore();
+  const { savedVerses, folders, createFolder, renameFolder, deleteFolder } = useStore();
   const [expandedVerseId, setExpandedVerseId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterReligion, setFilterReligion] = useState<Religion | 'all'>('all');
+  const [filterFolder, setFilterFolder] = useState<string | 'all'>('all');
   const [sortBy, setSortBy] = useState<SortOption>('date-desc');
+  const [showNewFolderDialog, setShowNewFolderDialog] = useState(false);
+  const [newFolderName, setNewFolderName] = useState('');
+  const [editingFolderId, setEditingFolderId] = useState<string | null>(null);
+  const [editingFolderName, setEditingFolderName] = useState('');
 
   const handleVerseToggle = (verseId: string) => {
     setExpandedVerseId(expandedVerseId === verseId ? null : verseId);
@@ -21,6 +26,15 @@ export function SavedLibrary() {
   // Filter, search, and sort verses
   const filteredVerses = useMemo(() => {
     let filtered = savedVerses.filter(verse => {
+      // Folder filter
+      if (filterFolder !== 'all') {
+        if (filterFolder === 'unfiled') {
+          if (verse.folderId) return false;
+        } else if (verse.folderId !== filterFolder) {
+          return false;
+        }
+      }
+
       // Religion filter
       if (filterReligion !== 'all' && verse.religion !== filterReligion) {
         return false;
@@ -64,6 +78,41 @@ export function SavedLibrary() {
     const religions = new Set(savedVerses.map(v => v.religion).filter(Boolean));
     return Array.from(religions);
   }, [savedVerses]);
+
+  // Count verses per folder
+  const folderCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    savedVerses.forEach(verse => {
+      const folderId = verse.folderId || 'unfiled';
+      counts[folderId] = (counts[folderId] || 0) + 1;
+    });
+    return counts;
+  }, [savedVerses]);
+
+  const handleCreateFolder = () => {
+    if (newFolderName.trim()) {
+      createFolder(newFolderName.trim());
+      setNewFolderName('');
+      setShowNewFolderDialog(false);
+    }
+  };
+
+  const handleRenameFolder = (id: string) => {
+    if (editingFolderName.trim()) {
+      renameFolder(id, editingFolderName.trim());
+      setEditingFolderId(null);
+      setEditingFolderName('');
+    }
+  };
+
+  const handleDeleteFolder = (id: string) => {
+    if (confirm('Delete this folder? Verses will be moved to "Unfiled".')) {
+      deleteFolder(id);
+      if (filterFolder === id) {
+        setFilterFolder('all');
+      }
+    }
+  };
 
   if (savedVerses.length === 0) {
     return (
@@ -146,6 +195,162 @@ export function SavedLibrary() {
           </div>
         )}
       </div>
+
+      {/* Folders Section */}
+      <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-soft border border-sage-200 dark:border-gray-700 sepia:border-amber-200 p-4">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-semibold text-sage-900 dark:text-gray-100 sepia:text-amber-900 uppercase tracking-wide">Collections</h3>
+          <button
+            onClick={() => setShowNewFolderDialog(true)}
+            className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+          >
+            <FolderPlus className="w-4 h-4" />
+            <span>New</span>
+          </button>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => setFilterFolder('all')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              filterFolder === 'all'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+            }`}
+          >
+            All ({savedVerses.length})
+          </button>
+
+          {folders.map(folder => (
+            <div key={folder.id} className="relative group">
+              {editingFolderId === folder.id ? (
+                <div className="flex items-center gap-1 bg-white dark:bg-gray-700 border-2 border-blue-500 rounded-lg px-2 py-1">
+                  <input
+                    type="text"
+                    value={editingFolderName}
+                    onChange={(e) => setEditingFolderName(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') handleRenameFolder(folder.id);
+                      if (e.key === 'Escape') {
+                        setEditingFolderId(null);
+                        setEditingFolderName('');
+                      }
+                    }}
+                    autoFocus
+                    className="w-24 text-sm bg-transparent border-none focus:outline-none text-gray-900 dark:text-gray-100"
+                  />
+                  <button
+                    onClick={() => handleRenameFolder(folder.id)}
+                    className="text-green-600 hover:text-green-700"
+                  >
+                    <Check className="w-3 h-3" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setEditingFolderId(null);
+                      setEditingFolderName('');
+                    }}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setFilterFolder(folder.id)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                    filterFolder === folder.id
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  }`}
+                  style={folder.color && filterFolder !== folder.id ? {
+                    backgroundColor: `${folder.color}20`,
+                    color: folder.color
+                  } : undefined}
+                >
+                  <FolderIcon className="w-4 h-4" style={folder.color && filterFolder === folder.id ? {} : { color: folder.color }} />
+                  <span>{folder.name}</span>
+                  <span className="opacity-70">({folderCounts[folder.id] || 0})</span>
+                </button>
+              )}
+
+              {!editingFolderId && (
+                <div className="absolute top-0 right-0 -mt-1 -mr-1 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setEditingFolderId(folder.id);
+                      setEditingFolderName(folder.name);
+                    }}
+                    className="bg-white dark:bg-gray-800 rounded-full p-1 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                  >
+                    <Edit2 className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteFolder(folder.id);
+                    }}
+                    className="bg-white dark:bg-gray-800 rounded-full p-1 shadow-lg hover:bg-red-50 dark:hover:bg-red-900"
+                  >
+                    <Trash2 className="w-3 h-3 text-red-600 dark:text-red-400" />
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+
+          <button
+            onClick={() => setFilterFolder('unfiled')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              filterFolder === 'unfiled'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+            }`}
+          >
+            Unfiled ({folderCounts['unfiled'] || 0})
+          </button>
+        </div>
+      </div>
+
+      {/* New Folder Dialog */}
+      {showNewFolderDialog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowNewFolderDialog(false)}>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl max-w-md w-full mx-4" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Create New Folder</h3>
+            <input
+              type="text"
+              value={newFolderName}
+              onChange={(e) => setNewFolderName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleCreateFolder();
+                if (e.key === 'Escape') setShowNewFolderDialog(false);
+              }}
+              placeholder="Folder name..."
+              autoFocus
+              className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-gray-100"
+            />
+            <div className="flex gap-3 mt-4">
+              <button
+                onClick={handleCreateFolder}
+                disabled={!newFolderName.trim()}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+              >
+                Create
+              </button>
+              <button
+                onClick={() => {
+                  setShowNewFolderDialog(false);
+                  setNewFolderName('');
+                }}
+                className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 font-medium"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Search, Filter, and Sort */}
       <div className="flex flex-col sm:flex-row gap-3">

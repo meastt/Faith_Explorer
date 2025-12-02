@@ -50,11 +50,19 @@ export interface SelectedSubset {
   subset: ReligionSubsetId;
 }
 
+export interface Folder {
+  id: string;
+  name: string;
+  createdAt: number;
+  color?: string;
+}
+
 export interface SavedVerse extends Verse {
   id: string;
   savedAt: number;
   notes: string;
   tags: string[];
+  folderId?: string | null;
 }
 
 export interface ComparisonResult {
