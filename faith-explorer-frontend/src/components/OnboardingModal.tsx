@@ -1,4 +1,4 @@
-import { X, BookOpen, GitCompare, MessageCircle } from 'lucide-react';
+import { X, BookOpen, GitCompare, MessageCircle, Star } from 'lucide-react';
 import { useState } from 'react';
 
 interface OnboardingModalProps {
@@ -37,6 +37,16 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
         'What does this verse mean?',
         'Are there similar verses?',
         'Tell me more about the context',
+      ],
+    },
+    {
+      icon: Star,
+      title: 'Unlock Full Potential',
+      description: 'Upgrade to Premium for unlimited searches, deep dives, and priority support. Start your journey to wisdom today.',
+      examples: [
+        'Unlimited Searches',
+        'Advanced Comparisons',
+        'Priority Support',
       ],
     },
   ];
@@ -78,9 +88,8 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
             {steps.map((_, idx) => (
               <div
                 key={idx}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  idx === step ? 'bg-blue-600' : 'bg-gray-300'
-                }`}
+                className={`w-2 h-2 rounded-full transition-colors ${idx === step ? 'bg-blue-600' : 'bg-gray-300'
+                  }`}
               />
             ))}
           </div>

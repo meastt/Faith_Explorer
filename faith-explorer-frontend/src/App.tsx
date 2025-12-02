@@ -12,6 +12,7 @@ import { DailyWisdom } from './components/DailyWisdom';
 import { LearningPaths } from './components/LearningPaths';
 import { BottomNav } from './components/BottomNav';
 import { Settings } from './components/Settings';
+import { SubscriptionModal } from './components/SubscriptionModal';
 import { useStore } from './store/useStore';
 import { searchSubsets, getComparativeAnalysis } from './services/api';
 import { initializeScriptures } from './services/search';
@@ -35,6 +36,7 @@ function App() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showReviewPrompt, setShowReviewPrompt] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
 
   // Initialize scriptures on app start
   useEffect(() => {
@@ -59,9 +61,9 @@ function App() {
       const allKeys = Object.keys(localStorage);
       allKeys.forEach(key => {
         if (!key.includes('faithExplorer_hasSeenOnboarding') &&
-            !key.includes('faithExplorer_premium') &&
-            !key.includes('faithExplorer_usage') &&
-            key !== 'faithExplorer_appVersion') {
+          !key.includes('faithExplorer_premium') &&
+          !key.includes('faithExplorer_usage') &&
+          key !== 'faithExplorer_appVersion') {
           localStorage.removeItem(key);
         }
       });
@@ -108,7 +110,7 @@ function App() {
     // Check usage limit first (without incrementing)
     const { canSearch, incrementSearchUsage } = useStore.getState();
     if (!canSearch()) {
-      alert('You\'ve reached your free search limit (10/month). Upgrade to Premium for unlimited searches starting at just $4.99/month!');
+      setShowSubscriptionModal(true);
       return;
     }
 
@@ -128,11 +130,11 @@ function App() {
       if (viewMode === 'single') {
         // For single mode, search all selected subsets together
         const result = await searchSubsets(selectedSubsets, query);
-        setSearchResults([{ 
-          religion: selectedSubsets[0].religion, 
+        setSearchResults([{
+          religion: selectedSubsets[0].religion,
           subset: selectedSubsets[0].subset,
-          answer: result.answer, 
-          verses: result.sources 
+          answer: result.answer,
+          verses: result.sources
         }]);
         searchSuccessful = true;
       } else {
@@ -148,7 +150,7 @@ function App() {
             };
           })
         );
-        
+
         setSearchResults(results);
         searchSuccessful = results.length > 0;
 
@@ -255,7 +257,7 @@ function App() {
         )}
       </main>
 
-      <BottomNav 
+      <BottomNav
         activeTab={activeTab}
         onTabChange={setActiveTab}
         onSettingsClick={() => setShowSettings(true)}
@@ -264,6 +266,15 @@ function App() {
       {showOnboarding && <OnboardingModal onClose={handleCloseOnboarding} />}
       {showReviewPrompt && <ReviewPromptModal onClose={() => setShowReviewPrompt(false)} />}
       {showSettings && <Settings onClose={() => setShowSettings(false)} />}
+      {showSubscriptionModal && (
+        <SubscriptionModal
+          onClose={() => setShowSubscriptionModal(false)}
+          onSubscribe={() => {
+            useStore.getState().setPremium(true);
+            setShowSubscriptionModal(false);
+          }}
+        />
+      )}
     </div>
   );
 }
