@@ -29,7 +29,8 @@ export function DailyWisdom() {
       const fullCoverageReligions = RELIGIONS.filter(r => r.coverage === 'full');
       const religion = fullCoverageReligions[religionIndex].id;
 
-      const result = await searchReligion(religion, query);
+      // Pass isPremium flag to get longer insights for premium users
+      const result = await searchReligion(religion, query, usage.isPremium);
 
       // Generate personalized intro based on recent topics
       let personalizedIntro: string | undefined;
@@ -161,9 +162,16 @@ export function DailyWisdom() {
                 </div>
               )}
 
-              <p className="text-xs font-bold text-stone-500 dark:text-stone-400 mb-3 uppercase tracking-wide">
-                From {religionInfo?.name}
-              </p>
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wide">
+                  From {religionInfo?.name}
+                </p>
+                {usage.isPremium && (
+                  <span className="text-xs px-2 py-1 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 text-amber-800 dark:text-amber-300 rounded-full border border-amber-300 dark:border-amber-700 font-medium">
+                    Enhanced Insight
+                  </span>
+                )}
+              </div>
               <div
                 className="prose prose-sm max-w-none prose-p:font-serif prose-p:text-stone-700 dark:prose-p:text-stone-300 prose-p:leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: formatAIResponse(wisdom.answer) }}

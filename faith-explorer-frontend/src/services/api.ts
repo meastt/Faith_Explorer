@@ -12,7 +12,8 @@ export interface AskResponse {
 
 export async function searchSubsets(
   selectedSubsets: SelectedSubset[],
-  question: string
+  question: string,
+  isPremium: boolean = false
 ): Promise<AskResponse> {
   if (selectedSubsets.length === 0) {
     return {
@@ -42,7 +43,8 @@ export async function searchSubsets(
         body: JSON.stringify({
           religion,
           question,
-          subsets
+          subsets,
+          isPremium
         }),
         signal: controller.signal
       });
@@ -100,7 +102,8 @@ export async function searchSubsets(
 // Legacy function for backward compatibility
 export async function searchReligion(
   religion: Religion,
-  question: string
+  question: string,
+  isPremium: boolean = false
 ): Promise<AskResponse> {
   // Map religion to a default subset for backward compatibility
   const defaultSubsets: Record<Religion, SelectedSubset> = {
@@ -115,7 +118,7 @@ export async function searchReligion(
     shinto: { religion: 'shinto', subset: 'kojiki' },
   };
 
-  return searchSubsets([defaultSubsets[religion]], question);
+  return searchSubsets([defaultSubsets[religion]], question, isPremium);
 }
 
 export async function chatAboutVerse(
