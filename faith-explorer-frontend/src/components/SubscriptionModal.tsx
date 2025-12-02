@@ -155,6 +155,14 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Upgrade to Premium</h2>
           <p className="text-gray-600">Unlock unlimited access to Faith Explorer</p>
+
+          {/* Trust Indicator */}
+          <div className="mt-3 flex items-center justify-center gap-2 text-sm">
+            <div className="flex items-center gap-1 text-yellow-500">
+              <span className="text-lg">★★★★★</span>
+            </div>
+            <span className="text-gray-600 font-medium">Trusted by thousands of seekers</span>
+          </div>
         </div>
 
         <div className="space-y-3 mb-6">
@@ -199,6 +207,19 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
           </div>
         </div>
 
+        {/* Testimonial */}
+        <div className="mb-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100">
+          <div className="flex items-start gap-3">
+            <div className="text-blue-600 text-2xl leading-none">"</div>
+            <div className="flex-1">
+              <p className="text-sm text-gray-700 italic mb-2">
+                Faith Explorer has deepened my understanding of scripture and helped me discover wisdom across traditions I never knew existed.
+              </p>
+              <p className="text-xs text-gray-600 font-semibold">— Sarah M., Premium Member</p>
+            </div>
+          </div>
+        </div>
+
         <div className="space-y-3 mb-6">
           {/* Monthly Plan */}
           <button
@@ -227,20 +248,21 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
               selectedPlan === 'annual' ? 'border-green-500 ring-2 ring-green-200' : 'border-green-300 hover:border-green-400'
             }`}
           >
-            <div className="absolute -top-3 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-              SAVE 33%
+            <div className="absolute -top-3 right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
+              💰 SAVE 33%
             </div>
             <div className="flex items-baseline justify-center gap-2">
               <span className="text-3xl font-bold text-gray-900">
-                {offerings?.current?.availablePackages?.find((pkg: any) => 
-                  pkg.packageType === 'ANNUAL' || 
-                  pkg.identifier?.toLowerCase().includes('annual') || 
+                {offerings?.current?.availablePackages?.find((pkg: any) =>
+                  pkg.packageType === 'ANNUAL' ||
+                  pkg.identifier?.toLowerCase().includes('annual') ||
                   pkg.identifier?.toLowerCase().includes('yearly')
                 )?.storeProduct?.priceString || '$39.99'}
               </span>
               <span className="text-gray-600">/year</span>
             </div>
-            <p className="text-center text-sm text-gray-600 mt-1">Just $3.33/month • Best value</p>
+            <p className="text-center text-sm font-semibold text-green-700 mt-1">Just $3.33/month • Best value</p>
+            <p className="text-center text-xs text-gray-600 mt-0.5">Save over $20 compared to monthly</p>
           </button>
         </div>
 

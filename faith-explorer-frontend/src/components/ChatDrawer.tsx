@@ -4,11 +4,13 @@ import { useStore } from '../store/useStore';
 import { chatAboutVerse } from '../services/api';
 import { RELIGIONS } from '../types';
 import { formatAIResponse } from '../utils/markdown';
+import { SubscriptionModal } from './SubscriptionModal';
 
 export function ChatDrawer() {
-  const { activeVerseChat, setActiveVerseChat, addChatMessage, incrementChatUsage, usage } = useStore();
+  const { activeVerseChat, setActiveVerseChat, addChatMessage, incrementChatUsage, usage, setPremium } = useStore();
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export function ChatDrawer() {
 
     // Check chat limit
     if (!incrementChatUsage()) {
-      alert('You\'ve reached your free chat limit (20/month). Upgrade to Premium for unlimited chat starting at just $4.99/month!');
+      setShowSubscriptionModal(true);
       return;
     }
 
@@ -197,6 +199,16 @@ export function ChatDrawer() {
           </div>
         </div>
       </div>
+
+      {showSubscriptionModal && (
+        <SubscriptionModal
+          onClose={() => setShowSubscriptionModal(false)}
+          onSubscribe={() => {
+            setPremium(true);
+            setShowSubscriptionModal(false);
+          }}
+        />
+      )}
     </>
   );
 }

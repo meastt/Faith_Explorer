@@ -1,8 +1,10 @@
-import { Sparkles, RefreshCw, ChevronDown, ChevronUp, Quote } from 'lucide-react';
+import { Sparkles, RefreshCw, ChevronDown, ChevronUp, Quote, MessageCircle, Lock } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { searchReligion } from '../services/api';
 import { RELIGIONS, type Religion } from '../types';
 import { formatAIResponse } from '../utils/markdown';
+import { useStore } from '../store/useStore';
+import { SubscriptionModal } from './SubscriptionModal';
 
 const WISDOM_QUERIES = [
   'What brings inner peace?', 'How should we treat others?', 'What is true wisdom?',
@@ -14,6 +16,8 @@ export function DailyWisdom() {
   const [wisdom, setWisdom] = useState<{ answer: string; religion: Religion; query: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
+  const { usage, setPremium, setActiveVerseChat } = useStore();
 
   const loadDailyWisdom = async () => {
     setIsLoading(true);
@@ -50,6 +54,23 @@ export function DailyWisdom() {
   useEffect(() => {
     if (wisdom) localStorage.setItem('dailyWisdom_cache', JSON.stringify(wisdom));
   }, [wisdom]);
+
+  const handleDeepDive = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!usage.isPremium) {
+      setShowSubscriptionModal(true);
+      return;
+    }
+    // Open chat drawer with the wisdom
+    if (wisdom) {
+      setActiveVerseChat({
+        verseReference: `Daily Wisdom: ${wisdom.query}`,
+        verseText: wisdom.answer,
+        religion: wisdom.religion,
+        messages: [],
+      });
+    }
+  };
 
   if (!wisdom && !isLoading) return null;
 
@@ -127,9 +148,43 @@ export function DailyWisdom() {
                 className="prose prose-sm max-w-none prose-p:font-serif prose-p:text-stone-700 dark:prose-p:text-stone-300 prose-p:leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: formatAIResponse(wisdom.answer) }}
               />
+
+              {/* Deep Dive Button */}
+              <div className="mt-4 pt-4 border-t border-sand-100 dark:border-stone-700">
+                <button
+                  onClick={handleDeepDive}
+                  className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${
+                    usage.isPremium
+                      ? 'bg-gradient-to-r from-bronze-500 to-bronze-600 text-white hover:from-bronze-600 hover:to-bronze-700 shadow-md hover:shadow-lg'
+                      : 'bg-gradient-to-r from-amber-50 to-orange-50 text-bronze-700 border-2 border-bronze-200 hover:border-bronze-300'
+                  }`}
+                >
+                  {usage.isPremium ? (
+                    <>
+                      <MessageCircle className="w-4 h-4" />
+                      <span>Deep Dive with AI</span>
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="w-4 h-4" />
+                      <span>Unlock Deep Dive (Premium)</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           )}
         </>
+      )}
+
+      {showSubscriptionModal && (
+        <SubscriptionModal
+          onClose={() => setShowSubscriptionModal(false)}
+          onSubscribe={() => {
+            setPremium(true);
+            setShowSubscriptionModal(false);
+          }}
+        />
       )}
     </div>
   );
