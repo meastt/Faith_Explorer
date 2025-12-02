@@ -37,6 +37,7 @@ function App() {
   const [showReviewPrompt, setShowReviewPrompt] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
+  const [isGatedResult, setIsGatedResult] = useState(false);
 
   // Initialize scriptures on app start
   useEffect(() => {
@@ -103,21 +104,23 @@ function App() {
   const handleClearResults = () => {
     setSearchResults([]);
     setComparativeAnalysis('');
+    setIsGatedResult(false);
     clearSelectedSubsets(); // Reset selected religions/subsets
   };
 
   const handleSearch = async (query: string) => {
     // Check usage limit first (without incrementing)
     const { canSearch, incrementSearchUsage } = useStore.getState();
-    if (!canSearch()) {
-      setShowSubscriptionModal(true);
-      return;
-    }
+    const hasSearchesLeft = canSearch();
+
+    // Soft gating: Allow search to proceed even if limit reached, but mark as gated
+    const isSearchGated = !hasSearchesLeft;
 
     setIsLoading(true);
     setIsSearching(true);
     setSearchResults([]);
     setComparativeAnalysis('');
+    setIsGatedResult(isSearchGated);
 
     try {
       if (selectedSubsets.length === 0) {
@@ -170,8 +173,8 @@ function App() {
         }
       }
 
-      // Only increment usage if search was successful
-      if (searchSuccessful) {
+      // Only increment usage if search was successful AND not gated
+      if (searchSuccessful && !isSearchGated) {
         incrementSearchUsage();
       }
     } catch (error) {
@@ -250,6 +253,8 @@ function App() {
               isLoading={isLoading}
               comparativeAnalysis={comparativeAnalysis}
               onBack={searchResults.length > 0 ? handleClearResults : undefined}
+              isGated={isGatedResult}
+              onUpgrade={() => setShowSubscriptionModal(true)}
             />
           </div>
         ) : (

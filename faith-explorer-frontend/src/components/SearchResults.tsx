@@ -1,4 +1,4 @@
-import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2, ChevronDown } from 'lucide-react';
+import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2, ChevronDown, Lock, Star } from 'lucide-react';
 import { useState } from 'react';
 import type { Religion, Verse, ReligionSubsetId } from '../types';
 import { CompactVerseCard } from './CompactVerseCard';
@@ -17,9 +17,11 @@ interface SearchResultsProps {
   isLoading: boolean;
   comparativeAnalysis?: string;
   onBack?: () => void;
+  isGated?: boolean;
+  onUpgrade?: () => void;
 }
 
-export function SearchResults({ results, isLoading, comparativeAnalysis, onBack }: SearchResultsProps) {
+export function SearchResults({ results, isLoading, comparativeAnalysis, onBack, isGated = false, onUpgrade }: SearchResultsProps) {
   const { setActiveVerseChat, viewMode, saveComparison, incrementShareCount, saveVerse } = useStore();
   const [expandedVerseId, setExpandedVerseId] = useState<string | null>(null);
   const [showAllVerses, setShowAllVerses] = useState(false);
@@ -162,18 +164,49 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
             Back
           </button>
         )}
-        
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">Search Results</h2>
-            <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700 mt-1">
-              {verses.length} {verses.length === 1 ? 'verse' : 'verses'} found in {subsetInfo?.name || religionInfo?.name}
-            </p>
-          </div>
-        </div>
 
-        {/* AI Answer */}
-        {answer && (
+        {/* Soft Gating Overlay */}
+        {isGated && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full p-8 text-center relative">
+              <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Lock className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+                Unlock Full Wisdom
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
+                You've used all your free searches! The app <span className="font-semibold">can</span> answer your question. Upgrade to Premium to see the full results and continue your spiritual journey.
+              </p>
+              <button
+                onClick={onUpgrade}
+                className="w-full py-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mb-3"
+              >
+                <Star className="w-5 h-5 fill-current" />
+                Upgrade to Premium
+              </button>
+              <button
+                onClick={onBack}
+                className="w-full py-3 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium"
+              >
+                Go Back
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className={isGated ? 'filter blur-lg pointer-events-none select-none' : ''}>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">Search Results</h2>
+              <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700 mt-1">
+                {verses.length} {verses.length === 1 ? 'verse' : 'verses'} found in {subsetInfo?.name || religionInfo?.name}
+              </p>
+            </div>
+          </div>
+
+          {/* AI Answer */}
+          {answer && (
           <div className="bg-gradient-to-br from-primary-50 to-indigo-50 dark:from-primary-950 dark:to-indigo-950 sepia:from-amber-100 sepia:to-amber-200 rounded-2xl shadow-soft border-2 border-primary-200 dark:border-primary-800 sepia:border-amber-300 p-6 sm:p-8">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-soft">
@@ -256,6 +289,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
             )}
           </div>
         )}
+        </div>
       </div>
     );
   }
@@ -273,8 +307,39 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
           Back
         </button>
       )}
-      
-      <div className="flex items-center justify-between">
+
+      {/* Soft Gating Overlay */}
+      {isGated && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full p-8 text-center relative">
+            <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Lock className="w-10 h-10 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+              Unlock Full Wisdom
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              You've used all your free searches! The app <span className="font-semibold">can</span> answer your question. Upgrade to Premium to see the full results and continue your spiritual journey.
+            </p>
+            <button
+              onClick={onUpgrade}
+              className="w-full py-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mb-3"
+            >
+              <Star className="w-5 h-5 fill-current" />
+              Upgrade to Premium
+            </button>
+            <button
+              onClick={onBack}
+              className="w-full py-3 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium"
+            >
+              Go Back
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className={isGated ? 'filter blur-lg pointer-events-none select-none' : ''}>
+        <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">Comparison Results</h2>
           <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700 mt-1">
@@ -455,6 +520,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack 
           </div>
         );
       })}
+      </div>
     </div>
   );
 }
