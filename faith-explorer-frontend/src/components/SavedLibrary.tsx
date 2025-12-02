@@ -1,4 +1,4 @@
-import { BookmarkCheck, Search, Filter, Download, ArrowUpDown, FolderPlus, Folder as FolderIcon, Edit2, Trash2, X, Check } from 'lucide-react';
+import { BookmarkCheck, Search, Filter, Download, ArrowUpDown, FolderPlus, Folder as FolderIcon, Edit2, Trash2, X, Check, Tag } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { useStore } from '../store/useStore';
 import { SavedVerseCard } from './SavedVerseCard';
@@ -13,15 +13,37 @@ export function SavedLibrary() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterReligion, setFilterReligion] = useState<Religion | 'all'>('all');
   const [filterFolder, setFilterFolder] = useState<string | 'all'>('all');
+  const [filterTags, setFilterTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>('date-desc');
   const [showNewFolderDialog, setShowNewFolderDialog] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
   const [editingFolderId, setEditingFolderId] = useState<string | null>(null);
   const [editingFolderName, setEditingFolderName] = useState('');
+  const [showTagFilter, setShowTagFilter] = useState(false);
 
   const handleVerseToggle = (verseId: string) => {
     setExpandedVerseId(expandedVerseId === verseId ? null : verseId);
   };
+
+  // Get all unique tags from saved verses
+  const allTags = useMemo(() => {
+    const tagSet = new Set<string>();
+    savedVerses.forEach(verse => {
+      verse.tags.forEach(tag => tagSet.add(tag));
+    });
+    return Array.from(tagSet).sort();
+  }, [savedVerses]);
+
+  // Count verses per tag
+  const tagCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    savedVerses.forEach(verse => {
+      verse.tags.forEach(tag => {
+        counts[tag] = (counts[tag] || 0) + 1;
+      });
+    });
+    return counts;
+  }, [savedVerses]);
 
   // Filter, search, and sort verses
   const filteredVerses = useMemo(() => {
@@ -33,6 +55,12 @@ export function SavedLibrary() {
         } else if (verse.folderId !== filterFolder) {
           return false;
         }
+      }
+
+      // Tag filter (verse must have ALL selected tags)
+      if (filterTags.length > 0) {
+        const hasAllTags = filterTags.every(tag => verse.tags.includes(tag));
+        if (!hasAllTags) return false;
       }
 
       // Religion filter
@@ -47,6 +75,7 @@ export function SavedLibrary() {
           verse.text.toLowerCase().includes(query) ||
           verse.reference.toLowerCase().includes(query) ||
           verse.notes.toLowerCase().includes(query) ||
+          verse.tags.some(tag => tag.toLowerCase().includes(query)) ||
           RELIGIONS.find(r => r.id === verse.religion)?.name.toLowerCase().includes(query)
         );
       }
@@ -112,6 +141,18 @@ export function SavedLibrary() {
         setFilterFolder('all');
       }
     }
+  };
+
+  const toggleTagFilter = (tag: string) => {
+    setFilterTags(prev =>
+      prev.includes(tag)
+        ? prev.filter(t => t !== tag)
+        : [...prev, tag]
+    );
+  };
+
+  const clearTagFilters = () => {
+    setFilterTags([]);
   };
 
   if (savedVerses.length === 0) {
@@ -348,6 +389,44 @@ export function SavedLibrary() {
                 Cancel
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tags Section */}
+      {allTags.length > 0 && (
+        <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-soft border border-sage-200 dark:border-gray-700 sepia:border-amber-200 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-semibold text-sage-900 dark:text-gray-100 sepia:text-amber-900 uppercase tracking-wide">Tags</h3>
+            {filterTags.length > 0 && (
+              <button
+                onClick={clearTagFilters}
+                className="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {allTags.map(tag => {
+              const isActive = filterTags.includes(tag);
+              return (
+                <button
+                  key={tag}
+                  onClick={() => toggleTagFilter(tag)}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-all ${
+                    isActive
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  }`}
+                >
+                  <Tag className="w-3 h-3" />
+                  <span>{tag}</span>
+                  <span className="opacity-70">({tagCounts[tag]})</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

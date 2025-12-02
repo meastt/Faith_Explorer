@@ -1,4 +1,4 @@
-import { MessageCircle, Share2, Trash2, Edit3, ChevronDown, ChevronUp, Calendar, Folder as FolderIcon } from 'lucide-react';
+import { MessageCircle, Share2, Trash2, Edit3, ChevronDown, ChevronUp, Calendar, Folder as FolderIcon, Tag, Plus, X as XIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { SavedVerse } from '../types';
 import { useStore } from '../store/useStore';
@@ -12,10 +12,12 @@ interface SavedVerseCardProps {
 }
 
 export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardProps) {
-  const { updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount, folders, moveVerseToFolder } = useStore();
+  const { updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount, folders, moveVerseToFolder, addTagToVerse, removeTagFromVerse } = useStore();
   const [isEditing, setIsEditing] = useState(false);
   const [editNotes, setEditNotes] = useState(verse.notes);
   const [showFolderMenu, setShowFolderMenu] = useState(false);
+  const [isAddingTag, setIsAddingTag] = useState(false);
+  const [newTag, setNewTag] = useState('');
 
   const religionInfo = RELIGIONS.find((r) => r.id === verse.religion);
   const color = religionInfo?.color || '#6B7280';
@@ -64,6 +66,20 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
   const handleMoveToFolder = (folderId: string | null) => {
     moveVerseToFolder(verse.id, folderId);
     setShowFolderMenu(false);
+  };
+
+  const handleAddTag = () => {
+    const tag = newTag.trim();
+    if (tag && !verse.tags.includes(tag)) {
+      addTagToVerse(verse.id, tag);
+      setNewTag('');
+      setIsAddingTag(false);
+    }
+  };
+
+  const handleRemoveTag = (tag: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    removeTagFromVerse(verse.id, tag);
   };
 
   // Get current folder
@@ -149,6 +165,60 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
           <blockquote className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800 leading-relaxed pl-3 border-l-2" style={{ borderColor: color }}>
             "{verse.text}"
           </blockquote>
+
+          {/* Tags Section */}
+          <div className="flex flex-wrap gap-2 items-center">
+            {verse.tags.filter(tag => tag !== 'AI Insight').map(tag => (
+              <span
+                key={tag}
+                className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+              >
+                <Tag className="w-3 h-3" />
+                {tag}
+                <button
+                  onClick={(e) => handleRemoveTag(tag, e)}
+                  className="hover:bg-blue-200 dark:hover:bg-blue-800 rounded-full p-0.5 transition-colors"
+                >
+                  <XIcon className="w-2.5 h-2.5" />
+                </button>
+              </span>
+            ))}
+
+            {isAddingTag ? (
+              <div className="inline-flex items-center gap-1">
+                <input
+                  type="text"
+                  value={newTag}
+                  onChange={(e) => setNewTag(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleAddTag();
+                    }
+                    if (e.key === 'Escape') {
+                      setIsAddingTag(false);
+                      setNewTag('');
+                    }
+                  }}
+                  onBlur={handleAddTag}
+                  placeholder="Tag name..."
+                  autoFocus
+                  className="w-32 px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-blue-300 dark:border-blue-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            ) : (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsAddingTag(true);
+                }}
+                className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              >
+                <Plus className="w-3 h-3" />
+                Add tag
+              </button>
+            )}
+          </div>
 
           {/* Notes Section */}
           <div>

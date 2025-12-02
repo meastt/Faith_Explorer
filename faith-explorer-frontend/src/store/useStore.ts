@@ -58,6 +58,9 @@ interface AppState {
   savedVerses: SavedVerse[];
   saveVerse: (verse: SavedVerse) => void;
   updateVerseNotes: (id: string, notes: string) => void;
+  updateVerseTags: (id: string, tags: string[]) => void;
+  addTagToVerse: (id: string, tag: string) => void;
+  removeTagFromVerse: (id: string, tag: string) => void;
   moveVerseToFolder: (verseId: string, folderId: string | null) => void;
   deleteVerse: (id: string) => void;
 
@@ -227,6 +230,31 @@ export const useStore = create<AppState>()(
         set((state) => ({
           savedVerses: state.savedVerses.map((v) =>
             v.id === id ? { ...v, notes } : v
+          ),
+        })),
+
+      updateVerseTags: (id, tags) =>
+        set((state) => ({
+          savedVerses: state.savedVerses.map((v) =>
+            v.id === id ? { ...v, tags } : v
+          ),
+        })),
+
+      addTagToVerse: (id, tag) =>
+        set((state) => ({
+          savedVerses: state.savedVerses.map((v) =>
+            v.id === id && !v.tags.includes(tag)
+              ? { ...v, tags: [...v.tags, tag] }
+              : v
+          ),
+        })),
+
+      removeTagFromVerse: (id, tag) =>
+        set((state) => ({
+          savedVerses: state.savedVerses.map((v) =>
+            v.id === id
+              ? { ...v, tags: v.tags.filter((t) => t !== tag) }
+              : v
           ),
         })),
 
