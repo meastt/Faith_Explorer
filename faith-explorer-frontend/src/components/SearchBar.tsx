@@ -8,7 +8,7 @@ interface SearchBarProps {
 
 export function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState('');
-  const { isSearching, canSearch } = useStore();
+  const { isSearching, canSearch, usage } = useStore();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,7 +54,29 @@ export function SearchBar({ onSearch }: SearchBarProps) {
           </button>
         </div>
       </form>
-      
+
+      {/* Usage Meter */}
+      {!usage.isPremium && (
+        <div className="mt-3 px-1">
+          <div className="flex items-center justify-between text-xs mb-1">
+            <span className="text-stone-500 dark:text-stone-400 font-medium">
+              Free searches remaining
+            </span>
+            <span className="text-bronze-600 dark:text-bronze-400 font-bold">
+              {Math.max(0, usage.searchLimit - usage.searchesUsed)} / {usage.searchLimit}
+            </span>
+          </div>
+          <div className="h-1.5 bg-sand-200 dark:bg-stone-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-bronze-500 to-bronze-600 rounded-full transition-all duration-500"
+              style={{
+                width: `${Math.max(0, ((usage.searchLimit - usage.searchesUsed) / usage.searchLimit) * 100)}%`
+              }}
+            />
+          </div>
+        </div>
+      )}
+
       <div className="text-center mt-3">
         <p className="text-xs text-stone-400 dark:text-stone-500 font-medium tracking-wide">
           AI-POWERED • SCRIPTURE-BACKED • INTERFAITH

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Check } from 'lucide-react';
 import { RELIGIONS, type Religion, type ReligionSubsetId } from '../types';
 import { useStore } from '../store/useStore';
+import { SubscriptionModal } from './SubscriptionModal';
 
 // Simplified icons for the new aesthetic
 function getReligionSymbol(id: Religion) {
@@ -14,12 +15,19 @@ function getReligionSymbol(id: Religion) {
 }
 
 export function ReligionSelector() {
-  const { viewMode, setViewMode, selectedSubsets, toggleSubset, setSelectedSubsets } = useStore();
+  const { viewMode, setViewMode, selectedSubsets, toggleSubset, setSelectedSubsets, usage, setPremium } = useStore();
+  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
 
   const handleSubsetToggle = (religion: Religion, subset: ReligionSubsetId) => {
     if (viewMode === 'single') {
       setSelectedSubsets([{ religion, subset }]);
     } else {
+      // Check if adding this would exceed free tier limit (3 subsets for comparison)
+      const isAlreadySelected = selectedSubsets.some(s => s.subset === subset && s.religion === religion);
+      if (!usage.isPremium && !isAlreadySelected && selectedSubsets.length >= 3) {
+        setShowSubscriptionModal(true);
+        return;
+      }
       toggleSubset(religion, subset);
     }
   };
@@ -100,6 +108,16 @@ export function ReligionSelector() {
           ))}
         </div>
       </div>
+
+      {showSubscriptionModal && (
+        <SubscriptionModal
+          onClose={() => setShowSubscriptionModal(false)}
+          onSubscribe={() => {
+            setPremium(true);
+            setShowSubscriptionModal(false);
+          }}
+        />
+      )}
     </div>
   );
 }
