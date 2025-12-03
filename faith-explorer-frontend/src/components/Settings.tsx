@@ -1,6 +1,7 @@
-import { X, Settings as SettingsIcon, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette, Trash2, RefreshCw, Info, Heart } from 'lucide-react';
+import { X, Settings as SettingsIcon, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette, Trash2, RefreshCw, Info, Heart, Award } from 'lucide-react';
 import { useState } from 'react';
 import { useStore } from '../store/useStore';
+import { Badges } from './Badges';
 
 interface SettingsProps {
   onClose: () => void;
@@ -8,7 +9,7 @@ interface SettingsProps {
 
 export function Settings({ onClose }: SettingsProps) {
   const { readingPreferences, setReadingPreferences, resetUsage } = useStore();
-  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'support' | 'legal' | 'data' | 'purchases' | 'about'>('main');
+  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'badges' | 'support' | 'legal' | 'data' | 'purchases' | 'about'>('main');
 
   const clearLocalData = () => {
     try {
@@ -60,6 +61,18 @@ export function Settings({ onClose }: SettingsProps) {
         <div className="flex-1 text-left">
           <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Appearance</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Customize your reading experience</p>
+        </div>
+        <ChevronRight className="w-4 h-4 text-gray-500" />
+      </button>
+
+      <button
+        onClick={() => setActiveSection('badges')}
+        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+      >
+        <Award className="w-5 h-5 text-amber-600 dark:text-amber-400 sepia:text-amber-700" />
+        <div className="flex-1 text-left">
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Achievement Badges</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">View your unlocked achievements</p>
         </div>
         <ChevronRight className="w-4 h-4 text-gray-500" />
       </button>
@@ -350,6 +363,7 @@ export function Settings({ onClose }: SettingsProps) {
                 <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">
                   {activeSection === 'main' && 'Customize your experience'}
                   {activeSection === 'appearance' && 'Appearance settings'}
+                  {activeSection === 'badges' && 'Your achievements'}
                   {activeSection === 'support' && 'Help & support'}
                 </p>
               </div>
@@ -425,6 +439,7 @@ export function Settings({ onClose }: SettingsProps) {
             </>
           )}
           {activeSection === 'appearance' && <AppearanceSettings />}
+          {activeSection === 'badges' && <Badges />}
           {activeSection === 'support' && <SupportSettings />}
           {activeSection === 'legal' && <LegalSettings />}
           {activeSection === 'purchases' && <PurchasesSettings />}

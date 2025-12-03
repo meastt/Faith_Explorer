@@ -29,7 +29,7 @@ export interface SearchResultWithAnswer {
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('search');
-  const { viewMode, selectedSubsets, setIsSearching, clearSelectedSubsets, shouldShowReviewPrompt, reviewPrompt } = useStore();
+  const { viewMode, selectedSubsets, setIsSearching, clearSelectedSubsets, shouldShowReviewPrompt, reviewPrompt, checkAndUnlockBadges } = useStore();
   const [searchResults, setSearchResults] = useState<SearchResultWithAnswer[]>([]);
   const [comparativeAnalysis, setComparativeAnalysis] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +42,9 @@ function App() {
   // Initialize scriptures on app start
   useEffect(() => {
     initializeScriptures();
-  }, []);
+    // Check for new badge unlocks on app load
+    checkAndUnlockBadges();
+  }, [checkAndUnlockBadges]);
 
   // Check app version and clear cache if needed
   useEffect(() => {
@@ -110,7 +112,7 @@ function App() {
 
   const handleSearch = async (query: string) => {
     // Check usage limit first (without incrementing)
-    const { canSearch, incrementSearchUsage } = useStore.getState();
+    const { canSearch, incrementSearchUsage, addRecentTopic } = useStore.getState();
     const hasSearchesLeft = canSearch();
 
     // Soft gating: Allow search to proceed even if limit reached, but mark as gated
@@ -176,6 +178,13 @@ function App() {
       // Only increment usage if search was successful AND not gated
       if (searchSuccessful && !isSearchGated) {
         incrementSearchUsage();
+      }
+
+      // Track topic for personalized recommendations (regardless of gated status)
+      if (searchSuccessful) {
+        addRecentTopic(query);
+        // Check for badge unlocks after successful search
+        checkAndUnlockBadges();
       }
     } catch (error) {
       console.error('Search error:', error);

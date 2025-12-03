@@ -11,6 +11,8 @@ import type {
   SelectedSubset,
   Folder,
   Highlight,
+  Badge,
+  BadgeId,
 } from '../types';
 
 export interface ReadingPreferences {
@@ -25,6 +27,14 @@ export interface ReviewPromptState {
   timesShown: number;
   lastShownDate: number | null;
   status: 'pending' | 'later' | 'reviewed' | 'dismissed';
+}
+
+export interface StreakData {
+  current: number;
+  longest: number;
+  lastActiveDate: string | null; // ISO date string (YYYY-MM-DD)
+  freezesAvailable: number;
+  lastFreezeResetDate: string | null; // ISO date string for monthly freeze reset
 }
 
 interface AppState {
@@ -92,6 +102,22 @@ interface AppState {
   readingPreferences: ReadingPreferences;
   setReadingPreferences: (preferences: ReadingPreferences) => void;
 
+  // Recent topics (for personalized Daily Wisdom)
+  recentTopics: string[];
+  addRecentTopic: (topic: string) => void;
+  getTopRecentTopics: (count?: number) => string[];
+
+  // Streak tracking
+  streak: StreakData;
+  updateStreak: () => void; // Call this when user is active
+  useStreakFreeze: () => boolean; // Returns true if freeze was applied
+
+  // Achievement Badges
+  badges: Badge[];
+  checkAndUnlockBadges: () => void; // Check all badge conditions and unlock new ones
+  getUnlockedBadges: () => Badge[];
+  getLockedBadges: () => Badge[];
+
   // Review prompt
   reviewPrompt: ReviewPromptState;
   incrementSaveCount: () => void;
@@ -111,6 +137,53 @@ const getInitialUsage = (): FreemiumUsage => {
     isPremium: false,
     resetDate: now + 30 * 24 * 60 * 60 * 1000, // 30 days from now
   };
+};
+
+const getInitialBadges = (): Badge[] => {
+  return [
+    {
+      id: 'first-search',
+      name: 'First Search',
+      description: 'Complete your first search',
+      icon: '🔍',
+      unlockedAt: null,
+    },
+    {
+      id: 'week-warrior',
+      name: 'Week Warrior',
+      description: 'Maintain a 7-day streak',
+      icon: '🔥',
+      unlockedAt: null,
+    },
+    {
+      id: 'interfaith-explorer',
+      name: 'Interfaith Explorer',
+      description: 'Search across 3 or more religions',
+      icon: '🌍',
+      unlockedAt: null,
+    },
+    {
+      id: 'deep-thinker',
+      name: 'Deep Thinker',
+      description: 'Send 50+ chat messages',
+      icon: '💭',
+      unlockedAt: null,
+    },
+    {
+      id: 'library-keeper',
+      name: 'Library Keeper',
+      description: 'Save 25 or more verses',
+      icon: '📚',
+      unlockedAt: null,
+    },
+    {
+      id: 'wisdom-seeker',
+      name: 'Wisdom Seeker',
+      description: 'Maintain a 30-day streak',
+      icon: '⭐',
+      unlockedAt: null,
+    },
+  ];
 };
 
 const getDefaultFolders = (): Folder[] => {
@@ -141,6 +214,15 @@ export const useStore = create<AppState>()(
         fontSize: 16,
         fontFamily: 'sans',
       },
+      recentTopics: [],
+      streak: {
+        current: 0,
+        longest: 0,
+        lastActiveDate: null,
+        freezesAvailable: 1,
+        lastFreezeResetDate: null,
+      },
+      badges: getInitialBadges(),
       reviewPrompt: {
         savesCount: 0,
         sharesCount: 0,
@@ -433,6 +515,189 @@ export const useStore = create<AppState>()(
         })),
 
       setReadingPreferences: (preferences) => set({ readingPreferences: preferences }),
+
+      addRecentTopic: (topic) =>
+        set((state) => {
+          const normalized = topic.toLowerCase().trim();
+          if (!normalized || normalized.length < 3) return state;
+
+          // Remove topic if it already exists (to move it to front)
+          const filtered = state.recentTopics.filter((t) => t !== normalized);
+          // Add to front and limit to 20 topics
+          return {
+            recentTopics: [normalized, ...filtered].slice(0, 20),
+          };
+        }),
+
+      getTopRecentTopics: (count = 3) => {
+        const state = get();
+        // Count frequency of topics
+        const topicCounts: Record<string, number> = {};
+        state.recentTopics.forEach((topic) => {
+          topicCounts[topic] = (topicCounts[topic] || 0) + 1;
+        });
+        // Sort by frequency and return top N
+        return Object.entries(topicCounts)
+          .sort(([, a], [, b]) => b - a)
+          .slice(0, count)
+          .map(([topic]) => topic);
+      },
+
+      updateStreak: () =>
+        set((state) => {
+          const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+          const lastActive = state.streak.lastActiveDate;
+
+          // If already active today, no change
+          if (lastActive === today) return state;
+
+          let newCurrent = 1;
+          let newLongest = state.streak.longest;
+          let newFreezesAvailable = state.streak.freezesAvailable;
+          let newFreezeResetDate = state.streak.lastFreezeResetDate;
+
+          if (lastActive) {
+            const lastDate = new Date(lastActive);
+            const todayDate = new Date(today);
+            const diffDays = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 1) {
+              // Consecutive day - increment streak
+              newCurrent = state.streak.current + 1;
+            } else if (diffDays > 1) {
+              // Missed a day - streak broken, reset to 1
+              newCurrent = 1;
+            }
+          }
+
+          // Update longest streak if current is higher
+          if (newCurrent > newLongest) {
+            newLongest = newCurrent;
+          }
+
+          // Reset monthly freeze (1st of each month)
+          const currentMonth = new Date(today).getMonth();
+          const lastResetMonth = newFreezeResetDate ? new Date(newFreezeResetDate).getMonth() : -1;
+          if (currentMonth !== lastResetMonth && state.usage.isPremium) {
+            newFreezesAvailable = 1;
+            newFreezeResetDate = today;
+          }
+
+          return {
+            streak: {
+              current: newCurrent,
+              longest: newLongest,
+              lastActiveDate: today,
+              freezesAvailable: newFreezesAvailable,
+              lastFreezeResetDate: newFreezeResetDate,
+            },
+          };
+        }),
+
+      useStreakFreeze: () => {
+        const state = get();
+
+        // Only premium users can use streak freeze
+        if (!state.usage.isPremium) return false;
+
+        // Check if freezes available
+        if (state.streak.freezesAvailable <= 0) return false;
+
+        const today = new Date().toISOString().split('T')[0];
+        const lastActive = state.streak.lastActiveDate;
+
+        if (!lastActive) return false;
+
+        const lastDate = new Date(lastActive);
+        const todayDate = new Date(today);
+        const diffDays = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+
+        // Only allow freeze if exactly 1 day was missed
+        if (diffDays !== 2) return false;
+
+        // Apply freeze - extend lastActiveDate by 1 day
+        const yesterday = new Date(todayDate);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+        set((state) => ({
+          streak: {
+            ...state.streak,
+            lastActiveDate: yesterdayStr,
+            freezesAvailable: state.streak.freezesAvailable - 1,
+          },
+        }));
+
+        return true;
+      },
+
+      checkAndUnlockBadges: () => {
+        const state = get();
+        const now = Date.now();
+        let badgesUpdated = false;
+
+        const updatedBadges = state.badges.map((badge) => {
+          // Skip if already unlocked
+          if (badge.unlockedAt !== null) return badge;
+
+          let shouldUnlock = false;
+
+          switch (badge.id) {
+            case 'first-search':
+              // Unlock if user has done at least 1 search
+              shouldUnlock = state.usage.searchesUsed > 0;
+              break;
+
+            case 'week-warrior':
+              // Unlock if current streak is 7 or more days
+              shouldUnlock = state.streak.current >= 7;
+              break;
+
+            case 'interfaith-explorer':
+              // Count unique religions user has searched
+              const uniqueReligions = new Set<string>();
+              state.savedVerses.forEach((verse) => {
+                if (verse.religion) uniqueReligions.add(verse.religion);
+              });
+              shouldUnlock = uniqueReligions.size >= 3;
+              break;
+
+            case 'deep-thinker':
+              // Unlock if user has sent 50+ chat messages
+              shouldUnlock = state.usage.chatMessagesUsed >= 50;
+              break;
+
+            case 'library-keeper':
+              // Unlock if user has saved 25+ verses
+              shouldUnlock = state.savedVerses.length >= 25;
+              break;
+
+            case 'wisdom-seeker':
+              // Unlock if current streak is 30 or more days
+              shouldUnlock = state.streak.current >= 30;
+              break;
+          }
+
+          if (shouldUnlock) {
+            badgesUpdated = true;
+            return { ...badge, unlockedAt: now };
+          }
+
+          return badge;
+        });
+
+        if (badgesUpdated) {
+          set({ badges: updatedBadges });
+        }
+      },
+
+      getUnlockedBadges: () => {
+        return get().badges.filter((badge) => badge.unlockedAt !== null);
+      },
+
+      getLockedBadges: () => {
+        return get().badges.filter((badge) => badge.unlockedAt === null);
+      },
 
       incrementSaveCount: () =>
         set((state) => ({
