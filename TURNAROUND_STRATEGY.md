@@ -26,23 +26,24 @@ To convert users, we must **sell the value early**, **integrate the paywall natu
 - [x] **Onboarding Upsell**: Add a 4th step to `OnboardingModal.tsx` called "Unlock Full Potential" or "Choose Your Path".
     - [x] Show the Pro benefits.
     - [x] Offer a "Start Free Trial" or "Continue with Limited Access" choice.
-- [ ] **Contextual Upsells**: When a user tries to use a Pro feature (like "Advanced Comparisons" if that's gated), show the modal immediately.
+- [x] **Contextual Upsells**: When a user tries to use a Pro feature (like "Advanced Comparisons" if that's gated), show the modal immediately. (Implemented in Daily Wisdom and Search Results)
 
 ### Phase 2: Optimization (Next Steps)
 *Goal: Increase desire.*
 
-- [ ] **Soft Gating**: Instead of blocking the 11th search entirely, let them search but blur the answer, showing "Upgrade to see the full wisdom". This proves the app *can* answer, creating a "curiosity gap".
-- [ ] **Usage Meter**: Show a visual indicator (e.g., "3 free searches left") in the UI. This creates scarcity and prepares the user for the paywall.
-- [ ] **Paywall Polish**:
-    - [ ] Add a "Restore Purchases" button more prominently.
-    - [ ] Add a testimonial or a "Trusted by X users" badge.
-    - [ ] Ensure the "Annual" savings are mathematically clear and visually popping.
+- [x] **Soft Gating**: Instead of blocking the 11th search entirely, let them search but blur the answer, showing "Upgrade to see the full wisdom". This proves the app *can* answer, creating a "curiosity gap".
+- [x] **Usage Meter**: Show a visual indicator (e.g., "3 free searches left") in the UI. This creates scarcity and prepares the user for the paywall.
+- [x] **Paywall Polish**:
+    - [x] Add a "Restore Purchases" button more prominently.
+    - [x] Add a testimonial or a "Trusted by X users" badge.
+    - [x] Ensure the "Annual" savings are mathematically clear and visually popping.
 
 ### Phase 3: Retention & Growth (Long Term)
 *Goal: Keep them paying.*
 
-- [ ] **Push Notifications**: Re-engage users who dropped off. "Discover the wisdom of [Topic] today."
-- [ ] **Daily Wisdom Unlocks**: Make the "Daily Wisdom" free for everyone, but "Deep Dive" into it a Pro feature.
+- [x] **Push Notifications**: Re-engage users who dropped off. "Discover the wisdom of [Topic] today." (Local Notifications implemented for re-engagement)
+- [x] **Daily Wisdom Unlocks**: Make the "Daily Wisdom" free for everyone, but "Deep Dive" into it a Pro feature.
+- [x] **Gamification (Bonus)**: Implemented Streaks and Badges to drive daily engagement!
 
 ## 3. Technical Implementation Guide
 
