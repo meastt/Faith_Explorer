@@ -17,7 +17,7 @@ export function DailyWisdom() {
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
-  const { usage, setPremium, setActiveVerseChat, savedVerses, getTopRecentTopics } = useStore();
+  const { usage, setPremium, setActiveVerseChat, getTopRecentTopics } = useStore();
 
   const loadDailyWisdom = async () => {
     setIsLoading(true);
@@ -181,11 +181,10 @@ export function DailyWisdom() {
               <div className="mt-4 pt-4 border-t border-sand-100 dark:border-stone-700">
                 <button
                   onClick={handleDeepDive}
-                  className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${
-                    usage.isPremium
+                  className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${usage.isPremium
                       ? 'bg-gradient-to-r from-bronze-500 to-bronze-600 text-white hover:from-bronze-600 hover:to-bronze-700 shadow-md hover:shadow-lg'
                       : 'bg-gradient-to-r from-amber-50 to-orange-50 text-bronze-700 border-2 border-bronze-200 hover:border-bronze-300'
-                  }`}
+                    }`}
                 >
                   {usage.isPremium ? (
                     <>

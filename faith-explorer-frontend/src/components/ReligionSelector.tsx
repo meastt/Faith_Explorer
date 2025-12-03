@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Check } from 'lucide-react';
 import { RELIGIONS, type Religion, type ReligionSubsetId } from '../types';
 import { useStore } from '../store/useStore';
@@ -39,21 +39,19 @@ export function ReligionSelector() {
         <div className="inline-flex p-1 bg-sand-200 dark:bg-stone-800 rounded-xl">
           <button
             onClick={() => setViewMode('single')}
-            className={`px-6 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-              viewMode === 'single'
+            className={`px-6 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${viewMode === 'single'
                 ? 'bg-white dark:bg-stone-700 text-stone-900 dark:text-stone-100 shadow-sm'
                 : 'text-stone-500 hover:text-stone-700 dark:text-stone-400'
-            }`}
+              }`}
           >
             Single Path
           </button>
           <button
             onClick={() => setViewMode('comparison')}
-            className={`px-6 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-              viewMode === 'comparison'
+            className={`px-6 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${viewMode === 'comparison'
                 ? 'bg-white dark:bg-stone-700 text-stone-900 dark:text-stone-100 shadow-sm'
                 : 'text-stone-500 hover:text-stone-700 dark:text-stone-400'
-            }`}
+              }`}
           >
             Compare Perspectives
           </button>
@@ -69,7 +67,7 @@ export function ReligionSelector() {
               <div className="px-2 text-xs font-bold uppercase tracking-wider text-stone-400 dark:text-stone-500 text-center">
                 {religion.name}
               </div>
-              
+
               {/* Books/Subsets */}
               <div className="flex gap-2">
                 {religion.subsets?.map((subset) => {
@@ -84,8 +82,8 @@ export function ReligionSelector() {
                       className={`
                         relative flex flex-col items-start justify-between w-32 h-32 p-3 rounded-2xl border transition-all duration-200
                         ${isDisabled ? 'opacity-50 grayscale cursor-not-allowed' : 'cursor-pointer hover:-translate-y-1'}
-                        ${isSelected 
-                          ? 'bg-bronze-500 border-bronze-600 text-white shadow-lg shadow-bronze-500/20' 
+                        ${isSelected
+                          ? 'bg-bronze-500 border-bronze-600 text-white shadow-lg shadow-bronze-500/20'
                           : 'bg-white dark:bg-stone-800 border-sand-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-bronze-300'}
                       `}
                     >
@@ -93,7 +91,7 @@ export function ReligionSelector() {
                         <span className="text-xl leading-none opacity-80">{getReligionSymbol(religion.id)}</span>
                         {isSelected && <Check className="w-4 h-4" />}
                       </div>
-                      
+
                       <div className="text-left mt-auto">
                         <span className="block font-serif font-bold text-sm leading-tight">
                           {subset.name}

@@ -16,6 +16,7 @@ import { SubscriptionModal } from './components/SubscriptionModal';
 import { useStore } from './store/useStore';
 import { searchSubsets, getComparativeAnalysis } from './services/api';
 import { initializeScriptures } from './services/search';
+import { notificationService } from './services/notifications';
 import type { Religion, Verse, ReligionSubsetId } from './types';
 
 type Tab = 'search' | 'saved';
@@ -43,7 +44,11 @@ function App() {
   useEffect(() => {
     initializeScriptures();
     // Check for new badge unlocks on app load
+    // Check for new badge unlocks on app load
     checkAndUnlockBadges();
+
+    // Schedule re-engagement notification (resets timer on every open)
+    notificationService.scheduleReEngagement();
   }, [checkAndUnlockBadges]);
 
   // Check app version and clear cache if needed

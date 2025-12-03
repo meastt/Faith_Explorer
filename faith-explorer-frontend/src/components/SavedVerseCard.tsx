@@ -12,7 +12,7 @@ interface SavedVerseCardProps {
 }
 
 export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardProps) {
-  const { updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount, folders, moveVerseToFolder, addTagToVerse, removeTagFromVerse, addHighlightToVerse, removeHighlightFromVerse, updateHighlightColor } = useStore();
+  const { updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount, folders, moveVerseToFolder, addTagToVerse, removeTagFromVerse, addHighlightToVerse, removeHighlightFromVerse } = useStore();
   const [isEditing, setIsEditing] = useState(false);
   const [editNotes, setEditNotes] = useState(verse.notes);
   const [showFolderMenu, setShowFolderMenu] = useState(false);
@@ -139,7 +139,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
     // Sort highlights by start position
     const sortedHighlights = [...highlights].sort((a, b) => a.start - b.start);
 
-    const segments: JSX.Element[] = [];
+    const segments: React.ReactNode[] = [];
     let lastEnd = 0;
 
     sortedHighlights.forEach((highlight, idx) => {
@@ -192,29 +192,28 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
   const previewText = verse.text.length > 120 ? verse.text.slice(0, 120) + '...' : verse.text;
 
   return (
-    <div 
-      className={`bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200 ${
-        isExpanded ? 'shadow-medium' : 'shadow-soft hover:shadow-medium'
-      }`}
+    <div
+      className={`bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200 ${isExpanded ? 'shadow-medium' : 'shadow-soft hover:shadow-medium'
+        }`}
     >
       {/* Color accent bar */}
       <div className="h-1" style={{ backgroundColor: color }}></div>
 
       {/* Always Visible Header - Clickable to expand/collapse */}
-      <div 
+      <div
         onClick={onToggle}
         className="p-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 sepia:hover:bg-amber-100/50 transition-colors"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-2 flex-1 min-w-0">
             {/* Religion Icon */}
-            <div 
+            <div
               className="w-6 h-6 rounded-lg flex items-center justify-center text-white font-medium text-xs flex-shrink-0 mt-0.5"
               style={{ backgroundColor: color }}
             >
               {religionInfo?.name.charAt(0)}
             </div>
-            
+
             {/* Reference & Preview */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -277,9 +276,8 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                   <button
                     key={c}
                     onClick={() => setSelectedHighlightColor(c)}
-                    className={`w-6 h-6 rounded-full border-2 transition-transform ${
-                      selectedHighlightColor === c ? 'border-gray-700 dark:border-gray-300 scale-110' : 'border-gray-300 dark:border-gray-600'
-                    }`}
+                    className={`w-6 h-6 rounded-full border-2 transition-transform ${selectedHighlightColor === c ? 'border-gray-700 dark:border-gray-300 scale-110' : 'border-gray-300 dark:border-gray-600'
+                      }`}
                     style={{ backgroundColor: highlightColorMap[c] }}
                     title={`${c} highlight`}
                   />
@@ -298,7 +296,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
           )}
 
           <blockquote
-            ref={verseTextRef}
+            ref={verseTextRef as any}
             onMouseUp={handleTextSelection}
             className={`text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800 leading-relaxed pl-3 border-l-2 ${isHighlighting ? 'select-text cursor-text' : ''}`}
             style={{ borderColor: color }}
@@ -435,9 +433,8 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                 </div>
                 <button
                   onClick={() => handleMoveToFolder(null)}
-                  className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
-                    !verse.folderId ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'
-                  }`}
+                  className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${!verse.folderId ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'
+                    }`}
                 >
                   Unfiled
                 </button>
@@ -445,9 +442,8 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                   <button
                     key={folder.id}
                     onClick={() => handleMoveToFolder(folder.id)}
-                    className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-1.5 ${
-                      verse.folderId === folder.id ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'
-                    }`}
+                    className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-1.5 ${verse.folderId === folder.id ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'
+                      }`}
                   >
                     <FolderIcon className="w-3 h-3" style={{ color: folder.color }} />
                     <span>{folder.name}</span>
@@ -463,11 +459,10 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
             e.stopPropagation();
             setIsHighlighting(!isHighlighting);
           }}
-          className={`flex items-center gap-1 px-2 py-1.5 text-xs font-medium transition-all duration-200 rounded-md ${
-            isHighlighting
+          className={`flex items-center gap-1 px-2 py-1.5 text-xs font-medium transition-all duration-200 rounded-md ${isHighlighting
               ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
               : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
-          }`}
+            }`}
           title="Highlight text"
         >
           <Highlighter className="w-3.5 h-3.5" />

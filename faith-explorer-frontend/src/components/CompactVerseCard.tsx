@@ -29,6 +29,7 @@ export function CompactVerseCard({ verse, religion, isExpanded, onToggle, onChat
         savedAt: Date.now(),
         notes: '',
         tags: [],
+        highlights: [],
       });
       incrementSaveCount();
     }
@@ -55,26 +56,25 @@ export function CompactVerseCard({ verse, religion, isExpanded, onToggle, onChat
   const previewText = verse.text.length > 100 ? verse.text.slice(0, 100) + '...' : verse.text;
 
   return (
-    <div 
-      className={`bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200 ${
-        isExpanded ? 'shadow-medium' : 'shadow-soft hover:shadow-medium'
-      }`}
+    <div
+      className={`bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-xl border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200 ${isExpanded ? 'shadow-medium' : 'shadow-soft hover:shadow-medium'
+        }`}
     >
       {/* Always Visible Header - Clickable to expand/collapse */}
-      <div 
+      <div
         onClick={onToggle}
         className="p-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 sepia:hover:bg-amber-100/50 transition-colors rounded-t-xl"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-2 flex-1 min-w-0">
             {/* Religion Icon */}
-            <div 
+            <div
               className="w-6 h-6 rounded-lg flex items-center justify-center text-white font-medium text-xs flex-shrink-0 mt-0.5"
               style={{ backgroundColor: color }}
             >
               {religionInfo?.name.charAt(0)}
             </div>
-            
+
             {/* Reference & Preview */}
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-sm text-gray-900 dark:text-gray-100 sepia:text-amber-900">
@@ -121,11 +121,10 @@ export function CompactVerseCard({ verse, religion, isExpanded, onToggle, onChat
         <button
           onClick={handleSave}
           disabled={isSaved}
-          className={`flex items-center gap-1 px-2 py-1.5 text-xs font-medium rounded-md transition-all duration-200 ${
-            isSaved
+          className={`flex items-center gap-1 px-2 py-1.5 text-xs font-medium rounded-md transition-all duration-200 ${isSaved
               ? 'text-green-600 dark:text-green-400 sepia:text-green-700 bg-green-50 dark:bg-green-900/30 sepia:bg-green-100/50'
               : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
-          }`}
+            }`}
           title={isSaved ? 'Already saved' : 'Save verse'}
         >
           {isSaved ? (

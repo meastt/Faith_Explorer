@@ -29,6 +29,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
         savedAt: Date.now(),
         notes: '',
         tags: [],
+        highlights: [],
       });
       incrementSaveCount();
     }
@@ -50,7 +51,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <div 
+          <div
             className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-medium text-sm shadow-soft"
             style={{ backgroundColor: color }}
           >
@@ -85,7 +86,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
                   <span className="font-medium">Reference:</span> {verse.reference}
                 </div>
                 {verse.reference.includes(':') && (
-                    <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/30 sepia:bg-amber-100 rounded border border-blue-100 dark:border-blue-800 sepia:border-amber-300">
+                  <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/30 sepia:bg-amber-100 rounded border border-blue-100 dark:border-blue-800 sepia:border-amber-300">
                     <p className="text-xs text-blue-800 dark:text-blue-200 sepia:text-amber-800">
                       <span className="font-semibold">Tip:</span> Click "Discuss" to ask about the surrounding context, historical background, or different interpretations of this passage.
                     </p>
@@ -117,11 +118,10 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
         <button
           onClick={handleSave}
           disabled={isSaved}
-          className={`flex items-center space-x-1.5 px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
-            isSaved
-              ? 'text-green-600 dark:text-green-400 sepia:text-green-700 bg-green-50 dark:bg-green-900/30 sepia:bg-green-100/50'
-              : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
-          }`}
+          className={`flex items-center space-x-1.5 px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${isSaved
+            ? 'text-green-600 dark:text-green-400 sepia:text-green-700 bg-green-50 dark:bg-green-900/30 sepia:bg-green-100/50'
+            : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
+            }`}
         >
           {isSaved ? (
             <>

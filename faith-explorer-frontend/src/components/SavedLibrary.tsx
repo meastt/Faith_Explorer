@@ -20,7 +20,6 @@ export function SavedLibrary() {
   const [newFolderName, setNewFolderName] = useState('');
   const [editingFolderId, setEditingFolderId] = useState<string | null>(null);
   const [editingFolderName, setEditingFolderName] = useState('');
-  const [showTagFilter, setShowTagFilter] = useState(false);
 
   const handleVerseToggle = (verseId: string) => {
     setExpandedVerseId(expandedVerseId === verseId ? null : verseId);
@@ -257,11 +256,10 @@ export function SavedLibrary() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setFilterFolder('all')}
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-              filterFolder === 'all'
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterFolder === 'all'
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-            }`}
+              }`}
           >
             All ({savedVerses.length})
           </button>
@@ -303,11 +301,10 @@ export function SavedLibrary() {
               ) : (
                 <button
                   onClick={() => setFilterFolder(folder.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                    filterFolder === folder.id
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterFolder === folder.id
                       ? 'bg-blue-600 text-white'
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                  }`}
+                    }`}
                   style={folder.color && filterFolder !== folder.id ? {
                     backgroundColor: `${folder.color}20`,
                     color: folder.color
@@ -347,11 +344,10 @@ export function SavedLibrary() {
 
           <button
             onClick={() => setFilterFolder('unfiled')}
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-              filterFolder === 'unfiled'
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterFolder === 'unfiled'
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-            }`}
+              }`}
           >
             Unfiled ({folderCounts['unfiled'] || 0})
           </button>
@@ -419,11 +415,10 @@ export function SavedLibrary() {
                 <button
                   key={tag}
                   onClick={() => toggleTagFilter(tag)}
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-all ${
-                    isActive
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-all ${isActive
                       ? 'bg-blue-600 text-white shadow-sm'
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                  }`}
+                    }`}
                 >
                   <Tag className="w-3 h-3" />
                   <span>{tag}</span>

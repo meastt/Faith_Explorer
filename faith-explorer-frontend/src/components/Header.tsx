@@ -1,4 +1,4 @@
-import { Star, Menu, Flame } from 'lucide-react';
+import { Star, Flame } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useStore } from '../store/useStore';
 import { SubscriptionModal } from './SubscriptionModal';
@@ -56,7 +56,7 @@ export function Header() {
         <header className="relative bg-sand-50/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-sand-200 dark:border-stone-800">
           <div className="max-w-4xl mx-auto px-4 pt-safe">
             <div className="flex items-center justify-between h-16">
-              
+
               {/* Brand */}
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-bronze-500 text-white rounded-full flex items-center justify-center shadow-glow">
@@ -74,6 +74,15 @@ export function Header() {
 
               {/* Actions */}
               <div className="flex items-center gap-3">
+                {/* Usage Meter for Free Users */}
+                {!isPremium && (
+                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                    <span className="text-xs font-medium text-stone-600 dark:text-stone-400">
+                      {Math.max(0, usage.searchLimit - usage.searchesUsed)} free searches
+                    </span>
+                  </div>
+                )}
+
                 {/* Streak Counter */}
                 {streak.current > 0 && (
                   <button
@@ -90,11 +99,10 @@ export function Header() {
 
                 <button
                   onClick={handleUpgradeClick}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
-                    isPremium
-                      ? 'text-bronze-700 bg-bronze-100 dark:bg-bronze-900/30 dark:text-bronze-300 border border-bronze-200'
-                      : 'bg-stone-900 text-white shadow-float hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900'
-                  }`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${isPremium
+                    ? 'text-bronze-700 bg-bronze-100 dark:bg-bronze-900/30 dark:text-bronze-300 border border-bronze-200'
+                    : 'bg-stone-900 text-white shadow-float hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900'
+                    }`}
                 >
                   <Star className="w-3 h-3 fill-current" />
                   <span>{isPremium ? 'Premium' : 'Upgrade'}</span>

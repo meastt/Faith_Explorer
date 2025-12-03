@@ -12,7 +12,6 @@ import type {
   Folder,
   Highlight,
   Badge,
-  BadgeId,
 } from '../types';
 
 export interface ReadingPreferences {
@@ -258,7 +257,7 @@ export const useStore = create<AppState>()(
           const existing = current.find(
             (s) => s.religion === religion && s.subset === subset
           );
-          
+
           if (existing) {
             return {
               selectedSubsets: current.filter(
@@ -367,11 +366,11 @@ export const useStore = create<AppState>()(
           savedVerses: state.savedVerses.map((v) =>
             v.id === verseId
               ? {
-                  ...v,
-                  highlights: (v.highlights || []).map((h) =>
-                    h.id === highlightId ? { ...h, color } : h
-                  ),
-                }
+                ...v,
+                highlights: (v.highlights || []).map((h) =>
+                  h.id === highlightId ? { ...h, color } : h
+                ),
+              }
               : v
           ),
         })),
@@ -757,7 +756,7 @@ export const useStore = create<AppState>()(
         // Show on 3rd, 7th, or 15th save/share
         const totalActions = reviewPrompt.savesCount + reviewPrompt.sharesCount;
         const milestones = [3, 7, 15];
-        
+
         return milestones.includes(totalActions);
       },
     }),
