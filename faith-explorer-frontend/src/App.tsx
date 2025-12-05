@@ -262,7 +262,7 @@ function App() {
             {searchResults.length === 0 && !isLoading && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TopicExplorer onTopicSelect={handleSearch} />
-                <LearningPaths onStepSelect={(query) => handleSearch(query)} />
+                <LearningPaths />
               </div>
             )}
             <SearchResults

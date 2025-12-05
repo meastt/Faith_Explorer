@@ -92,11 +92,9 @@ const GOLDEN_THREADS: ThreadData[] = [
   }
 ];
 
-interface LearningPathsProps {
-  onStepSelect: (query: string, pathId?: string, stepIndex?: number) => void;
-}
 
-export function LearningPaths({ onStepSelect }: LearningPathsProps) {
+
+export function LearningPaths() {
   const [activeThread, setActiveThread] = useState<ThreadData | null>(null);
 
   if (activeThread) {

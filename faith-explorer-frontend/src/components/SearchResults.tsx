@@ -1,4 +1,4 @@
-import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2, ChevronDown, Lock, Star, Bookmark, BookmarkCheck, MoreVertical, Copy, Trash2, ArrowRight, UserPlus } from 'lucide-react';
+import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2, ChevronDown, Lock, Star } from 'lucide-react';
 import { useState } from 'react';
 import type { Religion, Verse, ReligionSubsetId } from '../types';
 import { CompactVerseCard } from './CompactVerseCard';
