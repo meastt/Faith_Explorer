@@ -73,10 +73,10 @@ export async function searchSubsets(
   } catch (apiError) {
     // Fall back to local search when API fails
     console.warn('API search failed, falling back to local search:', apiError);
-    
+
     try {
       const localVerses = await searchScriptures(selectedSubsets, question);
-      
+
       if (localVerses.length === 0) {
         return {
           answer: `I couldn't find specific verses about "${question}" in the selected texts. Try rephrasing your question or selecting different religious texts.`,
@@ -185,6 +185,97 @@ export async function getComparativeAnalysis(
     return data.comparison;
   } catch (error) {
     console.error('Comparison error:', error);
+    throw error;
+  }
+}
+
+export interface CommonGroundData {
+  common: string[];
+  distinctA: string[];
+  distinctB: string[];
+  summary: string;
+}
+
+export async function getCommonGround(
+  religions: string[],
+  question: string,
+  results: { religion: Religion; answer: string }[]
+): Promise<CommonGroundData> {
+  try {
+    const response = await fetch(`${API_URL}/api/common-ground`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ religions, question, results })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Common Ground request failed: ${response.status}`);
+    }
+
+    const json = await response.json();
+    return json.data;
+  } catch (error) {
+    console.error('Common ground API error:', error);
+    throw error;
+  }
+}
+
+export interface DialogueResponse {
+  reply: string;
+  feedback: string;
+  score: number;
+}
+
+export interface Persona {
+  id: string;
+  name: string;
+  faith: string;
+  traits: string;
+  avatar: string; // Emoji char
+  color: string;
+}
+
+export async function simulateDialogue(
+  persona: Persona,
+  scenario: string,
+  userMessage: string,
+  conversationHistory: { role: 'user' | 'assistant'; content: string }[]
+): Promise<DialogueResponse> {
+  try {
+    const response = await fetch(`${API_URL}/api/simulate-dialogue`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ persona, scenario, userMessage, conversationHistory })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Dialogue request failed: ${response.status}`);
+    }
+
+    const json = await response.json();
+    return json.data;
+  } catch (error) {
+    console.error('Dialogue API error:', error);
+    throw error;
+  }
+}
+
+export async function secularizeText(text: string, context?: string): Promise<string> {
+  try {
+    const response = await fetch(`${API_URL}/api/secularize`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, context })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Secularize request failed: ${response.status}`);
+    }
+
+    const json = await response.json();
+    return json.translation;
+  } catch (error) {
+    console.error('Secularization API error:', error);
     throw error;
   }
 }

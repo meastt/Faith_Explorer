@@ -15,11 +15,13 @@ import { Settings } from './components/Settings';
 import { SubscriptionModal } from './components/SubscriptionModal';
 import { useStore } from './store/useStore';
 import { searchSubsets, getComparativeAnalysis } from './services/api';
+import { DialogueSimulator } from './components/DialogueSimulator';
+import { ChallengeDashboard } from './components/ChallengeDashboard';
 import { initializeScriptures } from './services/search';
 import { notificationService } from './services/notifications';
 import type { Religion, Verse, ReligionSubsetId } from './types';
 
-type Tab = 'search' | 'saved';
+type Tab = 'search' | 'saved' | 'practice';
 
 export interface SearchResultWithAnswer {
   religion: Religion;
@@ -251,9 +253,10 @@ function App() {
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-40 pb-28">
         {/* Content */}
-        {activeTab === 'search' ? (
+        {activeTab === 'search' && (
           <div className="space-y-4">
             {searchResults.length === 0 && !isLoading && <DailyWisdom />}
+            {searchResults.length === 0 && !isLoading && <ChallengeDashboard />}
             {searchResults.length === 0 && !isLoading && <ReligionSelector />}
             {searchResults.length === 0 && !isLoading && <SearchBar onSearch={handleSearch} />}
             {searchResults.length === 0 && !isLoading && (
@@ -271,8 +274,18 @@ function App() {
               onUpgrade={() => setShowSubscriptionModal(true)}
             />
           </div>
-        ) : (
-          <SavedLibrary />
+        )}
+
+        {activeTab === 'practice' && (
+          <div className="pb-24 px-4 pt-4 max-w-4xl mx-auto">
+            <DialogueSimulator />
+          </div>
+        )}
+
+        {activeTab === 'saved' && (
+          <div className="pb-24">
+            <SavedLibrary />
+          </div>
         )}
       </main>
 

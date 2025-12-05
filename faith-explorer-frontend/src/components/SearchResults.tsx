@@ -1,9 +1,10 @@
-import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2, ChevronDown, Lock, Star } from 'lucide-react';
+import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2, ChevronDown, Lock, Star, Bookmark, BookmarkCheck, MoreVertical, Copy, Trash2, ArrowRight, UserPlus } from 'lucide-react';
 import { useState } from 'react';
 import type { Religion, Verse, ReligionSubsetId } from '../types';
 import { CompactVerseCard } from './CompactVerseCard';
 import { useStore } from '../store/useStore';
 import { RELIGIONS } from '../types';
+import { CommonGroundVisualizer } from './CommonGroundVisualizer';
 import { formatAIResponse } from '../utils/markdown';
 import { shareInsight, shareComparison, copyToClipboard } from '../utils/helpers';
 
@@ -25,6 +26,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
   const { setActiveVerseChat, viewMode, saveComparison, incrementShareCount, saveVerse } = useStore();
   const [expandedVerseId, setExpandedVerseId] = useState<string | null>(null);
   const [showAllVerses, setShowAllVerses] = useState(false);
+  const [showCommonGround, setShowCommonGround] = useState(false);
 
   const INITIAL_VERSE_COUNT = 5;
 
@@ -370,6 +372,13 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
               {/* Comparison Actions */}
               <div className="flex items-center gap-2 mt-4 pt-4 border-t border-purple-200 dark:border-purple-700 sepia:border-amber-300">
                 <button
+                  onClick={() => setShowCommonGround(true)}
+                  className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-md transition-all duration-200 shadow-md hover:shadow-lg"
+                >
+                  <Sparkles className="w-3 h-3" />
+                  <span className="hidden sm:inline">Visualize Common Ground</span>
+                </button>
+                <button
                   onClick={() => alert('Chat feature coming soon! For now, you can discuss specific verses by clicking "Discuss" on individual verses below.')}
                   className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-purple-600 dark:text-purple-400 sepia:text-amber-700 hover:text-purple-700 dark:hover:text-purple-300 sepia:hover:text-amber-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                 >
@@ -392,6 +401,16 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
                 </button>
               </div>
             </div>
+
+            {/* Common Ground Modal */}
+            {showCommonGround && results.length >= 2 && (
+              <CommonGroundVisualizer
+                religions={results.map(r => r.religion)}
+                question={comparativeAnalysis ? "Analysis" : "Search Query"} // We will pass the implicit question via context or just use the results for analysis
+                results={results}
+                onClose={() => setShowCommonGround(false)}
+              />
+            )}
 
             {/* Separator */}
             <div className="relative">

@@ -1,6 +1,6 @@
-import { Home, Bookmark, Settings } from 'lucide-react';
+import { Home, Bookmark, Settings, MessageCircle } from 'lucide-react';
 
-type Tab = 'search' | 'saved';
+type Tab = 'search' | 'saved' | 'practice';
 
 interface BottomNavProps {
   activeTab: Tab;
@@ -16,11 +16,10 @@ export function BottomNav({ activeTab, onTabChange, onSettingsClick }: BottomNav
           {/* Home / Search Tab */}
           <button
             onClick={() => onTabChange('search')}
-            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${
-              activeTab === 'search'
-                ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
-                : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
-            }`}
+            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'search'
+              ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
+              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
+              }`}
           >
             <Home className="w-6 h-6" />
             <span className="text-[10px] font-medium leading-none">Home</span>
@@ -29,14 +28,25 @@ export function BottomNav({ activeTab, onTabChange, onSettingsClick }: BottomNav
           {/* Saved Tab */}
           <button
             onClick={() => onTabChange('saved')}
-            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${
-              activeTab === 'saved'
-                ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
-                : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
-            }`}
+            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'saved'
+              ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
+              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
+              }`}
           >
             <Bookmark className="w-6 h-6" />
             <span className="text-[10px] font-medium leading-none">Saved</span>
+          </button>
+
+          {/* Practice Tab */}
+          <button
+            onClick={() => onTabChange('practice')}
+            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'practice'
+              ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
+              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
+              }`}
+          >
+            <MessageCircle className="w-6 h-6" />
+            <span className="text-[10px] font-medium leading-none">Practice</span>
           </button>
 
           {/* Settings Button */}

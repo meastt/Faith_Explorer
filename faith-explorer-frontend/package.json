@@ -17,6 +17,7 @@
     "@capacitor/local-notifications": "^7.0.3",
     "@capacitor/push-notifications": "^7.0.3",
     "@revenuecat/purchases-capacitor": "^11.2.3",
+    "framer-motion": "^12.23.25",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

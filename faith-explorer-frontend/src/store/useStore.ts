@@ -124,6 +124,12 @@ interface AppState {
   setReviewPromptShown: () => void;
   setReviewPromptStatus: (status: 'later' | 'reviewed' | 'dismissed') => void;
   shouldShowReviewPrompt: () => boolean;
+
+  // Faith in Action / Challenges
+  activeChallenges: string[]; // ID of joined challenges
+  completedActions: Record<string, number>; // ChallengeID -> Count of actions logged
+  joinChallenge: (challengeId: string) => void;
+  logAction: (challengeId: string) => void;
 }
 
 const getInitialUsage = (): FreemiumUsage => {
@@ -229,8 +235,24 @@ export const useStore = create<AppState>()(
         lastShownDate: null,
         status: 'pending',
       },
+      activeChallenges: [],
+      completedActions: {},
 
       // Actions
+      joinChallenge: (challengeId) =>
+        set((state) => ({
+          activeChallenges: state.activeChallenges.includes(challengeId)
+            ? state.activeChallenges
+            : [...state.activeChallenges, challengeId]
+        })),
+      logAction: (challengeId) =>
+        set((state) => ({
+          completedActions: {
+            ...state.completedActions,
+            [challengeId]: (state.completedActions[challengeId] || 0) + 1
+          }
+        })),
+
       setViewMode: (mode) => set({ viewMode: mode }),
 
       setSelectedReligions: (religions) => set({ selectedReligions: religions }),
