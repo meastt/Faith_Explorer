@@ -55,28 +55,28 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
   const Icon = currentStep.icon;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative">
+    <div className="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-sand-50 dark:bg-stone-900 rounded-2xl shadow-2xl max-w-lg w-full p-8 relative border border-sand-200 dark:border-stone-700">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-sand-200 dark:hover:bg-stone-800 transition-colors"
         >
-          <X className="w-5 h-5 text-gray-500" />
+          <X className="w-5 h-5 text-stone-500" />
         </button>
 
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Icon className="w-8 h-8 text-blue-600" />
+          <div className="w-16 h-16 bg-bronze-100 dark:bg-bronze-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-bronze-200 dark:border-bronze-800">
+            <Icon className="w-8 h-8 text-bronze-600 dark:text-bronze-400" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">{currentStep.title}</h2>
-          <p className="text-gray-600">{currentStep.description}</p>
+          <h2 className="text-3xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-2">{currentStep.title}</h2>
+          <p className="text-stone-600 dark:text-stone-400 leading-relaxed">{currentStep.description}</p>
         </div>
 
-        <div className="bg-blue-50 rounded-xl p-4 mb-8">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">Try asking:</h3>
+        <div className="bg-sand-100 dark:bg-stone-800/50 rounded-xl p-5 mb-8 border border-sand-200 dark:border-stone-700">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-bronze-700 dark:text-bronze-400 mb-3">Try asking:</h3>
           <div className="space-y-2">
             {currentStep.examples.map((example, idx) => (
-              <div key={idx} className="bg-white rounded-lg px-3 py-2 text-sm text-gray-700">
+              <div key={idx} className="bg-white dark:bg-stone-800 rounded-lg px-4 py-3 text-sm text-stone-700 dark:text-stone-300 shadow-sm border border-sand-100 dark:border-stone-700 font-medium">
                 "{example}"
               </div>
             ))}
@@ -88,7 +88,7 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
             {steps.map((_, idx) => (
               <div
                 key={idx}
-                className={`w-2 h-2 rounded-full transition-colors ${idx === step ? 'bg-blue-600' : 'bg-gray-300'
+                className={`w-2 h-2 rounded-full transition-colors ${idx === step ? 'bg-bronze-600 dark:bg-bronze-500' : 'bg-sand-300 dark:bg-stone-700'
                   }`}
               />
             ))}
@@ -99,13 +99,13 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
               <>
                 <button
                   onClick={onClose}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium"
+                  className="px-4 py-2 text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200 font-medium transition-colors"
                 >
                   Skip
                 </button>
                 <button
                   onClick={() => setStep(step + 1)}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+                  className="px-6 py-2 bg-bronze-600 text-white rounded-lg hover:bg-bronze-700 font-medium transition-colors shadow-md shadow-bronze-900/10"
                 >
                   Next
                 </button>
@@ -113,7 +113,7 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
             ) : (
               <button
                 onClick={onClose}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+                className="px-6 py-2 bg-bronze-600 text-white rounded-lg hover:bg-bronze-700 font-medium transition-colors shadow-md shadow-bronze-900/10"
               >
                 Get Started
               </button>

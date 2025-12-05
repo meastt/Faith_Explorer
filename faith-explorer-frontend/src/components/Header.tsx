@@ -66,7 +66,7 @@ export function Header() {
                   <h1 className="font-serif text-xl font-bold text-stone-800 dark:text-stone-100 leading-none">
                     Faith Explorer
                   </h1>
-                  <p className="text-[10px] font-medium text-bronze-600 dark:text-bronze-400 tracking-widest uppercase mt-0.5">
+                  <p className="text-xs font-medium text-bronze-700 dark:text-bronze-400 tracking-widest uppercase mt-0.5">
                     Wisdom of Ages
                   </p>
                 </div>
@@ -76,7 +76,7 @@ export function Header() {
               <div className="flex items-center gap-3">
                 {/* Usage Meter for Free Users */}
                 {!isPremium && (
-                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sand-100 dark:bg-stone-800 border border-sand-200 dark:border-stone-700">
                     <span className="text-xs font-medium text-stone-600 dark:text-stone-400">
                       {Math.max(0, usage.searchLimit - usage.searchesUsed)} free searches
                     </span>
@@ -87,11 +87,11 @@ export function Header() {
                 {streak.current > 0 && (
                   <button
                     onClick={handleStreakClick}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 border border-orange-200 dark:border-orange-800 transition-all duration-300 hover:scale-105"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-gold-100 to-bronze-100 dark:from-gold-900/20 dark:to-bronze-900/20 border border-gold-200 dark:border-gold-800 transition-all duration-300 hover:scale-105"
                     title={`Longest: ${streak.longest} days${isPremium && streak.freezesAvailable > 0 ? ` • ${streak.freezesAvailable} freeze available` : ''}`}
                   >
-                    <Flame className="w-4 h-4 text-orange-600 dark:text-orange-400" />
-                    <span className="text-sm font-bold text-orange-900 dark:text-orange-200">
+                    <Flame className="w-4 h-4 text-bronze-600 dark:text-bronze-400" />
+                    <span className="text-sm font-bold text-bronze-800 dark:text-bronze-200">
                       {streak.current}
                     </span>
                   </button>
@@ -99,13 +99,13 @@ export function Header() {
 
                 <button
                   onClick={handleUpgradeClick}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${isPremium
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 shadow-sm ${isPremium
                     ? 'text-bronze-700 bg-bronze-100 dark:bg-bronze-900/30 dark:text-bronze-300 border border-bronze-200'
-                    : 'bg-stone-900 text-white shadow-float hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900'
+                    : 'bg-gradient-to-r from-bronze-600 to-gold-600 text-white hover:from-bronze-700 hover:to-gold-700 shadow-gold-500/20'
                     }`}
                 >
                   <Star className="w-3 h-3 fill-current" />
-                  <span>{isPremium ? 'Premium' : 'Upgrade'}</span>
+                  <span className="font-bold tracking-wide">{isPremium ? 'Premium' : 'Upgrade'}</span>
                 </button>
               </div>
             </div>
@@ -122,13 +122,13 @@ export function Header() {
 
       {/* Streak Freeze Modal */}
       {showStreakFreeze && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white dark:bg-stone-800 rounded-2xl shadow-2xl max-w-md w-full p-6 border border-sand-200 dark:border-stone-700">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-sm">
+          <div className="bg-sand-50 dark:bg-stone-800 rounded-2xl shadow-2xl max-w-md w-full p-6 border border-sand-200 dark:border-stone-700">
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-orange-300 dark:border-orange-700">
-                <Flame className="w-8 h-8 text-orange-600 dark:text-orange-400" />
+              <div className="w-16 h-16 bg-gradient-to-br from-gold-100 to-bronze-100 dark:from-gold-900/30 dark:to-bronze-900/30 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-gold-300 dark:border-gold-700">
+                <Flame className="w-8 h-8 text-bronze-600 dark:text-bronze-400" />
               </div>
-              <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-2">
+              <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-2 font-serif">
                 Streak Freeze Available!
               </h3>
               <p className="text-sm text-stone-600 dark:text-stone-400 mb-6">
@@ -138,13 +138,13 @@ export function Header() {
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowStreakFreeze(false)}
-                  className="flex-1 px-4 py-3 rounded-xl border border-sand-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 font-medium hover:bg-sand-50 dark:hover:bg-stone-700 transition-colors"
+                  className="flex-1 px-4 py-3 rounded-xl border border-sand-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 font-medium hover:bg-sand-100 dark:hover:bg-stone-700 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={applyStreakFreeze}
-                  className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-medium hover:from-orange-600 hover:to-red-600 transition-all shadow-md hover:shadow-lg"
+                  className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-bronze-500 to-gold-500 text-white font-medium hover:from-bronze-600 hover:to-gold-600 transition-all shadow-md hover:shadow-lg"
                 >
                   Use Freeze
                 </button>
