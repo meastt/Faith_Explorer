@@ -40,6 +40,16 @@ npm run dev
 - Add personal notes
 - Access from "Saved" tab
 
+### 🟣 Common Ground Visualizer
+- **Venn Diagram**: Visualize shared values between faiths
+- **Interactive**: Explore unique and shared concepts
+- **AI-Powered**: Dynamic synthesis of perspectives
+
+### 🗣️ Dialogue Simulator
+- **Practice Mode**: Roleplay with AI personas (e.g., "Brother Ahmed", "Rev. Sarah")
+- **Real-time Coaching**: Get feedback on your interfaith etiquette
+- **Scenarios**: Practice specific situations like greetings or dietary questions
+
 ### 🎁 Freemium Model
 - **Free**: 50 searches + 100 chat messages/month
 - **Premium**: Unlimited everything
@@ -53,8 +63,10 @@ npm run dev
 3. **Search**: Enter topic (e.g., "love", "suffering")
 4. **Explore results**: Read verses
 5. **Chat**: Click "Chat" to discuss with AI
-6. **Save**: Click "Save" to keep verses
-7. **Organize**: Add notes in "Saved" tab
+6. **Visualize**: In Comparison mode, click "Visualize Common Ground"
+7. **Practice**: Go to "Practice" tab to simulate conversations
+8. **Save**: Click "Save" to keep verses
+9. **Organize**: Add notes in "Saved" tab
 
 ---
 
@@ -69,6 +81,12 @@ npm run dev
 - "What is prayer?"
 - "nature of God"
 
+**Visualization:**
+- Compare Christianity & Buddhism on "Suffering" -> Click "Visualize Common Ground"
+
+**Dialogue Practice:**
+- Select "Brother Ahmed" (Muslim) -> Ask him about "Halal food"
+
 ---
 
 ## 🛠️ Tech Stack
@@ -77,8 +95,9 @@ npm run dev
 - Vite (build tool)
 - Tailwind CSS v4
 - Zustand (state)
+- Framer Motion (animations)
 - Lucide Icons
-- Express (backend)
+- Express (backend) + Fuse.js
 
 ---
 

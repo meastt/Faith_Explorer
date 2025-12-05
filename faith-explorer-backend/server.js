@@ -71,7 +71,7 @@ function rateLimitMiddleware(req, res, next) {
   const ip = req.ip || req.connection.remoteAddress || 'unknown';
   const now = Date.now();
   const userRequests = rateLimitMap.get(ip) || [];
-  
+
   const recentRequests = userRequests.filter(timestamp => now - timestamp < RATE_LIMIT_WINDOW);
 
   if (recentRequests.length >= RATE_LIMIT_MAX_REQUESTS) {
@@ -159,7 +159,7 @@ app.post('/api/ask', rateLimitMiddleware, async (req, res) => {
     const relevantVerses = subsets && subsets.length > 0
       ? await searchSubsets(subsets, question, 15)
       : await searchScriptures(religion, question, 15);
-    
+
     // 1. Smart Fallback: If no verses found, try to answer generally
     // (Only if no specific subsets were forced, implying a general query)
     if (relevantVerses.length === 0) {
@@ -168,7 +168,7 @@ app.post('/api/ask', rateLimitMiddleware, async (req, res) => {
         sources: []
       });
     }
-    
+
     // Check API Key availability
     if (!process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY.includes('your_api_key')) {
       return res.json({
@@ -176,11 +176,11 @@ app.post('/api/ask', rateLimitMiddleware, async (req, res) => {
         sources: relevantVerses
       });
     }
-    
+
     const scriptureContext = relevantVerses
       .map(v => `[${v.reference}] "${v.text}"`)
       .join('\n\n');
-    
+
     // Dynamic System Prompt based on religion
     const basePrompt = `You are a knowledgeable guide on ${religion}. Answer the user's question ONLY based on the provided scripture passages. 
     - Always cite the reference (e.g. [John 3:16]).
@@ -203,7 +203,7 @@ app.post('/api/ask', rateLimitMiddleware, async (req, res) => {
 
     setCache(cacheKey, response);
     res.json(response);
-    
+
   } catch (error) {
     console.error('Search Error:', error);
     res.status(500).json({ error: 'Internal server error', message: error.message });
@@ -249,6 +249,77 @@ app.post('/api/compare', rateLimitMiddleware, async (req, res) => {
   }
 });
 
+// Common Ground Visualizer Endpoint
+app.post('/api/common-ground', rateLimitMiddleware, async (req, res) => {
+  try {
+    const { religions, question } = req.body;
+
+    if (!religions || !req.body.results) { // results needed for context
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const cacheKey = getCacheKey('common-ground', { religions, question: question.toLowerCase().trim() });
+    const cachedResponse = getFromCache(cacheKey, SEARCH_CACHE_TTL);
+    if (cachedResponse) return res.json(cachedResponse);
+
+    // Context from previous results
+    const contextParts = req.body.results.map(r => {
+      const relName = typeof r.religion === 'string' ? r.religion : r.religion.name;
+      return `**${relName.toUpperCase()}**:\n${r.answer}\n`;
+    }).join('\n');
+
+    const claudeData = await callAnthropicWithRetry([{
+      role: 'user',
+      content: `You are an expert in interfaith dialogue. Analyze these two religious perspectives on "${question}".
+      
+      ${contextParts}
+      
+      Produce a JSON object representing a Venn Diagram of their values/concepts.
+      The output MUST be valid JSON with this exact structure:
+      {
+        "common": ["Shared value 1", "Shared concept 2", "Shared belief 3"],
+        "distinctA": ["Unique to ${religions[0]} 1", "Unique to ${religions[0]} 2"],
+        "distinctB": ["Unique to ${religions[1]} 1", "Unique to ${religions[1]} 2"],
+        "summary": "One sentence summarizing the core overlap."
+      }
+
+      - Keep points short (2-5 words).
+      - "Common" items should be concepts both explicitly agree on.
+      - "Distinct" items should be nuanced differences.
+      - Return ONLY JSON.`
+    }], 1500);
+
+    // Parse JSON safely
+    let jsonResponse;
+    try {
+      // Find JSON blob within text if Claude adds conversational filler
+      const jsonMatch = claudeData.content[0].text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        jsonResponse = JSON.parse(jsonMatch[0]);
+      } else {
+        throw new Error("No JSON found in response");
+      }
+
+      // Basic structure check
+      if (!jsonResponse.common || !Array.isArray(jsonResponse.common)) {
+        jsonResponse = { common: ["Unity"], distinctA: [], distinctB: [], summary: "Could not parse specific overlaps." };
+      }
+    } catch (e) {
+      console.error("JSON Parse Error for Common Ground:", e, claudeData.content[0].text);
+      // Fallback
+      jsonResponse = { common: ["Shared Values"], distinctA: ["Tradition A"], distinctB: ["Tradition B"], summary: "Shared values exist but could not be visualized." };
+    }
+
+    const response = { data: jsonResponse };
+    setCache(cacheKey, response);
+    res.json(response);
+
+  } catch (error) {
+    console.error('Common Ground API Error:', error);
+    res.status(500).json({ error: 'Internal server error', message: error.message });
+  }
+});
+
 // Chat Endpoint (Updated for Flexibility)
 app.post('/api/chat', rateLimitMiddleware, async (req, res) => {
   try {
@@ -282,6 +353,140 @@ app.post('/api/chat', rateLimitMiddleware, async (req, res) => {
   } catch (error) {
     console.error('Chat Error:', error);
     res.status(500).json({ error: 'Internal server error', message: error.message });
+  }
+});
+
+// Dialogue Simulator Endpoint
+app.post('/api/simulate-dialogue', rateLimitMiddleware, async (req, res) => {
+  try {
+    const { persona, scenario, userMessage, conversationHistory } = req.body;
+
+    if (!persona || !userMessage) {
+      return res.status(400).json({ error: 'Missing persona or message' });
+    }
+
+    // cache key includes history length to avoid stale repeats but allow similar starts
+    const cacheKey = getCacheKey('dialogue', { persona, scenario, userMessage, historyLen: conversationHistory?.length || 0 });
+    const cachedResponse = getFromCache(cacheKey, SEARCH_CACHE_TTL);
+    if (cachedResponse) return res.json(cachedResponse);
+
+    const systemPrompt = `
+    You are a dual-process AI. You need to generate TWO outputs:
+    1. A natural Reply as the Persona.
+    2. A critique/score as a Communication Coach.
+
+    **The Persona:**
+    - Role: ${persona.name} (${persona.faith})
+    - Traits: ${persona.traits}
+    - Scenario: ${scenario}
+    - Conversational Tone: Natural, authentic to the faith, slightly guarded if appropriate, or warm if appropriate.
+
+    **The Coach:**
+    - Role: Inter-faith expert.
+    - Goal: Teach the user respect, proper terminology, and empathy.
+    - Task: Analyze the User's Message. Did they use the right terms? Were they rude?
+    - Score: 1-10 (1=Offensive, 10=Perfect Bridge Builder).
+
+    **Output Format:**
+    Return JSON ONLY:
+    {
+      "reply": "The persona's response...",
+      "feedback": "Coach's specific tip...",
+      "score": 8
+    }
+    `;
+
+    const recentHistory = (conversationHistory || []).map(msg => ({
+      role: msg.role === 'user' ? 'user' : 'assistant',
+      content: msg.content
+    }));
+
+    const claudeData = await callAnthropicWithRetry([
+      { role: 'system', content: systemPrompt }, // Claude 3 supports system prompts effectively as top level or developer messages, but here we embed in first user user message or just rely on the prompt structure. 
+      // Actually, for this wrapper 'callAnthropicWithRetry' which uses Messages API, strictly speaking 'system' should be a separate field in the body, OR we just prepend it to the first user message if the wrapper doesn't support 'system' param.
+      // Looking at callAnthropicWithRetry implementation in server.js (viewed previously), it takes 'messages' array. It doesn't seem to split 'system'. 
+      // So I will prepend the system instruction to the first message or use a user message.
+      ...recentHistory,
+      { role: 'user', content: `${systemPrompt}\n\nUser: "${userMessage}"` }
+    ], 1000);
+
+    let jsonResponse;
+    try {
+      const text = claudeData.content[0].text;
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        jsonResponse = JSON.parse(jsonMatch[0]);
+      } else {
+        throw new Error("No JSON found");
+      }
+    } catch (e) {
+      console.error("Dialogue JSON Parse Error:", e);
+      aiData = {
+        reply: "I see. Please go on.",
+        feedback: "I'm having trouble analyzing the nuance right now, but keep being respectful.",
+        score: 5
+      };
+    }
+
+    const result = {
+      reply: aiData.reply,
+      feedback: aiData.feedback,
+      score: aiData.score
+    };
+
+    setCache(cacheKey, result);
+    res.json({ data: result });
+
+  } catch (error) {
+    console.error('Error in dialogue simulation:', error);
+    res.status(500).json({ error: 'Failed to simulate dialogue' });
+  }
+});
+
+// Wisdom Mode Endpoint - Secularize Text
+app.post('/api/secularize', rateLimitMiddleware, async (req, res) => {
+  try {
+    const { text, context } = req.body;
+
+    if (!text) {
+      return res.status(400).json({ error: 'Text is required' });
+    }
+
+    const cacheKey = `secular:${text}`;
+    const cachedResponse = getFromCache(cacheKey, SEARCH_CACHE_TTL);
+    if (cachedResponse) {
+      return res.json({ translation: cachedResponse });
+    }
+
+    const prompt = `
+      You are a philosopher and psychologist translating religious texts for a "Spiritual but not Religious" audience.
+      
+      Task: Rewrite the following text to strip away religious dogma, theological nouns, and archaic language.
+      Replace them with universal, philosophical, psychological, or humanist concepts.
+      
+      Rules:
+      1. Keep the core wisdom/ethical meaning intact.
+      2. Use modern, accessible language (like Stoicism or CBT).
+      3. Example: "Sin" -> "Error/Misalignment", "God" -> "The Universe/conscience/Higher Truth".
+      4. Return ONLY the translated text, nothing else.
+
+      Context: ${context || 'General Wisdom'}
+      Text: "${text}"
+    `;
+
+    const claudeData = await callAnthropicWithRetry([{
+      role: 'user',
+      content: prompt
+    }], 500); // Assuming a reasonable token limit for this task
+
+    const translation = claudeData.content[0].text;
+
+    setCache(cacheKey, translation);
+    res.json({ translation });
+
+  } catch (error) {
+    console.error('Error in secularization:', error);
+    res.status(500).json({ error: 'Failed to secularize text' });
   }
 });
 
