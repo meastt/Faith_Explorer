@@ -130,6 +130,13 @@ export interface Badge {
   unlockedAt: number | null; // timestamp when unlocked, null if locked
 }
 
+export interface ActivityLog {
+  id: string;
+  challengeId: string;
+  note: string;
+  timestamp: number;
+}
+
 export const RELIGIONS: ReligionInfo[] = [
   {
     id: 'christianity',

@@ -421,7 +421,7 @@ app.post('/api/simulate-dialogue', rateLimitMiddleware, async (req, res) => {
       }
     } catch (e) {
       console.error("Dialogue JSON Parse Error:", e);
-      aiData = {
+      jsonResponse = {
         reply: "I see. Please go on.",
         feedback: "I'm having trouble analyzing the nuance right now, but keep being respectful.",
         score: 5
@@ -429,9 +429,9 @@ app.post('/api/simulate-dialogue', rateLimitMiddleware, async (req, res) => {
     }
 
     const result = {
-      reply: aiData.reply,
-      feedback: aiData.feedback,
-      score: aiData.score
+      reply: jsonResponse.reply,
+      feedback: jsonResponse.feedback,
+      score: jsonResponse.score
     };
 
     setCache(cacheKey, result);

@@ -12,10 +12,21 @@ export function DialogueSimulator() {
     const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
+    const getInitialGreeting = (persona: Persona, scenario: string): string => {
+        const greetings: Record<string, string> = {
+            "Meet & Greet": `Hello! I'm ${persona.name}. It's wonderful to meet you. I'm always happy to share about my faith and learn about others. What brings you here today?`,
+            "Dietary Practices": `Shalom! I'm ${persona.name}. I understand you're curious about how faith influences what we eat? It's a meaningful topic - food connects us to tradition in so many ways. What would you like to know?`,
+            "Prayer & Worship": `Peace be upon you! I'm ${persona.name}. Prayer and worship are central to my daily life. I'd be glad to share how I connect with the divine. What aspect interests you most?`,
+            "Charity & Giving": `Welcome! I'm ${persona.name}. Generosity and caring for others is a cornerstone of my faith. There's so much wisdom in our traditions about giving. What draws you to this topic?`,
+            "Life's Challenges": `Hello, friend. I'm ${persona.name}. Life's challenges are something every faith tradition has grappled with deeply. I'm honored you'd want to explore this with me. Where shall we begin?`,
+        };
+        return greetings[scenario] || `Hello! I'm ${persona.name}. I'm looking forward to our conversation about ${scenario.toLowerCase()}. What would you like to discuss?`;
+    };
+
     const handleStart = (persona: Persona, scenario: string) => {
         setActivePersona(persona);
         setActiveScenario(scenario);
-        setMessages([{ role: 'assistant', content: `Hello! I am ${persona.name}. I understand you wanted to discuss "${scenario}"?` }]);
+        setMessages([{ role: 'assistant', content: getInitialGreeting(persona, scenario) }]);
         setCoachFeedback(null);
     };
 
