@@ -12,6 +12,7 @@ import type {
   Folder,
   Highlight,
   Badge,
+  ActivityLog,
 } from '../types';
 
 export interface ReadingPreferences {
@@ -128,8 +129,10 @@ interface AppState {
   // Faith in Action / Challenges
   activeChallenges: string[]; // ID of joined challenges
   completedActions: Record<string, number>; // ChallengeID -> Count of actions logged
+  activityLogs: ActivityLog[]; // Detailed logs with notes
   joinChallenge: (challengeId: string) => void;
-  logAction: (challengeId: string) => void;
+  logAction: (challengeId: string, note: string) => void;
+  getActivityLogs: (challengeId: string) => ActivityLog[];
 }
 
 const getInitialUsage = (): FreemiumUsage => {
@@ -237,6 +240,7 @@ export const useStore = create<AppState>()(
       },
       activeChallenges: [],
       completedActions: {},
+      activityLogs: [],
 
       // Actions
       joinChallenge: (challengeId) =>
@@ -245,13 +249,25 @@ export const useStore = create<AppState>()(
             ? state.activeChallenges
             : [...state.activeChallenges, challengeId]
         })),
-      logAction: (challengeId) =>
-        set((state) => ({
-          completedActions: {
-            ...state.completedActions,
-            [challengeId]: (state.completedActions[challengeId] || 0) + 1
-          }
-        })),
+      logAction: (challengeId, note) =>
+        set((state) => {
+          const newLog: ActivityLog = {
+            id: `log-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            challengeId,
+            note,
+            timestamp: Date.now(),
+          };
+          return {
+            completedActions: {
+              ...state.completedActions,
+              [challengeId]: (state.completedActions[challengeId] || 0) + 1
+            },
+            activityLogs: [newLog, ...state.activityLogs]
+          };
+        }),
+      getActivityLogs: (challengeId) => {
+        return get().activityLogs.filter(log => log.challengeId === challengeId);
+      },
 
       setViewMode: (mode) => set({ viewMode: mode }),
 
