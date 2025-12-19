@@ -95,6 +95,19 @@ async function callAnthropicWithRetry(messages, maxTokens = 1000, retries = 3, t
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), timeout);
 
+      const systemMessage = messages.find(m => m.role === 'system');
+      const filteredMessages = messages.filter(m => m.role !== 'system');
+
+      const requestBody = {
+        model: 'claude-sonnet-4-5-20250929', // Upgraded to Sonnet 4.5
+        max_tokens: maxTokens,
+        messages: filteredMessages
+      };
+
+      if (systemMessage) {
+        requestBody.system = systemMessage.content;
+      }
+
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
@@ -102,11 +115,7 @@ async function callAnthropicWithRetry(messages, maxTokens = 1000, retries = 3, t
           'x-api-key': apiKey,
           'anthropic-version': '2023-06-01'
         },
-        body: JSON.stringify({
-          model: 'claude-3-sonnet-20240229', // Updated to latest stable model
-          max_tokens: maxTokens,
-          messages
-        }),
+        body: JSON.stringify(requestBody),
         signal: controller.signal
       });
 
@@ -402,12 +411,9 @@ app.post('/api/simulate-dialogue', rateLimitMiddleware, async (req, res) => {
     }));
 
     const claudeData = await callAnthropicWithRetry([
-      { role: 'system', content: systemPrompt }, // Claude 3 supports system prompts effectively as top level or developer messages, but here we embed in first user user message or just rely on the prompt structure. 
-      // Actually, for this wrapper 'callAnthropicWithRetry' which uses Messages API, strictly speaking 'system' should be a separate field in the body, OR we just prepend it to the first user message if the wrapper doesn't support 'system' param.
-      // Looking at callAnthropicWithRetry implementation in server.js (viewed previously), it takes 'messages' array. It doesn't seem to split 'system'. 
-      // So I will prepend the system instruction to the first message or use a user message.
+      { role: 'system', content: systemPrompt },
       ...recentHistory,
-      { role: 'user', content: `${systemPrompt}\n\nUser: "${userMessage}"` }
+      { role: 'user', content: `User: "${userMessage}"` }
     ], 1000);
 
     let jsonResponse;

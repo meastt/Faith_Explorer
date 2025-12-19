@@ -54,3 +54,4 @@ cd faith-explorer-frontend && npm run build && npx cap sync ios && open ios/App/
 ```
 
 
+

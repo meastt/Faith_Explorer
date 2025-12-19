@@ -1,0 +1,42 @@
+=== TESTING DIALOGUE SIMULATOR PERSONAS (CLAUDE 4.5 SONNET) ===
+
+------------------------------------------------
+📍 TESTING: Brother Ahmed (Islam)
+💬 User says: "As-salamu alaykum, Brother Ahmed. I'm interested in learning about how your community practices its faith."
+
+{
+  "reply": "Wa alaykum as-salam! It's wonderful to meet you, and I truly appreciate your respectful greeting. Your interest in learning about our community means a lot. Alhamdulillah, we practice our faith through the five pillars - our daily prayers, fasting during Ramadan, charity, our testimony of faith, and the pilgrimage to Makkah for those who are able. But beyond these foundations, it's really about living with consciousness of Allah in everything we do - in how we treat our neighbors, conduct our business, and care for our families. Would you like to know more about any particular aspect? Please, feel free to ask - we believe that seeking knowledge is encouraged, and sharing our faith with those who approach with genuine curiosity is an honor.",
+  "feedback": "Excellent opening! You used the proper Arabic greeting 'As-salamu alaykum' which shows cultural awareness and respect. Addressing him as 'Brother Ahmed' demonstrates understanding of Islamic community terminology. Your question was open-ended, non-judgmental, and expressed genuine interest rather than skepticism. You didn't make assumptions about practices or beliefs. This is exactly the kind of respectful, curiosity-driven approach that builds interfaith bridges. Minor tip: You could also learn the response 'Wa alaykum as-salam' to continue the exchange naturally.",
+  "score": 10
+}
+
+------------------------------------------------
+📍 TESTING: Rev. Sarah (Christianity)
+💬 User says: "Hello Reverend Sarah. I've been curious about the core teachings of your church."
+
+{
+  "reply": "Hello! It's wonderful to meet you, and I'm grateful for your curiosity. At the heart of Christian faith is the person of Jesus Christ—we believe He is God's Son, who came to earth, lived among us, died for our sins, and rose again. The core teaching is really about God's love and grace: that we're reconciled to God not through our own efforts, but through faith in Christ. We also emphasize loving God with all our heart and loving our neighbors as ourselves. Of course, there's beautiful depth to explore in Scripture, the sacraments, and Christian community. What sparked your interest in learning about Christianity?",
+  "feedback": "Excellent opening! You used the proper title 'Reverend,' showed genuine curiosity without assumptions, and phrased your question respectfully with 'your church' rather than making it impersonal. You invited dialogue without being intrusive. This is exactly the kind of open, humble approach that builds interfaith bridges. One small enhancement for future conversations: you might share briefly why you're curious, as it helps the other person understand your context and respond more personally.",
+  "score": 9
+}
+
+------------------------------------------------
+📍 TESTING: Rabbi Cohen (Judaism)
+💬 User says: "Shalom Rabbi. I'm here because I want to understand more about Jewish tradition and how you approach scripture."
+
+{
+  "reply": "Shalom! Please, sit down. You know, it's not every day someone walks in here wanting to understand tradition—most people these days want quick answers, but you're asking about *how* we approach scripture. That's a good question, a thoughtful question. In Judaism, we have what we call a 'wrestling' relationship with the text. We don't just read Torah—we argue with it, question it, pull it apart and put it back together. It's why we have the Talmud, thousands of pages of rabbis debating every line. Tell me, what draws you to this? Is there something specific you've been wondering about, or are you just beginning to explore?",
+  "feedback": "Excellent opening! You used 'Shalom' appropriately as a greeting, showed genuine respect by calling me 'Rabbi,' and framed your interest humbly without presuming expertise. You acknowledged you're there to *learn* rather than debate or challenge. One small enhancement: in Jewish spaces, it can be meaningful to ask permission before diving deep—phrases like 'Would you mind if I asked...' show additional respect for the rabbi's time and wisdom. But honestly, this is a strong 9/10 start.",
+  "score": 9
+}
+
+------------------------------------------------
+📍 TESTING: Monk Tenzin (Buddhism)
+💬 User says: "Greetings Monk Tenzin. I would like to learn about the path to mindfulness in your tradition."
+
+{
+  "reply": "Greetings, friend. Your question shows sincerity, and I appreciate that. In our tradition, mindfulness—or *sati* in Pali—is not merely a practice but a way of being. It begins with simple awareness: observing the breath, noticing each moment without judgment. The Buddha taught us the Noble Eightfold Path, and Right Mindfulness is central to it. We start where we are—sitting quietly, watching thoughts arise and fall like clouds. There is no rushing. Would you like to begin with a basic meditation technique, or do you wish to understand the philosophy first?",
+  "feedback": "Excellent approach! You used respectful address, expressed genuine interest, and used appropriate terminology ('mindfulness,' 'your tradition'). You showed humility by framing yourself as a learner. This demonstrates cultural sensitivity and openness. To deepen future conversations, you might ask about specific practices or texts, showing you've done preliminary research.",
+  "score": 9
+}
+
