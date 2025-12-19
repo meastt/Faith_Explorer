@@ -112,8 +112,8 @@ export function Settings({ onClose }: SettingsProps) {
           <button
             onClick={() => handleThemeChange('light')}
             className={`p-4 rounded-lg border-2 transition-all ${readingPreferences.theme === 'light'
-                ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
-                : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
+              ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
+              : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
               }`}
           >
             <Sun className="w-6 h-6 mx-auto mb-2 text-yellow-500" />
@@ -122,8 +122,8 @@ export function Settings({ onClose }: SettingsProps) {
           <button
             onClick={() => handleThemeChange('dark')}
             className={`p-4 rounded-lg border-2 transition-all ${readingPreferences.theme === 'dark'
-                ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
-                : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
+              ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
+              : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
               }`}
           >
             <Moon className="w-6 h-6 mx-auto mb-2 text-blue-500" />
@@ -132,8 +132,8 @@ export function Settings({ onClose }: SettingsProps) {
           <button
             onClick={() => handleThemeChange('sepia')}
             className={`p-4 rounded-lg border-2 transition-all ${readingPreferences.theme === 'sepia'
-                ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
-                : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
+              ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
+              : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
               }`}
           >
             <Monitor className="w-6 h-6 mx-auto mb-2 text-amber-500" />
@@ -155,8 +155,8 @@ export function Settings({ onClose }: SettingsProps) {
               key={id}
               onClick={() => handleFontFamilyChange(id as 'sans' | 'serif' | 'dyslexic')}
               className={`p-4 rounded-lg border-2 transition-all ${readingPreferences.fontFamily === id
-                  ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
-                  : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
+                ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
+                : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
                 }`}
             >
               <Icon className="w-6 h-6 mx-auto mb-2 text-gray-600 dark:text-gray-400 sepia:text-amber-700" />
@@ -311,7 +311,7 @@ export function Settings({ onClose }: SettingsProps) {
 
       <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg space-y-2">
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
-          <strong>Version:</strong> 3.0.0 (Build 17)
+          <strong>Version:</strong> 3.0.0 (Build 18)
         </div>
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
           <strong>Copyright:</strong> © {new Date().getFullYear()} Faith Explorer

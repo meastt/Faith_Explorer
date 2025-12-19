@@ -1,8 +1,18 @@
 import type { Religion, Verse, SelectedSubset } from '../types';
 import { searchScriptures } from './search';
+import {
+  generateScriptureAnswer,
+  chatAboutVerseAI,
+  generateComparison,
+  generateCommonGround,
+  simulateDialogueAI,
+  secularizeTextAI,
+  type Persona,
+  type DialogueResponse
+} from './anthropic';
 
-// Get API URL from environment or use default
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// Re-export types for backward compatibility
+export type { Persona, DialogueResponse };
 
 export interface AskResponse {
   answer: string;
@@ -10,10 +20,14 @@ export interface AskResponse {
   error?: string;
 }
 
+/**
+ * Search scriptures and get AI-powered answer
+ * Now calls Claude directly from the frontend
+ */
 export async function searchSubsets(
   selectedSubsets: SelectedSubset[],
   question: string,
-  isPremium: boolean = false
+  _isPremium: boolean = false
 ): Promise<AskResponse> {
   if (selectedSubsets.length === 0) {
     return {
@@ -22,90 +36,57 @@ export async function searchSubsets(
     };
   }
 
-  // Try API first, fall back to local search if it fails
   try {
-    // Get religion from first subset for backward compatibility
-    const religion = selectedSubsets[0].religion;
+    // 1. Perform local scripture search
+    const localVerses = await searchScriptures(selectedSubsets, question);
 
-    // Convert selectedSubsets to subset IDs for the backend
-    const subsets = selectedSubsets.map(s => `${s.religion}-${s.subset}`);
-
-    // Call backend API with timeout
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-
-    try {
-      const response = await fetch(`${API_URL}/api/ask`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          religion,
-          question,
-          subsets,
-          isPremium
-        }),
-        signal: controller.signal
-      });
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`API request failed: ${response.status}`);
-      }
-
-      const data = await response.json();
-
+    if (localVerses.length === 0) {
       return {
-        answer: data.answer,
-        sources: data.sources || [],
-        error: data.error
+        answer: `I couldn't find specific verses about "${question}" in the selected texts. Try rephrasing your question or selecting different religious texts.`,
+        sources: []
       };
-    } catch (fetchError: any) {
-      clearTimeout(timeoutId);
-      // If it's an abort (timeout) or network error, fall through to local search
-      if (fetchError.name === 'AbortError' || fetchError.message?.includes('fetch')) {
-        throw new Error('API unavailable, using local search');
-      }
-      throw fetchError;
     }
-  } catch (apiError) {
-    // Fall back to local search when API fails
-    console.warn('API search failed, falling back to local search:', apiError);
 
+    // 2. Get AI-generated answer based on found verses
+    const religion = selectedSubsets[0].religion;
+    const versesForAI = localVerses.map(v => ({
+      reference: v.reference,
+      text: v.text
+    }));
+
+    const answer = await generateScriptureAnswer(religion, question, versesForAI);
+
+    return {
+      answer,
+      sources: localVerses
+    };
+  } catch (error) {
+    console.error('Search error:', error);
+
+    // If AI fails, still return verses with a simple answer
     try {
       const localVerses = await searchScriptures(selectedSubsets, question);
-
-      if (localVerses.length === 0) {
-        return {
-          answer: `I couldn't find specific verses about "${question}" in the selected texts. Try rephrasing your question or selecting different religious texts.`,
-          sources: []
-        };
+      if (localVerses.length > 0) {
+        const topVerses = localVerses.slice(0, 5);
+        const answer = `Here are ${localVerses.length} relevant verse${localVerses.length > 1 ? 's' : ''} found:\n\n${topVerses.map((v, i) => `${i + 1}. ${v.reference}: "${v.text.substring(0, 100)}${v.text.length > 100 ? '...' : ''}"`).join('\n\n')}`;
+        return { answer, sources: localVerses };
       }
-
-      // Generate a simple answer from the found verses
-      const topVerses = localVerses.slice(0, 5);
-      const answer = `Here are ${localVerses.length} relevant verse${localVerses.length > 1 ? 's' : ''} found in the selected texts:\n\n${topVerses.map((v, i) => `${i + 1}. ${v.reference}: "${v.text.substring(0, 100)}${v.text.length > 100 ? '...' : ''}"`).join('\n\n')}`;
-
-      return {
-        answer,
-        sources: localVerses
-      };
-    } catch (localError) {
-      console.error('Local search also failed:', localError);
-      throw new Error('Search failed. Please check your connection and try again.');
+    } catch (searchError) {
+      console.error('Even local search failed:', searchError);
     }
+
+    throw new Error('Search failed. Please check your connection and try again.');
   }
 }
 
-// Legacy function for backward compatibility
+/**
+ * Legacy function for backward compatibility
+ */
 export async function searchReligion(
   religion: Religion,
   question: string,
   isPremium: boolean = false
 ): Promise<AskResponse> {
-  // Map religion to a default subset for backward compatibility
   const defaultSubsets: Record<Religion, SelectedSubset> = {
     christianity: { religion: 'christianity', subset: 'kjv' },
     islam: { religion: 'islam', subset: 'quran-sahih' },
@@ -121,74 +102,49 @@ export async function searchReligion(
   return searchSubsets([defaultSubsets[religion]], question, isPremium);
 }
 
+/**
+ * Chat about a specific verse
+ */
 export async function chatAboutVerse(
   religion: Religion,
   verseReference: string,
   verseText: string,
   userQuestion: string,
-  _conversationHistory: { role: 'user' | 'assistant'; content: string }[] = []
+  conversationHistory: { role: 'user' | 'assistant'; content: string }[] = []
 ): Promise<string> {
   try {
-    // Call backend API for chat
-    const response = await fetch(`${API_URL}/api/chat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        religion,
-        verseReference,
-        verseText,
-        question: userQuestion,
-        conversationHistory: _conversationHistory
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-      throw new Error(errorData.error || `Chat request failed: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.answer;
+    return await chatAboutVerseAI(
+      religion,
+      verseReference,
+      verseText,
+      userQuestion,
+      conversationHistory
+    );
   } catch (error) {
     console.error('Chat error:', error);
     throw error;
   }
 }
 
+/**
+ * Get comparative analysis across religions
+ */
 export async function getComparativeAnalysis(
   religions: Religion[],
   question: string,
   results: { religion: Religion; answer: string }[]
 ): Promise<string> {
   try {
-    // Call backend API for comparative analysis
-    const response = await fetch(`${API_URL}/api/compare`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        religions,
-        question,
-        results
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-      throw new Error(errorData.error || `Comparison request failed: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.comparison;
+    return await generateComparison(religions, question, results);
   } catch (error) {
     console.error('Comparison error:', error);
     throw error;
   }
 }
 
+/**
+ * Common Ground Visualizer
+ */
 export interface CommonGroundData {
   common: string[];
   distinctA: string[];
@@ -202,39 +158,16 @@ export async function getCommonGround(
   results: { religion: Religion; answer: string }[]
 ): Promise<CommonGroundData> {
   try {
-    const response = await fetch(`${API_URL}/api/common-ground`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ religions, question, results })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Common Ground request failed: ${response.status}`);
-    }
-
-    const json = await response.json();
-    return json.data;
+    return await generateCommonGround(religions, question, results);
   } catch (error) {
-    console.error('Common ground API error:', error);
+    console.error('Common ground error:', error);
     throw error;
   }
 }
 
-export interface DialogueResponse {
-  reply: string;
-  feedback: string;
-  score: number;
-}
-
-export interface Persona {
-  id: string;
-  name: string;
-  faith: string;
-  traits: string;
-  avatar: string; // Emoji char
-  color: string;
-}
-
+/**
+ * Dialogue Simulator - chat with religious personas
+ */
 export async function simulateDialogue(
   persona: Persona,
   scenario: string,
@@ -242,40 +175,21 @@ export async function simulateDialogue(
   conversationHistory: { role: 'user' | 'assistant'; content: string }[]
 ): Promise<DialogueResponse> {
   try {
-    const response = await fetch(`${API_URL}/api/simulate-dialogue`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ persona, scenario, userMessage, conversationHistory })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Dialogue request failed: ${response.status}`);
-    }
-
-    const json = await response.json();
-    return json.data;
+    return await simulateDialogueAI(persona, scenario, userMessage, conversationHistory);
   } catch (error) {
-    console.error('Dialogue API error:', error);
+    console.error('Dialogue error:', error);
     throw error;
   }
 }
 
+/**
+ * Secularize religious text
+ */
 export async function secularizeText(text: string, context?: string): Promise<string> {
   try {
-    const response = await fetch(`${API_URL}/api/secularize`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, context })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Secularize request failed: ${response.status}`);
-    }
-
-    const json = await response.json();
-    return json.translation;
+    return await secularizeTextAI(text, context);
   } catch (error) {
-    console.error('Secularization API error:', error);
+    console.error('Secularization error:', error);
     throw error;
   }
 }
