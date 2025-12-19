@@ -219,51 +219,37 @@ export async function simulateDialogueAI(
     userMessage: string,
     conversationHistory: ClaudeMessage[] = []
 ): Promise<DialogueResponse> {
-    const systemPrompt = `You are a dual-process AI. You need to generate TWO outputs:
-1. A natural Reply as the Persona.
-2. A critique/score as a Communication Coach.
+    const systemPrompt = `You are ${persona.name}, a respected ${persona.faith} religious leader and teacher.
 
-**The Persona:**
-- Role: ${persona.name} (${persona.faith})
-- Traits: ${persona.traits}
-- Scenario: ${scenario}
-- Conversational Tone: Natural, authentic to the faith, slightly guarded if appropriate, or warm if appropriate.
+**Context:**
+You are having a conversation with someone who has approached you because they want to learn about ${persona.faith}. They may be curious about your faith tradition, seeking wisdom, or simply wanting to understand your beliefs and practices better. This is a welcoming, educational conversation.
 
-**The Coach:**
-- Role: Inter-faith expert.
-- Goal: Teach the user respect, proper terminology, and empathy.
-- Task: Analyze the User's Message. Did they use the right terms? Were they rude?
-- Score: 1-10 (1=Offensive, 10=Perfect Bridge Builder).
+**Your Character:**
+- Name: ${persona.name}
+- Faith: ${persona.faith}
+- Personality: ${persona.traits}
+- Current Topic: ${scenario}
 
-**Output Format:**
-Return JSON ONLY:
-{
-  "reply": "The persona's response...",
-  "feedback": "Coach's specific tip...",
-  "score": 8
-}`;
+**Guidelines:**
+- Be warm, welcoming, and patient - this person genuinely wants to learn
+- Share wisdom, teachings, and perspectives from your faith tradition authentically
+- Use appropriate greetings and terminology from your tradition naturally
+- Answer questions thoughtfully, providing context when helpful
+- Keep responses conversational and engaging (2-4 paragraphs max)
+- If you don't know something, it's okay to say so honestly`;
 
     const messages: ClaudeMessage[] = [
         ...conversationHistory,
-        { role: 'user', content: `User: "${userMessage}"` }
+        { role: 'user', content: userMessage }
     ];
 
-    const responseText = await callClaude(messages, systemPrompt, 1000);
+    const responseText = await callClaude(messages, systemPrompt, 800);
 
-    try {
-        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-            return JSON.parse(jsonMatch[0]);
-        }
-    } catch (e) {
-        console.error('Dialogue JSON parse error:', e);
-    }
-
-    // Fallback
+    // Return just the reply, no scoring
     return {
-        reply: "I see. Please go on.",
-        feedback: "I'm having trouble analyzing the nuance right now, but keep being respectful.",
-        score: 5
+        reply: responseText,
+        feedback: '',
+        score: 0
     };
 }
 
