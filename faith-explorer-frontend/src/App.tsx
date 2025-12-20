@@ -16,12 +16,12 @@ import { SubscriptionModal } from './components/SubscriptionModal';
 import { useStore } from './store/useStore';
 import { searchSubsets, getComparativeAnalysis } from './services/api';
 import { DialogueSimulator } from './components/DialogueSimulator';
-import { ChallengeDashboard } from './components/ChallengeDashboard';
+import { ScriptureReader } from './components/ScriptureReader';
 import { initializeScriptures } from './services/search';
 import { notificationService } from './services/notifications';
 import type { Religion, Verse, ReligionSubsetId } from './types';
 
-type Tab = 'search' | 'saved' | 'practice';
+type Tab = 'search' | 'read' | 'saved' | 'practice';
 
 export interface SearchResultWithAnswer {
   religion: Religion;
@@ -255,10 +255,12 @@ function App() {
         {/* Content */}
         {activeTab === 'search' && (
           <div className="space-y-4">
-            {searchResults.length === 0 && !isLoading && <DailyWisdom />}
-            {searchResults.length === 0 && !isLoading && <ChallengeDashboard />}
+            {/* Core action first */}
             {searchResults.length === 0 && !isLoading && <ReligionSelector />}
             {searchResults.length === 0 && !isLoading && <SearchBar onSearch={handleSearch} />}
+
+            {/* Discovery content */}
+            {searchResults.length === 0 && !isLoading && <DailyWisdom />}
             {searchResults.length === 0 && !isLoading && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TopicExplorer onTopicSelect={handleSearch} />
@@ -273,6 +275,12 @@ function App() {
               isGated={isGatedResult}
               onUpgrade={() => setShowSubscriptionModal(true)}
             />
+          </div>
+        )}
+
+        {activeTab === 'read' && (
+          <div className="pb-24">
+            <ScriptureReader />
           </div>
         )}
 

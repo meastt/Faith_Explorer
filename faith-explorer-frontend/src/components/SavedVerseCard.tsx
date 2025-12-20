@@ -232,9 +232,9 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                     {currentFolder.name}
                   </span>
                 )}
-                {verse.tags?.includes('AI Insight') && (
+                {verse.tags?.includes('Analysis') && (
                   <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
-                    AI
+                    📊
                   </span>
                 )}
               </div>
@@ -306,7 +306,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
 
           {/* Tags Section */}
           <div className="flex flex-wrap gap-2 items-center">
-            {verse.tags.filter(tag => tag !== 'AI Insight').map(tag => (
+            {verse.tags.filter(tag => tag !== 'Analysis').map(tag => (
               <span
                 key={tag}
                 className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
@@ -460,8 +460,8 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
             setIsHighlighting(!isHighlighting);
           }}
           className={`flex items-center gap-1 px-2 py-1.5 text-xs font-medium transition-all duration-200 rounded-md ${isHighlighting
-              ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-              : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
+            ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+            : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
             }`}
           title="Highlight text"
         >

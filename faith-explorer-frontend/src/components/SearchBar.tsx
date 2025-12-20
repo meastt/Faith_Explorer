@@ -25,9 +25,9 @@ export function SearchBar({ onSearch }: SearchBarProps) {
     <div className="relative mt-2">
       <form onSubmit={handleSubmit} className="relative group">
         <div className="absolute -inset-1 bg-gradient-to-r from-bronze-200 via-sand-300 to-bronze-200 rounded-2xl opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
-        
+
         <div className="relative bg-white dark:bg-stone-800 rounded-2xl shadow-paper flex items-center p-2 border border-sand-200 dark:border-stone-700">
-          
+
           <div className="pl-4 pr-3 text-bronze-500 dark:text-bronze-400">
             {isSearching ? <Sparkles className="w-6 h-6 animate-pulse" /> : <Search className="w-6 h-6" />}
           </div>
@@ -44,11 +44,10 @@ export function SearchBar({ onSearch }: SearchBarProps) {
           <button
             type="submit"
             disabled={!query.trim() || isSearching}
-            className={`p-3 rounded-xl transition-all duration-200 ${
-              query.trim() && !isSearching
+            className={`p-3 rounded-xl transition-all duration-200 ${query.trim() && !isSearching
                 ? 'bg-bronze-500 text-white shadow-md hover:bg-bronze-600 transform hover:scale-105'
                 : 'bg-sand-100 text-sand-400 dark:bg-stone-700 dark:text-stone-500'
-            }`}
+              }`}
           >
             <ArrowRight className="w-5 h-5" />
           </button>
@@ -79,7 +78,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
 
       <div className="text-center mt-3">
         <p className="text-xs text-stone-400 dark:text-stone-500 font-medium tracking-wide">
-          AI-POWERED • SCRIPTURE-BACKED • INTERFAITH
+          SCRIPTURE-BACKED • MULTI-FAITH • COMPARATIVE
         </p>
       </div>
     </div>

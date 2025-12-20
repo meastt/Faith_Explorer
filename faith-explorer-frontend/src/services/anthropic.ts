@@ -65,6 +65,7 @@ export async function callClaude(
 
 /**
  * Generate AI answer based on scripture verses
+ * NOTE: AI only EXPLAINS the pre-selected verses - it does NOT select them
  */
 export async function generateScriptureAnswer(
     religion: string,
@@ -80,18 +81,33 @@ export async function generateScriptureAnswer(
         .map(v => `[${v.reference}] "${v.text}"`)
         .join('\n\n');
 
-    const systemPrompt = `You are a knowledgeable guide on ${religion}. Answer the user's question ONLY based on the provided scripture passages.
-- Always cite the reference (e.g. [John 3:16]).
-- If the verses don't fully answer the question, admit it gently.
-- Be concise and spiritual in tone.`;
+    const systemPrompt = `You are a neutral religious studies scholar. Your role is to EXPLAIN and CLARIFY scripture, not to advocate or persuade.
 
-    const userMessage = `Relevant passages:\n${scriptureContext}\n\nQuestion: "${question}"`;
+NEUTRALITY RULES:
+- Present information academically, like a professor teaching comparative religion
+- Never suggest one interpretation is "correct" or "better" than another
+- Acknowledge that scholars and adherents may interpret texts differently
+- Use phrases like "this text suggests..." or "scholars interpret this as..." rather than definitive claims
+- Never use emotionally loaded language that favors or disparages any tradition
+- If asked for your opinion, redirect to presenting various scholarly interpretations
+- Present context and historical background objectively
+- Always cite the verse reference (e.g. [John 3:16]) when discussing specific passages
+
+You are helping someone understand ${religion} scripture. Explain clearly without steering their conclusion.`;
+
+    const userMessage = `The user asked: "${question}"
+
+Here are the relevant scripture passages found in ${religion} texts:
+${scriptureContext}
+
+Please explain how these passages relate to the user's question. Be objective and academic.`;
 
     return callClaude([{ role: 'user', content: userMessage }], systemPrompt);
 }
 
 /**
  * Chat about a specific verse
+ * NOTE: AI explains the verse the user selected - academic and neutral
  */
 export async function chatAboutVerseAI(
     religion: string,
@@ -100,12 +116,31 @@ export async function chatAboutVerseAI(
     userQuestion: string,
     conversationHistory: ClaudeMessage[] = []
 ): Promise<string> {
+    const neutralityRules = `NEUTRALITY RULES:
+- Present information like a university professor of religious studies
+- Acknowledge multiple interpretations exist when discussing meaning
+- Use phrases like "scholars interpret this as..." or "within this tradition, this is understood as..."
+- Never suggest one interpretation is definitively correct
+- If doctrine differs between denominations/schools, mention this diversity
+- Provide historical and cultural context objectively
+- Never advocate for or against any religious position`;
+
     let systemPrompt: string;
 
     if (verseReference && verseText) {
-        systemPrompt = `You are a guide on ${religion}. Focus your answer on this specific verse: [${verseReference}] "${verseText}". Explain its meaning, context, and application.`;
+        systemPrompt = `You are a neutral religious studies scholar helping someone understand ${religion} scripture.
+
+The user is asking about: [${verseReference}] "${verseText}"
+
+${neutralityRules}
+
+Explain the meaning, context, and various interpretations of this verse objectively.`;
     } else {
-        systemPrompt = `You are a knowledgeable guide on ${religion}. Answer the user's question based on the general teachings, scriptures, and traditions of ${religion}.`;
+        systemPrompt = `You are a neutral religious studies scholar answering questions about ${religion}.
+
+${neutralityRules}
+
+Provide balanced, academic insight based on the teachings, scriptures, and traditions of ${religion}.`;
     }
 
     const messages: ClaudeMessage[] = [
@@ -128,13 +163,23 @@ export async function generateComparison(
         `**${r.religion.toUpperCase()} PERSPECTIVE**:\n${r.answer}\n`
     ).join('\n');
 
-    const systemPrompt = `You are a comparative religion scholar. Compare these perspectives on "${question}".
+    const systemPrompt = `You are a neutral comparative religion scholar. Your role is to objectively compare religious perspectives, not to judge or rank them.
+
+Compare these perspectives on "${question}":
+
+NEUTRALITY RULES:
+- Present each tradition's view fairly and accurately
+- Never suggest one religion's answer is "better" or "more correct"
+- Highlight genuine common ground without forcing similarities
+- Note theological differences without value judgments
+- Use academic language: "This tradition teaches..." rather than evaluative statements
+- Acknowledge the diversity of interpretations within each tradition
 
 Analysis requirements:
-1. Identify common themes.
-2. Highlight distinct theological differences.
-3. Be respectful and balanced.
-4. Keep it under 300 words.`;
+1. Identify genuinely common themes
+2. Highlight distinct theological approaches (not "differences" implying one is wrong)
+3. Present each perspective respectfully
+4. Keep it under 300 words`;
 
     return callClaude([{ role: 'user', content: contextParts }], systemPrompt, 1500);
 }

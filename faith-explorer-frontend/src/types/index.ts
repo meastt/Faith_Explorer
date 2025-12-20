@@ -9,7 +9,7 @@ export type Religion =
   | 'confucianism'
   | 'shinto';
 
-export type ReligionSubsetId = 
+export type ReligionSubsetId =
   | 'kjv' | 'mormon' | 'doctrine-covenants' | 'catholic' | 'orthodox'
   | 'quran-sahih' | 'hadith-bukhari' | 'hadith-muslim'
   | 'torah' | 'talmud'
@@ -197,10 +197,10 @@ export const RELIGIONS: ReligionInfo[] = [
     name: 'Buddhism',
     text: 'Dhammapada',
     color: '#7c3aed',
-    verseCount: 4,
-    coverage: 'limited',
+    verseCount: 423,
+    coverage: 'full',
     subsets: [
-      { id: 'dhammapada', name: 'Dhammapada', description: 'Current', fileName: 'buddhism-dhammapada.json' },
+      { id: 'dhammapada', name: 'Dhammapada', description: 'Complete (423 verses)', fileName: 'buddhism-dhammapada.json' },
       { id: 'sutras', name: 'Mahayana Sutras', description: 'Mahayana texts', comingSoon: true },
       { id: 'vinaya', name: 'Vinaya Pitaka', description: 'Monastic rules', comingSoon: true },
       { id: 'abhidharma', name: 'Abhidharma', description: 'Philosophical analysis', comingSoon: true },
@@ -211,10 +211,10 @@ export const RELIGIONS: ReligionInfo[] = [
     name: 'Sikhism',
     text: 'Guru Granth Sahib',
     color: '#c2410c',
-    verseCount: 4,
-    coverage: 'limited',
+    verseCount: 2052,
+    coverage: 'partial',
     subsets: [
-      { id: 'guru-granth-sahib', name: 'Guru Granth Sahib', description: 'Current', fileName: 'sikhism-guru-granth-sahib.json' },
+      { id: 'guru-granth-sahib', name: 'Guru Granth Sahib', description: 'First 50 Angs (2,052 verses)', fileName: 'sikhism-guru-granth-sahib.json' },
       { id: 'dasam-granth', name: 'Dasam Granth', description: 'Tenth Guru\'s writings', comingSoon: true },
       { id: 'janam-sakhis', name: 'Janam Sakhis', description: 'Life stories', comingSoon: true },
     ]
@@ -222,13 +222,13 @@ export const RELIGIONS: ReligionInfo[] = [
   {
     id: 'taoism',
     name: 'Taoism',
-    text: 'Tao Te Ching',
+    text: 'Chuang Tzu',
     color: '#0891b2',
-    verseCount: 10,
-    coverage: 'limited',
+    verseCount: 634,
+    coverage: 'full',
     subsets: [
-      { id: 'tao-te-ching', name: 'Tao Te Ching', description: 'Current', fileName: 'taoism-tao-te-ching.json' },
-      { id: 'zhuangzi', name: 'Zhuangzi', description: 'Philosophical text', comingSoon: true },
+      { id: 'zhuangzi', name: 'Chuang Tzu (Zhuangzi)', description: 'Complete (634 passages)', fileName: 'taoism-chuang-tzu.json' },
+      { id: 'tao-te-ching', name: 'Tao Te Ching', description: 'Classic text', fileName: 'taoism-tao-te-ching.json' },
       { id: 'i-ching', name: 'I Ching', description: 'Book of Changes', comingSoon: true },
       { id: 'daozang', name: 'Daozang', description: 'Taoist canon', comingSoon: true },
     ]
@@ -238,10 +238,10 @@ export const RELIGIONS: ReligionInfo[] = [
     name: 'Confucianism',
     text: 'Analects',
     color: '#be123c',
-    verseCount: 10,
-    coverage: 'limited',
+    verseCount: 486,
+    coverage: 'full',
     subsets: [
-      { id: 'analects', name: 'Analects', description: 'Current', fileName: 'confucianism-analects.json' },
+      { id: 'analects', name: 'Analects', description: 'Complete (486 passages)', fileName: 'confucianism-analects.json' },
       { id: 'mengzi', name: 'Mengzi', description: 'Mencius', comingSoon: true },
       { id: 'xunzi', name: 'Xunzi', description: 'Confucian philosopher', comingSoon: true },
       { id: 'five-classics', name: 'Five Classics', description: 'Core texts', comingSoon: true },
@@ -252,10 +252,10 @@ export const RELIGIONS: ReligionInfo[] = [
     name: 'Shinto',
     text: 'Kojiki',
     color: '#db2777',
-    verseCount: 8,
-    coverage: 'limited',
+    verseCount: 20,
+    coverage: 'partial',
     subsets: [
-      { id: 'kojiki', name: 'Kojiki', description: 'Current', fileName: 'shinto-kojiki.json' },
+      { id: 'kojiki', name: 'Kojiki', description: 'Key sections (20 passages)', fileName: 'shinto-kojiki.json' },
       { id: 'nihon-shoki', name: 'Nihon Shoki', description: 'Chronicles of Japan', comingSoon: true },
       { id: 'norito', name: 'Norito', description: 'Ritual prayers', comingSoon: true },
     ]

@@ -38,7 +38,7 @@ export function LibraryStats() {
 
       // Tag counts
       verse.tags.forEach((tag) => {
-        if (tag !== 'AI Insight') {
+        if (tag !== 'Analysis') {
           tagCounts[tag] = (tagCounts[tag] || 0) + 1;
         }
       });
@@ -91,11 +91,11 @@ export function LibraryStats() {
       mostExploredReligion:
         mostExploredReligion.religion
           ? {
-              ...mostExploredReligion,
-              name:
-                RELIGIONS.find((r) => r.id === mostExploredReligion.religion)?.name ||
-                mostExploredReligion.religion,
-            }
+            ...mostExploredReligion,
+            name:
+              RELIGIONS.find((r) => r.id === mostExploredReligion.religion)?.name ||
+              mostExploredReligion.religion,
+          }
           : null,
       topTags,
       religionBreakdown,

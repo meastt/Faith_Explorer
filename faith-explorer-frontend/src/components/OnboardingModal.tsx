@@ -1,4 +1,4 @@
-import { X, BookOpen, GitCompare, MessageCircle, Star } from 'lucide-react';
+import { X, BookOpen, GitCompare } from 'lucide-react';
 import { useState } from 'react';
 
 interface OnboardingModalProps {
@@ -22,7 +22,7 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
     {
       icon: GitCompare,
       title: 'Compare Traditions',
-      description: 'Switch to comparison mode to see how different religions approach the same topic. Get AI-powered comparative analysis.',
+      description: 'Switch to comparison mode to see how different religions approach the same topic. Get detailed comparative analysis.',
       examples: [
         'Views on compassion',
         'Perspectives on suffering',
@@ -30,23 +30,13 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
       ],
     },
     {
-      icon: MessageCircle,
-      title: 'Chat with Verses',
-      description: 'Click on any verse to chat about it. Ask for context, interpretations, or related teachings.',
+      icon: BookOpen,
+      title: 'Read Complete Scriptures',
+      description: 'Browse full religious texts like a Bible app. Use the Read tab to study complete books chapter by chapter.',
       examples: [
-        'What does this verse mean?',
-        'Are there similar verses?',
-        'Tell me more about the context',
-      ],
-    },
-    {
-      icon: Star,
-      title: 'Unlock Full Potential',
-      description: 'Upgrade to Premium for unlimited searches, deep dives, and priority support. Start your journey to wisdom today.',
-      examples: [
-        'Unlimited Searches',
-        'Advanced Comparisons',
-        'Priority Support',
+        'Read Genesis',
+        'Browse the Quran',
+        'Study the Bhagavad Gita',
       ],
     },
   ];

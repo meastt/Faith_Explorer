@@ -32,9 +32,9 @@ export function About({ onClose }: AboutProps) {
           <div className="mb-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-3">Our Mission</h3>
             <p className="text-gray-700 dark:text-gray-300 sepia:text-amber-800 leading-relaxed">
-              Faith Explorer is designed to bridge understanding between different religious traditions by providing 
-              easy access to sacred texts and wisdom from around the world. We believe that by exploring diverse 
-              perspectives on life's most important questions, we can foster greater understanding, respect, and 
+              Faith Explorer is designed to bridge understanding between different religious traditions by providing
+              easy access to sacred texts and wisdom from around the world. We believe that by exploring diverse
+              perspectives on life's most important questions, we can foster greater understanding, respect, and
               compassion in our global community.
             </p>
           </div>
@@ -60,8 +60,8 @@ export function About({ onClose }: AboutProps) {
               <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
                 <Globe className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">AI Insights</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Get contextual understanding with AI assistance</p>
+                  <h4 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Contextual Understanding</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Get deeper context and scholarly explanations</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">

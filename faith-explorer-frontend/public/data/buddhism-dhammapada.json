@@ -1,39 +1,3391 @@
 {
   "religion": "buddhism",
   "source": "Dhammapada",
-  "version": "Public Domain Translation",
+  "version": "Bhikkhu Sujato Translation (CC0)",
   "verses": [
     {
       "id": "dhammapada_1_1",
-      "reference": "Dhammapada 1:1",
-      "book": "Dhammapada",
+      "reference": "Dhammapada 1",
+      "book": "1. Pairs",
       "chapter": 1,
       "verse": 1,
-      "text": "Mind precedes all mental states. Mind is their chief; they are all mind-wrought. If with an impure mind a person speaks or acts suffering follows him like the wheel that follows the foot of the ox."
+      "text": "Intention shapes experiences; intention is first, they’re made by intention. If with corrupt intent you speak or act, suffering follows you, like a wheel, the ox’s foot."
     },
     {
       "id": "dhammapada_1_2",
-      "reference": "Dhammapada 1:2",
-      "book": "Dhammapada",
+      "reference": "Dhammapada 2",
+      "book": "1. Pairs",
       "chapter": 1,
       "verse": 2,
-      "text": "Mind precedes all mental states. Mind is their chief; they are all mind-wrought. If with a pure mind a person speaks or acts happiness follows him like his never-departing shadow."
+      "text": "Intention shapes experiences; intention is first, they’re made by intention. If with pure intent you speak or act, happiness follows you like a shadow that never leaves."
+    },
+    {
+      "id": "dhammapada_1_3",
+      "reference": "Dhammapada 3",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 3,
+      "text": "“They abused me, they hit me! They beat me, they robbed me!” For those who bear such a grudge, hatred is never laid to rest."
+    },
+    {
+      "id": "dhammapada_1_4",
+      "reference": "Dhammapada 4",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 4,
+      "text": "“They abused me, they hit me! They beat me, they robbed me!” For those who bear no such grudge, hatred is laid to rest."
+    },
+    {
+      "id": "dhammapada_1_5",
+      "reference": "Dhammapada 5",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 5,
+      "text": "For never is hatred laid to rest by hate, it’s laid to rest by love: this is an ancient teaching."
+    },
+    {
+      "id": "dhammapada_1_6",
+      "reference": "Dhammapada 6",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 6,
+      "text": "When others do not understand, let us, who do understand this, restrain ourselves in this regard; for that is how conflicts are laid to rest."
+    },
+    {
+      "id": "dhammapada_1_7",
+      "reference": "Dhammapada 7",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 7,
+      "text": "Those who contemplate the beautiful, their faculties unrestrained, immoderate in eating, lazy, lacking energy: Māra strikes them down like the wind, a feeble tree."
+    },
+    {
+      "id": "dhammapada_1_8",
+      "reference": "Dhammapada 8",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 8,
+      "text": "Those who contemplate the ugly, their faculties well-restrained, eating in moderation, faithful and energetic: Māra cannot strike them down, like the wind, a rocky mountain."
+    },
+    {
+      "id": "dhammapada_1_9",
+      "reference": "Dhammapada 9",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 9,
+      "text": "One who, not free of stains themselves, would wear the robe stained in ocher, bereft of self-control and of truth: they are not worthy of the ocher robe."
+    },
+    {
+      "id": "dhammapada_1_10",
+      "reference": "Dhammapada 10",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 10,
+      "text": "One who’s purged all their stains, steady in ethics, possessed of self-control and of truth, they are truly worthy of the ocher robe."
+    },
+    {
+      "id": "dhammapada_1_11",
+      "reference": "Dhammapada 11",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 11,
+      "text": "Thinking the inessential is essential, seeing the essential as inessential; they don’t realize the essential, for wrong thoughts are their habitat."
+    },
+    {
+      "id": "dhammapada_1_12",
+      "reference": "Dhammapada 12",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 12,
+      "text": "Having known the essential as essential, and the inessential as inessential; they realize the essential, for right thoughts are their habitat."
+    },
+    {
+      "id": "dhammapada_1_13",
+      "reference": "Dhammapada 13",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 13,
+      "text": "Just as rain seeps into a poorly roofed house, lust seeps into an undeveloped mind."
+    },
+    {
+      "id": "dhammapada_1_14",
+      "reference": "Dhammapada 14",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 14,
+      "text": "Just as rain doesn’t seep into a well roofed house, lust doesn’t seep into a well developed mind."
+    },
+    {
+      "id": "dhammapada_1_15",
+      "reference": "Dhammapada 15",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 15,
+      "text": "Here they grieve, hereafter they grieve, an evildoer grieves in both places. They grieve and fret, seeing their own corrupt deeds."
+    },
+    {
+      "id": "dhammapada_1_16",
+      "reference": "Dhammapada 16",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 16,
+      "text": "Here they rejoice, hereafter they rejoice, one who does good rejoices in both places. They rejoice and celebrate, seeing their own pure deeds."
+    },
+    {
+      "id": "dhammapada_1_17",
+      "reference": "Dhammapada 17",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 17,
+      "text": "Here they’re tormented, <j>hereafter they’re tormented, an evildoer is tormented in both places. They’re tormented <j>thinking of bad things they’ve done; when gone to a bad place, <j>they’re tormented all the more."
+    },
+    {
+      "id": "dhammapada_1_18",
+      "reference": "Dhammapada 18",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 18,
+      "text": "Here they delight, hereafter they delight, one who does good delights in both places. They delight thinking of good things they’ve done; when gone to a good place, they delight all the more."
+    },
+    {
+      "id": "dhammapada_1_19",
+      "reference": "Dhammapada 19",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 19,
+      "text": "Much though they may recite scripture, if a negligent person does not apply them, then, like a cowherd who counts the cattle of others, they miss out on the blessings of the ascetic life."
+    },
+    {
+      "id": "dhammapada_1_20",
+      "reference": "Dhammapada 20",
+      "book": "1. Pairs",
+      "chapter": 1,
+      "verse": 20,
+      "text": "Little though they may recite scripture, if they live in line with the teaching, having given up greed, hate, and delusion, with deep understanding and heart well freed, not grasping to this life or the next, they share in the blessings of the ascetic life."
+    },
+    {
+      "id": "dhammapada_2_21",
+      "reference": "Dhammapada 21",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 21,
+      "text": "Heedfulness is the state free of death; heedlessness is the state of death. The heedful do not die, while the heedless are like the dead."
+    },
+    {
+      "id": "dhammapada_2_22",
+      "reference": "Dhammapada 22",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 22,
+      "text": "Understanding this distinction when it comes to heedfulness, the astute rejoice in heedfulness, happy in the noble ones’ domain."
+    },
+    {
+      "id": "dhammapada_2_23",
+      "reference": "Dhammapada 23",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 23,
+      "text": "They who regularly meditate, always staunchly vigorous; the attentive realize extinguishment, the supreme sanctuary from the yoke."
+    },
+    {
+      "id": "dhammapada_2_24",
+      "reference": "Dhammapada 24",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 24,
+      "text": "For the hard-working and mindful, pure of deed and attentive, restrained, living righteously, and diligent, their reputation only grows."
+    },
+    {
+      "id": "dhammapada_2_25",
+      "reference": "Dhammapada 25",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 25,
+      "text": "By hard work and diligence, by restraint and by self-control, a smart person would build an island that the floods cannot overflow."
+    },
+    {
+      "id": "dhammapada_2_26",
+      "reference": "Dhammapada 26",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 26,
+      "text": "Fools and simpletons devote themselves to negligence. But the wise protect diligence as their best treasure."
+    },
+    {
+      "id": "dhammapada_2_27",
+      "reference": "Dhammapada 27",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 27,
+      "text": "Don’t devote yourself to negligence, or delight in erotic intimacy. For if you’re diligent and meditate, you’ll attain abundant happiness."
+    },
+    {
+      "id": "dhammapada_2_28",
+      "reference": "Dhammapada 28",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 28,
+      "text": "When the astute dispel negligence by means of diligence, ascending the palace of wisdom, sorrowless, they behold this generation of sorrow, as an attentive one on a mountain top beholds the fools below."
+    },
+    {
+      "id": "dhammapada_2_29",
+      "reference": "Dhammapada 29",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 29,
+      "text": "Heedful among the heedless, wide awake while others sleep— a true sage leaves them behind, like a swift horse passing a feeble."
+    },
+    {
+      "id": "dhammapada_2_30",
+      "reference": "Dhammapada 30",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 30,
+      "text": "Maghavā became chief of the gods by means of diligence. People praise diligence, while negligence is always deplored."
+    },
+    {
+      "id": "dhammapada_2_31",
+      "reference": "Dhammapada 31",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 31,
+      "text": "A mendicant who loves to be diligent, seeing fear in negligence— advances like fire, burning up fetters big and small."
+    },
+    {
+      "id": "dhammapada_2_32",
+      "reference": "Dhammapada 32",
+      "book": "2. Diligence",
+      "chapter": 2,
+      "verse": 32,
+      "text": "A mendicant who loves to be diligent, seeing fear in negligence— such a one can’t decline, and has drawn near to extinguishment."
+    },
+    {
+      "id": "dhammapada_3_33",
+      "reference": "Dhammapada 33",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 33,
+      "text": "The mind quivers and shakes, hard to guard, hard to curb. The discerning straighten it out, like a fletcher straightens an arrow."
+    },
+    {
+      "id": "dhammapada_3_34",
+      "reference": "Dhammapada 34",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 34,
+      "text": "Like a fish pulled from the sea and cast upon the shore, this mind flounders about, trying to throw off Māra’s dominion."
+    },
+    {
+      "id": "dhammapada_3_35",
+      "reference": "Dhammapada 35",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 35,
+      "text": "Hard to hold back, flighty, alighting where it will; it’s good to tame the mind; a tamed mind leads to bliss."
+    },
+    {
+      "id": "dhammapada_3_36",
+      "reference": "Dhammapada 36",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 36,
+      "text": "So hard to see, so subtle, alighting where it will; the discerning protect the mind, a guarded mind leads to bliss."
+    },
+    {
+      "id": "dhammapada_3_37",
+      "reference": "Dhammapada 37",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 37,
+      "text": "The mind travels far, wandering alone; incorporeal, it lies hidden in the heart. Those who will restrain the mind are freed from Māra’s bonds."
+    },
+    {
+      "id": "dhammapada_3_38",
+      "reference": "Dhammapada 38",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 38,
+      "text": "Those of unsteady mind, who don’t understand the true teaching, and whose confidence wavers, do not perfect their wisdom."
+    },
+    {
+      "id": "dhammapada_3_39",
+      "reference": "Dhammapada 39",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 39,
+      "text": "One whose mind is not festering, whose heart is undamaged, who’s given up right and wrong, alert, has nothing to fear."
+    },
+    {
+      "id": "dhammapada_3_40",
+      "reference": "Dhammapada 40",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 40,
+      "text": "Knowing this body breaks like a pot, and fortifying the mind like a citadel, attack Māra with the sword of wisdom, guard your conquest, and never settle."
+    },
+    {
+      "id": "dhammapada_3_41",
+      "reference": "Dhammapada 41",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 41,
+      "text": "All too soon this body will lie upon the earth, bereft of consciousness, tossed aside like a worthless log."
+    },
+    {
+      "id": "dhammapada_3_42",
+      "reference": "Dhammapada 42",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 42,
+      "text": "A wrongly directed mind would do you more harm than a hater to the hated, or an enemy to their foe."
+    },
+    {
+      "id": "dhammapada_3_43",
+      "reference": "Dhammapada 43",
+      "book": "3. The Mind",
+      "chapter": 3,
+      "verse": 43,
+      "text": "A rightly directed mind would do you more good than your mother or father or any other relative."
+    },
+    {
+      "id": "dhammapada_4_44",
+      "reference": "Dhammapada 44",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 44,
+      "text": "Who bestirs this earth, and the Yama realm with its gods? Who sets out the well-taught word of truth, as an expert a flower?"
+    },
+    {
+      "id": "dhammapada_4_45",
+      "reference": "Dhammapada 45",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 45,
+      "text": "A trainee bestirs this earth, and the Yama realm with its gods. A trainee sets out the well-taught word of truth, as an expert a flower."
+    },
+    {
+      "id": "dhammapada_4_46",
+      "reference": "Dhammapada 46",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 46,
+      "text": "Knowing this body’s like foam, realizing it’s all just a mirage, and cutting off Māra’s blossoming, vanish from the King of Death."
+    },
+    {
+      "id": "dhammapada_4_47",
+      "reference": "Dhammapada 47",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 47,
+      "text": "As a mighty flood sweeps off a sleeping village, death steals away a man even as he gathers flowers, his mind caught up in them."
+    },
+    {
+      "id": "dhammapada_4_48",
+      "reference": "Dhammapada 48",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 48,
+      "text": "The terminator gains control of the man who has not had his fill of pleasures, even as he gathers flowers, his mind caught up in them."
+    },
+    {
+      "id": "dhammapada_4_49",
+      "reference": "Dhammapada 49",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 49,
+      "text": "A bee takes the nectar and moves on, doing no damage to the flower’s beauty and fragrance; and that’s how a sage should walk in the village."
+    },
+    {
+      "id": "dhammapada_4_50",
+      "reference": "Dhammapada 50",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 50,
+      "text": "Don’t find fault with others, with what they’ve done or left undone. You should only watch yourself, what you’ve done or left undone."
+    },
+    {
+      "id": "dhammapada_4_51",
+      "reference": "Dhammapada 51",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 51,
+      "text": "Just like a glorious flower that’s colorful but lacks fragrance; eloquent speech is fruitless for one who does not act on it."
+    },
+    {
+      "id": "dhammapada_4_52",
+      "reference": "Dhammapada 52",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 52,
+      "text": "Just like a glorious flower that’s both colorful and fragrant, eloquent speech is fruitful for one who acts on it."
+    },
+    {
+      "id": "dhammapada_4_53",
+      "reference": "Dhammapada 53",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 53,
+      "text": "Just as one would create many garlands from a heap of flowers, when a person has come to be born, they should do many skillful things."
+    },
+    {
+      "id": "dhammapada_4_54",
+      "reference": "Dhammapada 54",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 54,
+      "text": "The fragrance of flowers doesn’t spread upwind, nor sandalwood, pinwheel, or jasmine; but the fragrance of the good spreads upwind; a true person’s virtue spreads in every direction."
+    },
+    {
+      "id": "dhammapada_4_55",
+      "reference": "Dhammapada 55",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 55,
+      "text": "Among all the fragrances— sandalwood or pinwheel or lotus or jasmine— the fragrance of virtue is supreme."
+    },
+    {
+      "id": "dhammapada_4_56",
+      "reference": "Dhammapada 56",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 56,
+      "text": "Faint is the fragrance of sandal or pinwheel; but the fragrance of the virtuous floats to the highest gods."
+    },
+    {
+      "id": "dhammapada_4_57",
+      "reference": "Dhammapada 57",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 57,
+      "text": "For those accomplished in ethics, meditating diligently, freed through the highest knowledge, Māra cannot find their path."
+    },
+    {
+      "id": "dhammapada_4_58",
+      "reference": "Dhammapada 58",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 58,
+      "text": "From a heap of trash discarded on the highway, a lotus might blossom, fragrant and delightful."
+    },
+    {
+      "id": "dhammapada_4_59",
+      "reference": "Dhammapada 59",
+      "book": "4. Flowers",
+      "chapter": 4,
+      "verse": 59,
+      "text": "So too, among those thought of as trash, a disciple of the perfect Buddha outshines with their wisdom the blind ordinary folk."
+    },
+    {
+      "id": "dhammapada_5_60",
+      "reference": "Dhammapada 60",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 60,
+      "text": "Long is the night for the wakeful; long is the league for the weary; long transmigrate the fools who don’t understand the true teaching."
     },
     {
       "id": "dhammapada_5_61",
-      "reference": "Dhammapada 5:61",
-      "book": "Dhammapada",
+      "reference": "Dhammapada 61",
+      "book": "5. The Fool",
       "chapter": 5,
       "verse": 61,
-      "text": "If you do not get a prudent companion who is fit and wise to live with, then like a king who leaves behind a conquered kingdom, or like a lone elephant in the elephant forest, you should go alone. There is no fellowship with a fool."
+      "text": "If while wandering you find no partner equal or better than yourself, then firmly resolve to wander alone— there’s no fellowship with fools."
+    },
+    {
+      "id": "dhammapada_5_62",
+      "reference": "Dhammapada 62",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 62,
+      "text": "“Sons are mine, wealth is mine”— thus the fool frets. For even your self is not your own, let alone your sons or wealth."
+    },
+    {
+      "id": "dhammapada_5_63",
+      "reference": "Dhammapada 63",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 63,
+      "text": "The fool who thinks they’re a fool is wise at least to that extent. But the true fool is said to be one who imagines that they are wise."
+    },
+    {
+      "id": "dhammapada_5_64",
+      "reference": "Dhammapada 64",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 64,
+      "text": "Though a fool attends to the wise even for the rest of their life, they still don’t understand the teaching, like a spoon the taste of the soup."
+    },
+    {
+      "id": "dhammapada_5_65",
+      "reference": "Dhammapada 65",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 65,
+      "text": "If a clever person attends to the wise even just for an hour or so, they swiftly understand the teaching, like a tongue the taste of the soup."
+    },
+    {
+      "id": "dhammapada_5_66",
+      "reference": "Dhammapada 66",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 66,
+      "text": "Fools and simpletons behave like their own worst enemies, doing wicked deeds that ripen as bitter fruit."
+    },
+    {
+      "id": "dhammapada_5_67",
+      "reference": "Dhammapada 67",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 67,
+      "text": "It’s not good to do a deed that plagues you later on, for which you weep and wail, as its effect stays with you."
+    },
+    {
+      "id": "dhammapada_5_68",
+      "reference": "Dhammapada 68",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 68,
+      "text": "It is good to do a deed that doesn’t plague you later on, that gladdens and cheers, as its effect stays with you."
+    },
+    {
+      "id": "dhammapada_5_69",
+      "reference": "Dhammapada 69",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 69,
+      "text": "The fool imagines that evil is sweet, so long as it has not yet ripened. But as soon as that evil ripens, they fall into suffering."
+    },
+    {
+      "id": "dhammapada_5_70",
+      "reference": "Dhammapada 70",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 70,
+      "text": "Month after month a fool may eat food from a grass-blade’s tip; but they’ll never be worth a sixteenth part of one who has appraised the teaching."
+    },
+    {
+      "id": "dhammapada_5_71",
+      "reference": "Dhammapada 71",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 71,
+      "text": "For a wicked deed that has been done does not curdle quickly like milk. Smoldering, it follows the fool, like a fire smothered over with ash."
+    },
+    {
+      "id": "dhammapada_5_72",
+      "reference": "Dhammapada 72",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 72,
+      "text": "Whatever fame a fool may get, it only gives rise to harm. Whatever good features they have it ruins, and blows their head into bits."
+    },
+    {
+      "id": "dhammapada_5_73",
+      "reference": "Dhammapada 73",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 73,
+      "text": "They’d seek the esteem that they lack, and status among the mendicants; authority over monasteries, and honor among other families."
+    },
+    {
+      "id": "dhammapada_5_74",
+      "reference": "Dhammapada 74",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 74,
+      "text": "“Let both layfolk and renunciants think the work was done by me alone. In anything at all that’s to be done, let them fall under my sway alone.” So thinks the fool, their greed and pride only growing."
+    },
+    {
+      "id": "dhammapada_5_75",
+      "reference": "Dhammapada 75",
+      "book": "5. The Fool",
+      "chapter": 5,
+      "verse": 75,
+      "text": "For the means to profit and the path to quenching are two quite different things. A mendicant disciple of the Buddha, understanding what this really means, would never delight in honors, but rather would foster seclusion."
+    },
+    {
+      "id": "dhammapada_6_76",
+      "reference": "Dhammapada 76",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 76,
+      "text": "Regard one who sees your faults as a guide to a hidden treasure. Stay close to one so wise and astute who corrects you when you need it. Sticking close to such an impartial person, things get better, not worse."
+    },
+    {
+      "id": "dhammapada_6_77",
+      "reference": "Dhammapada 77",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 77,
+      "text": "Advise and instruct; curb wickedness: for you shall be loved by the good, and disliked by the bad."
+    },
+    {
+      "id": "dhammapada_6_78",
+      "reference": "Dhammapada 78",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 78,
+      "text": "Don’t mix with bad friends, nor with the worst of men. Mix with spiritual friends, and with the best of men."
+    },
+    {
+      "id": "dhammapada_6_79",
+      "reference": "Dhammapada 79",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 79,
+      "text": "Through joy in the teaching you sleep at ease, with clear and confident heart. An astute person always delights in the teaching proclaimed by the Noble One."
+    },
+    {
+      "id": "dhammapada_6_80",
+      "reference": "Dhammapada 80",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 80,
+      "text": "Irrigators guide water, fletchers straighten arrows, carpenters carve timber, the astute tame themselves."
+    },
+    {
+      "id": "dhammapada_6_81",
+      "reference": "Dhammapada 81",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 81,
+      "text": "As the wind cannot stir a solid mass of rock, so too blame and praise do not affect the wise."
+    },
+    {
+      "id": "dhammapada_6_82",
+      "reference": "Dhammapada 82",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 82,
+      "text": "Like a deep lake, clear and unclouded, so clear are the astute when they hear the teachings."
+    },
+    {
+      "id": "dhammapada_6_83",
+      "reference": "Dhammapada 83",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 83,
+      "text": "True persons give up everything, they don’t cajole for the things they desire. Though touched by sadness or happiness, the astute appear neither depressed nor elated."
+    },
+    {
+      "id": "dhammapada_6_84",
+      "reference": "Dhammapada 84",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 84,
+      "text": "Never wish for success by unjust means, for your own sake or that of another, desiring children, wealth, or nation; rather, be virtuous, wise, and just."
+    },
+    {
+      "id": "dhammapada_6_85",
+      "reference": "Dhammapada 85",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 85,
+      "text": "Few are those among humans who cross to the far shore. The rest just run around on the near shore."
+    },
+    {
+      "id": "dhammapada_6_86",
+      "reference": "Dhammapada 86",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 86,
+      "text": "When the teaching is well explained, those who practice accordingly will cross over Death’s dominion so hard to pass."
+    },
+    {
+      "id": "dhammapada_6_87",
+      "reference": "Dhammapada 87",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 87,
+      "text": "Rid of dark qualities, an astute person should develop the bright. Leaving home behind for the seclusion so hard to enjoy,"
+    },
+    {
+      "id": "dhammapada_6_88",
+      "reference": "Dhammapada 88",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 88,
+      "text": "try to find satisfaction there, having left behind sensual pleasures. Owning nothing, an astute person would cleanse themselves of mental corruptions."
+    },
+    {
+      "id": "dhammapada_6_89",
+      "reference": "Dhammapada 89",
+      "book": "6. The Astute",
+      "chapter": 6,
+      "verse": 89,
+      "text": "Those whose minds are rightly developed in the awakening factors; who, letting go of attachments, delight in not grasping: with defilements ended, brilliant, they are quenched in this world."
+    },
+    {
+      "id": "dhammapada_7_90",
+      "reference": "Dhammapada 90",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 90,
+      "text": "At journey’s end, rid of sorrow; everywhere free, all ties given up, no fever is found in them."
+    },
+    {
+      "id": "dhammapada_7_91",
+      "reference": "Dhammapada 91",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 91,
+      "text": "The mindful apply themselves; they delight in no abode. Like a swan gone from the marsh, they leave home after home behind."
+    },
+    {
+      "id": "dhammapada_7_92",
+      "reference": "Dhammapada 92",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 92,
+      "text": "Those with nothing stored up, who have understood their food, whose domain is the liberation of the signless and the empty: their path is hard to trace, like birds in the sky."
+    },
+    {
+      "id": "dhammapada_7_93",
+      "reference": "Dhammapada 93",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 93,
+      "text": "One whose defilements have ended; who’s not attached to food; whose domain is the liberation of the signless and the empty: their track is hard to trace, like birds in the sky."
+    },
+    {
+      "id": "dhammapada_7_94",
+      "reference": "Dhammapada 94",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 94,
+      "text": "Whose faculties have become serene, like horses tamed by a charioteer, who has abandoned conceit and defilements; the unaffected one is envied by even the gods."
+    },
+    {
+      "id": "dhammapada_7_95",
+      "reference": "Dhammapada 95",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 95,
+      "text": "Undisturbed like the earth, true to their vows, steady as Indra’s pillar, like a lake clear of mud; such a one does not transmigrate."
+    },
+    {
+      "id": "dhammapada_7_96",
+      "reference": "Dhammapada 96",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 96,
+      "text": "Their mind is peaceful, peaceful are their speech and deeds. Such a one is at peace, rightly freed through enlightenment."
+    },
+    {
+      "id": "dhammapada_7_97",
+      "reference": "Dhammapada 97",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 97,
+      "text": "Lacking faith, a house-breaker, one who acknowledges nothing, purged of hope, they’ve wasted their chance: that is indeed the supreme person!"
+    },
+    {
+      "id": "dhammapada_7_98",
+      "reference": "Dhammapada 98",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 98,
+      "text": "Whether in village or wilderness, in a valley or the uplands, wherever the perfected ones live is a delightful place."
+    },
+    {
+      "id": "dhammapada_7_99",
+      "reference": "Dhammapada 99",
+      "book": "7. The Perfected Ones",
+      "chapter": 7,
+      "verse": 99,
+      "text": "Delightful are the wildernesses where no people delight. Those free of greed will delight there, not those who seek sensual pleasures."
     },
     {
       "id": "dhammapada_8_100",
-      "reference": "Dhammapada 8:100",
-      "book": "Dhammapada",
+      "reference": "Dhammapada 100",
+      "book": "8. Thousands",
       "chapter": 8,
       "verse": 100,
-      "text": "Better than a thousand useless words is one useful word, hearing which one attains peace."
+      "text": "Better than a thousand meaningless sayings is a single meaningful saying, hearing which brings you peace."
+    },
+    {
+      "id": "dhammapada_8_101",
+      "reference": "Dhammapada 101",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 101,
+      "text": "Better than a thousand meaningless verses is a single meaningful verse, hearing which brings you peace."
+    },
+    {
+      "id": "dhammapada_8_102",
+      "reference": "Dhammapada 102",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 102,
+      "text": "Better than reciting a hundred meaningless verses is a single saying of Dhamma, hearing which brings you peace."
+    },
+    {
+      "id": "dhammapada_8_103",
+      "reference": "Dhammapada 103",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 103,
+      "text": "The supreme conqueror is not he who conquers a million men in battle, but he who conquers a single man: himself."
+    },
+    {
+      "id": "dhammapada_8_104",
+      "reference": "Dhammapada 104",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 104,
+      "text": "It is surely better to conquer oneself than all those other folk. When a person has tamed themselves, always living restrained,"
+    },
+    {
+      "id": "dhammapada_8_105",
+      "reference": "Dhammapada 105",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 105,
+      "text": "no god nor centaur, nor Māra nor divinity, can undo the victory of such a personage."
+    },
+    {
+      "id": "dhammapada_8_106",
+      "reference": "Dhammapada 106",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 106,
+      "text": "Rather than a thousandfold sacrifice, every month for a full century, it’s better to honor for a single hour one who has developed themselves. That offering is better than the hundred year sacrifice."
+    },
+    {
+      "id": "dhammapada_8_107",
+      "reference": "Dhammapada 107",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 107,
+      "text": "Rather than serve the sacred flame in the forest for a hundred years, it’s better to honor for a single hour a personage who has developed themselves. That offering is better than the hundred year sacrifice."
+    },
+    {
+      "id": "dhammapada_8_108",
+      "reference": "Dhammapada 108",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 108,
+      "text": "Whatever sacrifice or offering in the world a seeker of merit may make for a year, none of it is worth a quarter of bowing to the sincere."
+    },
+    {
+      "id": "dhammapada_8_109",
+      "reference": "Dhammapada 109",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 109,
+      "text": "For one in the habit of bowing, always honoring the elders, four blessings grow: lifespan, beauty, happiness, and strength."
+    },
+    {
+      "id": "dhammapada_8_110",
+      "reference": "Dhammapada 110",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 110,
+      "text": "Better to live a single day ethical and absorbed in meditation than to live a hundred years unethical and lacking immersion."
+    },
+    {
+      "id": "dhammapada_8_111",
+      "reference": "Dhammapada 111",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 111,
+      "text": "Better to live a single day wise and absorbed in meditation than to live a hundred years witless and lacking immersion."
+    },
+    {
+      "id": "dhammapada_8_112",
+      "reference": "Dhammapada 112",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 112,
+      "text": "Better to live a single day energetic and strong, than to live a hundred years lazy and lacking energy."
+    },
+    {
+      "id": "dhammapada_8_113",
+      "reference": "Dhammapada 113",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 113,
+      "text": "Better to live a single day seeing rise and fall than to live a hundred years blind to rise and fall."
+    },
+    {
+      "id": "dhammapada_8_114",
+      "reference": "Dhammapada 114",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 114,
+      "text": "Better to live a single day seeing the state free of death than to live a hundred years blind to the state free of death."
+    },
+    {
+      "id": "dhammapada_8_115",
+      "reference": "Dhammapada 115",
+      "book": "8. Thousands",
+      "chapter": 8,
+      "verse": 115,
+      "text": "Better to live a single day seeing the supreme teaching than to live a hundred years blind to the supreme teaching."
+    },
+    {
+      "id": "dhammapada_9_116",
+      "reference": "Dhammapada 116",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 116,
+      "text": "Rush to do good, shield your mind from evil; for when you’re slow to do good, your thoughts delight in wickedness."
+    },
+    {
+      "id": "dhammapada_9_117",
+      "reference": "Dhammapada 117",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 117,
+      "text": "If you do something bad, don’t do it again and again, don’t set your heart on it, for piling up evil is suffering."
+    },
+    {
+      "id": "dhammapada_9_118",
+      "reference": "Dhammapada 118",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 118,
+      "text": "If you do something good, do it again and again, set your heart on it, for piling up goodness is joyful."
+    },
+    {
+      "id": "dhammapada_9_119",
+      "reference": "Dhammapada 119",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 119,
+      "text": "Even the wicked see good things, so long as their wickedness has not ripened. But as soon as that wickedness ripens, then the wicked see wicked things."
+    },
+    {
+      "id": "dhammapada_9_120",
+      "reference": "Dhammapada 120",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 120,
+      "text": "Even the good see wicked things, so long as their goodness has not ripened. But as soon as that goodness ripens, then the good see good things."
+    },
+    {
+      "id": "dhammapada_9_121",
+      "reference": "Dhammapada 121",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 121,
+      "text": "Think not lightly of evil, that it won’t come back to you. The pot is filled with water falling drop by drop; the fool is filled with wickedness piled up bit by bit."
+    },
+    {
+      "id": "dhammapada_9_122",
+      "reference": "Dhammapada 122",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 122,
+      "text": "Think not lightly of goodness, that it won’t come back to you. The pot is filled with water falling drop by drop; the attentive one is filled with goodness piled up bit by bit."
+    },
+    {
+      "id": "dhammapada_9_123",
+      "reference": "Dhammapada 123",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 123,
+      "text": "Avoid wickedness, as a merchant with rich cargo and small escort would avoid a dangerous road, or one who loves life would avoid drinking poison."
+    },
+    {
+      "id": "dhammapada_9_124",
+      "reference": "Dhammapada 124",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 124,
+      "text": "You can carry poison in your hand if it has no wound, for poison does not infect without a wound; nothing bad happens unless you do bad."
+    },
+    {
+      "id": "dhammapada_9_125",
+      "reference": "Dhammapada 125",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 125,
+      "text": "Whoever wrongs a man who has done no wrong, a pure man who has not a blemish, the evil backfires on the fool, like fine dust thrown upwind."
+    },
+    {
+      "id": "dhammapada_9_126",
+      "reference": "Dhammapada 126",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 126,
+      "text": "Some are born in a womb; evil-doers go to hell; the virtuous go to heaven; the undefiled are fully extinguished."
+    },
+    {
+      "id": "dhammapada_9_127",
+      "reference": "Dhammapada 127",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 127,
+      "text": "Not in midair, nor mid-ocean, nor hiding in a mountain cleft; you’ll find no place on the planet to escape your wicked deeds."
+    },
+    {
+      "id": "dhammapada_9_128",
+      "reference": "Dhammapada 128",
+      "book": "9. Vice",
+      "chapter": 9,
+      "verse": 128,
+      "text": "Not in midair, nor mid-ocean, nor hiding in a mountain cleft; you’ll find no place on the planet where you won’t be vanquished by death."
+    },
+    {
+      "id": "dhammapada_10_129",
+      "reference": "Dhammapada 129",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 129,
+      "text": "All tremble at the rod, all fear death. Treating others like oneself, neither kill nor incite to kill."
+    },
+    {
+      "id": "dhammapada_10_130",
+      "reference": "Dhammapada 130",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 130,
+      "text": "All tremble at the rod, all love life. Treating others like oneself, neither kill nor incite to kill."
+    },
+    {
+      "id": "dhammapada_10_131",
+      "reference": "Dhammapada 131",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 131,
+      "text": "Creatures love happiness, so if you harm them with a stick in search of your own happiness, after death you won’t find happiness."
+    },
+    {
+      "id": "dhammapada_10_132",
+      "reference": "Dhammapada 132",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 132,
+      "text": "Creatures love happiness, so if you don’t harm them with a stick in search of your own happiness, after death you will find happiness."
+    },
+    {
+      "id": "dhammapada_10_133",
+      "reference": "Dhammapada 133",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 133,
+      "text": "Don’t speak harshly, they may speak harshly back. For aggressive speech is painful, and the rod may spring back on you."
+    },
+    {
+      "id": "dhammapada_10_134",
+      "reference": "Dhammapada 134",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 134,
+      "text": "If you still yourself like a broken gong, you reach extinguishment and know no conflict."
+    },
+    {
+      "id": "dhammapada_10_135",
+      "reference": "Dhammapada 135",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 135,
+      "text": "As a cowherd drives the cows to pasture with the rod, so too old age and death drive life from living beings."
+    },
+    {
+      "id": "dhammapada_10_136",
+      "reference": "Dhammapada 136",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 136,
+      "text": "The fool does not understand the evil that they do. But because of those deeds, that simpleton is tormented as if burnt by fire."
+    },
+    {
+      "id": "dhammapada_10_137",
+      "reference": "Dhammapada 137",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 137,
+      "text": "One who violently attacks the peaceful and the innocent swiftly falls to one of ten bad states:"
+    },
+    {
+      "id": "dhammapada_10_138",
+      "reference": "Dhammapada 138",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 138,
+      "text": "harsh pain; loss; the breakup of the body; serious illness; mental distress;"
+    },
+    {
+      "id": "dhammapada_10_139",
+      "reference": "Dhammapada 139",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 139,
+      "text": "hazards from rulers; vicious slander; loss of kin; destruction of wealth;"
+    },
+    {
+      "id": "dhammapada_10_140",
+      "reference": "Dhammapada 140",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 140,
+      "text": "or else their home is consumed by fire. When their body breaks up, that witless person is reborn in hell."
+    },
+    {
+      "id": "dhammapada_10_141",
+      "reference": "Dhammapada 141",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 141,
+      "text": "Not nudity, nor matted hair, nor mud, nor fasting, nor lying on bare ground, nor wearing dust and dirt, or squatting on the heels, will cleanse a mortal not free of doubt."
+    },
+    {
+      "id": "dhammapada_10_142",
+      "reference": "Dhammapada 142",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 142,
+      "text": "Dressed up they may be, but if they live well— peaceful, tamed, committed to the spiritual path, having laid aside violence towards all creatures— they are a brahmin, an ascetic, a mendicant."
+    },
+    {
+      "id": "dhammapada_10_143",
+      "reference": "Dhammapada 143",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 143,
+      "text": "Can a person constrained by conscience be found in the world? Who shies away from blame, like a fine horse from the whip?"
+    },
+    {
+      "id": "dhammapada_10_144",
+      "reference": "Dhammapada 144",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 144,
+      "text": "Like a fine horse under the whip, be keen and full of urgency. With faith, ethics, and energy, immersion, and investigation of principles, accomplished in knowledge and conduct, mindful, give up this vast suffering."
+    },
+    {
+      "id": "dhammapada_10_145",
+      "reference": "Dhammapada 145",
+      "book": "10. Punishment",
+      "chapter": 10,
+      "verse": 145,
+      "text": "While irrigators guide water, fletchers shape arrows, and carpenters carve timber— those true to their vows tame themselves."
+    },
+    {
+      "id": "dhammapada_11_146",
+      "reference": "Dhammapada 146",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 146,
+      "text": "What is joy, what is laughter, when the flames are ever burning? Shrouded by darkness, would you not seek a light?"
+    },
+    {
+      "id": "dhammapada_11_147",
+      "reference": "Dhammapada 147",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 147,
+      "text": "See this fancy puppet, a body built of sores, diseased, obsessed over, in which nothing lasts at all."
+    },
+    {
+      "id": "dhammapada_11_148",
+      "reference": "Dhammapada 148",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 148,
+      "text": "This body is decrepit and frail, a nest of disease. This foul carcass falls apart, for life ends in death."
+    },
+    {
+      "id": "dhammapada_11_149",
+      "reference": "Dhammapada 149",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 149,
+      "text": "These dove-grey bones are tossed away like dried gourds in the autumn— what joy is there in such a sight?"
+    },
+    {
+      "id": "dhammapada_11_150",
+      "reference": "Dhammapada 150",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 150,
+      "text": "In this city built of bones, plastered with flesh and blood, old age and death are stashed away, along with conceit and contempt."
+    },
+    {
+      "id": "dhammapada_11_151",
+      "reference": "Dhammapada 151",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 151,
+      "text": "Fancy chariots of kings wear out, and even this body gets old. But the truth of the good never gets old— so the good proclaim to the good."
+    },
+    {
+      "id": "dhammapada_11_152",
+      "reference": "Dhammapada 152",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 152,
+      "text": "A person of little learning ages like an ox— their flesh grows, but not their wisdom."
+    },
+    {
+      "id": "dhammapada_11_153",
+      "reference": "Dhammapada 153",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 153,
+      "text": "Transmigrating through countless rebirths, I’ve journeyed without reward, searching for the house-builder; painful is birth again and again."
+    },
+    {
+      "id": "dhammapada_11_154",
+      "reference": "Dhammapada 154",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 154,
+      "text": "I’ve seen you, house-builder! You won’t build a house again! Your rafters are all broken, your roof-peak is demolished. My mind, set on demolition, has reached the end of craving."
+    },
+    {
+      "id": "dhammapada_11_155",
+      "reference": "Dhammapada 155",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 155,
+      "text": "When young they spurned the spiritual path and failed to earn any wealth. Now they brood like old cranes in a pond bereft of fish."
+    },
+    {
+      "id": "dhammapada_11_156",
+      "reference": "Dhammapada 156",
+      "book": "11. Old Age",
+      "chapter": 11,
+      "verse": 156,
+      "text": "When young they spurned the spiritual path and failed to earn any wealth. Now they lie like spent arrows, bemoaning over things past."
+    },
+    {
+      "id": "dhammapada_12_157",
+      "reference": "Dhammapada 157",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 157,
+      "text": "If you knew your self as beloved, you’d look after it so well. In one of the night’s three watches, an astute person would remain alert."
+    },
+    {
+      "id": "dhammapada_12_158",
+      "reference": "Dhammapada 158",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 158,
+      "text": "The astute would avoid being corrupted by first grounding themselves in what is suitable, and then instructing others."
+    },
+    {
+      "id": "dhammapada_12_159",
+      "reference": "Dhammapada 159",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 159,
+      "text": "If one were to treat oneself as one instructs another, the well-tamed indeed would tame: for the self, it seems, is hard to tame."
+    },
+    {
+      "id": "dhammapada_12_160",
+      "reference": "Dhammapada 160",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 160,
+      "text": "One is indeed the lord of oneself, for who else would be one’s lord? By means of a well-tamed self, one gains a lord that’s rare indeed."
+    },
+    {
+      "id": "dhammapada_12_161",
+      "reference": "Dhammapada 161",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 161,
+      "text": "For the evil that is done by oneself, born and produced in oneself, grinds down a simpleton, as diamond grinds a lesser gem."
+    },
+    {
+      "id": "dhammapada_12_162",
+      "reference": "Dhammapada 162",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 162,
+      "text": "One choked by immorality, as a sal tree by a creeper, does to themselves what a foe only wishes."
+    },
+    {
+      "id": "dhammapada_12_163",
+      "reference": "Dhammapada 163",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 163,
+      "text": "It’s easy to do bad things harmful to oneself, but good things that are helpful are the hardest things to do."
+    },
+    {
+      "id": "dhammapada_12_164",
+      "reference": "Dhammapada 164",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 164,
+      "text": "On account of wicked views— scorning the guidance of the perfected ones, the noble ones living righteously— the idiot begets their own self’s demise, like the bamboo bearing fruit."
+    },
+    {
+      "id": "dhammapada_12_165",
+      "reference": "Dhammapada 165",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 165,
+      "text": "For it is by oneself that evil’s done, one is corrupted by oneself. It’s by oneself that evil’s not done, one is purified by oneself. Purity and impurity are personal matters, no one can purify another."
+    },
+    {
+      "id": "dhammapada_12_166",
+      "reference": "Dhammapada 166",
+      "book": "12. Oneself",
+      "chapter": 12,
+      "verse": 166,
+      "text": "Never neglect what is good for yourself for the sake of another, however great. Knowing well what is good for yourself, be intent upon your heart’s goal."
+    },
+    {
+      "id": "dhammapada_13_167",
+      "reference": "Dhammapada 167",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 167,
+      "text": "Don’t resort to lowly things, don’t abide in negligence, don’t resort to wrong views, don’t perpetuate the world."
+    },
+    {
+      "id": "dhammapada_13_168",
+      "reference": "Dhammapada 168",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 168,
+      "text": "Get up, don’t be heedless, live by principle, with good conduct. For one of good conduct sleeps at ease, in this world and the next."
+    },
+    {
+      "id": "dhammapada_13_169",
+      "reference": "Dhammapada 169",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 169,
+      "text": "Live by principle, with good conduct, don’t conduct yourself badly. For one of good conduct sleeps at ease, in this world and the next."
+    },
+    {
+      "id": "dhammapada_13_170",
+      "reference": "Dhammapada 170",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 170,
+      "text": "Look upon the world as a bubble or a mirage, then the King of Death won’t see you."
+    },
+    {
+      "id": "dhammapada_13_171",
+      "reference": "Dhammapada 171",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 171,
+      "text": "Come, see this world decked out like a fancy royal chariot. Here fools founder, but the discerning are not chained."
+    },
+    {
+      "id": "dhammapada_13_172",
+      "reference": "Dhammapada 172",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 172,
+      "text": "He who once was heedless, but turned to heedfulness, lights up the world like the moon freed from clouds."
+    },
+    {
+      "id": "dhammapada_13_173",
+      "reference": "Dhammapada 173",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 173,
+      "text": "Someone whose bad deed is supplanted by the good, lights up the world, like the moon freed from clouds."
+    },
+    {
+      "id": "dhammapada_13_174",
+      "reference": "Dhammapada 174",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 174,
+      "text": "Blind is the world, few are those who clearly see. Only a handful go to heaven, like a bird freed from a net."
+    },
+    {
+      "id": "dhammapada_13_175",
+      "reference": "Dhammapada 175",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 175,
+      "text": "Swans fly by the sun’s path, psychic sages fly through space. The attentive leave the world, having vanquished Māra with his legions."
+    },
+    {
+      "id": "dhammapada_13_176",
+      "reference": "Dhammapada 176",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 176,
+      "text": "When a personage, spurning the hereafter, transgresses in just one thing— lying— there is no evil they would not do."
+    },
+    {
+      "id": "dhammapada_13_177",
+      "reference": "Dhammapada 177",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 177,
+      "text": "The miserly don’t ascend to heaven, it takes a fool to not praise giving. The attentive celebrate giving, and so find happiness in the hereafter."
+    },
+    {
+      "id": "dhammapada_13_178",
+      "reference": "Dhammapada 178",
+      "book": "13. The World",
+      "chapter": 13,
+      "verse": 178,
+      "text": "The fruit of stream-entry is better than being the one king of the earth, than going to heaven, than lordship over all the world."
+    },
+    {
+      "id": "dhammapada_14_179",
+      "reference": "Dhammapada 179",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 179,
+      "text": "He whose victory may not be undone, a victory unrivaled in all the world; by what track would you trace that Buddha, who leaves no track in his infinite range?"
+    },
+    {
+      "id": "dhammapada_14_180",
+      "reference": "Dhammapada 180",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 180,
+      "text": "Of craving, the weaver, the clinger, he has none: so where can he be traced? By what track would you trace that Buddha, who leaves no track in his infinite range?"
+    },
+    {
+      "id": "dhammapada_14_181",
+      "reference": "Dhammapada 181",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 181,
+      "text": "The attentive intent on absorption, who love the peace of renunciation, the Buddhas, ever mindful, are envied by even the gods."
+    },
+    {
+      "id": "dhammapada_14_182",
+      "reference": "Dhammapada 182",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 182,
+      "text": "It’s hard to gain a human birth; the life of mortals is hard; it’s hard to hear the true teaching; the arising of Buddhas is hard."
+    },
+    {
+      "id": "dhammapada_14_183",
+      "reference": "Dhammapada 183",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 183,
+      "text": "Not to do any evil; to embrace the good; to purify one’s mind: this is the instruction of the Buddhas."
+    },
+    {
+      "id": "dhammapada_14_184",
+      "reference": "Dhammapada 184",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 184,
+      "text": "Patient acceptance is the ultimate fervor. Extinguishment is the ultimate, say the Buddhas. No true renunciate injures another, nor does an ascetic hurt another."
+    },
+    {
+      "id": "dhammapada_14_185",
+      "reference": "Dhammapada 185",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 185,
+      "text": "Not speaking ill nor doing harm; restraint in the monastic code; moderation in eating; staying in remote lodgings; commitment to the higher mind— this is the instruction of the Buddhas."
+    },
+    {
+      "id": "dhammapada_14_186",
+      "reference": "Dhammapada 186",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 186,
+      "text": "Even if it were raining money, you’d not be sated in sensual pleasures. An astute person understands that sensual pleasures offer little gratification and much suffering."
+    },
+    {
+      "id": "dhammapada_14_187",
+      "reference": "Dhammapada 187",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 187,
+      "text": "Thus they find no delight even in celestial pleasures. A disciple of the fully awakened Buddha delights in the ending of craving."
+    },
+    {
+      "id": "dhammapada_14_188",
+      "reference": "Dhammapada 188",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 188,
+      "text": "So many go for refuge to mountains and forest groves, to shrines in tended parks; those people are driven by fear."
+    },
+    {
+      "id": "dhammapada_14_189",
+      "reference": "Dhammapada 189",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 189,
+      "text": "But such refuge is no sanctuary, it is no supreme refuge. By going to that refuge, you’re not released from all suffering."
+    },
+    {
+      "id": "dhammapada_14_190",
+      "reference": "Dhammapada 190",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 190,
+      "text": "One gone for refuge to the Buddha, to his teaching and to the Saṅgha, sees the four noble truths with right understanding:"
+    },
+    {
+      "id": "dhammapada_14_191",
+      "reference": "Dhammapada 191",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 191,
+      "text": "suffering, suffering’s origin, suffering’s transcendence, and the noble eightfold path that leads to the stilling of suffering."
+    },
+    {
+      "id": "dhammapada_14_192",
+      "reference": "Dhammapada 192",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 192,
+      "text": "Such refuge is a sanctuary, it is the supreme refuge. By going to that refuge, you’re released from all suffering."
+    },
+    {
+      "id": "dhammapada_14_193",
+      "reference": "Dhammapada 193",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 193,
+      "text": "It’s hard to find a thoroughbred man: they’re not born just anywhere. A family where that attentive one is born prospers in happiness."
+    },
+    {
+      "id": "dhammapada_14_194",
+      "reference": "Dhammapada 194",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 194,
+      "text": "Happy, the arising of Buddhas! Happy, the teaching of Dhamma! Happy is the harmony of the Saṅgha, and the striving of the harmonious is happy."
+    },
+    {
+      "id": "dhammapada_14_195",
+      "reference": "Dhammapada 195",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 195,
+      "text": "When a person venerates the worthy— the Buddha or his disciple, who have transcended proliferation, and have left behind grief and lamentation,"
+    },
+    {
+      "id": "dhammapada_14_196",
+      "reference": "Dhammapada 196",
+      "book": "14. The Awakened One",
+      "chapter": 14,
+      "verse": 196,
+      "text": "quenched, fearing nothing from any quarter— the merit of one venerating such as these, cannot be calculated by anyone, saying it is just this much."
+    },
+    {
+      "id": "dhammapada_15_197",
+      "reference": "Dhammapada 197",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 197,
+      "text": "Let us live so very happily, loving among the hostile. Among hostile humans, let us live with love."
+    },
+    {
+      "id": "dhammapada_15_198",
+      "reference": "Dhammapada 198",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 198,
+      "text": "Let us live so very happily, healthy among the ailing. Among ailing humans let us live healthily."
+    },
+    {
+      "id": "dhammapada_15_199",
+      "reference": "Dhammapada 199",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 199,
+      "text": "Let us live so very happily, content among the greedy. Among greedy humans, let us live content."
+    },
+    {
+      "id": "dhammapada_15_200",
+      "reference": "Dhammapada 200",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 200,
+      "text": "Let us live so very happily, we who have nothing. We shall feed on rapture, like the gods of streaming radiance."
+    },
+    {
+      "id": "dhammapada_15_201",
+      "reference": "Dhammapada 201",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 201,
+      "text": "Victory breeds enmity; the defeated sleep badly. The peaceful sleep at ease, having left victory and defeat behind."
+    },
+    {
+      "id": "dhammapada_15_202",
+      "reference": "Dhammapada 202",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 202,
+      "text": "There is no fire like greed, no crime like hate, no suffering like the aggregates, no bliss beyond peace."
+    },
+    {
+      "id": "dhammapada_15_203",
+      "reference": "Dhammapada 203",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 203,
+      "text": "Hunger is the worst illness, conditions are the worst suffering. For one who truly knows this, extinguishment is the ultimate happiness."
+    },
+    {
+      "id": "dhammapada_15_204",
+      "reference": "Dhammapada 204",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 204,
+      "text": "Health is the ultimate blessing; contentment, the ultimate wealth; trust is the ultimate family; extinguishment, the ultimate happiness."
+    },
+    {
+      "id": "dhammapada_15_205",
+      "reference": "Dhammapada 205",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 205,
+      "text": "Having drunk the nectar of seclusion and the nectar of peace— free of stress, free of evil, drink the joyous nectar of truth."
+    },
+    {
+      "id": "dhammapada_15_206",
+      "reference": "Dhammapada 206",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 206,
+      "text": "It’s good to see the noble ones, staying with them is always good. Were you not to see fools, you’d always be happy."
+    },
+    {
+      "id": "dhammapada_15_207",
+      "reference": "Dhammapada 207",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 207,
+      "text": "For one who consorts with fools grieves long. Painful is living with fools, like being stuck with your enemy. Happy is living with an attentive one, like meeting with your kin."
+    },
+    {
+      "id": "dhammapada_15_208",
+      "reference": "Dhammapada 208",
+      "book": "15. Happiness",
+      "chapter": 15,
+      "verse": 208,
+      "text": "Therefore: An attentive one, wise and learned, a behemoth of virtue, true to their vows, noble: follow a true and intelligent person such as this, as the moon tracks the path of the stars."
+    },
+    {
+      "id": "dhammapada_16_209",
+      "reference": "Dhammapada 209",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 209,
+      "text": "Applying yourself where you ought not, neglecting what you should be doing, forgetting your goal, you cling to what you hold dear, jealous of those devoted to their heart’s goal."
+    },
+    {
+      "id": "dhammapada_16_210",
+      "reference": "Dhammapada 210",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 210,
+      "text": "Don’t ever get too close to those you like or dislike. For not seeing the liked is suffering, and so is seeing the disliked."
+    },
+    {
+      "id": "dhammapada_16_211",
+      "reference": "Dhammapada 211",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 211,
+      "text": "Therefore don’t hold anything dear, for it’s bad to lose those you love. No ties are found in they who hold nothing loved or loathed."
+    },
+    {
+      "id": "dhammapada_16_212",
+      "reference": "Dhammapada 212",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 212,
+      "text": "Sorrow springs from what we hold dear, fear springs from what we hold dear; one free from holding anything dear has no sorrow, let alone fear."
+    },
+    {
+      "id": "dhammapada_16_213",
+      "reference": "Dhammapada 213",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 213,
+      "text": "Sorrow springs from attachment, fear springs from attachment; one free from attachment has no sorrow, let alone fear."
+    },
+    {
+      "id": "dhammapada_16_214",
+      "reference": "Dhammapada 214",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 214,
+      "text": "Sorrow springs from relishing, fear springs from relishing; one free from relishing has no sorrow, let alone fear."
+    },
+    {
+      "id": "dhammapada_16_215",
+      "reference": "Dhammapada 215",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 215,
+      "text": "Sorrow springs from desire, fear springs from desire; one free from desire has no sorrow, let alone fear."
+    },
+    {
+      "id": "dhammapada_16_216",
+      "reference": "Dhammapada 216",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 216,
+      "text": "Sorrow springs from craving, fear springs from craving; one free from craving has no sorrow, let alone fear."
+    },
+    {
+      "id": "dhammapada_16_217",
+      "reference": "Dhammapada 217",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 217,
+      "text": "One accomplished in virtue and vision, firmly principled, and truthful, doing oneself what ought be done: that’s who the people love."
+    },
+    {
+      "id": "dhammapada_16_218",
+      "reference": "Dhammapada 218",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 218,
+      "text": "One eager to realize the ineffable would be filled with awareness. Their mind not bound to pleasures of sense, they’re said to be heading upstream."
+    },
+    {
+      "id": "dhammapada_16_219",
+      "reference": "Dhammapada 219",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 219,
+      "text": "When a man returns safely after a long time spent abroad, family, friends, and loved ones celebrate his return."
+    },
+    {
+      "id": "dhammapada_16_220",
+      "reference": "Dhammapada 220",
+      "book": "16. Favorites",
+      "chapter": 16,
+      "verse": 220,
+      "text": "Just so, when one who has done good goes from this world to the next, their good deeds receive them there, as family welcomes home one they love."
+    },
+    {
+      "id": "dhammapada_17_221",
+      "reference": "Dhammapada 221",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 221,
+      "text": "Give up anger, get rid of conceit, and escape every fetter. Sufferings don’t befall one who has nothing, not clinging to name and form."
+    },
+    {
+      "id": "dhammapada_17_222",
+      "reference": "Dhammapada 222",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 222,
+      "text": "When anger surges like a lurching chariot, keep it in check. That’s what I call a charioteer; others just hold the reins."
+    },
+    {
+      "id": "dhammapada_17_223",
+      "reference": "Dhammapada 223",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 223,
+      "text": "Defeat anger with kindness, villainy with virtue, stinginess with giving, and lies with truth."
+    },
+    {
+      "id": "dhammapada_17_224",
+      "reference": "Dhammapada 224",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 224,
+      "text": "Speak the truth, do not be angry, and give when asked, if only a little. By these three means, you may enter the presence of the gods."
+    },
+    {
+      "id": "dhammapada_17_225",
+      "reference": "Dhammapada 225",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 225,
+      "text": "Those harmless sages, always restrained in body, go to the state that does not pass, where there is no sorrow."
+    },
+    {
+      "id": "dhammapada_17_226",
+      "reference": "Dhammapada 226",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 226,
+      "text": "Always wakeful, practicing night and day, focused only on extinguishment, their defilements come to an end."
+    },
+    {
+      "id": "dhammapada_17_227",
+      "reference": "Dhammapada 227",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 227,
+      "text": "It’s always been this way, Atula, it’s not just today. They blame you when you’re silent, they blame you when you speak a lot, and even when you speak just right: no-one in the world escapes blame."
+    },
+    {
+      "id": "dhammapada_17_228",
+      "reference": "Dhammapada 228",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 228,
+      "text": "There never was, nor will be, nor is there today, someone who is wholly praised or wholly blamed."
+    },
+    {
+      "id": "dhammapada_17_229",
+      "reference": "Dhammapada 229",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 229,
+      "text": "If, after watching them day in day out, discerning people praise that sage of impeccable conduct, endowed with ethics and wisdom;"
+    },
+    {
+      "id": "dhammapada_17_230",
+      "reference": "Dhammapada 230",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 230,
+      "text": "like a pendant of Black Plum River gold, who is worthy to criticize them? Even the gods praise them, and by the Divinity, too, they’re praised."
+    },
+    {
+      "id": "dhammapada_17_231",
+      "reference": "Dhammapada 231",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 231,
+      "text": "Guard against ill-tempered deeds, be restrained in body. Giving up bad bodily conduct, conduct yourself well in body."
+    },
+    {
+      "id": "dhammapada_17_232",
+      "reference": "Dhammapada 232",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 232,
+      "text": "Guard against ill-tempered words, be restrained in speech. Giving up bad verbal conduct, conduct yourself well in speech."
+    },
+    {
+      "id": "dhammapada_17_233",
+      "reference": "Dhammapada 233",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 233,
+      "text": "Guard against ill-tempered thoughts, be restrained in mind. Giving up bad mental conduct, conduct yourself well in mind."
+    },
+    {
+      "id": "dhammapada_17_234",
+      "reference": "Dhammapada 234",
+      "book": "17. Anger",
+      "chapter": 17,
+      "verse": 234,
+      "text": "An attentive one is restrained in body restrained also in speech, in thought, too, they are restrained: they are restrained in every way."
+    },
+    {
+      "id": "dhammapada_18_235",
+      "reference": "Dhammapada 235",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 235,
+      "text": "Today you’re like a withered leaf, Yama’s men await you. You stand at the departure gates, yet you have no supplies for the road."
+    },
+    {
+      "id": "dhammapada_18_236",
+      "reference": "Dhammapada 236",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 236,
+      "text": "Make an island of yourself! Swiftly strive, learn to be wise! Purged of stains, flawless, you’ll go to the heavenly realm of the noble ones."
+    },
+    {
+      "id": "dhammapada_18_237",
+      "reference": "Dhammapada 237",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 237,
+      "text": "You’ve journeyed the stages of life, and now you set out to meet Yama. Along the way there’s nowhere to stay, yet you have no supplies for the road."
+    },
+    {
+      "id": "dhammapada_18_238",
+      "reference": "Dhammapada 238",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 238,
+      "text": "Make an island of yourself! Swiftly strive, learn to be wise! Purged of stains, flawless, you’ll not come again to rebirth and old age."
+    },
+    {
+      "id": "dhammapada_18_239",
+      "reference": "Dhammapada 239",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 239,
+      "text": "A smart person would purge their own stains gradually, bit by bit, moment by moment, like a smith smelting silver."
+    },
+    {
+      "id": "dhammapada_18_240",
+      "reference": "Dhammapada 240",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 240,
+      "text": "It is the rust born on the iron that eats away the place it arose. And so it is their own deeds that lead the overly-ascetic to a bad place."
+    },
+    {
+      "id": "dhammapada_18_241",
+      "reference": "Dhammapada 241",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 241,
+      "text": "Not rehearsing is the stain of hymns. The stain of houses is neglect. Laziness is the stain of beauty. A guard’s stain is negligence."
+    },
+    {
+      "id": "dhammapada_18_242",
+      "reference": "Dhammapada 242",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 242,
+      "text": "Misconduct is a woman’s stain. A giver’s stain is stinginess. Bad qualities are a stain in this world and the next."
+    },
+    {
+      "id": "dhammapada_18_243",
+      "reference": "Dhammapada 243",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 243,
+      "text": "But a worse stain than these is ignorance, the worst stain of all. Having given up that stain, be without stains, mendicants!"
+    },
+    {
+      "id": "dhammapada_18_244",
+      "reference": "Dhammapada 244",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 244,
+      "text": "Life is easy for the shameless. With all the rude courage of a crow, they live pushy, rude, and corrupt."
+    },
+    {
+      "id": "dhammapada_18_245",
+      "reference": "Dhammapada 245",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 245,
+      "text": "Life is hard for the conscientious, always seeking purity, neither clinging nor rude, pure of livelihood and discerning."
+    },
+    {
+      "id": "dhammapada_18_246",
+      "reference": "Dhammapada 246",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 246,
+      "text": "Take anyone in this world who kills living creatures, speaks falsely, steals, commits adultery,"
+    },
+    {
+      "id": "dhammapada_18_247",
+      "reference": "Dhammapada 247",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 247,
+      "text": "and indulges in drinking beer and wine. Right here they dig up the root of their own self."
+    },
+    {
+      "id": "dhammapada_18_248",
+      "reference": "Dhammapada 248",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 248,
+      "text": "Know this, good fellow: they are unrestrained and wicked. Don’t let that greed and unrighteousness inflict pain on you for long."
+    },
+    {
+      "id": "dhammapada_18_249",
+      "reference": "Dhammapada 249",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 249,
+      "text": "The people give according to their faith, according to their confidence. If you get upset over that, over other’s food and drink, you’ll not, by day or by night, become immersed in samādhi."
+    },
+    {
+      "id": "dhammapada_18_250",
+      "reference": "Dhammapada 250",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 250,
+      "text": "Those who have cut that out, dug it up at the root, eradicated it, they will, by day or by night, become immersed in samādhi."
+    },
+    {
+      "id": "dhammapada_18_251",
+      "reference": "Dhammapada 251",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 251,
+      "text": "There is no fire like greed, no crime like hate, no net like delusion, no river like craving."
+    },
+    {
+      "id": "dhammapada_18_252",
+      "reference": "Dhammapada 252",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 252,
+      "text": "It’s easy to see the faults of others, hard to see one’s own. For the faults of others are tossed high like hay, while one’s own are hidden, as a cheat hides a bad hand."
+    },
+    {
+      "id": "dhammapada_18_253",
+      "reference": "Dhammapada 253",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 253,
+      "text": "When you look for the flaws of others, always finding fault, your defilements only grow, you’re far from ending defilements."
+    },
+    {
+      "id": "dhammapada_18_254",
+      "reference": "Dhammapada 254",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 254,
+      "text": "In the atmosphere there is no track, there’s no true ascetic outside here. People enjoy proliferation, the Realized Ones are free of proliferation."
+    },
+    {
+      "id": "dhammapada_18_255",
+      "reference": "Dhammapada 255",
+      "book": "18. Stains",
+      "chapter": 18,
+      "verse": 255,
+      "text": "In the atmosphere there is no track, there’s no true ascetic outside here. No conditions last forever, the Awakened Ones are not shaken."
+    },
+    {
+      "id": "dhammapada_19_256",
+      "reference": "Dhammapada 256",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 256,
+      "text": "You don’t become just by passing hasty judgment. An astute person evaluates both what is pertinent and what is irrelevant."
+    },
+    {
+      "id": "dhammapada_19_257",
+      "reference": "Dhammapada 257",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 257,
+      "text": "A wise one judges others without haste, justly and impartially; that guardian of the law is said to be just."
+    },
+    {
+      "id": "dhammapada_19_258",
+      "reference": "Dhammapada 258",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 258,
+      "text": "You’re not an astute scholar just because you speak a lot. One who is secure, free of enmity and fear, is said to be astute."
+    },
+    {
+      "id": "dhammapada_19_259",
+      "reference": "Dhammapada 259",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 259,
+      "text": "You’re not one who has memorized the teaching just because you recite a lot. Someone who directly sees the teaching after hearing only a little is truly one who has memorized the teaching, for they can never forget it."
+    },
+    {
+      "id": "dhammapada_19_260",
+      "reference": "Dhammapada 260",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 260,
+      "text": "You don’t become a senior by getting some grey hairs; for one ripe only in age, is said to have aged in vain."
+    },
+    {
+      "id": "dhammapada_19_261",
+      "reference": "Dhammapada 261",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 261,
+      "text": "One who is truthful and principled, harmless, restrained, and self-controlled, attentive, purged of stains, is said to be a senior."
+    },
+    {
+      "id": "dhammapada_19_262",
+      "reference": "Dhammapada 262",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 262,
+      "text": "Not by mere enunciation, or a beautiful complexion does a person become holy, if they’re jealous, stingy, and devious."
+    },
+    {
+      "id": "dhammapada_19_263",
+      "reference": "Dhammapada 263",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 263,
+      "text": "But if they’ve cut that out, dug it up at the root, eradicated it, that wise one, purged of vice, is said to be holy."
+    },
+    {
+      "id": "dhammapada_19_264",
+      "reference": "Dhammapada 264",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 264,
+      "text": "A liar and breaker of vows is no ascetic just because they shave their head. How on earth can one be an ascetic who’s full of desire and greed?"
+    },
+    {
+      "id": "dhammapada_19_265",
+      "reference": "Dhammapada 265",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 265,
+      "text": "One who stops all wicked deeds, great and small, because of stopping wicked deeds is said to be an ascetic."
+    },
+    {
+      "id": "dhammapada_19_266",
+      "reference": "Dhammapada 266",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 266,
+      "text": "You don’t become a mendicant just by begging from others. One who has undertaken domestic duties has not yet become a mendicant."
+    },
+    {
+      "id": "dhammapada_19_267",
+      "reference": "Dhammapada 267",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 267,
+      "text": "But one living a spiritual life, who has banished both merit and evil, who wanders having appraised the world, is said to be a mendicant."
+    },
+    {
+      "id": "dhammapada_19_268",
+      "reference": "Dhammapada 268",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 268,
+      "text": "You don’t become a sage by being sagelike, while still confused and ignorant. The astute one who holds the scales, taking only the best,"
+    },
+    {
+      "id": "dhammapada_19_269",
+      "reference": "Dhammapada 269",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 269,
+      "text": "and shunning the bad— that is a sage, <j>and that is how one becomes a sage. One who sagely weighs both in the world, is thereby said to be a sage."
+    },
+    {
+      "id": "dhammapada_19_270",
+      "reference": "Dhammapada 270",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 270,
+      "text": "You don’t become a noble one by harming living beings. One harmless towards all living beings is said to be a noble one."
+    },
+    {
+      "id": "dhammapada_19_271",
+      "reference": "Dhammapada 271",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 271,
+      "text": "Not by precepts and observances, nor by much learning, nor by meditative immersion, nor by living in seclusion,"
+    },
+    {
+      "id": "dhammapada_19_272",
+      "reference": "Dhammapada 272",
+      "book": "19. The Just",
+      "chapter": 19,
+      "verse": 272,
+      "text": "do I experience the bliss of renunciation not frequented by ordinary people. A mendicant cannot rest confident without attaining the end of defilements."
+    },
+    {
+      "id": "dhammapada_20_273",
+      "reference": "Dhammapada 273",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 273,
+      "text": "Of paths, the eightfold is the best; of truths, the four statements; dispassion is the best of things, and the Clear-eyed One is the best of humans."
+    },
+    {
+      "id": "dhammapada_20_274",
+      "reference": "Dhammapada 274",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 274,
+      "text": "<em>This</em> is the path, there is no other for the purification of vision. You all must practice this, it is the way to baffle Māra."
+    },
+    {
+      "id": "dhammapada_20_275",
+      "reference": "Dhammapada 275",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 275,
+      "text": "When you all are practicing this, you will make an end of suffering. I have explained the path to you for extracting the thorn with wisdom."
+    },
+    {
+      "id": "dhammapada_20_276",
+      "reference": "Dhammapada 276",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 276,
+      "text": "You yourselves must do the work, the Realized Ones just show the way. Meditators practicing absorption are released from Māra’s bonds."
+    },
+    {
+      "id": "dhammapada_20_277",
+      "reference": "Dhammapada 277",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 277,
+      "text": "All conditions are impermanent— when this is seen with wisdom, one grows disillusioned with suffering: this is the path to purity."
+    },
+    {
+      "id": "dhammapada_20_278",
+      "reference": "Dhammapada 278",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 278,
+      "text": "All conditions are suffering— when this is seen with wisdom, one grows disillusioned with suffering: this is the path to purity."
+    },
+    {
+      "id": "dhammapada_20_279",
+      "reference": "Dhammapada 279",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 279,
+      "text": "All things are not-self— when this is seen with wisdom, one grows disillusioned with suffering: this is the path to purity."
+    },
+    {
+      "id": "dhammapada_20_280",
+      "reference": "Dhammapada 280",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 280,
+      "text": "They don’t get going when it’s time to start; they’re young and strong, but given to sloth. Their mind depressed in sunken thought, lazy and slothful, they can’t discern the path."
+    },
+    {
+      "id": "dhammapada_20_281",
+      "reference": "Dhammapada 281",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 281,
+      "text": "Guarded in speech, restrained in mind, doing no unskillful bodily deed. Purify these three ways of performing deeds, and win the path known to seers."
+    },
+    {
+      "id": "dhammapada_20_282",
+      "reference": "Dhammapada 282",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 282,
+      "text": "From meditation springs wisdom, without meditation, wisdom ends. Knowing these two paths— of progress and decline— you should conduct yourself so that wisdom grows."
+    },
+    {
+      "id": "dhammapada_20_283",
+      "reference": "Dhammapada 283",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 283,
+      "text": "Cut down the jungle, not just a tree; from the jungle springs fear. Having cut down jungle and snarl, be free of jungles, mendicants!"
+    },
+    {
+      "id": "dhammapada_20_284",
+      "reference": "Dhammapada 284",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 284,
+      "text": "So long as the vine, no matter how small, that ties a man to women is not cut, his mind remains trapped, like a calf suckling its mother."
+    },
+    {
+      "id": "dhammapada_20_285",
+      "reference": "Dhammapada 285",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 285,
+      "text": "Cut out affection for oneself, like plucking an autumn lotus. Foster only the path to peace, the extinguishment the Holy One taught."
+    },
+    {
+      "id": "dhammapada_20_286",
+      "reference": "Dhammapada 286",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 286,
+      "text": "“Here I will stay for the rains; here for winter, here the summer”; thus the fool thinks, not realizing the danger."
+    },
+    {
+      "id": "dhammapada_20_287",
+      "reference": "Dhammapada 287",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 287,
+      "text": "As a mighty flood sweeps away a sleeping village, death steals away a man who dotes on children and cattle, his mind caught up in them."
+    },
+    {
+      "id": "dhammapada_20_288",
+      "reference": "Dhammapada 288",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 288,
+      "text": "Children provide you no shelter, nor does father, nor relatives. When you’re seized by the terminator, there’s no shelter in family."
+    },
+    {
+      "id": "dhammapada_20_289",
+      "reference": "Dhammapada 289",
+      "book": "20. The Path",
+      "chapter": 20,
+      "verse": 289,
+      "text": "Knowing the reason for this, astute, and ethically restrained, one would quickly clear the path that leads to extinguishment."
+    },
+    {
+      "id": "dhammapada_21_290",
+      "reference": "Dhammapada 290",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 290,
+      "text": "If by giving up material happiness one sees abundant happiness, the attentive would give up material happiness, seeing the abundant happiness."
+    },
+    {
+      "id": "dhammapada_21_291",
+      "reference": "Dhammapada 291",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 291,
+      "text": "Seeking their own happiness by imposing suffering on others, living intimate with enmity, they’re not freed from enmity."
+    },
+    {
+      "id": "dhammapada_21_292",
+      "reference": "Dhammapada 292",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 292,
+      "text": "They dump what should be done, and do what should not be done. For the insolent and the negligent, their defilements only grow."
+    },
+    {
+      "id": "dhammapada_21_293",
+      "reference": "Dhammapada 293",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 293,
+      "text": "Those that have properly undertaken constant mindfulness of the body, don’t cultivate what should not be done, but always do what should be done. Mindful and aware, their defilements come to an end."
+    },
+    {
+      "id": "dhammapada_21_294",
+      "reference": "Dhammapada 294",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 294,
+      "text": "Having slain mother and father, and two aristocratic kings, and having wiped out <j>the kingdom with its tax collector, the brahmin walks on untroubled."
+    },
+    {
+      "id": "dhammapada_21_295",
+      "reference": "Dhammapada 295",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 295,
+      "text": "Having slain mother and father, and two prosperous kings, and a tiger as the fifth, the brahmin walks on untroubled."
+    },
+    {
+      "id": "dhammapada_21_296",
+      "reference": "Dhammapada 296",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 296,
+      "text": "The disciples of Gotama always wake up refreshed, who day and night constantly recollect the Buddha."
+    },
+    {
+      "id": "dhammapada_21_297",
+      "reference": "Dhammapada 297",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 297,
+      "text": "The disciples of Gotama always wake up refreshed, who day and night constantly recollect the teaching."
+    },
+    {
+      "id": "dhammapada_21_298",
+      "reference": "Dhammapada 298",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 298,
+      "text": "The disciples of Gotama always wake up refreshed, who day and night constantly recollect the Saṅgha."
+    },
+    {
+      "id": "dhammapada_21_299",
+      "reference": "Dhammapada 299",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 299,
+      "text": "The disciples of Gotama always wake up refreshed, who day and night are constantly mindful of the body."
+    },
+    {
+      "id": "dhammapada_21_300",
+      "reference": "Dhammapada 300",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 300,
+      "text": "The disciples of Gotama always wake up refreshed, whose minds day and night delight in harmlessness."
+    },
+    {
+      "id": "dhammapada_21_301",
+      "reference": "Dhammapada 301",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 301,
+      "text": "The disciples of Gotama always wake up refreshed, whose minds day and night delight in meditation."
+    },
+    {
+      "id": "dhammapada_21_302",
+      "reference": "Dhammapada 302",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 302,
+      "text": "Going forth is hard, it’s hard to be happy; life at home is hard too, and painful, it’s painful to stay when you’ve nothing in common. A traveler is a prey to pain, so don’t be a traveler, don’t be prey to pain."
+    },
+    {
+      "id": "dhammapada_21_303",
+      "reference": "Dhammapada 303",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 303,
+      "text": "One who is faithful, accomplished in ethics, blessed with fame and wealth, is honored in whatever place they frequent."
+    },
+    {
+      "id": "dhammapada_21_304",
+      "reference": "Dhammapada 304",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 304,
+      "text": "The good shine from afar, like the Himalayan peaks, but the wicked are not seen, like arrows scattered in the night."
+    },
+    {
+      "id": "dhammapada_21_305",
+      "reference": "Dhammapada 305",
+      "book": "21. Miscellaneous",
+      "chapter": 21,
+      "verse": 305,
+      "text": "Sitting alone, sleeping alone, tirelessly wandering alone; one who tames themselves alone would delight within a forest."
+    },
+    {
+      "id": "dhammapada_22_306",
+      "reference": "Dhammapada 306",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 306,
+      "text": "A liar goes to hell, as does one who denies what they did. Both are equal in the hereafter, those men of base deeds."
+    },
+    {
+      "id": "dhammapada_22_307",
+      "reference": "Dhammapada 307",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 307,
+      "text": "Many who wear a scrap of ocher cloth are unrestrained and wicked. Being wicked, they are reborn in hell due to their bad deeds."
+    },
+    {
+      "id": "dhammapada_22_308",
+      "reference": "Dhammapada 308",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 308,
+      "text": "It’d be better for the immoral and unrestrained to eat an iron ball, scorching, like a burning flame, than to eat the nation’s alms."
+    },
+    {
+      "id": "dhammapada_22_309",
+      "reference": "Dhammapada 309",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 309,
+      "text": "Four things befall a heedless man who sleeps with another’s wife: wickedness, poor sleep, ill-repute, and rebirth in hell."
+    },
+    {
+      "id": "dhammapada_22_310",
+      "reference": "Dhammapada 310",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 310,
+      "text": "He accrues wickedness and is reborn in a bad place, all so a frightened couple <j>may snatch a moment’s pleasure, for which rulers impose a heavy punishment. That’s why a man should not <j>sleep with another’s wife."
+    },
+    {
+      "id": "dhammapada_22_311",
+      "reference": "Dhammapada 311",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 311,
+      "text": "When kusa grass is wrongly grasped it only cuts the hand. So too, the ascetic life, when wrongly taken, drags you to hell."
+    },
+    {
+      "id": "dhammapada_22_312",
+      "reference": "Dhammapada 312",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 312,
+      "text": "Any lax act, any corrupt observance, or suspicious spiritual life, is not very fruitful."
+    },
+    {
+      "id": "dhammapada_22_313",
+      "reference": "Dhammapada 313",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 313,
+      "text": "If one is to do what should be done, one should staunchly strive. For the life gone forth when laxly led just stirs up dust all the more."
+    },
+    {
+      "id": "dhammapada_22_314",
+      "reference": "Dhammapada 314",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 314,
+      "text": "A bad deed is better left undone, for it will plague you later on. A good deed is better done, one that does not plague you."
+    },
+    {
+      "id": "dhammapada_22_315",
+      "reference": "Dhammapada 315",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 315,
+      "text": "As a frontier city is guarded inside and out, so you should ward yourselves— don’t let the moment pass you by. For if you miss your moment you’ll grieve when sent to hell."
+    },
+    {
+      "id": "dhammapada_22_316",
+      "reference": "Dhammapada 316",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 316,
+      "text": "Unashamed of what is shameful, ashamed of what is not shameful; beings who uphold wrong view go to a bad place."
+    },
+    {
+      "id": "dhammapada_22_317",
+      "reference": "Dhammapada 317",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 317,
+      "text": "Seeing danger where there is none, and blind to the actual danger, beings who uphold wrong view go to a bad place."
+    },
+    {
+      "id": "dhammapada_22_318",
+      "reference": "Dhammapada 318",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 318,
+      "text": "Seeing fault where there is none, and blind to the actual fault, beings who uphold wrong view go to a bad place."
+    },
+    {
+      "id": "dhammapada_22_319",
+      "reference": "Dhammapada 319",
+      "book": "22. Hell",
+      "chapter": 22,
+      "verse": 319,
+      "text": "Knowing a fault as a fault and the faultless as faultless, beings who uphold right view go to a good place."
+    },
+    {
+      "id": "dhammapada_23_320",
+      "reference": "Dhammapada 320",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 320,
+      "text": "Like an elephant struck with arrows in battle, I shall withstand abuse, for so many folk are badly behaved."
+    },
+    {
+      "id": "dhammapada_23_321",
+      "reference": "Dhammapada 321",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 321,
+      "text": "The well-tamed beast is the one led to the crowd; the tamed elephant’s the one the king mounts; the tamed person who withstands abuse is the best of human beings."
+    },
+    {
+      "id": "dhammapada_23_322",
+      "reference": "Dhammapada 322",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 322,
+      "text": "Those who have tamed themselves are better than fine tamed mules, thoroughbreds from Sindh, or giant tuskers."
+    },
+    {
+      "id": "dhammapada_23_323",
+      "reference": "Dhammapada 323",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 323,
+      "text": "For not on those mounts would you go to the untrodden place, whereas, with the help of one <j>whose self is well tamed, you go there, tamed by the tamed."
+    },
+    {
+      "id": "dhammapada_23_324",
+      "reference": "Dhammapada 324",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 324,
+      "text": "The tusker named Dhanapāla is musky in rut, hard to control. Bound, he eats not a morsel, for he misses the elephant forest."
+    },
+    {
+      "id": "dhammapada_23_325",
+      "reference": "Dhammapada 325",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 325,
+      "text": "One who gets drowsy from overeating, fond of sleep, rolling round the bed like a great hog stuffed with grain: that dullard returns to the womb again and again."
+    },
+    {
+      "id": "dhammapada_23_326",
+      "reference": "Dhammapada 326",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 326,
+      "text": "In the past my mind wandered how it wished, where it liked, as it pleased. Now I’ll carefully guide it, as a trainer with a hook guides a rutting elephant."
+    },
+    {
+      "id": "dhammapada_23_327",
+      "reference": "Dhammapada 327",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 327,
+      "text": "Delight in diligence! Take good care of your mind! Pull yourself out of this pit, like an elephant sunk in a bog."
+    },
+    {
+      "id": "dhammapada_23_328",
+      "reference": "Dhammapada 328",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 328,
+      "text": "If you find an alert companion, an attentive friend to live happily together, then, overcoming all adversities, wander with them, joyful and mindful."
+    },
+    {
+      "id": "dhammapada_23_329",
+      "reference": "Dhammapada 329",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 329,
+      "text": "If you find no alert companion, no attentive friend to live happily together, then, like a king who flees his conquered realm, wander alone like a tusker in the wilds."
+    },
+    {
+      "id": "dhammapada_23_330",
+      "reference": "Dhammapada 330",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 330,
+      "text": "It’s better to wander alone, there’s no fellowship with fools. Wander alone and do no wrong, at ease like a tusker in the wilds."
+    },
+    {
+      "id": "dhammapada_23_331",
+      "reference": "Dhammapada 331",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 331,
+      "text": "A friend in need is a blessing; it’s a blessing to be content with whatever; good deeds are a blessing at the end of life, and giving up all suffering is a blessing."
+    },
+    {
+      "id": "dhammapada_23_332",
+      "reference": "Dhammapada 332",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 332,
+      "text": "In this world it’s a blessing to serve one’s mother and one’s father. And it’s a blessing also to serve ascetics and brahmins."
+    },
+    {
+      "id": "dhammapada_23_333",
+      "reference": "Dhammapada 333",
+      "book": "23. The Elephant",
+      "chapter": 23,
+      "verse": 333,
+      "text": "It’s a blessing to keep precepts until you grow old; a blessing to be grounded in faith; the getting of wisdom’s a blessing; and it’s a blessing to avoid doing wrong."
+    },
+    {
+      "id": "dhammapada_24_334",
+      "reference": "Dhammapada 334",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 334,
+      "text": "When a man lives heedlessly, craving grows in them like a camel’s foot creeper. They jump from one thing to the next, like a langur greedy for fruit in a forest grove."
+    },
+    {
+      "id": "dhammapada_24_335",
+      "reference": "Dhammapada 335",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 335,
+      "text": "Whoever is beaten by this wretched craving, this attachment to the world, their sorrow grows, like grass in the rain."
+    },
+    {
+      "id": "dhammapada_24_336",
+      "reference": "Dhammapada 336",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 336,
+      "text": "But whoever prevails over this wretched craving, so hard to get over in the world, their sorrows fall from them, like a drop from a lotus-leaf."
+    },
+    {
+      "id": "dhammapada_24_337",
+      "reference": "Dhammapada 337",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 337,
+      "text": "I say this to you, good people, all those who have gathered here: dig up the root of craving, as you’d dig up grass in search of roots. Don’t let Māra break you again and again, like a stream breaking a reed."
+    },
+    {
+      "id": "dhammapada_24_338",
+      "reference": "Dhammapada 338",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 338,
+      "text": "A tree grows back even when cut down, so long as its roots are strong and undamaged; suffering springs up again and again, so long as the tendency to craving is not pulled out."
+    },
+    {
+      "id": "dhammapada_24_339",
+      "reference": "Dhammapada 339",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 339,
+      "text": "A person of low views in whom the thirty-six streams that flow to pleasure are mighty, is swept away by lustful thoughts."
+    },
+    {
+      "id": "dhammapada_24_340",
+      "reference": "Dhammapada 340",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 340,
+      "text": "The streams flow everywhere; a weed springs up and remains. Seeing this weed that has been born, cut the root with wisdom."
+    },
+    {
+      "id": "dhammapada_24_341",
+      "reference": "Dhammapada 341",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 341,
+      "text": "A personage’s joys flow from senses and cravings. Seekers of happiness, bent on pleasure, continue to be reborn and grow old."
+    },
+    {
+      "id": "dhammapada_24_342",
+      "reference": "Dhammapada 342",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 342,
+      "text": "People governed by thirst, crawl about like a trapped rabbit. Bound and fettered, for a long time they return to pain time and again."
+    },
+    {
+      "id": "dhammapada_24_343",
+      "reference": "Dhammapada 343",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 343,
+      "text": "People governed by thirst, crawl about like a trapped rabbit. That’s why one who longs for dispassion should dispel thirst."
+    },
+    {
+      "id": "dhammapada_24_344",
+      "reference": "Dhammapada 344",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 344,
+      "text": "Unsnarled, they set out for the jungle, then they run right back to the jungle they left behind. Just look at this individual! Freed, they run to bondage."
+    },
+    {
+      "id": "dhammapada_24_345",
+      "reference": "Dhammapada 345",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 345,
+      "text": "The attentive say that shackle is not strong that’s made of iron, wood, or knots. But obsession with jeweled earrings, concern for your partners and children:"
+    },
+    {
+      "id": "dhammapada_24_346",
+      "reference": "Dhammapada 346",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 346,
+      "text": "this, say the attentive, is a strong shackle dragging the indulgent down, hard to escape. Having cut this one too they go forth, unconcerned, having given up sensual pleasures."
+    },
+    {
+      "id": "dhammapada_24_347",
+      "reference": "Dhammapada 347",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 347,
+      "text": "Besotted by lust they fall into the stream, like a spider caught in the web she wove. The attentive proceed, having cut this one too, unconcerned, having given up all suffering."
+    },
+    {
+      "id": "dhammapada_24_348",
+      "reference": "Dhammapada 348",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 348,
+      "text": "Let go of the past, let go of the future, let go of the present, having gone beyond rebirth. With your heart freed in every respect, you’ll not come again to rebirth and old age."
+    },
+    {
+      "id": "dhammapada_24_349",
+      "reference": "Dhammapada 349",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 349,
+      "text": "For a personage churned by thoughts, very lustful, focusing on beauty, their craving grows and grows, tying them with a stout bond."
+    },
+    {
+      "id": "dhammapada_24_350",
+      "reference": "Dhammapada 350",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 350,
+      "text": "But one who loves to calm their thoughts, developing perception of ugliness, ever mindful, will surely eliminate that craving, cutting off the bonds of Māra."
+    },
+    {
+      "id": "dhammapada_24_351",
+      "reference": "Dhammapada 351",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 351,
+      "text": "One who is confident, unafraid, rid of craving, free of blemish, having struck down the arrows flying to future lives, this bag of bones is their last."
+    },
+    {
+      "id": "dhammapada_24_352",
+      "reference": "Dhammapada 352",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 352,
+      "text": "Rid of craving, free of grasping, expert in the definition of terms, knowing the correct structure and sequence of syllables, they are said to be one who bears their final body, one of great wisdom, a great person."
+    },
+    {
+      "id": "dhammapada_24_353",
+      "reference": "Dhammapada 353",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 353,
+      "text": "I am the champion, the knower of all, unsullied in the midst of all things. I’ve given up all, freed in the ending of craving. Since I know for myself, whose follower should I be?"
+    },
+    {
+      "id": "dhammapada_24_354",
+      "reference": "Dhammapada 354",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 354,
+      "text": "The gift of the teaching surmounts all other gifts; the taste of the teaching surmounts all other tastes; the joy of the teaching surmounts all other joys; the ending of craving surmounts all suffering."
+    },
+    {
+      "id": "dhammapada_24_355",
+      "reference": "Dhammapada 355",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 355,
+      "text": "Riches ruin a simpleton, but not a seeker of the far shore. From craving for wealth, a simpleton ruins themselves and others."
+    },
+    {
+      "id": "dhammapada_24_356",
+      "reference": "Dhammapada 356",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 356,
+      "text": "Weeds are the bane of crops, but greed is these folk’s bane. That’s why a gift to one rid of greed is so very fruitful."
+    },
+    {
+      "id": "dhammapada_24_357",
+      "reference": "Dhammapada 357",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 357,
+      "text": "Weeds are the bane of crops, but hate is these folk’s bane. That’s why a gift to one rid of hate is so very fruitful."
+    },
+    {
+      "id": "dhammapada_24_358",
+      "reference": "Dhammapada 358",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 358,
+      "text": "Weeds are the bane of crops, but delusion is these folk’s bane. That’s why a gift to one rid of delusion is so very fruitful."
+    },
+    {
+      "id": "dhammapada_24_359",
+      "reference": "Dhammapada 359",
+      "book": "24. Craving",
+      "chapter": 24,
+      "verse": 359,
+      "text": "Weeds are the bane of crops, but desire is these folk’s bane. That’s why a gift to one rid of desire is so very fruitful."
+    },
+    {
+      "id": "dhammapada_25_360",
+      "reference": "Dhammapada 360",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 360,
+      "text": "Restraint of the eye is good; good is restraint of the ear; restraint of the nose is good; good is restraint of the tongue."
+    },
+    {
+      "id": "dhammapada_25_361",
+      "reference": "Dhammapada 361",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 361,
+      "text": "Restraint of the body is good; good is restraint of speech; restraint of mind is good; everywhere, restraint is good. The mendicant restrained everywhere is released from all suffering."
+    },
+    {
+      "id": "dhammapada_25_362",
+      "reference": "Dhammapada 362",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 362,
+      "text": "One restrained in hand and foot, and in speech, the supreme restraint; happy inside, serene, solitary, content, I call a mendicant."
+    },
+    {
+      "id": "dhammapada_25_363",
+      "reference": "Dhammapada 363",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 363,
+      "text": "When a mendicant of restrained mouth, thoughtful in counsel, not restless, explains the text and its meaning, their words are sweet."
+    },
+    {
+      "id": "dhammapada_25_364",
+      "reference": "Dhammapada 364",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 364,
+      "text": "Delighting in the teaching, enjoying the teaching, contemplating the teaching, a mendicant who recollects the teaching doesn’t fall away from the true teaching."
+    },
+    {
+      "id": "dhammapada_25_365",
+      "reference": "Dhammapada 365",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 365,
+      "text": "A well-off mendicant ought not look down on others, nor should they be envious. A mendicant who envies others does not achieve immersion."
+    },
+    {
+      "id": "dhammapada_25_366",
+      "reference": "Dhammapada 366",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 366,
+      "text": "If a mendicant is poor in offerings, the well-to-do ought not look down on them. For the gods indeed praise them, who are tireless and pure of livelihood."
+    },
+    {
+      "id": "dhammapada_25_367",
+      "reference": "Dhammapada 367",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 367,
+      "text": "One who has no sense of ownership in the whole realm of name and form, who does not grieve for that which is not, is said to be a mendicant."
+    },
+    {
+      "id": "dhammapada_25_368",
+      "reference": "Dhammapada 368",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 368,
+      "text": "A mendicant who meditates on love, devoted to the Buddha’s teaching, would realize the peaceful state, the blissful stilling of conditions."
+    },
+    {
+      "id": "dhammapada_25_369",
+      "reference": "Dhammapada 369",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 369,
+      "text": "Bail out this boat, mendicant! When bailed out it will float lightly. Having cut off desire and hate, you shall reach extinguishment."
+    },
+    {
+      "id": "dhammapada_25_370",
+      "reference": "Dhammapada 370",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 370,
+      "text": "Five to cut, five to drop, and five more to develop. When a mendicant slips five chains they’re said to have crossed the flood."
+    },
+    {
+      "id": "dhammapada_25_371",
+      "reference": "Dhammapada 371",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 371,
+      "text": "Practice absorption, don’t be negligent! Don’t let the mind delight in the senses! Don’t heedlessly swallow a hot iron ball! And when it burns, don’t cry, “Oh, the pain!”"
+    },
+    {
+      "id": "dhammapada_25_372",
+      "reference": "Dhammapada 372",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 372,
+      "text": "No absorption for one without wisdom, no wisdom for one without absorption. But one with absorption and wisdom— they have truly drawn near to extinguishment."
+    },
+    {
+      "id": "dhammapada_25_373",
+      "reference": "Dhammapada 373",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 373,
+      "text": "A mendicant who enters an empty hut with mind at peace finds a superhuman delight as they rightly discern the Dhamma."
+    },
+    {
+      "id": "dhammapada_25_374",
+      "reference": "Dhammapada 374",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 374,
+      "text": "Whenever they are mindful of the rise and fall of the aggregates, they feel rapture and joy: that is freedom from death for one who knows."
+    },
+    {
+      "id": "dhammapada_25_375",
+      "reference": "Dhammapada 375",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 375,
+      "text": "This is the very start of the path for a wise mendicant: guarding the senses, contentment, and restraint in the monastic code."
+    },
+    {
+      "id": "dhammapada_25_376",
+      "reference": "Dhammapada 376",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 376,
+      "text": "Mix with spiritual friends, who are tireless and pure of livelihood. Share what you have with others, being skillful in your conduct. And when you’re full of joy, you’ll make an end to suffering."
+    },
+    {
+      "id": "dhammapada_25_377",
+      "reference": "Dhammapada 377",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 377,
+      "text": "As a jasmine sheds its withered flowers, O mendicants, shed greed and hate."
+    },
+    {
+      "id": "dhammapada_25_378",
+      "reference": "Dhammapada 378",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 378,
+      "text": "Calm in body, calm in speech, peaceful and serene; a mendicant who’s spat out the world’s bait is said to be one at peace."
+    },
+    {
+      "id": "dhammapada_25_379",
+      "reference": "Dhammapada 379",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 379,
+      "text": "Urge yourself on, reflect on yourself. A mendicant self-controlled and mindful will always dwell in happiness."
+    },
+    {
+      "id": "dhammapada_25_380",
+      "reference": "Dhammapada 380",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 380,
+      "text": "Self is indeed the lord of self, for who else would be one’s lord? Self is indeed the home of self, so restrain yourself, as a merchant his thoroughbred steed."
+    },
+    {
+      "id": "dhammapada_25_381",
+      "reference": "Dhammapada 381",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 381,
+      "text": "A monk full of joy trusting in the Buddha’s teaching, would realize the peaceful state, the blissful stilling of conditions."
+    },
+    {
+      "id": "dhammapada_25_382",
+      "reference": "Dhammapada 382",
+      "book": "25. Mendicants",
+      "chapter": 25,
+      "verse": 382,
+      "text": "A young mendicant devoted to the Buddha’s teaching, lights up the world, like the moon freed from clouds."
+    },
+    {
+      "id": "dhammapada_26_383",
+      "reference": "Dhammapada 383",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 383,
+      "text": "Cut the stream, striving! Cast aside sensual pleasures, brahmin. Knowing the ending of conditions, know the uncreated, brahmin."
+    },
+    {
+      "id": "dhammapada_26_384",
+      "reference": "Dhammapada 384",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 384,
+      "text": "When a brahmin has gone beyond dualistic phenomena, then they consciously make an end of all fetters."
+    },
+    {
+      "id": "dhammapada_26_385",
+      "reference": "Dhammapada 385",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 385,
+      "text": "One for whom there is no crossing over or crossing back, or crossing over and back; stress-free, detached, that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_386",
+      "reference": "Dhammapada 386",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 386,
+      "text": "Absorbed, rid of hopes, their task completed, without defilements, arrived at the highest goal: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_387",
+      "reference": "Dhammapada 387",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 387,
+      "text": "The sun blazes by day, the moon radiates at night, the aristocrat shines in armor, and the brahmin shines in absorption. But all day and all night, the Buddha blazes with glory."
+    },
+    {
+      "id": "dhammapada_26_388",
+      "reference": "Dhammapada 388",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 388,
+      "text": "A brahmin’s so-called <j>since they’ve banished evil, an ascetic’s so-called <j>since they live a serene life. One who has renounced all stains is said to be a “renunciant”."
+    },
+    {
+      "id": "dhammapada_26_389",
+      "reference": "Dhammapada 389",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 389,
+      "text": "One should never strike a brahmin, nor should a brahmin retaliate. Woe to the one who hurts a brahmin, and woe for the one who retaliates."
+    },
+    {
+      "id": "dhammapada_26_390",
+      "reference": "Dhammapada 390",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 390,
+      "text": "Nothing is better for a brahmin than to hold their mind back from attachment. From wherever a cruel wish recoils, right there suffering subsides."
+    },
+    {
+      "id": "dhammapada_26_391",
+      "reference": "Dhammapada 391",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 391,
+      "text": "Who does nothing wrong by body, speech or mind, restrained in these three respects, that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_392",
+      "reference": "Dhammapada 392",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 392,
+      "text": "You should graciously honor the one from whom you learn the Dhamma taught by the awakened Buddha, as a brahmin honors the sacred flame."
+    },
+    {
+      "id": "dhammapada_26_393",
+      "reference": "Dhammapada 393",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 393,
+      "text": "Not by matted hair or family, or birth is one a brahmin. Those who are truthful and principled: they are pure, they are brahmins."
+    },
+    {
+      "id": "dhammapada_26_394",
+      "reference": "Dhammapada 394",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 394,
+      "text": "Why the matted hair, you simpleton, and why the skin of deer? The tangle is inside you, yet you polish up your outsides."
+    },
+    {
+      "id": "dhammapada_26_395",
+      "reference": "Dhammapada 395",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 395,
+      "text": "A personage who wears robes of rags, lean, their limbs showing veins, meditating alone in the forest, that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_396",
+      "reference": "Dhammapada 396",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 396,
+      "text": "I don’t call someone a brahmin after the mother’s womb they’re born from. If they still have attachments, they’re just someone who says “worthy”. Having nothing, taking nothing: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_397",
+      "reference": "Dhammapada 397",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 397,
+      "text": "Having cut off all fetters they have no anxiety. They’ve slipped their chains and are detached: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_398",
+      "reference": "Dhammapada 398",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 398,
+      "text": "They’ve cut the strap and harness, the halter and bridle too, with cross-bar lifted, they’re awakened: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_399",
+      "reference": "Dhammapada 399",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 399,
+      "text": "Abuse, killing, caging: they withstand these without anger. Patience is their powerful army: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_400",
+      "reference": "Dhammapada 400",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 400,
+      "text": "Not irritable or pretentious, dutiful in precepts and observances, tamed, bearing their final body: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_401",
+      "reference": "Dhammapada 401",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 401,
+      "text": "Like water from a lotus leaf, like a mustard seed off a pin-point, sensual pleasures slip off them: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_402",
+      "reference": "Dhammapada 402",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 402,
+      "text": "They understand for themselves the end of suffering in this life; with burden put down, detached: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_403",
+      "reference": "Dhammapada 403",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 403,
+      "text": "Deep in wisdom, intelligent, expert in the path and what is not the path; arrived at the highest goal: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_404",
+      "reference": "Dhammapada 404",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 404,
+      "text": "Mixing with neither householders nor the homeless; a migrant with no bastion, few in wishes: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_405",
+      "reference": "Dhammapada 405",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 405,
+      "text": "They’ve laid aside violence against creatures firm and frail; not killing or making others kill: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_406",
+      "reference": "Dhammapada 406",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 406,
+      "text": "Not fighting among those who fight, quenched among those who have taken up arms, not grasping among those who grasp: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_407",
+      "reference": "Dhammapada 407",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 407,
+      "text": "They’ve discarded greed and hate, along with conceit and contempt, like a mustard seed off the point of a pin: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_408",
+      "reference": "Dhammapada 408",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 408,
+      "text": "The words they utter are polished, informative, and true, and don’t offend anyone: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_409",
+      "reference": "Dhammapada 409",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 409,
+      "text": "They don’t steal anything in the world, long or short, fine or coarse, beautiful or ugly: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_410",
+      "reference": "Dhammapada 410",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 410,
+      "text": "They have no hope in this world or the next; with no need for hope, detached: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_411",
+      "reference": "Dhammapada 411",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 411,
+      "text": "They have no clinging, knowledge has freed them of indecision, they’ve arrived at the objective, freedom from death: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_412",
+      "reference": "Dhammapada 412",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 412,
+      "text": "They’ve escaped clinging to both good and bad deeds; sorrowless, stainless, pure: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_413",
+      "reference": "Dhammapada 413",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 413,
+      "text": "Pure as the spotless moon, clear and undisturbed, they’ve ended relish for rebirth: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_414",
+      "reference": "Dhammapada 414",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 414,
+      "text": "They’ve got past this grueling swamp of delusion, transmigration. Meditating in stillness, free of indecision, they have crossed over to the far shore. They’re quenched by not grasping: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_415",
+      "reference": "Dhammapada 415",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 415,
+      "text": "They’ve given up sensual stimulations, and have gone forth from lay life; they’ve ended rebirth in the sensual realm: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_416",
+      "reference": "Dhammapada 416",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 416,
+      "text": "They’ve given up craving, and have gone forth from lay life; they’ve ended craving to be reborn: that’s who I declare a brahmin. They’ve given up craving, and have gone forth from lay life; they’ve ended craving to be reborn: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_417",
+      "reference": "Dhammapada 417",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 417,
+      "text": "They’ve thrown off the human yoke, and slipped out of the heavenly yoke; unyoked from all yokes: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_418",
+      "reference": "Dhammapada 418",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 418,
+      "text": "Giving up desire and discontent, they’re cooled and free of attachments; a hero, master of the whole world: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_419",
+      "reference": "Dhammapada 419",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 419,
+      "text": "They know the passing away and rebirth of all beings; unattached, holy, awakened: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_420",
+      "reference": "Dhammapada 420",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 420,
+      "text": "Gods, centaurs, and humans don’t know their destiny; the perfected ones with defilements ended: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_421",
+      "reference": "Dhammapada 421",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 421,
+      "text": "They have nothing before or after, or even in between. Having nothing, taking nothing: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_422",
+      "reference": "Dhammapada 422",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 422,
+      "text": "Captain of the herd, excellent hero, great seer and victor; unstirred, washed, awakened: that’s who I declare a brahmin."
+    },
+    {
+      "id": "dhammapada_26_423",
+      "reference": "Dhammapada 423",
+      "book": "26. Brahmins",
+      "chapter": 26,
+      "verse": 423,
+      "text": "One who knows their past lives, sees heaven and places of loss, and has attained the end of rebirth; a sage of perfect insight at the summit of spiritual perfection: that’s who I declare a brahmin. The Sayings of the Dhamma are completed."
     }
   ]
 }

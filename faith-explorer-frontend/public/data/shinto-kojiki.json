@@ -1,71 +1,167 @@
 {
   "religion": "shinto",
-  "source": "Kojiki",
-  "version": "Basil Hall Chamberlain Translation",
+  "source": "Kojiki (Records of Ancient Matters)",
+  "version": "Basil Hall Chamberlain Translation (1882, Public Domain)",
   "verses": [
     {
       "id": "kojiki_1_1",
-      "reference": "Kojiki 1:1",
-      "book": "Kojiki",
+      "reference": "Kojiki Section 1",
+      "book": "Part I: The Beginning of Heaven and Earth",
       "chapter": 1,
       "verse": 1,
-      "text": "The names of the deities that were born in the Plain of High Heaven when the Heaven and Earth began were the deity Master-of-the-August-Center-of-Heaven; next, the High-August-Producing-Wondrous deity; next, the Divine-Producing-Wondrous deity."
+      "text": "The names of the deities that were born in the Plain of High Heaven when the Heaven and Earth began were the deity Master-of-the-August-Center-of-Heaven; next, the High-August-Producing-Wondrous deity; next, the Divine-Producing-Wondrous deity. These three deities were all deities born alone, and hid their persons. The names of the deities that were born next from a thing that sprouted up like unto a reed-shoot when the earth, young and like unto floating oil, drifted about medusa-like, were the Pleasant-Reed-Shoot-Prince-Elder deity, next the Heavenly-Eternally-Standing deity. These two deities were likewise born alone, and hid their persons. The five deities in the above list are separate Heavenly deities."
     },
     {
       "id": "kojiki_1_2",
-      "reference": "Kojiki 1:2",
-      "book": "Kojiki",
+      "reference": "Kojiki Section 2",
+      "book": "Part I: The Seven Divine Generations",
       "chapter": 1,
       "verse": 2,
-      "text": "These three deities were all deities born alone, and hid their persons. The names of the deities that were born next from a thing that sprouted up like unto a reed-shoot when the earth, young and like unto floating oil, drifted about medusa-like, were the Pleasant-Reed-Shoot-Prince-Elder deity, next the Heavenly-Eternally-Standing deity."
+      "text": "The names of the deities that were born next were the Earthly-Eternally-Standing deity; next, the Luxuriant-Integrating-Master deity. These two deities were likewise deities born alone, and hid their persons. The names of the deities that were born next were the deity Mud-Earth-Lord; next, his younger sister the deity Mud-Earth-Lady; next, the Germ-Integrating deity; next, his younger sister the Life-Integrating-Deity; next, the deity of Elder-of-the-Great-Place; next, his younger sister the deity Elder-Lady-of-the-Great-Place; next, the deity Perfect-Exterior; next, his younger sister the deity Oh-Awful-Lady; next, the deity Izanagi or the Male-Who-Invites; next, his younger sister Izanami or the deity the Female-Who-Invites."
     },
     {
       "id": "kojiki_1_3",
-      "reference": "Kojiki 1:3",
-      "book": "Kojiki",
+      "reference": "Kojiki Section 3",
+      "book": "Part I: The Island of Onogoro",
       "chapter": 1,
       "verse": 3,
-      "text": "These two deities likewise were born alone, and hid their persons. The five deities in the above section are separate Heavenly deities."
+      "text": "Hereupon all the Heavenly deities commanded the two deities His Augustness the Male-Who-Invites and Her Augustness the Female-Who-Invites, ordering them to 'make, consolidate, and give birth to this drifting land.' Granting to them a heavenly jeweled spear, they thus deigned to charge them. So the two deities, standing upon the Floating Bridge of Heaven pushed down the jeweled spear and stirred with it, whereupon, when they had stirred the brine till it went curdle-curdle, and drew the spear up, the brine that dripped down from the end of the spear was piled up and became an island. This is the Island of Onogoro."
     },
     {
-      "id": "kojiki_2_1",
-      "reference": "Kojiki 2:1",
-      "book": "Kojiki",
-      "chapter": 2,
-      "verse": 1,
-      "text": "The names of the deities that were born next were the Earthly-Eternally-Standing deity; next, the Luxuriant-Integrating-Master deity. These two deities likewise were born alone, and hid their persons."
+      "id": "kojiki_1_4",
+      "reference": "Kojiki Section 4",
+      "book": "Part I: Courtship of the Deities",
+      "chapter": 1,
+      "verse": 4,
+      "text": "Having descended from Heaven on to this island, they saw to the erection of a heavenly august pillar, they saw to the erection of a hall of eight fathoms. Then Izanagi, the Male-Who-Invites, said to Izanami, the Female-Who-Invites, 'We should create children'; and he said, 'Let us go around the heavenly august pillar, and when we meet on the other side let us be united. Do you go around from the left, and I will go from the right.'"
     },
     {
-      "id": "kojiki_8_1",
-      "reference": "Kojiki 8:1",
-      "book": "Kojiki",
-      "chapter": 8,
-      "verse": 1,
-      "text": "So when the Heaven and Earth began, three deities were produced in the Plain of High Heaven, and their names were the deity Master-of-the-August-Center-of-Heaven; next, the High-August-Producing-Wondrous deity; next, the Divine-Producing-Wondrous deity."
+      "id": "kojiki_1_5",
+      "reference": "Kojiki Section 5",
+      "book": "Part I: Birth of the Eight Islands",
+      "chapter": 1,
+      "verse": 5,
+      "text": "Next they gave birth to the Island of Futa-na in Iyo. This island has one body and four faces, and each face has a name. So the Land of Iyo is called Lovely-Princess; the Land of Sanuki is called Princess-Good-Boiled-Rice; the Land of Aha is called the Princess-of-Great-Food, the Land of Tosa is called Brave-Good-Youth. The name of 'Land-of-the-Eight-Great-Islands' therefore originated in these eight islands having been born first."
     },
     {
-      "id": "kojiki_11_1",
-      "reference": "Kojiki 11:1",
-      "book": "Kojiki",
-      "chapter": 11,
-      "verse": 1,
-      "text": "The names of the deities that were born next were the deity Great-Male-of-the-Great-Thing; next, the deity Rock-Earth-Prince; next, the deity Rock-Nest-Princess; next, the deity Great-Door-Sun-Youth; next, the deity Heavenly-Blowing-Male; next, the deity Great-House-Prince; next, the deity Youth-of-the-Wind-Breath-the-Great-Male; next, the deity Sea-Deity, whose name was the deity Great-Ocean-Possessor; next, the deity Mountain-Deity, whose name was the deity Great-Mountain-Possessor; next, the deity Moor-Deity, whose name was the deity Heavenly-Elder-of-the-Moor; next, the deity Valley-Deity, whose name was the deity Heavenly-Elder-of-the-Valley."
+      "id": "kojiki_1_6",
+      "reference": "Kojiki Section 6",
+      "book": "Part I: Birth of the Various Deities",
+      "chapter": 1,
+      "verse": 6,
+      "text": "When they had finished giving birth to countries, they began afresh giving birth to deities. So the name of the deity they gave birth to was the deity Great-Male-of-the-Great-Thing; next, they gave birth to the deity Rock-Earth-Prince; next, they gave birth to the deity Rock-Nest-Princess; next, they gave birth to the deity Great-Door-Sun-Youth; next, they gave birth to the deity Heavenly-Blowing-Male."
     },
     {
-      "id": "kojiki_15_1",
-      "reference": "Kojiki 15:1",
-      "book": "Kojiki",
-      "chapter": 15,
-      "verse": 1,
-      "text": "So when His Impetuous-Male-Augustness had been banished, His Augustness the Deity-Master-of-the-Great-Land went to the land of Izumo. At this time some chopsticks came floating down the stream."
+      "id": "kojiki_1_7",
+      "reference": "Kojiki Section 7",
+      "book": "Part I: Retirement of Princess-Who-Invites",
+      "chapter": 1,
+      "verse": 7,
+      "text": "Through giving birth to this child her august private parts were burned, and she sickened and lay down. The names of the deities born from her vomit were the deity Metal-Mountain-Prince and, next, the deity Metal-Mountain-Princess. So the deity the Female-Who-Invites, through giving birth to the deity of Fire, at length divinely retired."
     },
     {
-      "id": "kojiki_25_1",
-      "reference": "Kojiki 25:1",
-      "book": "Kojiki",
-      "chapter": 25,
-      "verse": 1,
-      "text": "The deity Great-Mountain-Possessor had eighty deities, his brethren, but they all left the land to the deity Master-of-the-Great-Land. The reason for their leaving it was this: Each of them said that the land was a very small one, and they therefore went away to other countries."
+      "id": "kojiki_1_8",
+      "reference": "Kojiki Section 8",
+      "book": "Part I: The Slaying of the Fire-Deity",
+      "chapter": 1,
+      "verse": 8,
+      "text": "Then His Augustness the Male-Who-Invites, drawing the ten-grasp saber that was augustly girded on him, cut off the head of his child the deity Shining-Elder. Hereupon the names of the deities that were born from the blood that stuck to the point of the august sword and bespattered the multitudinous rock-Loss were: the deity Rock-Splitter; next, the deity Root-Splitter; next, the Rock-Possessing-Male deity."
+    },
+    {
+      "id": "kojiki_1_9",
+      "reference": "Kojiki Section 9",
+      "book": "Part I: The Land of Hades",
+      "chapter": 1,
+      "verse": 9,
+      "text": "Thereupon His Augustness the Male-Who-Invites, wishing to meet and see his younger sister Her Augustness the Female-Who-Invites, followed after her to the Land of Hades. So when from the palace she raised the door and came out to meet him, His Augustness the Male-who-Invites spoke, saying: 'Thine Augustness, my lovely younger sister! the lands that I and thou made are not yet finished making; so come back!'"
+    },
+    {
+      "id": "kojiki_1_10",
+      "reference": "Kojiki Section 10",
+      "book": "Part I: The Purification of the August Person",
+      "chapter": 1,
+      "verse": 10,
+      "text": "Therefore the great deity the Male-Who-Invites said: 'Nay! hideous! I have come to a hideous and polluted land,—I have! So I will perform the purification of my august person.' So he went out to a plain at the river-mouth, and purified and cleansed himself."
+    },
+    {
+      "id": "kojiki_1_11",
+      "reference": "Kojiki Section 11",
+      "book": "Part I: The Illustrious August Children",
+      "chapter": 1,
+      "verse": 11,
+      "text": "At this time, washing his august left eye, he gave birth to the deity called Amaterasu, the Heaven-Shining-Great-August deity. Next, washing his august right eye, he gave birth to the deity called Tsuki-Yomi, His Augustness Moon-Night-Possessor. Next, washing his august nose, he gave birth to the deity called Susanoo, His-Brave-Swift-Impetuous-Male-Augustness."
+    },
+    {
+      "id": "kojiki_1_12",
+      "reference": "Kojiki Section 12",
+      "book": "Part I: The Crying and Weeping of Susanoo",
+      "chapter": 1,
+      "verse": 12,
+      "text": "So while the other two deities each assumed his and her rule according to the command with which their father had charged them, Susanoo did not assume the rule of the dominion with which he had been charged, but cried and wept till his eight-grasp beard reached to the pit of his stomach. The fashion of his weeping was such as by it to wither the green mountains into withered mountains, and by it to dry up all the rivers and seas."
+    },
+    {
+      "id": "kojiki_1_13",
+      "reference": "Kojiki Section 13",
+      "book": "Part I: The August Oath",
+      "chapter": 1,
+      "verse": 13,
+      "text": "So thereupon Susanoo said: 'If that be so, I will take leave of the Heaven-Shining-Great-August deity, and depart.' With these words he forthwith went up to Heaven, whereupon all the mountains and rivers shook, and every land quaked."
+    },
+    {
+      "id": "kojiki_1_14",
+      "reference": "Kojiki Section 14",
+      "book": "Part I: The August Ravages of Susanoo",
+      "chapter": 1,
+      "verse": 14,
+      "text": "Then Susanoo said: 'The reason for this is that I have no evil intentions. It is only that when our father commanded me to depart to the regions of Hades, I wished to take leave of thee and come to thee. For this reason I have come up.' Then the Heaven-Shining-Great-August deity knew that there was no evil intention in the heart of her younger brother."
+    },
+    {
+      "id": "kojiki_1_15",
+      "reference": "Kojiki Section 15",
+      "book": "Part I: The Door of the Heavenly Rock-Dwelling",
+      "chapter": 1,
+      "verse": 15,
+      "text": "So thereupon the Heaven-Shining-Great-August deity, terrified at the sight, closed behind her the door of the Heavenly Rock-Dwelling, made it fast and retired. Then the whole Plain of High Heaven was obscured and all the Central Land of Reed-Plains darkened. Owing to this, eternal night prevailed."
+    },
+    {
+      "id": "kojiki_1_16",
+      "reference": "Kojiki Section 16",
+      "book": "Part I: The August Expulsion of Susanoo",
+      "chapter": 1,
+      "verse": 16,
+      "text": "Thereupon the eight hundred myriad deities took counsel together, and imposed on Susanoo a fine of a thousand tables, and likewise cut his beard, and even caused the nails of his fingers and toes to be pulled out, and expelled him with a divine expulsion."
+    },
+    {
+      "id": "kojiki_1_17",
+      "reference": "Kojiki Section 17",
+      "book": "Part I: The Eight-Forked Serpent",
+      "chapter": 1,
+      "verse": 17,
+      "text": "So, having been expelled, Susanoo descended to a place called Tori-kami at the headwaters of the River Hi in the Land of Izumo. At this time some chopsticks came floating down the stream. So His-Swift-Impetuous-Male-Augustness, thinking that there must be people at the headwaters of the river, went up it in quest of them."
+    },
+    {
+      "id": "kojiki_1_18",
+      "reference": "Kojiki Section 18",
+      "book": "Part I: The Palace of Suga",
+      "chapter": 1,
+      "verse": 18,
+      "text": "Then Susanoo sought for a place where he might build a palace. And he came to Suga; and he said: 'Coming to this place, my heart is refreshed.' So he built a palace there, and dwelt in it. Therefore that place is still called Suga."
+    },
+    {
+      "id": "kojiki_1_19",
+      "reference": "Kojiki Section 19",
+      "book": "Part I: The White Hare of Inaba",
+      "chapter": 1,
+      "verse": 19,
+      "text": "So when the hare lay weeping, a deity came last of all, and said: 'Why liest thou weeping?' The hare replied, saying 'I resided in the Island of Oki, and wished to cross over to this land, but had no means of crossing over. For this reason I deceived the crocodiles of the sea.'"
+    },
+    {
+      "id": "kojiki_1_20",
+      "reference": "Kojiki Section 20",
+      "book": "Part I: The Wooing of the Deity-of-Eight-Thousand-Spears",
+      "chapter": 1,
+      "verse": 20,
+      "text": "This Deity-of-Eight-Thousand-Spears, when he went forth to woo the Princess-of-Nuna-Kaha in the land of Koshi, on arriving at the house of the Princess-of-Nuna-Kaha, sang, saying: 'I have come to thy land, o maiden. Along the pass I have come, pushing aside the trees.'"
     }
   ]
 }

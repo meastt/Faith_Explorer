@@ -91,7 +91,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
 
   const handleChatWithInsight = (insightText: string, religion: Religion) => {
     setActiveVerseChat({
-      verseReference: 'AI Insight',
+      verseReference: 'Scripture Analysis',
       verseText: insightText,
       religion,
       messages: [],
@@ -112,16 +112,16 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
       .trim();
 
     saveVerse({
-      reference: `AI Insight: ${subsetInfo?.name || religionInfo?.name}`,
+      reference: `Analysis: ${subsetInfo?.name || religionInfo?.name}`,
       text: plainText,
       religion,
       id: `insight-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       savedAt: Date.now(),
       notes: '',
-      tags: ['AI Insight'],
+      tags: ['Analysis'],
       highlights: [],
     });
-    alert('AI Insight saved to your library!');
+    alert('Analysis saved to your library!');
   };
 
   if (isLoading) {
@@ -208,50 +208,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
             </div>
           </div>
 
-          {/* AI Answer */}
-          {answer && (
-            <div className="bg-gradient-to-br from-primary-50 to-indigo-50 dark:from-primary-950 dark:to-indigo-950 sepia:from-amber-100 sepia:to-amber-200 rounded-2xl shadow-soft border-2 border-primary-200 dark:border-primary-800 sepia:border-amber-300 p-6 sm:p-8">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-soft">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-1">AI Insight</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Based on {subsetInfo?.name || religionInfo?.text}</p>
-                </div>
-              </div>
-              <div
-                className="prose prose-sm max-w-none text-gray-900 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
-                dangerouslySetInnerHTML={{ __html: formatAIResponse(answer) }}
-              />
-
-              {/* Action Buttons */}
-              <div className="flex items-center gap-2 mt-4 pt-4 border-t border-primary-200 dark:border-primary-700 sepia:border-amber-300">
-                <button
-                  onClick={() => handleChatWithInsight(answer, religion)}
-                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 sepia:text-amber-700 hover:text-primary-700 dark:hover:text-primary-300 sepia:hover:text-amber-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span className="hidden sm:inline">Discuss</span>
-                </button>
-                <button
-                  onClick={() => handleSaveInsight(answer, religion, subset)}
-                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
-                >
-                  <BookmarkPlus className="w-4 h-4" />
-                  <span className="hidden sm:inline">Save</span>
-                </button>
-                <button
-                  onClick={() => handleShareInsight(answer, religion)}
-                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
-                >
-                  <Share2 className="w-4 h-4" />
-                  <span className="hidden sm:inline">Share</span>
-                </button>
-              </div>
-            </div>
-          )}
-
+          {/* Source Passages - FIRST (clean data first) */}
           {verses.length === 0 ? (
             <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-soft border border-sage-200 dark:border-sage-700 sepia:border-amber-200 p-12 sm:p-16 text-center">
               <div className="w-20 h-20 bg-sage-100 dark:bg-sage-800 sepia:bg-amber-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -290,6 +247,50 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
                   Show {verses.length - INITIAL_VERSE_COUNT} More Verses
                 </button>
               )}
+            </div>
+          )}
+
+          {/* Academic Analysis - AFTER verses */}
+          {answer && (
+            <div className="bg-gradient-to-br from-primary-50 to-indigo-50 dark:from-primary-950 dark:to-indigo-950 sepia:from-amber-100 sepia:to-amber-200 rounded-2xl shadow-soft border-2 border-primary-200 dark:border-primary-800 sepia:border-amber-300 p-6 sm:p-8">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-soft">
+                  <Sparkles className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-1">Academic Analysis</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Scholarly interpretation based on {subsetInfo?.name || religionInfo?.text}</p>
+                </div>
+              </div>
+              <div
+                className="prose prose-sm max-w-none text-gray-900 dark:text-gray-200 sepia:text-amber-800 leading-relaxed prose-strong:text-gray-900 dark:prose-strong:text-gray-100 sepia:prose-strong:text-amber-900"
+                dangerouslySetInnerHTML={{ __html: formatAIResponse(answer) }}
+              />
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2 mt-4 pt-4 border-t border-primary-200 dark:border-primary-700 sepia:border-amber-300">
+                <button
+                  onClick={() => handleChatWithInsight(answer, religion)}
+                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 sepia:text-amber-700 hover:text-primary-700 dark:hover:text-primary-300 sepia:hover:text-amber-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="hidden sm:inline">Discuss</span>
+                </button>
+                <button
+                  onClick={() => handleSaveInsight(answer, religion, subset)}
+                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+                >
+                  <BookmarkPlus className="w-4 h-4" />
+                  <span className="hidden sm:inline">Save</span>
+                </button>
+                <button
+                  onClick={() => handleShareInsight(answer, religion)}
+                  className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span className="hidden sm:inline">Share</span>
+                </button>
+              </div>
             </div>
           )}
         </div>

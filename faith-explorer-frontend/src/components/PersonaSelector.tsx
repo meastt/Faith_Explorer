@@ -40,6 +40,46 @@ export const PERSONAS: Persona[] = [
         avatar: '☸️',
         color: '#d97706' // amber-600
     },
+    {
+        id: 'hindu',
+        name: 'Pandit Sharma',
+        faith: 'Hinduism',
+        traits: 'Spiritual, philosophical, embraces diversity',
+        avatar: '🕉️',
+        color: '#ea580c' // orange-600
+    },
+    {
+        id: 'sikh',
+        name: 'Bhai Harpreet',
+        faith: 'Sikhism',
+        traits: 'Humble, service-oriented, values equality',
+        avatar: '🙏',
+        color: '#c2410c' // orange-700
+    },
+    {
+        id: 'taoist',
+        name: 'Master Chen',
+        faith: 'Taoism',
+        traits: 'Peaceful, naturalistic, speaks in paradoxes',
+        avatar: '☯️',
+        color: '#0891b2' // cyan-600
+    },
+    {
+        id: 'confucian',
+        name: 'Teacher Wei',
+        faith: 'Confucianism',
+        traits: 'Scholarly, emphasizes virtue and relationships',
+        avatar: '📚',
+        color: '#be123c' // rose-700
+    },
+    {
+        id: 'shinto',
+        name: 'Kannushi Tanaka',
+        faith: 'Shinto',
+        traits: 'Reverent of nature, ceremonial, harmonious',
+        avatar: '⛩️',
+        color: '#db2777' // pink-600
+    },
 ];
 
 interface ScenarioOption {

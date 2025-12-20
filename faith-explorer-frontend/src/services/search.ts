@@ -1,10 +1,11 @@
 import type { Verse, SelectedSubset, ReligionSubsetId } from '../types';
+import { interpretSearchIntent, shouldUseSemanticSearch } from './queryInterpreter';
 
 // Load all religious texts directly in the frontend
 let loadedScriptures: Record<string, Verse[]> = {};
 
 // Load a scripture file
-async function loadScripture(fileName: string): Promise<Verse[]> {
+export async function loadScripture(fileName: string): Promise<Verse[]> {
   if (loadedScriptures[fileName]) {
     return loadedScriptures[fileName];
   }
@@ -15,7 +16,7 @@ async function loadScripture(fileName: string): Promise<Verse[]> {
       console.error(`Failed to load ${fileName}:`, response.status);
       return [];
     }
-    
+
     const data = await response.json();
     loadedScriptures[fileName] = data.verses || [];
     return loadedScriptures[fileName];
@@ -42,7 +43,7 @@ const STOP_WORDS = new Set([
 function expandSearchTerms(question: string): string[] {
   const baseTerms = question.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/);
   const expandedTerms = [...baseTerms];
-  
+
   // Add related terms for common concepts
   const termExpansions: Record<string, string[]> = {
     'die': ['death', 'dead', 'dying', 'deceased', 'passed', 'departed'],
@@ -61,36 +62,43 @@ function expandSearchTerms(question: string): string[] {
     'love': ['loved', 'loving', 'charity', 'compassion'],
     'peace': ['peaceful', 'tranquil', 'calm', 'rest']
   };
-  
+
   baseTerms.forEach(term => {
     if (termExpansions[term]) {
       expandedTerms.push(...termExpansions[term]);
     }
   });
-  
+
   return [...new Set(expandedTerms)]; // Remove duplicates
 }
 
-function searchVerses(verses: Verse[], question: string, maxResults = 15): Verse[] {
+function searchVerses(verses: Verse[], question: string, maxResults = 15, aiKeywords?: string[]): Verse[] {
   if (verses.length === 0) return [];
-  
-  const expandedTerms = expandSearchTerms(question);
-  const keywords = expandedTerms
-    .filter(w => w.length > 2 && !STOP_WORDS.has(w));
-  
-  console.log('Search keywords:', keywords);
-  
+
+  let keywords: string[];
+
+  if (aiKeywords && aiKeywords.length > 0) {
+    // Use AI-interpreted keywords (semantic search)
+    keywords = aiKeywords;
+    console.log('Using AI-interpreted keywords:', keywords);
+  } else {
+    // Fallback to original keyword expansion
+    const expandedTerms = expandSearchTerms(question);
+    keywords = expandedTerms.filter(w => w.length > 2 && !STOP_WORDS.has(w));
+    console.log('Using fallback keywords:', keywords);
+  }
+
   if (keywords.length === 0) return [];
-  
+
   const scored = verses.map(verse => {
     const text = verse.text.toLowerCase();
     let score = 0;
-    
+
     // Check for exact phrase match (big bonus)
     if (text.includes(question.toLowerCase())) {
       score += 100;
     }
-    
+
     // Individual keyword matching with different weights
     keywords.forEach(keyword => {
       const regex = new RegExp(`\\b${keyword}`, 'i');
@@ -100,25 +108,25 @@ function searchVerses(verses: Verse[], question: string, maxResults = 15): Verse
         score += isOriginalTerm ? 3 : 1;
       }
     });
-    
+
     // Bonus for matching multiple keywords
-    const matchedKeywords = keywords.filter(keyword => 
+    const matchedKeywords = keywords.filter(keyword =>
       new RegExp(`\\b${keyword}`, 'i').test(text)
     );
     if (matchedKeywords.length >= 2) {
       score += 5;
     }
-    
+
     return { ...verse, score };
   });
-  
+
   const results = scored
     .filter(v => v.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, maxResults);
-    
+
   console.log(`Found ${results.length} verses with scores:`, results.map(r => ({ ref: r.reference, score: r.score })));
-  
+
   return results;
 }
 
@@ -157,14 +165,21 @@ export async function searchScriptures(selectedSubsets: SelectedSubset[], questi
     return [];
   }
 
+  // Try AI-powered semantic search for natural language queries
+  let aiKeywords: string[] = [];
+  if (shouldUseSemanticSearch(question)) {
+    console.log('Using semantic search for query:', question);
+    aiKeywords = await interpretSearchIntent(question);
+  }
+
   // Load all relevant scripture files
   const allVerses: Verse[] = [];
-  
+
   for (const fileName of fileNames) {
     console.log(`Loading ${fileName}...`);
     const verses = await loadScripture(fileName);
     console.log(`Loaded ${verses.length} verses from ${fileName}`);
-    
+
     // Add subset information to verses
     const subsetId = subsetIds.find(id => SUBSET_FILE_MAPPING[id] === fileName);
     const subsetVerses = verses.map(verse => ({
@@ -175,8 +190,9 @@ export async function searchScriptures(selectedSubsets: SelectedSubset[], questi
   }
 
   console.log(`Total verses loaded: ${allVerses.length}`);
-  const searchResults = searchVerses(allVerses, question, 15);
+  // Pass AI keywords to searchVerses - if empty, it falls back to original method
+  const searchResults = searchVerses(allVerses, question, 15, aiKeywords);
   console.log(`Search results: ${searchResults.length} verses found`);
-  
+
   return searchResults;
 }

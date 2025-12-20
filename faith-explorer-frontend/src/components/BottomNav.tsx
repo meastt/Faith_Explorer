@@ -1,6 +1,6 @@
-import { Home, Bookmark, Settings, MessageCircle } from 'lucide-react';
+import { Home, Bookmark, Settings, MessageCircle, BookOpen } from 'lucide-react';
 
-type Tab = 'search' | 'saved' | 'practice';
+type Tab = 'search' | 'read' | 'saved' | 'practice';
 
 interface BottomNavProps {
   activeTab: Tab;
@@ -23,6 +23,18 @@ export function BottomNav({ activeTab, onTabChange, onSettingsClick }: BottomNav
           >
             <Home className="w-6 h-6" />
             <span className="text-[10px] font-medium leading-none">Home</span>
+          </button>
+
+          {/* Read Tab */}
+          <button
+            onClick={() => onTabChange('read')}
+            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'read'
+              ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
+              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
+              }`}
+          >
+            <BookOpen className="w-6 h-6" />
+            <span className="text-[10px] font-medium leading-none">Read</span>
           </button>
 
           {/* Saved Tab */}

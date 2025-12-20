@@ -49,7 +49,7 @@ export function CommonGroundVisualizer({ religions, question, results, onClose }
                         </div>
                         <div>
                             <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Common Ground</h2>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">AI-Powered Venn Analysis</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">Interfaith Venn Analysis</p>
                         </div>
                     </div>
                     <button
