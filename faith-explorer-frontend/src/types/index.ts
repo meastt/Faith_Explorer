@@ -141,16 +141,16 @@ export const RELIGIONS: ReligionInfo[] = [
   {
     id: 'christianity',
     name: 'Christianity',
-    text: 'Bible (KJV)',
+    text: 'Bible',
     color: '#dc2626',
-    verseCount: 41456,
+    verseCount: 111012,
     coverage: 'full',
     subsets: [
-      { id: 'kjv', name: 'King James Version', description: 'Current', fileName: 'christianity-kjv.json' },
+      { id: 'kjv', name: 'King James Version', description: 'Protestant (31,100 verses)', fileName: 'christianity-kjv.json' },
+      { id: 'catholic', name: 'Catholic Bible', description: 'Douay-Rheims (34,827 verses)', fileName: 'christianity-catholic.json' },
+      { id: 'orthodox', name: 'Orthodox Bible', description: 'Eastern tradition (34,827 verses)', fileName: 'christianity-orthodox.json' },
       { id: 'mormon', name: 'Book of Mormon', description: 'LDS Scripture', fileName: 'christianity-mormon.json' },
       { id: 'doctrine-covenants', name: 'Doctrine & Covenants', description: 'LDS Scripture', fileName: 'christianity-doctrine-covenants.json' },
-      { id: 'catholic', name: 'Catholic Bible', description: 'Deuterocanonical books', comingSoon: true },
-      { id: 'orthodox', name: 'Orthodox Bible', description: 'Eastern tradition', comingSoon: true },
     ]
   },
   {
