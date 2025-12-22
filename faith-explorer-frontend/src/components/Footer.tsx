@@ -36,7 +36,7 @@ export function Footer() {
               <ExternalLink className="w-3 h-3" />
             </button>
             <button
-              onClick={() => window.location.href = 'mailto:support@faithexplorer.app'}
+              onClick={() => window.location.href = 'mailto:mike@faithexplorer.app'}
               className="text-white/90 hover:text-white transition-colors"
             >
               Contact Support
