@@ -60,5 +60,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Faith Explorer uses this identifier to personalize your experience and measure the effectiveness of our ads. This helps us show you relevant content and improve the app.</string>
 </dict>
 </plist>
