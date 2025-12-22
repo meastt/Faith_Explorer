@@ -197,7 +197,7 @@ export function Settings({ onClose }: SettingsProps) {
           <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Get help with any issues</p>
         </div>
         <button
-          onClick={() => openExternalLink('mailto:support@faithexplorer.app')}
+          onClick={() => openExternalLink('mailto:mike@faithexplorer.app')}
           className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1"
         >
           <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">Email</span>
@@ -334,7 +334,7 @@ export function Settings({ onClose }: SettingsProps) {
           <ExternalLink className="w-4 h-4 text-gray-500" />
         </button>
         <button
-          onClick={() => window.location.href = 'mailto:support@faithexplorer.app'}
+          onClick={() => window.location.href = 'mailto:mike@faithexplorer.app'}
           className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
         >
           <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">Contact Support</span>
