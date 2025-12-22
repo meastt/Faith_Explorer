@@ -1,14 +1,72 @@
 import UIKit
 import Capacitor
+import TikTokBusinessSDK
+import AppTrackingTransparency
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    // TikTok Configuration from Events Manager
+    // App ID: Used for SDK initialization
+    private let appID = "6753657912"
+    // TikTok App ID: Used for event tracking and attribution
+    private let tikTokAppID = "7586720881788928018"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Initialize TikTok SDK
+        initializeTikTokSDK()
+        
         return true
+    }
+    
+    private func initializeTikTokSDK() {
+        // Configure TikTok SDK with both App ID and TikTok App ID
+        let config = TikTokConfig(appId: appID, tiktokAppId: tikTokAppID)
+        
+        // Enable automatic event tracking
+        config?.disableAutomaticTracking = false
+        
+        // Enable debug mode for development (disable in production)
+        #if DEBUG
+        config?.logLevel = .debug
+        #else
+        config?.logLevel = .none
+        #endif
+        
+        // Initialize the SDK
+        if let config = config {
+            TikTokBusiness.initializeSdk(config)
+        }
+        
+        // Request App Tracking Transparency authorization after a short delay
+        // to ensure the app has fully launched
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.requestTrackingAuthorization()
+        }
+    }
+    
+    private func requestTrackingAuthorization() {
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .authorized:
+                    // Tracking authorized - TikTok SDK can use IDFA
+                    print("TikTok: Tracking authorized")
+                case .denied:
+                    print("TikTok: Tracking denied")
+                case .notDetermined:
+                    print("TikTok: Tracking not determined")
+                case .restricted:
+                    print("TikTok: Tracking restricted")
+                @unknown default:
+                    print("TikTok: Unknown tracking status")
+                }
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

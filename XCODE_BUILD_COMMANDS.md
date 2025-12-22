@@ -12,6 +12,26 @@ npm run build
 npx cap sync ios
 ```
 
+## TikTok Ads SDK Setup (First Time Only)
+
+The TikTok Business SDK has been integrated for ad attribution and event tracking. After syncing, you need to install the pod:
+
+```bash
+cd faith-explorer-frontend/ios/App
+pod install
+```
+
+**TikTok Configuration:**
+- **App ID:** `6753657912`
+- **TikTok App ID:** `7586720881788928018`
+- **App Name:** Faith Explorer – Scripture AI
+- **App Secret:** `TTbHgfzGthXQJU8qJzXMfkf7FAAIG44b` *(keep secure - for server-side API only)*
+- The SDK is initialized automatically in `AppDelegate.swift`
+- App Tracking Transparency (ATT) prompt is configured in `Info.plist`
+
+**Linker Flags (already configured):**
+- `-ObjC` and `-lc++` have been added to "Other Linker Flags" in build settings
+
 ## Full Workflow for App Store Submission
 
 ```bash

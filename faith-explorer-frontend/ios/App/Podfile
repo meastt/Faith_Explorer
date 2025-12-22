@@ -19,6 +19,9 @@ end
 target 'App' do
   capacitor_pods
   # Add your Pods here
+  
+  # TikTok Ads SDK for attribution and event tracking
+  pod 'TikTokBusinessSDK'
 end
 
 post_install do |installer|
