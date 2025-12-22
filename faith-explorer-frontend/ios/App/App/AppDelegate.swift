@@ -8,7 +8,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    // TikTok App ID from Events Manager
+    // TikTok Configuration from Events Manager
+    // App ID: Used for SDK initialization
+    private let appID = "6753657912"
+    // TikTok App ID: Used for event tracking and attribution
     private let tikTokAppID = "7586720881788928018"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -21,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func initializeTikTokSDK() {
-        // Configure TikTok SDK
-        let config = TikTokConfig(appId: tikTokAppID, tiktokAppId: tikTokAppID)
+        // Configure TikTok SDK with both App ID and TikTok App ID
+        let config = TikTokConfig(appId: appID, tiktokAppId: tikTokAppID)
         
         // Enable automatic event tracking
         config?.disableAutomaticTracking = false

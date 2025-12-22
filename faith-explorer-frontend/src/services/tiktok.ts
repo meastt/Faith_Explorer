@@ -7,6 +7,7 @@ import { Capacitor } from '@capacitor/core';
  * This service provides methods to track events for TikTok Ads attribution
  * and optimization. Events tracked here will appear in TikTok Events Manager.
  * 
+ * App ID: 6753657912
  * TikTok App ID: 7586720881788928018
  */
 

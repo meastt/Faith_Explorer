@@ -22,8 +22,10 @@ pod install
 ```
 
 **TikTok Configuration:**
-- **App ID:** `7586720881788928018`
+- **App ID:** `6753657912`
+- **TikTok App ID:** `7586720881788928018`
 - **App Name:** Faith Explorer – Scripture AI
+- **App Secret:** `TTbHgfzGthXQJU8qJzXMfkf7FAAIG44b` *(keep secure - for server-side API only)*
 - The SDK is initialized automatically in `AppDelegate.swift`
 - App Tracking Transparency (ATT) prompt is configured in `Info.plist`
 
