@@ -1,6 +1,6 @@
-import { Home, Bookmark, Settings, MessageCircle, BookOpen } from 'lucide-react';
+import { Home, Bookmark, Settings, Compass, BookOpen } from 'lucide-react';
 
-type Tab = 'search' | 'read' | 'saved' | 'practice';
+type Tab = 'search' | 'read' | 'saved' | 'learn';
 
 interface BottomNavProps {
   activeTab: Tab;
@@ -49,16 +49,16 @@ export function BottomNav({ activeTab, onTabChange, onSettingsClick }: BottomNav
             <span className="text-[10px] font-medium leading-none">Saved</span>
           </button>
 
-          {/* Practice Tab */}
+          {/* Learn Tab (formerly Practice) */}
           <button
-            onClick={() => onTabChange('practice')}
-            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'practice'
+            onClick={() => onTabChange('learn')}
+            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'learn'
               ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
               : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
               }`}
           >
-            <MessageCircle className="w-6 h-6" />
-            <span className="text-[10px] font-medium leading-none">Practice</span>
+            <Compass className="w-6 h-6" />
+            <span className="text-[10px] font-medium leading-none">Learn</span>
           </button>
 
           {/* Settings Button */}

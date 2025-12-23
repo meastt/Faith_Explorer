@@ -188,6 +188,101 @@ class NotificationService {
   }
 
   /**
+   * Schedule daily wisdom notification at user's preferred time
+   * Uses fixed ID 10001 to prevent duplicates
+   */
+  async scheduleDailyWisdom(time: string = '08:00'): Promise<void> {
+    // Cancel existing daily wisdom notification
+    if (this.isSupported) {
+      await LocalNotifications.cancel({ notifications: [{ id: 10001 }] });
+    }
+
+    const [hours, minutes] = time.split(':').map(Number);
+    const scheduleAt = new Date();
+    scheduleAt.setHours(hours, minutes, 0, 0);
+
+    // If the time has passed today, schedule for tomorrow
+    if (scheduleAt.getTime() < Date.now()) {
+      scheduleAt.setDate(scheduleAt.getDate() + 1);
+    }
+
+    const wisdomMessages = [
+      { title: '🌅 Morning Wisdom', body: 'Start your day with ancient insights from sacred texts.' },
+      { title: '✨ Daily Reflection', body: 'A moment of wisdom awaits you in Faith Explorer.' },
+      { title: '📖 Wisdom of the Day', body: 'Discover today\'s insight from sacred traditions.' },
+      { title: '🙏 Time for Reflection', body: 'Your daily wisdom is ready to inspire your journey.' },
+      { title: '🌟 Sacred Insight', body: 'Begin your day with timeless wisdom from world religions.' },
+    ];
+    const message = wisdomMessages[Math.floor(Math.random() * wisdomMessages.length)];
+
+    await this.scheduleLocal({
+      id: 10001,
+      title: message.title,
+      body: message.body,
+      scheduleAt,
+    });
+
+    console.log(`Daily wisdom scheduled for ${scheduleAt.toLocaleTimeString()}`);
+  }
+
+  /**
+   * Schedule streak reminder for evening if user hasn't opened app today
+   * Uses fixed ID 10002. Only schedules if streak is at risk.
+   */
+  async scheduleStreakReminder(currentStreak: number, lastActiveDate: string | null): Promise<void> {
+    // Cancel existing streak reminder
+    if (this.isSupported) {
+      await LocalNotifications.cancel({ notifications: [{ id: 10002 }] });
+    }
+
+    // Don't schedule if no streak to protect
+    if (currentStreak < 2) return;
+
+    const today = new Date().toISOString().split('T')[0];
+
+    // If user was already active today, no reminder needed
+    if (lastActiveDate === today) return;
+
+    // Schedule for 7 PM today
+    const scheduleAt = new Date();
+    scheduleAt.setHours(19, 0, 0, 0);
+
+    // If it's already past 7 PM, schedule for tomorrow
+    if (scheduleAt.getTime() < Date.now()) {
+      scheduleAt.setDate(scheduleAt.getDate() + 1);
+    }
+
+    await this.scheduleLocal({
+      id: 10002,
+      title: `🔥 ${currentStreak}-Day Streak at Risk!`,
+      body: 'Open Faith Explorer to keep your streak alive.',
+      scheduleAt,
+    });
+
+    console.log(`Streak reminder scheduled for ${scheduleAt.toLocaleTimeString()}`);
+  }
+
+  /**
+   * Cancel daily wisdom notifications
+   */
+  async cancelDailyWisdom(): Promise<void> {
+    if (this.isSupported) {
+      await LocalNotifications.cancel({ notifications: [{ id: 10001 }] });
+      console.log('Daily wisdom notifications cancelled');
+    }
+  }
+
+  /**
+   * Cancel streak reminder notifications
+   */
+  async cancelStreakReminder(): Promise<void> {
+    if (this.isSupported) {
+      await LocalNotifications.cancel({ notifications: [{ id: 10002 }] });
+      console.log('Streak reminder notifications cancelled');
+    }
+  }
+
+  /**
    * Unregister from push notifications
    */
   async unregister(): Promise<boolean> {

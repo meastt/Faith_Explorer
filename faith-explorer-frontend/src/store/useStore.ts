@@ -37,6 +37,13 @@ export interface StreakData {
   lastFreezeResetDate: string | null; // ISO date string for monthly freeze reset
 }
 
+export interface NotificationPreferences {
+  dailyWisdomEnabled: boolean;
+  dailyWisdomTime: string; // "HH:MM" format, default "08:00"
+  streakRemindersEnabled: boolean;
+  lastScheduledDate: string | null; // ISO date string to prevent duplicate scheduling
+}
+
 interface AppState {
   // View mode
   viewMode: ViewMode;
@@ -133,6 +140,23 @@ interface AppState {
   joinChallenge: (challengeId: string) => void;
   logAction: (challengeId: string, note: string) => void;
   getActivityLogs: (challengeId: string) => ActivityLog[];
+
+  // Notification preferences
+  notificationPreferences: NotificationPreferences;
+  setNotificationPreferences: (preferences: Partial<NotificationPreferences>) => void;
+
+  // Learning paths progress
+  learningProgress: LearningProgress;
+  startPath: (pathId: string) => void;
+  completeDay: (pathId: string, day: number) => void;
+  resetPath: (pathId: string) => void;
+  getPathProgress: (pathId: string) => { completedDays: number[]; startedAt: number | null };
+}
+
+export interface LearningProgress {
+  activePath: string | null;
+  completedDays: Record<string, number[]>; // { pathId: [1, 2, 3] }
+  startedAt: Record<string, number>; // { pathId: timestamp }
 }
 
 const getInitialUsage = (): FreemiumUsage => {
@@ -241,8 +265,67 @@ export const useStore = create<AppState>()(
       activeChallenges: [],
       completedActions: {},
       activityLogs: [],
+      notificationPreferences: {
+        dailyWisdomEnabled: false, // Opt-in by default
+        dailyWisdomTime: '08:00',
+        streakRemindersEnabled: true, // Default on but only triggers when needed
+        lastScheduledDate: null,
+      },
+      learningProgress: {
+        activePath: null,
+        completedDays: {},
+        startedAt: {},
+      },
 
       // Actions
+      startPath: (pathId) =>
+        set((state) => ({
+          learningProgress: {
+            ...state.learningProgress,
+            activePath: pathId,
+            startedAt: {
+              ...state.learningProgress.startedAt,
+              [pathId]: state.learningProgress.startedAt[pathId] || Date.now(),
+            },
+          },
+        })),
+
+      completeDay: (pathId, day) =>
+        set((state) => {
+          const currentDays = state.learningProgress.completedDays[pathId] || [];
+          if (currentDays.includes(day)) return state;
+          return {
+            learningProgress: {
+              ...state.learningProgress,
+              completedDays: {
+                ...state.learningProgress.completedDays,
+                [pathId]: [...currentDays, day].sort((a, b) => a - b),
+              },
+            },
+          };
+        }),
+
+      resetPath: (pathId) =>
+        set((state) => {
+          const { [pathId]: _removedDays, ...remainingDays } = state.learningProgress.completedDays;
+          const { [pathId]: _removedStart, ...remainingStarts } = state.learningProgress.startedAt;
+          return {
+            learningProgress: {
+              activePath: state.learningProgress.activePath === pathId ? null : state.learningProgress.activePath,
+              completedDays: remainingDays,
+              startedAt: remainingStarts,
+            },
+          };
+        }),
+
+      getPathProgress: (pathId) => {
+        const state = get();
+        return {
+          completedDays: state.learningProgress.completedDays[pathId] || [],
+          startedAt: state.learningProgress.startedAt[pathId] || null,
+        };
+      },
+
       joinChallenge: (challengeId) =>
         set((state) => ({
           activeChallenges: state.activeChallenges.includes(challengeId)
@@ -268,6 +351,14 @@ export const useStore = create<AppState>()(
       getActivityLogs: (challengeId) => {
         return get().activityLogs.filter(log => log.challengeId === challengeId);
       },
+
+      setNotificationPreferences: (preferences) =>
+        set((state) => ({
+          notificationPreferences: {
+            ...state.notificationPreferences,
+            ...preferences,
+          },
+        })),
 
       setViewMode: (mode) => set({ viewMode: mode }),
 

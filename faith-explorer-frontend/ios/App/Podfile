@@ -21,7 +21,7 @@ target 'App' do
   # Add your Pods here
   
   # TikTok Ads SDK for attribution and event tracking
-  pod 'TikTokBusinessSDK'
+  pod 'TikTokBusinessSDK', '~> 1.6'
 end
 
 post_install do |installer|

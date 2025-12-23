@@ -1,15 +1,17 @@
-import { X, Settings as SettingsIcon, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette, Trash2, RefreshCw, Info, Heart, Award } from 'lucide-react';
-import { useState } from 'react';
+import { X, Settings as SettingsIcon, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette, Trash2, RefreshCw, Info, Heart, Award, Bell } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { useStore } from '../store/useStore';
 import { Badges } from './Badges';
+import { notificationService } from '../services/notifications';
 
 interface SettingsProps {
   onClose: () => void;
 }
 
 export function Settings({ onClose }: SettingsProps) {
-  const { readingPreferences, setReadingPreferences, resetUsage } = useStore();
-  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'badges' | 'support' | 'legal' | 'data' | 'purchases' | 'about'>('main');
+  const { readingPreferences, setReadingPreferences, resetUsage, notificationPreferences, setNotificationPreferences } = useStore();
+  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'badges' | 'notifications' | 'support' | 'legal' | 'data' | 'purchases' | 'about'>('main');
+  const [permissionGranted, setPermissionGranted] = useState<boolean | null>(null);
 
   const clearLocalData = () => {
     try {
@@ -73,6 +75,18 @@ export function Settings({ onClose }: SettingsProps) {
         <div className="flex-1 text-left">
           <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Achievement Badges</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">View your unlocked achievements</p>
+        </div>
+        <ChevronRight className="w-4 h-4 text-gray-500" />
+      </button>
+
+      <button
+        onClick={() => setActiveSection('notifications')}
+        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+      >
+        <Bell className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+        <div className="flex-1 text-left">
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Notifications</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Daily wisdom & streak reminders</p>
         </div>
         <ChevronRight className="w-4 h-4 text-gray-500" />
       </button>
@@ -184,6 +198,126 @@ export function Settings({ onClose }: SettingsProps) {
         <div className="text-center mt-2">
           <span className="text-sm text-gray-500 dark:text-gray-500 sepia:text-amber-600">{readingPreferences.fontSize}px</span>
         </div>
+      </div>
+    </div>
+  );
+
+  // Check notification permission on mount
+  useEffect(() => {
+    notificationService.getPermissionStatus().then(status => {
+      setPermissionGranted(status.granted);
+    });
+  }, []);
+
+  const handleDailyWisdomToggle = async (enabled: boolean) => {
+    if (enabled && permissionGranted === false) {
+      // Request permission first
+      const permission = await notificationService.requestPermission();
+      setPermissionGranted(permission.granted);
+      if (!permission.granted) return;
+    }
+
+    setNotificationPreferences({ dailyWisdomEnabled: enabled });
+
+    if (enabled) {
+      await notificationService.scheduleDailyWisdom(notificationPreferences.dailyWisdomTime);
+    } else {
+      await notificationService.cancelDailyWisdom();
+    }
+  };
+
+  const handleTimeChange = async (time: string) => {
+    setNotificationPreferences({ dailyWisdomTime: time });
+    if (notificationPreferences.dailyWisdomEnabled) {
+      await notificationService.scheduleDailyWisdom(time);
+    }
+  };
+
+  const handleStreakRemindersToggle = async (enabled: boolean) => {
+    if (enabled && permissionGranted === false) {
+      const permission = await notificationService.requestPermission();
+      setPermissionGranted(permission.granted);
+      if (!permission.granted) return;
+    }
+
+    setNotificationPreferences({ streakRemindersEnabled: enabled });
+
+    if (!enabled) {
+      await notificationService.cancelStreakReminder();
+    }
+  };
+
+  const NotificationsSettings = () => (
+    <div className="space-y-6">
+      {/* Permission Status */}
+      {permissionGranted === false && (
+        <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 sepia:bg-amber-100 rounded-lg">
+          <p className="text-sm text-yellow-800 dark:text-yellow-200 sepia:text-amber-800">
+            Notifications are disabled. Enable a notification option below to request permission.
+          </p>
+        </div>
+      )}
+
+      {/* Daily Wisdom Reminder */}
+      <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Daily Wisdom Reminder</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Receive daily inspiration from sacred texts</p>
+          </div>
+          <button
+            onClick={() => handleDailyWisdomToggle(!notificationPreferences.dailyWisdomEnabled)}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${notificationPreferences.dailyWisdomEnabled ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-gray-600'
+              }`}
+          >
+            <span
+              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${notificationPreferences.dailyWisdomEnabled ? 'translate-x-6' : 'translate-x-1'
+                }`}
+            />
+          </button>
+        </div>
+
+        {notificationPreferences.dailyWisdomEnabled && (
+          <div className="flex items-center gap-3 pt-2 border-t border-gray-200 dark:border-gray-600 sepia:border-amber-300">
+            <label className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">Remind me at:</label>
+            <input
+              type="time"
+              value={notificationPreferences.dailyWisdomTime}
+              onChange={(e) => handleTimeChange(e.target.value)}
+              className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 sepia:bg-amber-50 sepia:border-amber-300"
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Streak Protection Reminders */}
+      <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Streak Protection</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Get reminded before losing your streak</p>
+          </div>
+          <button
+            onClick={() => handleStreakRemindersToggle(!notificationPreferences.streakRemindersEnabled)}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${notificationPreferences.streakRemindersEnabled ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-gray-600'
+              }`}
+          >
+            <span
+              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${notificationPreferences.streakRemindersEnabled ? 'translate-x-6' : 'translate-x-1'
+                }`}
+            />
+          </button>
+        </div>
+        <p className="text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-600 mt-2">
+          Only notifies you in the evening if you haven't opened the app that day.
+        </p>
+      </div>
+
+      {/* Info */}
+      <div className="p-4 bg-blue-50 dark:bg-blue-900/20 sepia:bg-amber-100 rounded-lg">
+        <p className="text-sm text-blue-800 dark:text-blue-200 sepia:text-amber-800">
+          We respect your time. You'll receive at most one notification per day, and only when it's helpful.
+        </p>
       </div>
     </div>
   );
@@ -311,7 +445,7 @@ export function Settings({ onClose }: SettingsProps) {
 
       <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg space-y-2">
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
-          <strong>Version:</strong> 3.0.0 (Build 19)
+          <strong>Version:</strong> 3.2.0 (Build 21)
         </div>
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
           <strong>Copyright:</strong> © {new Date().getFullYear()} Faith Explorer
@@ -360,6 +494,7 @@ export function Settings({ onClose }: SettingsProps) {
                   {activeSection === 'main' && 'Customize your experience'}
                   {activeSection === 'appearance' && 'Appearance settings'}
                   {activeSection === 'badges' && 'Your achievements'}
+                  {activeSection === 'notifications' && 'Notification settings'}
                   {activeSection === 'support' && 'Help & support'}
                 </p>
               </div>
@@ -436,6 +571,7 @@ export function Settings({ onClose }: SettingsProps) {
           )}
           {activeSection === 'appearance' && <AppearanceSettings />}
           {activeSection === 'badges' && <Badges />}
+          {activeSection === 'notifications' && <NotificationsSettings />}
           {activeSection === 'support' && <SupportSettings />}
           {activeSection === 'legal' && <LegalSettings />}
           {activeSection === 'purchases' && <PurchasesSettings />}

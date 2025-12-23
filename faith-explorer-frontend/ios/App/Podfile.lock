@@ -12,6 +12,7 @@ PODS:
   - RevenuecatPurchasesCapacitor (11.2.3):
     - Capacitor
     - PurchasesHybridCommon (= 17.8.0)
+  - TikTokBusinessSDK (1.6.0)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
@@ -19,11 +20,13 @@ DEPENDENCIES:
   - "CapacitorLocalNotifications (from `../../node_modules/@capacitor/local-notifications`)"
   - "CapacitorPushNotifications (from `../../node_modules/@capacitor/push-notifications`)"
   - "RevenuecatPurchasesCapacitor (from `../../node_modules/@revenuecat/purchases-capacitor`)"
+  - TikTokBusinessSDK (~> 1.6)
 
 SPEC REPOS:
   trunk:
     - PurchasesHybridCommon
     - RevenueCat
+    - TikTokBusinessSDK
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -45,7 +48,8 @@ SPEC CHECKSUMS:
   PurchasesHybridCommon: fad1084d9781388e181c8b855caf7a5853cebcb3
   RevenueCat: 02c8d0082d3373bcbc831faa600943d6ba6cad6e
   RevenuecatPurchasesCapacitor: 886039ffdb6fcbc28d0a3bb9b616bd7f2f5246ec
+  TikTokBusinessSDK: 6fe49b5b06a24cfe6bf42da789e2f3c6ba39c0e3
 
-PODFILE CHECKSUM: cdb01013f37ce48e5801b80f1fdd087cd99a0745
+PODFILE CHECKSUM: 6ede11f7780acd89f9ea11d051f60e00dc766c05
 
 COCOAPODS: 1.16.2

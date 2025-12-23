@@ -27,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Configure TikTok SDK with both App ID and TikTok App ID
         let config = TikTokConfig(appId: appID, tiktokAppId: tikTokAppID)
         
-        // Enable automatic event tracking
-        config?.disableAutomaticTracking = false
+        // Note: disableAutomaticTracking() is now a method, not a property
+        // SDK defaults to automatic tracking enabled, which is what we want
         
         // Enable debug mode for development (disable in production)
         #if DEBUG

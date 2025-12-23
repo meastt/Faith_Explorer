@@ -15,13 +15,13 @@ import { Settings } from './components/Settings';
 import { SubscriptionModal } from './components/SubscriptionModal';
 import { useStore } from './store/useStore';
 import { searchSubsets, getComparativeAnalysis } from './services/api';
-import { DialogueSimulator } from './components/DialogueSimulator';
+import { LearnTab } from './components/LearnTab';
 import { ScriptureReader } from './components/ScriptureReader';
 import { initializeScriptures } from './services/search';
 import { notificationService } from './services/notifications';
 import type { Religion, Verse, ReligionSubsetId } from './types';
 
-type Tab = 'search' | 'read' | 'saved' | 'practice';
+type Tab = 'search' | 'read' | 'saved' | 'learn';
 
 export interface SearchResultWithAnswer {
   religion: Religion;
@@ -46,16 +46,28 @@ function App() {
   useEffect(() => {
     initializeScriptures();
     // Check for new badge unlocks on app load
-    // Check for new badge unlocks on app load
     checkAndUnlockBadges();
 
     // Schedule re-engagement notification (resets timer on every open)
     notificationService.scheduleReEngagement();
+
+    // Schedule notifications based on user preferences
+    const { notificationPreferences, streak } = useStore.getState();
+
+    // Re-schedule daily wisdom if enabled (handles app restart, time changes)
+    if (notificationPreferences.dailyWisdomEnabled) {
+      notificationService.scheduleDailyWisdom(notificationPreferences.dailyWisdomTime);
+    }
+
+    // Schedule streak reminder if enabled and streak is at risk
+    if (notificationPreferences.streakRemindersEnabled && streak.current >= 2) {
+      notificationService.scheduleStreakReminder(streak.current, streak.lastActiveDate);
+    }
   }, [checkAndUnlockBadges]);
 
   // Check app version and clear cache if needed
   useEffect(() => {
-    const currentVersion = '3.0-19'; // version-build
+    const currentVersion = '3.2-21'; // version-build
     const storedVersion = localStorage.getItem('faithExplorer_appVersion');
 
     if (storedVersion !== currentVersion) {
@@ -284,9 +296,9 @@ function App() {
           </div>
         )}
 
-        {activeTab === 'practice' && (
-          <div className="pb-24 px-4 pt-4 max-w-4xl mx-auto">
-            <DialogueSimulator />
+        {activeTab === 'learn' && (
+          <div className="pb-24">
+            <LearnTab />
           </div>
         )}
 
