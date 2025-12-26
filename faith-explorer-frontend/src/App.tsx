@@ -13,6 +13,7 @@ import { LearningPaths } from './components/LearningPaths';
 import { BottomNav } from './components/BottomNav';
 import { Settings } from './components/Settings';
 import { SubscriptionModal } from './components/SubscriptionModal';
+import { EmailOptInModal } from './components/EmailOptInModal';
 import { useStore } from './store/useStore';
 import { searchSubsets, getComparativeAnalysis } from './services/api';
 import { LearnTab } from './components/LearnTab';
@@ -32,7 +33,7 @@ export interface SearchResultWithAnswer {
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('search');
-  const { viewMode, selectedSubsets, setIsSearching, clearSelectedSubsets, shouldShowReviewPrompt, reviewPrompt, checkAndUnlockBadges } = useStore();
+  const { viewMode, selectedSubsets, setIsSearching, clearSelectedSubsets, shouldShowReviewPrompt, reviewPrompt, checkAndUnlockBadges, incrementSessionCount, shouldShowEmailOptIn } = useStore();
   const [searchResults, setSearchResults] = useState<SearchResultWithAnswer[]>([]);
   const [comparativeAnalysis, setComparativeAnalysis] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +41,7 @@ function App() {
   const [showReviewPrompt, setShowReviewPrompt] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
+  const [showEmailOptIn, setShowEmailOptIn] = useState(false);
   const [isGatedResult, setIsGatedResult] = useState(false);
 
   // Initialize scriptures on app start
@@ -63,7 +65,10 @@ function App() {
     if (notificationPreferences.streakRemindersEnabled && streak.current >= 2) {
       notificationService.scheduleStreakReminder(streak.current, streak.lastActiveDate);
     }
-  }, [checkAndUnlockBadges]);
+
+    // Increment session count for email opt-in tracking
+    incrementSessionCount();
+  }, [checkAndUnlockBadges, incrementSessionCount]);
 
   // Check app version and clear cache if needed
   useEffect(() => {
@@ -116,6 +121,17 @@ function App() {
       }, 500);
     }
   }, [reviewPrompt.savesCount, reviewPrompt.sharesCount, shouldShowReviewPrompt]);
+
+  // Check if we should show email opt-in
+  useEffect(() => {
+    // Delay to not interrupt initial app experience
+    const timer = setTimeout(() => {
+      if (shouldShowEmailOptIn() && !showOnboarding) {
+        setShowEmailOptIn(true);
+      }
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [shouldShowEmailOptIn, showOnboarding]);
 
   const handleCloseOnboarding = () => {
     setShowOnboarding(false);
@@ -326,6 +342,9 @@ function App() {
             setShowSubscriptionModal(false);
           }}
         />
+      )}
+      {showEmailOptIn && (
+        <EmailOptInModal onClose={() => setShowEmailOptIn(false)} />
       )}
     </div>
   );

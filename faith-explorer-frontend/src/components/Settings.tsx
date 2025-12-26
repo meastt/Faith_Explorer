@@ -411,6 +411,16 @@ export function Settings({ onClose }: SettingsProps) {
           <RefreshCw className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
         </button>
       </div>
+      <div className="flex items-center justify-between p-3 bg-gradient-to-r from-gold-50 to-bronze-50 dark:from-gold-900/10 dark:to-bronze-900/10 sepia:bg-amber-100 rounded-lg border border-gold-200 dark:border-gold-900/30">
+        <div>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Redeem Promo Code</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Have a code? Redeem it here</p>
+        </div>
+        <a href="https://apps.apple.com/redeem" className="p-1 hover:bg-gold-100 dark:hover:bg-gold-900/20 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
+          <span className="text-sm text-bronze-600 dark:text-bronze-400 sepia:text-amber-700 font-medium">Redeem</span>
+          <ExternalLink className="w-3 h-3 text-bronze-600 dark:text-bronze-400 sepia:text-amber-700" />
+        </a>
+      </div>
       <p className="text-xs text-gray-500">Subscriptions are managed by Apple. You can cancel anytime from your device settings.</p>
     </div>
   );

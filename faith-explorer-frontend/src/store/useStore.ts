@@ -44,6 +44,14 @@ export interface NotificationPreferences {
   lastScheduledDate: string | null; // ISO date string to prevent duplicate scheduling
 }
 
+export interface EmailCollection {
+  address: string | null;
+  collectedAt: number | null;
+  bonusApplied: boolean;
+  optInDismissed: boolean;
+  sessionCount: number;
+}
+
 interface AppState {
   // View mode
   viewMode: ViewMode;
@@ -151,6 +159,13 @@ interface AppState {
   completeDay: (pathId: string, day: number) => void;
   resetPath: (pathId: string) => void;
   getPathProgress: (pathId: string) => { completedDays: number[]; startedAt: number | null };
+
+  // Email collection
+  emailCollection: EmailCollection;
+  setEmail: (email: string) => void;
+  dismissEmailOptIn: () => void;
+  incrementSessionCount: () => void;
+  shouldShowEmailOptIn: () => boolean;
 }
 
 export interface LearningProgress {
@@ -275,6 +290,13 @@ export const useStore = create<AppState>()(
         activePath: null,
         completedDays: {},
         startedAt: {},
+      },
+      emailCollection: {
+        address: null,
+        collectedAt: null,
+        bonusApplied: false,
+        optInDismissed: false,
+        sessionCount: 0,
       },
 
       // Actions
@@ -887,6 +909,51 @@ export const useStore = create<AppState>()(
         const milestones = [3, 7, 15];
 
         return milestones.includes(totalActions);
+      },
+
+      // Email collection actions
+      setEmail: (email) =>
+        set((state) => ({
+          emailCollection: {
+            ...state.emailCollection,
+            address: email,
+            collectedAt: Date.now(),
+            bonusApplied: true,
+          },
+          // Apply bonus: +5 searches
+          usage: {
+            ...state.usage,
+            searchLimit: state.usage.searchLimit + 5,
+          },
+        })),
+
+      dismissEmailOptIn: () =>
+        set((state) => ({
+          emailCollection: {
+            ...state.emailCollection,
+            optInDismissed: true,
+          },
+        })),
+
+      incrementSessionCount: () =>
+        set((state) => ({
+          emailCollection: {
+            ...state.emailCollection,
+            sessionCount: state.emailCollection.sessionCount + 1,
+          },
+        })),
+
+      shouldShowEmailOptIn: () => {
+        const state = get();
+        const { emailCollection, savedVerses } = state;
+
+        // Don't show if already collected or dismissed
+        if (emailCollection.address || emailCollection.optInDismissed) {
+          return false;
+        }
+
+        // Show after 3rd session OR after first save
+        return emailCollection.sessionCount >= 3 || savedVerses.length >= 1;
       },
     }),
     {

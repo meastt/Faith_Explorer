@@ -150,18 +150,23 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
         </button>
 
         <div className="text-center mb-6">
+          {/* Urgency Badge */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 mb-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
+            🎁 Holiday Special — Save 33%
+          </div>
+
           <div className="w-16 h-16 bg-gradient-to-br from-gold-300 to-bronze-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-glow">
             <Sparkles className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-3xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-2">Become a Patron</h2>
           <p className="text-stone-600 dark:text-stone-400">Unlock the full wisdom of the ages</p>
 
-          {/* Trust Indicator */}
+          {/* Enhanced Trust Indicator */}
           <div className="mt-3 flex items-center justify-center gap-2 text-sm">
             <div className="flex items-center gap-1 text-gold-500">
               <span className="text-lg">★★★★★</span>
             </div>
-            <span className="text-stone-500 dark:text-stone-500 font-medium">Trusted by thousands of seekers</span>
+            <span className="text-stone-500 dark:text-stone-500 font-medium">Join 5,000+ seekers worldwide</span>
           </div>
         </div>
 
