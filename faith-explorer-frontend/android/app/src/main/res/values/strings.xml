@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Faith Explorer</string>
+    <string name="title_activity_main">Faith Explorer</string>
+    <string name="package_name">com.faithexplorer.ios</string>
+    <string name="custom_url_scheme">com.faithexplorer.ios</string>
+</resources>
