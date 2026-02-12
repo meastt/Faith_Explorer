@@ -152,7 +152,7 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
         <div className="text-center mb-6">
           {/* Urgency Badge */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 mb-4 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg animate-pulse">
-            🎁 Holiday Special — Save 33%
+            🎁 New Year Special — 50% Off Annual
           </div>
 
           <div className="w-16 h-16 bg-gradient-to-br from-gold-300 to-bronze-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-glow">
@@ -240,7 +240,7 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
                   pkg.packageType === 'MONTHLY' ||
                   pkg.identifier?.toLowerCase().includes('monthly') ||
                   pkg.identifier?.toLowerCase().includes('month')
-                )?.storeProduct?.priceString || '$4.99'}
+                )?.storeProduct?.priceString || '$2.99'}
               </span>
               <span className="text-stone-500">/month</span>
             </div>
@@ -264,12 +264,12 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
                   pkg.packageType === 'ANNUAL' ||
                   pkg.identifier?.toLowerCase().includes('annual') ||
                   pkg.identifier?.toLowerCase().includes('yearly')
-                )?.storeProduct?.priceString || '$39.99'}
+                )?.storeProduct?.priceString || '$19.99'}
               </span>
               <span className="text-stone-500">/year</span>
             </div>
-            <p className="text-center text-sm font-semibold text-bronze-700 dark:text-gold-400 mt-1">Just $3.33/month</p>
-            <p className="text-center text-xs text-stone-500 mt-0.5">Save over $20 compared to monthly</p>
+            <p className="text-center text-sm font-semibold text-bronze-700 dark:text-gold-400 mt-1">Just $1.67/month</p>
+            <p className="text-center text-xs text-stone-500 mt-0.5">Save over $40 compared to monthly</p>
           </button>
         </div>
 
@@ -316,13 +316,13 @@ export function SubscriptionModal({ onClose, onSubscribe }: SubscriptionModalPro
                 offerings?.current?.availablePackages?.find((pkg: any) =>
                   pkg.packageType === 'MONTHLY' ||
                   pkg.identifier?.toLowerCase().includes('monthly')
-                )?.storeProduct?.priceString || '$4.99'
+                )?.storeProduct?.priceString || '$2.99'
               }/month or {
                   offerings?.current?.availablePackages?.find((pkg: any) =>
                     pkg.packageType === 'ANNUAL' ||
                     pkg.identifier?.toLowerCase().includes('annual')
-                  )?.storeProduct?.priceString || '$39.99'
-                }/year ($3.33/month)</li>
+                  )?.storeProduct?.priceString || '$19.99'
+                }/year ($1.67/month)</li>
             </ul>
             <p className="pt-1">
               Payment will be charged to your Apple ID account at confirmation of purchase.

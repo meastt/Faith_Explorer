@@ -10,9 +10,9 @@ interface BottomNavProps {
 
 export function BottomNav({ activeTab, onTabChange, onSettingsClick }: BottomNavProps) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 sepia:bg-amber-50 border-t border-gray-200 dark:border-gray-700 sepia:border-amber-200 pb-safe z-40">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 sepia:bg-amber-50 border-t border-gray-200 dark:border-gray-700 sepia:border-amber-200 pb-[env(safe-area-inset-bottom,0px)] z-40">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-around h-14 py-1">
+        <div className="flex items-center justify-around h-12 py-1">
           {/* Home / Search Tab */}
           <button
             onClick={() => onTabChange('search')}

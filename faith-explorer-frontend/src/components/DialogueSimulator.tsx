@@ -66,26 +66,26 @@ export function DialogueSimulator() {
     }
 
     return (
-        <div className="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800 flex flex-col h-[600px] md:h-[700px] relative animate-in fade-in duration-300">
+        <div className="bg-white dark:bg-gray-900 sepia:bg-amber-50 md:rounded-3xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800 sepia:border-amber-300 flex flex-col h-[calc(100vh-200px)] md:h-[700px] relative animate-in fade-in duration-300">
 
             {/* Header */}
-            <div className="p-4 bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between z-10">
+            <div className="p-4 bg-white dark:bg-gray-800 sepia:bg-amber-100 border-b border-gray-100 dark:border-gray-700 sepia:border-amber-300 flex items-center justify-between z-10 backdrop-blur-md">
                 <div className="flex items-center gap-3">
-                    <button onClick={handleReset} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full">
-                        <ArrowLeft className="w-5 h-5 text-gray-500" />
+                    <button onClick={handleReset} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 sepia:hover:bg-amber-200 rounded-full">
+                        <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-gray-400 sepia:text-amber-700" />
                     </button>
                     <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl shadow-sm" style={{ backgroundColor: `${activePersona.color}20` }}>
                         {activePersona.avatar}
                     </div>
                     <div>
-                        <h3 className="font-bold text-gray-900 dark:text-gray-100">{activePersona.name}</h3>
-                        <p className="text-xs text-green-600 dark:text-green-400 font-medium flex items-center gap-1">
+                        <h3 className="font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{activePersona.name}</h3>
+                        <p className="text-xs text-green-600 dark:text-green-400 sepia:text-amber-700 font-medium flex items-center gap-1">
                             <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
                             Online • Practice Mode
                         </p>
                     </div>
                 </div>
-                <div className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs font-medium text-gray-500 dark:text-gray-400">
+                <div className="px-3 py-1 bg-gray-100 dark:bg-gray-700 sepia:bg-amber-200 rounded-full text-xs font-medium text-gray-500 dark:text-gray-400 sepia:text-amber-800">
                     {activeScenario}
                 </div>
             </div>
@@ -95,7 +95,7 @@ export function DialogueSimulator() {
 
                 {/* Chat Area */}
                 <div className="flex-1 flex flex-col relative z-0">
-                    <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4">
+                    <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900 sepia:bg-amber-100/50">
                         {messages.map((msg, i) => (
                             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 {msg.role === 'assistant' && (
@@ -106,8 +106,8 @@ export function DialogueSimulator() {
                                 <div className={`
                                 max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed
                                 ${msg.role === 'user'
-                                        ? 'bg-blue-600 text-white rounded-tr-none'
-                                        : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-tl-none'}
+                                        ? 'bg-blue-600 sepia:bg-amber-700 text-white rounded-tr-none'
+                                        : 'bg-white dark:bg-gray-800 sepia:bg-amber-50 text-gray-800 dark:text-gray-100 sepia:text-amber-900 rounded-tl-none shadow-sm border border-gray-200 dark:border-gray-700 sepia:border-amber-300'}
                             `}>
                                     {msg.content}
                                 </div>
@@ -118,7 +118,7 @@ export function DialogueSimulator() {
                                 <div className="w-8 h-8 rounded-full flex-shrink-0 mr-2 flex items-center justify-center text-sm" style={{ backgroundColor: `${activePersona.color}20` }}>
                                     {activePersona.avatar}
                                 </div>
-                                <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl rounded-tl-none px-4 py-3 flex gap-1">
+                                <div className="bg-gray-100 dark:bg-gray-800 sepia:bg-amber-100 rounded-2xl rounded-tl-none px-4 py-3 flex gap-1 border sepia:border-amber-300">
                                     <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
                                     <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"></span>
                                     <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200"></span>
@@ -128,7 +128,7 @@ export function DialogueSimulator() {
                     </div>
 
                     {/* Input Area */}
-                    <div className="p-4 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
+                    <div className="p-4 bg-white dark:bg-gray-800 sepia:bg-amber-50 border-t border-gray-100 dark:border-gray-700 sepia:border-amber-300">
                         <div className="flex gap-2">
                             <input
                                 type="text"
@@ -137,12 +137,12 @@ export function DialogueSimulator() {
                                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                                 placeholder={`Reply to ${activePersona.name}...`}
                                 disabled={isLoading}
-                                className="flex-1 bg-gray-100 dark:bg-gray-700 border-0 rounded-xl px-4 focus:ring-2 focus:ring-blue-500 dark:text-white"
+                                className="flex-1 bg-gray-100 dark:bg-gray-700 sepia:bg-amber-100 border-0 sepia:border sepia:border-amber-300 rounded-xl px-4 focus:ring-2 focus:ring-blue-500 sepia:focus:ring-amber-500 dark:text-white sepia:text-amber-900 sepia:placeholder-amber-600"
                             />
                             <button
                                 onClick={handleSend}
                                 disabled={isLoading || !input.trim()}
-                                className="p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="p-3 bg-blue-600 hover:bg-blue-700 sepia:bg-amber-700 sepia:hover:bg-amber-800 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 <Send className="w-5 h-5" />
                             </button>

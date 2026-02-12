@@ -102,16 +102,16 @@ export function LearningPaths() {
   }
 
   return (
-    <div className="bg-sand-50 dark:bg-stone-800/50 rounded-2xl border border-sand-200 dark:border-stone-700 p-5 h-full relative overflow-hidden">
+    <div className="bg-sand-50 dark:bg-stone-800/50 sepia:bg-amber-100 rounded-2xl border border-sand-200 dark:border-stone-700 sepia:border-amber-300 p-5 h-full relative overflow-hidden">
       <div className="flex items-center gap-2 mb-4">
-        <Map className="w-5 h-5 text-bronze-600 dark:text-bronze-400" />
-        <h3 className="text-sm font-bold text-stone-900 dark:text-stone-100 uppercase tracking-wide">
+        <Map className="w-5 h-5 text-bronze-600 dark:text-bronze-400 sepia:text-amber-800" />
+        <h3 className="text-sm font-bold text-stone-900 dark:text-stone-100 sepia:text-amber-900 uppercase tracking-wide">
           Golden Thread Paths
         </h3>
       </div>
 
       <div className="space-y-4">
-        <p className="text-sm text-stone-600 dark:text-stone-400">
+        <p className="text-sm text-stone-600 dark:text-stone-400 sepia:text-amber-800">
           Follow a single concept as it weaves through history and tradition.
         </p>
 
@@ -119,18 +119,18 @@ export function LearningPaths() {
           <button
             key={thread.id}
             onClick={() => setActiveThread(thread)}
-            className="w-full text-left group relative overflow-hidden bg-white dark:bg-stone-800 border border-sand-200 dark:border-stone-600 hover:border-bronze-400 dark:hover:border-bronze-500 rounded-xl p-4 shadow-sm transition-all hover:shadow-md"
+            className="w-full text-left group relative overflow-hidden bg-white dark:bg-stone-800 sepia:bg-amber-50 border border-sand-200 dark:border-stone-600 sepia:border-amber-300 hover:border-bronze-400 dark:hover:border-bronze-500 sepia:hover:border-amber-500 rounded-xl p-4 shadow-sm transition-all hover:shadow-md"
           >
             <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amber-300 to-amber-600 opacity-60 group-hover:opacity-100 transition-opacity"></div>
 
             <div className="pl-3">
               <div className="flex justify-between items-center mb-1">
-                <h4 className="font-serif font-bold text-lg text-stone-900 dark:text-stone-100 group-hover:text-bronze-700 dark:group-hover:text-bronze-300 transition-colors">
+                <h4 className="font-serif font-bold text-lg text-stone-900 dark:text-stone-100 sepia:text-amber-900 group-hover:text-bronze-700 dark:group-hover:text-bronze-300 sepia:group-hover:text-amber-700 transition-colors">
                   {thread.title}
                 </h4>
-                <PlayCircle className="w-5 h-5 text-stone-300 group-hover:text-bronze-500 transition-colors" />
+                <PlayCircle className="w-5 h-5 text-stone-300 sepia:text-amber-400 group-hover:text-bronze-500 sepia:group-hover:text-amber-700 transition-colors" />
               </div>
-              <p className="text-sm text-stone-500 dark:text-stone-400 leading-snug pr-4">
+              <p className="text-sm text-stone-500 dark:text-stone-400 sepia:text-amber-700 leading-snug pr-4">
                 {thread.description}
               </p>
 

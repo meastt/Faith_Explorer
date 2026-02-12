@@ -20,6 +20,7 @@ import { LearnTab } from './components/LearnTab';
 import { ScriptureReader } from './components/ScriptureReader';
 import { initializeScriptures } from './services/search';
 import { notificationService } from './services/notifications';
+import { DialogueSimulator } from './components/DialogueSimulator';
 import type { Religion, Verse, ReligionSubsetId } from './types';
 
 type Tab = 'search' | 'read' | 'saved' | 'learn';
@@ -43,6 +44,7 @@ function App() {
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [showEmailOptIn, setShowEmailOptIn] = useState(false);
   const [isGatedResult, setIsGatedResult] = useState(false);
+  const [showPersonas, setShowPersonas] = useState(false);
 
   // Initialize scriptures on app start
   useEffect(() => {
@@ -51,20 +53,32 @@ function App() {
     checkAndUnlockBadges();
 
     // Schedule re-engagement notification (resets timer on every open)
-    notificationService.scheduleReEngagement();
+    // Delay notification initialization slightly to allow Capacitor to fully initialize
+    setTimeout(() => {
+      notificationService.scheduleReEngagement().catch(err => {
+        console.error('Failed to schedule re-engagement notification:', err);
+      });
+    }, 1000);
 
     // Schedule notifications based on user preferences
     const { notificationPreferences, streak } = useStore.getState();
 
     // Re-schedule daily wisdom if enabled (handles app restart, time changes)
-    if (notificationPreferences.dailyWisdomEnabled) {
-      notificationService.scheduleDailyWisdom(notificationPreferences.dailyWisdomTime);
-    }
+    // Delay to allow Capacitor to fully initialize
+    setTimeout(() => {
+      if (notificationPreferences.dailyWisdomEnabled) {
+        notificationService.scheduleDailyWisdom(notificationPreferences.dailyWisdomTime).catch(err => {
+          console.error('Failed to schedule daily wisdom:', err);
+        });
+      }
 
-    // Schedule streak reminder if enabled and streak is at risk
-    if (notificationPreferences.streakRemindersEnabled && streak.current >= 2) {
-      notificationService.scheduleStreakReminder(streak.current, streak.lastActiveDate);
-    }
+      // Schedule streak reminder if enabled and streak is at risk
+      if (notificationPreferences.streakRemindersEnabled && streak.current >= 2) {
+        notificationService.scheduleStreakReminder(streak.current, streak.lastActiveDate).catch(err => {
+          console.error('Failed to schedule streak reminder:', err);
+        });
+      }
+    }, 1000);
 
     // Increment session count for email opt-in tracking
     incrementSessionCount();
@@ -275,11 +289,17 @@ function App() {
   return (
     <div
       className={`min-h-screen flex flex-col transition-colors duration-300 ${themeClasses[readingPreferences.theme]} ${fontFamilyClasses[readingPreferences.fontFamily]}`}
-      style={{ fontSize: `${readingPreferences.fontSize}px` }}
+      style={{
+        fontSize: `${readingPreferences.fontSize}px`,
+        backgroundColor: readingPreferences.theme === 'dark' ? '#1c1917' : '#fdfcfb',
+        color: readingPreferences.theme === 'dark' ? '#e7e5e4' : '#4a453e',
+        minHeight: '100vh',
+        width: '100%'
+      }}
     >
-      <Header />
+      {!(activeTab === 'learn' && showPersonas) && <Header />}
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 pt-40 pb-28">
+      <main className={`flex-1 max-w-4xl mx-auto w-full px-4 pb-28 ${!(activeTab === 'learn' && showPersonas) ? 'pt-28' : 'pt-[calc(env(safe-area-inset-top)+1rem)]'}`}>
         {/* Content */}
         {activeTab === 'search' && (
           <div className="space-y-4">
@@ -293,6 +313,40 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TopicExplorer onTopicSelect={handleSearch} />
                 <LearningPaths />
+              </div>
+            )}
+            {/* Personas Feature - Prominent Card */}
+            {searchResults.length === 0 && !isLoading && (
+              <div className="mt-4">
+                <button
+                  onClick={() => {
+                    setActiveTab('learn');
+                    setShowPersonas(true);
+                  }}
+                  className="w-full p-5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl text-left text-white shadow-lg hover:shadow-xl transition-all group relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                  <div className="relative flex items-center gap-4">
+                    <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center text-3xl backdrop-blur-sm">
+                      💬
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-white mb-1">Chat with Religious Guides</h3>
+                      <p className="text-sm text-indigo-100">Practice respectful dialogue with AI personas from 9 faith traditions</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">Islam</span>
+                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">Christianity</span>
+                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">Judaism</span>
+                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">+6 more</span>
+                      </div>
+                    </div>
+                    <div className="text-white group-hover:translate-x-1 transition-transform">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </button>
               </div>
             )}
             <SearchResults
@@ -314,7 +368,19 @@ function App() {
 
         {activeTab === 'learn' && (
           <div className="pb-24">
-            <LearnTab />
+            {showPersonas ? (
+              <div>
+                <button
+                  onClick={() => setShowPersonas(false)}
+                  className="mb-4 flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:underline"
+                >
+                  ← Back to Learning Paths
+                </button>
+                <DialogueSimulator />
+              </div>
+            ) : (
+              <LearnTab onDialogueClick={() => setShowPersonas(true)} />
+            )}
           </div>
         )}
 
@@ -327,7 +393,17 @@ function App() {
 
       <BottomNav
         activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onTabChange={(tab) => {
+          // If tapping Home (search tab), always reset to home state
+          if (tab === 'search') {
+            handleClearResults(); // Clear search results and reset selections
+          }
+          setActiveTab(tab);
+          // Reset personas view when switching away from learn tab
+          if (tab !== 'learn') {
+            setShowPersonas(false);
+          }
+        }}
         onSettingsClick={() => setShowSettings(true)}
       />
       <ChatDrawer />

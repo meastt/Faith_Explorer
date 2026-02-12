@@ -1,10 +1,12 @@
 /**
  * Direct Anthropic API client for Faith Explorer
- * Calls Claude API directly from the frontend - no backend required
+ * Uses Claude Haiku 3.5 for cost-efficient complex theological responses
+ * Claude Haiku: $0.80/MTok input, $4.00/MTok output (73% cheaper than Sonnet)
  */
 
 const ANTHROPIC_API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY;
-const MODEL = 'claude-sonnet-4-5-20250929';
+const MODEL = 'claude-3-5-haiku-20241022';
+
 
 interface ClaudeMessage {
     role: 'user' | 'assistant';
@@ -56,7 +58,9 @@ export async function callClaude(
         }
 
         const data: ClaudeResponse = await response.json();
-        return data.content[0]?.text || '';
+        const responseText = data.content[0]?.text || '';
+        console.log(`Used Claude Haiku 3.5 (cost: ~$0.003) - response length: ${responseText.length} chars`);
+        return responseText;
     } catch (error) {
         console.error('Error calling Claude:', error);
         throw error;
@@ -186,6 +190,7 @@ Analysis requirements:
 
 /**
  * Generate common ground visualization data
+ * Uses Gemini for cost efficiency (JSON generation is a simple task)
  */
 export async function generateCommonGround(
     religions: string[],
@@ -197,6 +202,19 @@ export async function generateCommonGround(
     distinctB: string[];
     summary: string;
 }> {
+    // Try Gemini first (much cheaper for JSON generation)
+    try {
+        const { generateCommonGroundGemini } = await import('./gemini');
+        const geminiResult = await generateCommonGroundGemini(religions, question, results);
+        if (geminiResult.common.length > 1 || geminiResult.summary !== 'Shared values exist but could not be visualized.') {
+            console.log('Used Gemini for common ground generation (cost: ~$0.0003)');
+            return geminiResult;
+        }
+    } catch (error) {
+        console.log('Gemini unavailable for common ground, falling back to Claude');
+    }
+
+    // Fallback to Claude
     const contextParts = results.map(r =>
         `**${r.religion.toUpperCase()}**:\n${r.answer}\n`
     ).join('\n');
@@ -239,6 +257,7 @@ The output MUST be valid JSON with this exact structure:
         summary: 'Shared values exist but could not be visualized.'
     };
 }
+
 
 /**
  * Simulate dialogue with a religious persona
@@ -300,8 +319,22 @@ You are having a conversation with someone who has approached you because they w
 
 /**
  * Secularize religious text
+ * Uses Gemini for cost efficiency (simple text transformation)
  */
 export async function secularizeTextAI(text: string, context?: string): Promise<string> {
+    // Try Gemini first (much cheaper for text transformation)
+    try {
+        const { secularizeTextGemini } = await import('./gemini');
+        const result = await secularizeTextGemini(text, context);
+        if (result && result.length > 0) {
+            console.log('Used Gemini for text secularization (cost: ~$0.0002)');
+            return result;
+        }
+    } catch (error) {
+        console.log('Gemini unavailable for secularization, falling back to Claude');
+    }
+
+    // Fallback to Claude
     const systemPrompt = `You are a philosopher and psychologist translating religious texts for a "Spiritual but not Religious" audience.
 
 Task: Rewrite the following text to strip away religious dogma, theological nouns, and archaic language.
@@ -317,3 +350,4 @@ Context: ${context || 'General Wisdom'}`;
 
     return callClaude([{ role: 'user', content: `Text: "${text}"` }], systemPrompt, 500);
 }
+

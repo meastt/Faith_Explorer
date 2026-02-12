@@ -58,111 +58,98 @@ public class TikTokPlugin: CAPPlugin, CAPBridgedPlugin {
         // Map common event names to TikTok event constants
         let ttEventName = mapEventName(eventName)
         
-        if let event = TikTokBaseEvent(eventName: ttEventName) {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: ttEventName)
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Search event
     @objc func trackSearch(_ call: CAPPluginCall) {
-        let query = call.getString("query") ?? ""
+        // Note: query parameter available via call.getString("query") if needed for custom properties
         
-        if let event = TikTokBaseEvent(eventName: "Search") {
-            // Add search query as custom property if needed
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "Search")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Subscribe event
     @objc func trackSubscription(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "Subscribe") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "Subscribe")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Registration event
     @objc func trackRegistration(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "Registration") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "Registration")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Login event
     @objc func trackLogin(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "Login") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "Login")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Start Trial event
     @objc func trackStartTrial(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "StartTrial") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "StartTrial")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Complete Tutorial event
     @objc func trackCompleteTutorial(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "CompleteTutorial") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "CompleteTutorial")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Achieve Level event
     @objc func trackAchieveLevel(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "AchieveLevel") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "AchieveLevel")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Unlock Achievement event
     @objc func trackUnlockAchievement(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "UnlockAchievement") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "UnlockAchievement")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Spend Credits event
     @objc func trackSpendCredits(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "SpendCredits") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "SpendCredits")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Rate event
     @objc func trackRate(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "Rate") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "Rate")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }
     
     /// Track Add Payment Info event
     @objc func trackAddPaymentInfo(_ call: CAPPluginCall) {
-        if let event = TikTokBaseEvent(eventName: "AddPaymentInfo") {
-            TikTokBusiness.trackTTEvent(event)
-        }
+        let event = TikTokBaseEvent(eventName: "AddPaymentInfo")
+        TikTokBusiness.trackTTEvent(event)
         
         call.resolve(["success": true])
     }

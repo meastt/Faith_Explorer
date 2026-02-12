@@ -2,20 +2,34 @@
  * AI Query Interpreter for Faith Explorer
  * 
  * Converts natural language queries into search keywords.
- * This is the ONLY place AI touches the search flow - it never sees or modifies scripture.
+ * Uses Gemini (cost-efficient) with Claude fallback.
  * 
  * Example:
  *   Input:  "What is the meaning of life?"
  *   Output: ["purpose", "created", "existence", "reason", "soul", "why", "made"]
  */
 
+import { interpretSearchIntentGemini } from './gemini';
 import { callClaude } from './anthropic';
 
 /**
  * Interpret user's search intent and extract relevant keywords
- * AI only outputs search terms - never touches scripture data
+ * Uses Gemini for cost efficiency (~97% cheaper than Claude)
+ * Falls back to Claude if Gemini is unavailable
  */
 export async function interpretSearchIntent(query: string): Promise<string[]> {
+    // Try Gemini first (much cheaper for simple tasks)
+    try {
+        const geminiKeywords = await interpretSearchIntentGemini(query);
+        if (geminiKeywords.length > 0) {
+            console.log('Used Gemini for search interpretation (cost: ~$0.00004)');
+            return geminiKeywords;
+        }
+    } catch (error) {
+        console.log('Gemini unavailable, falling back to Claude');
+    }
+
+    // Fallback to Claude if Gemini fails
     const systemPrompt = `You are a search query interpreter for a religious scripture database.
 Your ONLY job is to convert a user's natural language question into relevant search keywords.
 
@@ -35,49 +49,36 @@ Output: ["death", "afterlife", "soul", "heaven", "resurrection", "judgment", "et
 User: "What is the meaning of life?"  
 Output: ["purpose", "created", "existence", "reason", "soul", "why", "made", "creation"]
 
-User: "How do I find peace?"
-Output: ["peace", "rest", "tranquility", "calm", "stillness", "serenity", "troubled", "anxiety"]
-
-User: "Why do bad things happen to good people?"
-Output: ["suffering", "trials", "tribulation", "righteous", "evil", "justice", "faith", "endure"]
-
-User: "How should I treat my enemies?"
-Output: ["enemy", "enemies", "forgive", "forgiveness", "love", "hate", "revenge", "mercy"]
-
 Output ONLY the JSON array, nothing else.`;
 
     try {
         const response = await callClaude(
             [{ role: 'user', content: `User query: "${query}"` }],
             systemPrompt,
-            200 // Small token limit since we just need keywords
+            200
         );
 
-        // Parse the JSON array from response
         const jsonMatch = response.match(/\[[\s\S]*\]/);
         if (jsonMatch) {
             const keywords = JSON.parse(jsonMatch[0]);
             if (Array.isArray(keywords) && keywords.length > 0) {
-                // Ensure all items are strings and lowercase
                 const cleanKeywords = keywords
                     .filter((k): k is string => typeof k === 'string')
                     .map(k => k.toLowerCase().trim())
                     .filter(k => k.length > 2);
 
-                console.log('AI-interpreted keywords:', cleanKeywords);
+                console.log('Used Claude fallback for search interpretation');
                 return cleanKeywords;
             }
         }
 
-        // Fallback: return empty to trigger original keyword extraction
-        console.warn('Could not parse AI keywords, falling back to original method');
         return [];
     } catch (error) {
         console.error('Query interpretation failed:', error);
-        // Return empty array - caller will fall back to original keyword extraction
         return [];
     }
 }
+
 
 /**
  * Check if a query would benefit from semantic interpretation

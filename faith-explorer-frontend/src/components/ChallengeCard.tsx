@@ -30,7 +30,7 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
 
     return (
         <>
-            <div className="relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm transition-all hover:shadow-md">
+            <div className="relative overflow-hidden bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl border border-gray-100 dark:border-gray-700 sepia:border-amber-300 shadow-sm transition-all hover:shadow-md">
 
                 {/* Background Accent */}
                 <div className="absolute top-0 right-0 w-32 h-32 opacity-10 rounded-bl-full" style={{ backgroundColor: challenge.color }} />
@@ -42,8 +42,8 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
                                 {challenge.icon}
                             </div>
                             <div>
-                                <h3 className="font-bold text-gray-900 dark:text-gray-100">{challenge.title}</h3>
-                                <p className="text-sm text-gray-500 line-clamp-1">{challenge.description}</p>
+                                <h3 className="font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{challenge.title}</h3>
+                                <p className="text-sm text-gray-500 dark:text-gray-400 sepia:text-amber-700 line-clamp-1">{challenge.description}</p>
                             </div>
                         </div>
 
@@ -56,7 +56,7 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
 
                     {!isActive ? (
                         <div className="space-y-3">
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-700">
                                 <Users className="w-4 h-4" />
                                 <span>{challenge.globalCount.toLocaleString()} participants</span>
                             </div>
@@ -76,9 +76,9 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
                                     <span style={{ color: challenge.color }}>
                                         {myProgress} / {challenge.goal} {challenge.unit}
                                     </span>
-                                    <span className="text-gray-400">{Math.round(progressPercent)}%</span>
+                                    <span className="text-gray-400 dark:text-gray-500 sepia:text-amber-600">{Math.round(progressPercent)}%</span>
                                 </div>
-                                <div className="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                                <div className="h-2 w-full bg-gray-100 dark:bg-gray-700 sepia:bg-amber-200 rounded-full overflow-hidden">
                                     <motion.div
                                         className="h-full rounded-full"
                                         style={{ backgroundColor: challenge.color }}
@@ -91,14 +91,14 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
                             {!isCompleted ? (
                                 <button
                                     onClick={() => setShowLogModal(true)}
-                                    className="w-full py-2.5 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-xl border border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center gap-2 transition-colors"
+                                    className="w-full py-2.5 bg-gray-50 dark:bg-gray-700/50 sepia:bg-amber-100 hover:bg-gray-100 dark:hover:bg-gray-700 sepia:hover:bg-amber-200 text-gray-700 dark:text-gray-200 sepia:text-amber-900 text-sm font-medium rounded-xl border border-dashed border-gray-300 dark:border-gray-600 sepia:border-amber-400 flex items-center justify-center gap-2 transition-colors"
                                 >
                                     <PenLine className="w-4 h-4" style={{ color: challenge.color }} />
                                     Log Activity
                                 </button>
                             ) : (
-                                <div className="text-center py-1.5 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                                    <span className="text-xs font-bold text-green-600 dark:text-green-400">Challenge Completed! 🎉</span>
+                                <div className="text-center py-1.5 bg-green-50 dark:bg-green-900/20 sepia:bg-amber-100 rounded-lg">
+                                    <span className="text-xs font-bold text-green-600 dark:text-green-400 sepia:text-amber-800">Challenge Completed! 🎉</span>
                                 </div>
                             )}
 
@@ -106,7 +106,7 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
                             {logs.length > 0 && (
                                 <button
                                     onClick={() => setShowLogModal(true)}
-                                    className="w-full py-2 text-xs font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center justify-center gap-1.5 transition-colors"
+                                    className="w-full py-2 text-xs font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 sepia:text-amber-700 sepia:hover:text-amber-900 flex items-center justify-center gap-1.5 transition-colors"
                                 >
                                     <History className="w-3.5 h-3.5" />
                                     View Journal ({logs.length} {logs.length === 1 ? 'entry' : 'entries'})

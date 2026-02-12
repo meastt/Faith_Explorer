@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.faithexplorer.ios',
+  appId: 'com.faithexplorer.android',
   appName: 'Faith Explorer',
   webDir: 'dist',
   server: {

@@ -132,24 +132,24 @@ export function PersonaSelector({ onSelect }: PersonaSelectorProps) {
                 <div className="flex items-center gap-4 mb-6">
                     <button
                         onClick={() => setSelectedPersona(null)}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 sepia:hover:bg-amber-200 rounded-full transition-colors"
                     >
-                        <ArrowLeft className="w-5 h-5 text-gray-500" />
+                        <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-gray-400 sepia:text-amber-700" />
                     </button>
                     <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style={{ backgroundColor: `${selectedPersona.color}20` }}>
                             {selectedPersona.avatar}
                         </div>
                         <div>
-                            <h3 className="font-bold text-gray-900 dark:text-gray-100">{selectedPersona.name}</h3>
-                            <p className="text-xs text-gray-500">{selectedPersona.faith}</p>
+                            <h3 className="font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{selectedPersona.name}</h3>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-700">{selectedPersona.faith}</p>
                         </div>
                     </div>
                 </div>
 
                 <div className="text-center mb-6">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">What would you like to discuss?</h2>
-                    <p className="text-gray-500 text-sm">Choose a topic to practice respectful dialogue.</p>
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">What would you like to discuss?</h2>
+                    <p className="text-gray-500 dark:text-gray-400 sepia:text-amber-700 text-sm">Choose a topic to practice respectful dialogue.</p>
                 </div>
 
                 <div className="space-y-3">
@@ -159,14 +159,14 @@ export function PersonaSelector({ onSelect }: PersonaSelectorProps) {
                             whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.99 }}
                             onClick={() => onSelect(selectedPersona, scenario.title)}
-                            className="w-full text-left bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md transition-all flex items-center gap-4 group"
+                            className="w-full text-left bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-600 sepia:hover:border-amber-400 hover:shadow-md transition-all flex items-center gap-4 group"
                         >
-                            <div className="w-12 h-12 rounded-xl bg-gray-50 dark:bg-gray-700 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            <div className="w-12 h-12 rounded-xl bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                                 {scenario.icon}
                             </div>
                             <div className="flex-1">
-                                <h4 className="font-semibold text-gray-900 dark:text-gray-100">{scenario.title}</h4>
-                                <p className="text-sm text-gray-500">{scenario.description}</p>
+                                <h4 className="font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{scenario.title}</h4>
+                                <p className="text-sm text-gray-500 dark:text-gray-400 sepia:text-amber-700">{scenario.description}</p>
                             </div>
                             <MessageCircle className="w-5 h-5 text-gray-300 group-hover:text-gray-400 transition-colors" />
                         </motion.button>
@@ -179,8 +179,8 @@ export function PersonaSelector({ onSelect }: PersonaSelectorProps) {
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Select a Practice Partner</h2>
-                <p className="text-gray-500">Choose a guide to practice respectful dialogue with.</p>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">Select a Practice Partner</h2>
+                <p className="text-gray-500 dark:text-gray-400 sepia:text-amber-700">Choose a guide to practice respectful dialogue with.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -189,7 +189,7 @@ export function PersonaSelector({ onSelect }: PersonaSelectorProps) {
                         key={persona.id}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 cursor-pointer hover:shadow-md transition-shadow relative overflow-hidden group"
+                        className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 sepia:border-amber-300 cursor-pointer hover:shadow-md transition-shadow relative overflow-hidden group"
                         onClick={() => setSelectedPersona(persona)}
                     >
                         <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-transparent to-white/5 opacity-10 rounded-bl-full" style={{ backgroundColor: persona.color }}></div>
@@ -199,11 +199,11 @@ export function PersonaSelector({ onSelect }: PersonaSelectorProps) {
                                 {persona.avatar}
                             </div>
                             <div>
-                                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{persona.name}</h3>
-                                <span className="text-xs font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{persona.name}</h3>
+                                <span className="text-xs font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider bg-gray-100 dark:bg-gray-700 sepia:bg-amber-200 text-gray-500 dark:text-gray-400 sepia:text-amber-800">
                                     {persona.faith}
                                 </span>
-                                <p className="text-sm text-gray-500 mt-2 line-clamp-2">
+                                <p className="text-sm text-gray-500 dark:text-gray-400 sepia:text-amber-700 mt-2 line-clamp-2">
                                     {persona.traits}
                                 </p>
                             </div>

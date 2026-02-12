@@ -14,35 +14,47 @@ export interface NotificationPermission {
 
 class NotificationService {
   private isSupported: boolean = false;
+  private listenersInitialized: boolean = false;
 
   constructor() {
     this.isSupported = Capacitor.isNativePlatform();
-    this.initializeListeners();
+    // Don't initialize listeners in constructor - wait until they're actually needed
+    // This prevents errors when Capacitor bridge isn't initialized yet
   }
 
-  private initializeListeners() {
-    if (!this.isSupported) return;
+  private async initializeListeners() {
+    if (!this.isSupported || this.listenersInitialized) return;
 
-    // Listen for registration success
-    PushNotifications.addListener('registration', (token) => {
-      console.log('Push registration success, token: ' + token.value);
-      // TODO: Send token to backend
-    });
+    try {
+      // Wait a bit to ensure Capacitor bridge is ready
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Listen for registration success
+      PushNotifications.addListener('registration', (token) => {
+        console.log('Push registration success, token: ' + token.value);
+        // TODO: Send token to backend
+      });
 
-    // Listen for registration error
-    PushNotifications.addListener('registrationError', (error) => {
-      console.error('Error on push registration: ' + JSON.stringify(error));
-    });
+      // Listen for registration error
+      PushNotifications.addListener('registrationError', (error) => {
+        console.error('Error on push registration: ' + JSON.stringify(error));
+      });
 
-    // Listen for notification received
-    PushNotifications.addListener('pushNotificationReceived', (notification) => {
-      console.log('Push received: ' + JSON.stringify(notification));
-    });
+      // Listen for notification received
+      PushNotifications.addListener('pushNotificationReceived', (notification) => {
+        console.log('Push received: ' + JSON.stringify(notification));
+      });
 
-    // Listen for notification action
-    PushNotifications.addListener('pushNotificationActionPerformed', (notification) => {
-      console.log('Push action performed: ' + JSON.stringify(notification));
-    });
+      // Listen for notification action
+      PushNotifications.addListener('pushNotificationActionPerformed', (notification) => {
+        console.log('Push action performed: ' + JSON.stringify(notification));
+      });
+
+      this.listenersInitialized = true;
+    } catch (error) {
+      console.error('Failed to initialize notification listeners:', error);
+      // Silently fail - notifications won't work but app should still function
+    }
   }
 
   /**
@@ -99,6 +111,9 @@ class NotificationService {
     }
 
     try {
+      // Initialize listeners when actually needed
+      await this.initializeListeners();
+      
       const permission = await this.requestPermission();
       if (!permission.granted) {
         return false;
