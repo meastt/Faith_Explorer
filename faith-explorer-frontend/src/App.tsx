@@ -15,6 +15,7 @@ import { Settings } from './components/Settings';
 import { SubscriptionModal } from './components/SubscriptionModal';
 import { EmailOptInModal } from './components/EmailOptInModal';
 import { useStore } from './store/useStore';
+import { Toast, showToast } from './components/Toast';
 import { searchSubsets, getComparativeAnalysis } from './services/api';
 import { LearnTab } from './components/LearnTab';
 import { ScriptureReader } from './components/ScriptureReader';
@@ -44,6 +45,7 @@ function App() {
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [showEmailOptIn, setShowEmailOptIn] = useState(false);
   const [isGatedResult, setIsGatedResult] = useState(false);
+  const [comparativeAnalysisError, setComparativeAnalysisError] = useState(false);
   const [showPersonas, setShowPersonas] = useState(false);
 
   // Initialize scriptures on app start
@@ -86,7 +88,7 @@ function App() {
 
   // Check app version and clear cache if needed
   useEffect(() => {
-    const currentVersion = '3.2-21'; // version-build
+    const currentVersion = '3.2-23'; // version-build
     const storedVersion = localStorage.getItem('faithExplorer_appVersion');
 
     if (storedVersion !== currentVersion) {
@@ -156,6 +158,7 @@ function App() {
     setSearchResults([]);
     setComparativeAnalysis('');
     setIsGatedResult(false);
+    setComparativeAnalysisError(false);
     clearSelectedSubsets(); // Reset selected religions/subsets
   };
 
@@ -172,10 +175,11 @@ function App() {
     setSearchResults([]);
     setComparativeAnalysis('');
     setIsGatedResult(isSearchGated);
+    setComparativeAnalysisError(false);
 
     try {
       if (selectedSubsets.length === 0) {
-        alert('Please select at least one religious text to search.');
+        showToast('Please select at least one religious text to search.', 'info');
         return;
       }
 
@@ -219,7 +223,7 @@ function App() {
             setComparativeAnalysis(analysis);
           } catch (error) {
             console.error('Comparative analysis error:', error);
-            // Don't fail the whole search if comparative analysis fails
+            setComparativeAnalysisError(true);
           }
         }
       }
@@ -237,7 +241,7 @@ function App() {
       }
     } catch (error) {
       console.error('Search error:', error);
-      alert('Search failed. Please try again.');
+      showToast('Search failed. Please try again.', 'error');
       // Don't increment usage on failure
     } finally {
       setIsLoading(false);
@@ -353,6 +357,7 @@ function App() {
               results={searchResults}
               isLoading={isLoading}
               comparativeAnalysis={comparativeAnalysis}
+              comparativeAnalysisError={comparativeAnalysisError}
               onBack={searchResults.length > 0 ? handleClearResults : undefined}
               isGated={isGatedResult}
               onUpgrade={() => setShowSubscriptionModal(true)}
@@ -394,9 +399,9 @@ function App() {
       <BottomNav
         activeTab={activeTab}
         onTabChange={(tab) => {
-          // If tapping Home (search tab), always reset to home state
-          if (tab === 'search') {
-            handleClearResults(); // Clear search results and reset selections
+          // Only reset when double-tapping the search tab (already on it)
+          if (tab === 'search' && activeTab === 'search') {
+            handleClearResults();
           }
           setActiveTab(tab);
           // Reset personas view when switching away from learn tab
@@ -406,6 +411,7 @@ function App() {
         }}
         onSettingsClick={() => setShowSettings(true)}
       />
+      <Toast />
       <ChatDrawer />
       {showOnboarding && <OnboardingModal onClose={handleCloseOnboarding} />}
       {showReviewPrompt && <ReviewPromptModal onClose={() => setShowReviewPrompt(false)} />}

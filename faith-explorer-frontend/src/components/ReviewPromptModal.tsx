@@ -31,7 +31,6 @@ export function ReviewPromptModal({ onClose }: ReviewPromptModalProps) {
       window.open(webUrl, '_blank');
       
       console.log('Opening App Store in browser (simulator/web):', webUrl);
-      alert('In the simulator, this opens in browser. On a real device, it opens the App Store app.');
     }
     
     onClose();

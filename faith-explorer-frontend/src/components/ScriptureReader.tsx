@@ -1,10 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, Book, BookOpen, Bookmark, MessageCircle, Share2, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Book, BookOpen, Bookmark, MessageCircle, Share2, ChevronDown, AlertTriangle, RefreshCw } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { RELIGIONS } from '../types';
 import type { Religion, Verse } from '../types';
 import { loadScripture } from '../services/search';
 import { shareVerse, copyToClipboard } from '../utils/helpers';
+import { showToast } from './Toast';
 
 interface ScriptureData {
     religion: string;
@@ -39,6 +40,7 @@ export function ScriptureReader() {
     const [selectedScripture, setSelectedScripture] = useState(READABLE_SCRIPTURES[0]);
     const [scriptureData, setScriptureData] = useState<ScriptureData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState(false);
     const [selectedBook, setSelectedBook] = useState<string>('');
     const [selectedChapter, setSelectedChapter] = useState<number>(1);
     const [showScriptureSelector, setShowScriptureSelector] = useState(false);
@@ -79,6 +81,7 @@ export function ScriptureReader() {
     useEffect(() => {
         async function loadData() {
             setIsLoading(true);
+            setLoadError(false);
             try {
                 const verses = await loadScripture(selectedScripture.fileName);
                 setScriptureData({
@@ -96,6 +99,7 @@ export function ScriptureReader() {
                 }
             } catch (error) {
                 console.error('Failed to load scripture:', error);
+                setLoadError(true);
             } finally {
                 setIsLoading(false);
             }
@@ -184,7 +188,7 @@ export function ScriptureReader() {
             tags: [],
             highlights: [],
         });
-        alert('Verse saved to your library!');
+        showToast('Verse saved to your library!');
     };
 
     const handleChatVerse = (verse: Verse) => {
@@ -201,7 +205,7 @@ export function ScriptureReader() {
         try {
             await copyToClipboard(shareText);
             incrementShareCount();
-            alert('Verse copied to clipboard!');
+            showToast('Verse copied to clipboard!');
         } catch (error) {
             console.error('Failed to copy:', error);
         }
@@ -212,6 +216,45 @@ export function ScriptureReader() {
             <div className="flex flex-col items-center justify-center py-20">
                 <div className="w-12 h-12 border-4 border-bronze-200 border-t-bronze-600 rounded-full animate-spin" />
                 <p className="mt-4 text-stone-600 dark:text-stone-400 font-medium">Loading scripture...</p>
+            </div>
+        );
+    }
+
+    if (loadError) {
+        return (
+            <div className="flex flex-col items-center justify-center py-20">
+                <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center mb-4">
+                    <AlertTriangle className="w-8 h-8 text-red-500 dark:text-red-400" />
+                </div>
+                <h3 className="text-lg font-bold text-stone-900 dark:text-stone-100 mb-2">Failed to load scripture</h3>
+                <p className="text-sm text-stone-600 dark:text-stone-400 mb-4 text-center max-w-sm">
+                    Please check your connection and try again.
+                </p>
+                <button
+                    onClick={() => {
+                        setLoadError(false);
+                        setIsLoading(true);
+                        loadScripture(selectedScripture.fileName)
+                            .then(verses => {
+                                setScriptureData({
+                                    religion: selectedScripture.religion,
+                                    source: selectedScripture.subsetName,
+                                    verses,
+                                });
+                                if (verses.length > 0) {
+                                    const firstVerse = verses[0] as any;
+                                    setSelectedBook(firstVerse.book || firstVerse.surah_name || 'Chapter 1');
+                                    setSelectedChapter(firstVerse.chapter || firstVerse.surah || 1);
+                                }
+                            })
+                            .catch(() => setLoadError(true))
+                            .finally(() => setIsLoading(false));
+                    }}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-bronze-500 text-white rounded-xl hover:bg-bronze-600 transition-colors font-medium"
+                >
+                    <RefreshCw className="w-4 h-4" />
+                    Try Again
+                </button>
             </div>
         );
     }

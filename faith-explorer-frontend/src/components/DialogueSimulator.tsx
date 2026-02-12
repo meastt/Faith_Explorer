@@ -43,7 +43,7 @@ export function DialogueSimulator() {
             setMessages([...newHistory, { role: 'assistant', content: result.reply }]);
         } catch (e) {
             console.error(e);
-            // Add error message to chat
+            setMessages([...newHistory, { role: 'assistant', content: "I'm sorry, I couldn't respond. Please check your connection and try again." }]);
         } finally {
             setIsLoading(false);
         }

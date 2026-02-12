@@ -5,6 +5,7 @@ import { generateId, shareVerse, copyToClipboard, getReligionColor } from '../ut
 import { RELIGIONS } from '../types';
 import { useState } from 'react';
 import { secularizeText } from '../services/api';
+import { showToast } from './Toast';
 
 interface CompactVerseCardProps {
   verse: Verse;
@@ -47,7 +48,7 @@ export function CompactVerseCard({ verse, religion, isExpanded, onToggle, onChat
     try {
       await copyToClipboard(shareText);
       incrementShareCount();
-      alert('Verse copied to clipboard!');
+      showToast('Verse copied to clipboard!');
     } catch (error) {
       console.error('Failed to copy:', error);
     }

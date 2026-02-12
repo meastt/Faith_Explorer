@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useStore } from '../store/useStore';
 import { Badges } from './Badges';
 import { notificationService } from '../services/notifications';
+import { showToast } from './Toast';
 
 interface SettingsProps {
   onClose: () => void;
@@ -22,9 +23,9 @@ export function Settings({ onClose }: SettingsProps) {
       localStorage.removeItem('faithExplorer_premium');
       localStorage.removeItem('faithExplorer_usage');
       resetUsage();
-      alert('All local data has been deleted from this device.');
+      showToast('All local data has been deleted from this device.');
     } catch (e) {
-      alert('Failed to delete local data.');
+      showToast('Failed to delete local data.', 'error');
     }
   };
 
@@ -455,7 +456,7 @@ export function Settings({ onClose }: SettingsProps) {
 
       <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg space-y-2">
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
-          <strong>Version:</strong> 3.2.0 (Build 21)
+          <strong>Version:</strong> 3.2.1 (Build 23)
         </div>
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
           <strong>Copyright:</strong> © {new Date().getFullYear()} Faith Explorer

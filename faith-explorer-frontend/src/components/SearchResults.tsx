@@ -7,6 +7,7 @@ import { RELIGIONS } from '../types';
 import { CommonGroundVisualizer } from './CommonGroundVisualizer';
 import { formatAIResponse } from '../utils/markdown';
 import { shareInsight, shareComparison, copyToClipboard } from '../utils/helpers';
+import { showToast } from './Toast';
 
 interface SearchResultsProps {
   results: {
@@ -17,12 +18,13 @@ interface SearchResultsProps {
   }[];
   isLoading: boolean;
   comparativeAnalysis?: string;
+  comparativeAnalysisError?: boolean;
   onBack?: () => void;
   isGated?: boolean;
   onUpgrade?: () => void;
 }
 
-export function SearchResults({ results, isLoading, comparativeAnalysis, onBack, isGated = false, onUpgrade }: SearchResultsProps) {
+export function SearchResults({ results, isLoading, comparativeAnalysis, comparativeAnalysisError, onBack, isGated = false, onUpgrade }: SearchResultsProps) {
   const { setActiveVerseChat, viewMode, saveComparison, incrementShareCount, saveVerse } = useStore();
   const [expandedVerseId, setExpandedVerseId] = useState<string | null>(null);
   const [showAllVerses, setShowAllVerses] = useState(false);
@@ -56,7 +58,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
         savedAt: Date.now(),
         notes: comparativeAnalysis,
       });
-      alert('Comparison saved to your library!');
+      showToast('Comparison saved to your library!');
     }
   };
 
@@ -70,7 +72,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
         const formattedText = shareComparison(comparativeAnalysis, religions);
         await copyToClipboard(formattedText);
         incrementShareCount();
-        alert('Analysis copied to clipboard!');
+        showToast('Analysis copied to clipboard!');
       } catch (error) {
         console.error('Failed to copy:', error);
       }
@@ -83,7 +85,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
       const formattedText = shareInsight(text, religionInfo?.name);
       await copyToClipboard(formattedText);
       incrementShareCount();
-      alert('Insight copied to clipboard!');
+      showToast('Insight copied to clipboard!');
     } catch (error) {
       console.error('Failed to copy:', error);
     }
@@ -121,7 +123,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
       tags: ['Analysis'],
       highlights: [],
     });
-    alert('Analysis saved to your library!');
+    showToast('Analysis saved to your library!');
   };
 
   if (isLoading) {
@@ -380,7 +382,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
                   <span className="hidden sm:inline">Visualize Common Ground</span>
                 </button>
                 <button
-                  onClick={() => alert('Chat feature coming soon! For now, you can discuss specific verses by clicking "Discuss" on individual verses below.')}
+                  onClick={() => showToast('Chat feature coming soon! Discuss specific verses by clicking "Discuss" below.', 'info')}
                   className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-purple-600 dark:text-purple-400 sepia:text-amber-700 hover:text-purple-700 dark:hover:text-purple-300 sepia:hover:text-amber-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                 >
                   <MessageCircle className="w-3 h-3" />
@@ -425,6 +427,15 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, onBack,
               </div>
             </div>
           </>
+        )}
+
+        {/* Comparative analysis error note */}
+        {comparativeAnalysisError && !comparativeAnalysis && results.length >= 2 && (
+          <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800">
+            <p className="text-sm text-amber-800 dark:text-amber-200">
+              Comparative analysis couldn't be generated. Individual results are shown below.
+            </p>
+          </div>
         )}
 
         {results.map(({ religion, subset, answer, verses }) => {

@@ -4,6 +4,7 @@ import type { SavedVerse, Highlight } from '../types';
 import { useStore } from '../store/useStore';
 import { shareVerse, copyToClipboard, formatDate } from '../utils/helpers';
 import { RELIGIONS } from '../types';
+import { showToast } from './Toast';
 
 interface SavedVerseCardProps {
   verse: SavedVerse;
@@ -20,6 +21,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
   const [newTag, setNewTag] = useState('');
   const [isHighlighting, setIsHighlighting] = useState(false);
   const [selectedHighlightColor, setSelectedHighlightColor] = useState<Highlight['color']>('yellow');
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
   const verseTextRef = useRef<HTMLDivElement>(null);
 
   const religionInfo = RELIGIONS.find((r) => r.id === verse.religion);
@@ -31,7 +33,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
     try {
       await copyToClipboard(shareText);
       incrementShareCount();
-      alert('Verse copied to clipboard!');
+      showToast('Verse copied to clipboard!');
     } catch (error) {
       console.error('Failed to copy:', error);
     }
@@ -51,8 +53,12 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (confirm('Are you sure you want to remove this from your collection?')) {
+    if (confirmingDelete) {
       deleteVerse(verse.id);
+      showToast('Verse removed from your collection.');
+    } else {
+      setConfirmingDelete(true);
+      setTimeout(() => setConfirmingDelete(false), 3000);
     }
   };
 
@@ -487,11 +493,14 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
         </button>
         <button
           onClick={handleDelete}
-          className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-all duration-200 ml-auto"
-          title="Delete verse"
+          className={`flex items-center gap-1 px-2 py-1.5 text-xs font-medium rounded-md transition-all duration-200 ml-auto ${confirmingDelete
+            ? 'bg-red-600 text-white hover:bg-red-700'
+            : 'text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20'
+          }`}
+          title={confirmingDelete ? 'Click again to confirm' : 'Delete verse'}
         >
           <Trash2 className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Delete</span>
+          <span className="hidden sm:inline">{confirmingDelete ? 'Confirm?' : 'Delete'}</span>
         </button>
       </div>
     </div>

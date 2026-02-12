@@ -58,8 +58,14 @@ export function DailyWisdom() {
       localStorage.setItem('dailyWisdom_lastLoaded', today);
     } else {
       const cached = localStorage.getItem('dailyWisdom_cache');
-      if (cached) setWisdom(JSON.parse(cached));
-      else loadDailyWisdom();
+      if (cached) {
+        try {
+          setWisdom(JSON.parse(cached));
+        } catch {
+          localStorage.removeItem('dailyWisdom_cache');
+          loadDailyWisdom();
+        }
+      } else loadDailyWisdom();
     }
   }, []);
 

@@ -1,18 +1,19 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type {
-  Religion,
-  ReligionSubsetId,
-  ViewMode,
-  SavedVerse,
-  SavedComparison,
-  VerseChat,
-  FreemiumUsage,
-  SelectedSubset,
-  Folder,
-  Highlight,
-  Badge,
-  ActivityLog,
+import {
+  FREE_TIER_LIMITS,
+  type Religion,
+  type ReligionSubsetId,
+  type ViewMode,
+  type SavedVerse,
+  type SavedComparison,
+  type VerseChat,
+  type FreemiumUsage,
+  type SelectedSubset,
+  type Folder,
+  type Highlight,
+  type Badge,
+  type ActivityLog,
 } from '../types';
 
 export interface ReadingPreferences {
@@ -179,10 +180,10 @@ const getInitialUsage = (): FreemiumUsage => {
   return {
     searchesUsed: 0,
     chatMessagesUsed: 0,
-    searchLimit: 10,
-    chatLimit: 20,
+    searchLimit: FREE_TIER_LIMITS.searches,
+    chatLimit: FREE_TIER_LIMITS.chatMessages,
     isPremium: false,
-    resetDate: now + 30 * 24 * 60 * 60 * 1000, // 30 days from now
+    resetDate: now + FREE_TIER_LIMITS.resetDays * 24 * 60 * 60 * 1000,
   };
 };
 
@@ -660,7 +661,7 @@ export const useStore = create<AppState>()(
             ...state.usage,
             searchesUsed: 0,
             chatMessagesUsed: 0,
-            resetDate: Date.now() + 30 * 24 * 60 * 60 * 1000,
+            resetDate: Date.now() + FREE_TIER_LIMITS.resetDays * 24 * 60 * 60 * 1000,
           },
         })),
 
@@ -695,7 +696,7 @@ export const useStore = create<AppState>()(
 
       updateStreak: () =>
         set((state) => {
-          const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+          const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD in local timezone
           const lastActive = state.streak.lastActiveDate;
 
           // If already active today, no change
@@ -753,7 +754,7 @@ export const useStore = create<AppState>()(
         // Check if freezes available
         if (state.streak.freezesAvailable <= 0) return false;
 
-        const today = new Date().toISOString().split('T')[0];
+        const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD in local timezone
         const lastActive = state.streak.lastActiveDate;
 
         if (!lastActive) return false;
@@ -768,7 +769,7 @@ export const useStore = create<AppState>()(
         // Apply freeze - extend lastActiveDate by 1 day
         const yesterday = new Date(todayDate);
         yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayStr = yesterday.toISOString().split('T')[0];
+        const yesterdayStr = yesterday.toLocaleDateString('en-CA'); // YYYY-MM-DD in local timezone
 
         set((state) => ({
           streak: {

@@ -5,6 +5,7 @@ import { SavedVerseCard } from './SavedVerseCard';
 import { LibraryStats } from './LibraryStats';
 import { exportCollection } from '../utils/export';
 import { RELIGIONS, type Religion } from '../types';
+import { showToast } from './Toast';
 
 type SortOption = 'date-desc' | 'date-asc' | 'religion' | 'reference';
 
@@ -20,6 +21,7 @@ export function SavedLibrary() {
   const [newFolderName, setNewFolderName] = useState('');
   const [editingFolderId, setEditingFolderId] = useState<string | null>(null);
   const [editingFolderName, setEditingFolderName] = useState('');
+  const [confirmingDeleteFolderId, setConfirmingDeleteFolderId] = useState<string | null>(null);
 
   const handleVerseToggle = (verseId: string) => {
     setExpandedVerseId(expandedVerseId === verseId ? null : verseId);
@@ -135,11 +137,16 @@ export function SavedLibrary() {
   };
 
   const handleDeleteFolder = (id: string) => {
-    if (confirm('Delete this folder? Verses will be moved to "Unfiled".')) {
+    if (confirmingDeleteFolderId === id) {
       deleteFolder(id);
+      setConfirmingDeleteFolderId(null);
       if (filterFolder === id) {
         setFilterFolder('all');
       }
+      showToast('Folder deleted. Verses moved to "Unfiled".');
+    } else {
+      setConfirmingDeleteFolderId(id);
+      setTimeout(() => setConfirmingDeleteFolderId(null), 3000);
     }
   };
 
@@ -333,9 +340,10 @@ export function SavedLibrary() {
                       e.stopPropagation();
                       handleDeleteFolder(folder.id);
                     }}
-                    className="bg-white dark:bg-gray-800 rounded-full p-1 shadow-lg hover:bg-red-50 dark:hover:bg-red-900"
+                    className={`rounded-full p-1 shadow-lg ${confirmingDeleteFolderId === folder.id ? 'bg-red-600 dark:bg-red-700' : 'bg-white dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-900'}`}
+                    title={confirmingDeleteFolderId === folder.id ? 'Click again to confirm' : 'Delete folder'}
                   >
-                    <Trash2 className="w-3 h-3 text-red-600 dark:text-red-400" />
+                    <Trash2 className={`w-3 h-3 ${confirmingDeleteFolderId === folder.id ? 'text-white' : 'text-red-600 dark:text-red-400'}`} />
                   </button>
                 </div>
               )}

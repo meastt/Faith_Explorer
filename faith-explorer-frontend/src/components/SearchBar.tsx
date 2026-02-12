@@ -1,6 +1,7 @@
 import { Search, Sparkles, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useStore } from '../store/useStore';
+import { showToast } from './Toast';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -14,7 +15,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
     e.preventDefault();
     if (query.trim() && !isSearching) {
       if (!canSearch()) {
-        alert('You have reached your free search limit.');
+        showToast('You have reached your free search limit.', 'info');
         return;
       }
       onSearch(query.trim());
@@ -69,7 +70,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
             <div
               className="h-full bg-gradient-to-r from-bronze-500 to-bronze-600 rounded-full transition-all duration-500"
               style={{
-                width: `${Math.max(0, ((usage.searchLimit - usage.searchesUsed) / usage.searchLimit) * 100)}%`
+                width: `${usage.searchLimit > 0 ? Math.max(0, ((usage.searchLimit - usage.searchesUsed) / usage.searchLimit) * 100) : 0}%`
               }}
             />
           </div>

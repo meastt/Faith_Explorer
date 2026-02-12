@@ -5,6 +5,7 @@ import { useStore } from '../store/useStore';
 import { generateId, shareVerse, copyToClipboard, getReligionColor } from '../utils/helpers';
 import { RELIGIONS } from '../types';
 import { ICON_SIZES } from '../styles/design-system';
+import { showToast } from './Toast';
 
 interface VerseCardProps {
   verse: Verse;
@@ -40,7 +41,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
     try {
       await copyToClipboard(shareText);
       incrementShareCount();
-      alert('Verse copied to clipboard!');
+      showToast('Verse copied to clipboard!');
     } catch (error) {
       console.error('Failed to copy:', error);
     }
