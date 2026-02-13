@@ -1,3 +1,4 @@
+import i18n from 'i18next';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import {
@@ -54,6 +55,10 @@ export interface EmailCollection {
 }
 
 interface AppState {
+  // Language
+  language: 'en' | 'es';
+  setLanguage: (lang: 'en' | 'es') => void;
+
   // View mode
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
@@ -247,6 +252,7 @@ export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
       // Initial state
+      language: (i18n.language?.startsWith('es') ? 'es' : 'en') as 'en' | 'es',
       viewMode: 'single',
       selectedReligions: [],
       selectedSubsets: [],
@@ -301,6 +307,12 @@ export const useStore = create<AppState>()(
       },
 
       // Actions
+      setLanguage: (lang) => {
+        i18n.changeLanguage(lang);
+        localStorage.setItem('faith-explorer-language', lang);
+        set({ language: lang });
+      },
+
       startPath: (pathId) =>
         set((state) => ({
           learningProgress: {

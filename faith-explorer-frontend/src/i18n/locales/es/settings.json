@@ -1,0 +1,242 @@
+{
+  "language": {
+    "title": "Idioma / Language",
+    "description": "Elige tu idioma",
+    "selectDescription": "Selecciona tu idioma preferido. La aplicación se actualizará inmediatamente."
+  },
+  "settings": {
+    "title": "Configuración",
+    "subtitles": {
+      "main": "Personaliza tu experiencia",
+      "appearance": "Configuración de apariencia",
+      "badges": "Tus logros",
+      "notifications": "Configuración de notificaciones",
+      "support": "Ayuda y soporte"
+    },
+    "sections": {
+      "appearance": {
+        "title": "Apariencia",
+        "description": "Personaliza tu experiencia de lectura"
+      },
+      "badges": {
+        "title": "Insignias de logros",
+        "description": "Consulta tus logros desbloqueados"
+      },
+      "notifications": {
+        "title": "Notificaciones",
+        "description": "Sabiduría diaria y recordatorios de racha"
+      },
+      "privacyAndTerms": {
+        "title": "Privacidad y condiciones",
+        "description": "Consulta nuestra política de privacidad y condiciones"
+      },
+      "support": {
+        "title": "Soporte",
+        "description": "Obtén ayuda y contáctanos"
+      },
+      "legal": {
+        "title": "Legal",
+        "description": "Política de privacidad y condiciones de uso"
+      },
+      "purchases": {
+        "title": "Compras",
+        "description": "Administra o restaura suscripciones"
+      },
+      "data": {
+        "title": "Datos",
+        "description": "Eliminar todos los datos locales en este dispositivo"
+      },
+      "about": {
+        "title": "Acerca de",
+        "description": "Información de la aplicación, versión y créditos"
+      }
+    }
+  },
+  "appearance": {
+    "theme": {
+      "title": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "sepia": "Sepia"
+    },
+    "fontFamily": {
+      "title": "Familia tipográfica",
+      "sans": "Sans",
+      "serif": "Serif",
+      "dyslexic": "Dislexia"
+    },
+    "fontSize": {
+      "title": "Tamaño de fuente",
+      "small": "Pequeño",
+      "large": "Grande",
+      "pxLabel": "{size}px"
+    }
+  },
+  "readingPreferences": {
+    "title": "Preferencias de lectura",
+    "reading": "Lectura",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "sepia": "Sepia",
+    "fontSizeLabel": "Tamaño de fuente:",
+    "small": "Pequeño",
+    "large": "Grande",
+    "fontStyle": "Estilo de fuente",
+    "sansSerif": "Sans Serif (Moderna)",
+    "serif": "Serif (Tradicional)",
+    "openDyslexic": "OpenDyslexic (Accesible)"
+  },
+  "notifications": {
+    "permissionDisabled": "Las notificaciones están desactivadas. Active una opción de notificación a continuación para solicitar permiso.",
+    "dailyWisdom": {
+      "title": "Recordatorio de sabiduría diaria",
+      "description": "Reciba inspiración diaria de textos sagrados",
+      "timeLabel": "Recordarme a las:"
+    },
+    "streakProtection": {
+      "title": "Protección de racha",
+      "description": "Reciba un recordatorio antes de perder su racha",
+      "note": "Solo le notifica por la noche si no ha abierto la aplicación ese día."
+    },
+    "respectNote": "Respetamos su tiempo. Recibirá como máximo una notificación al día, y solo cuando sea útil."
+  },
+  "support": {
+    "contactSupport": {
+      "title": "Contactar soporte",
+      "description": "Obtenga ayuda con cualquier problema"
+    },
+    "privacyPolicy": {
+      "title": "Política de privacidad",
+      "description": "Cómo protegemos sus datos"
+    },
+    "needHelp": {
+      "title": "¿Necesita ayuda?",
+      "description": "Si tiene algún problema o preguntas sobre Faith Explorer, no dude en comunicarse con nuestro equipo de soporte."
+    }
+  },
+  "legal": {
+    "privacyPolicy": {
+      "title": "Política de privacidad",
+      "description": "Cómo protegemos sus datos"
+    },
+    "termsOfUse": {
+      "title": "Condiciones de uso",
+      "description": "Lea nuestras condiciones"
+    }
+  },
+  "purchases": {
+    "manageSubscription": {
+      "title": "Administrar suscripción",
+      "description": "Abrir suscripciones de iOS"
+    },
+    "restorePurchases": {
+      "title": "Restaurar compras",
+      "description": "Reactivar compras anteriores"
+    },
+    "redeemPromoCode": {
+      "title": "Canjear código promocional",
+      "description": "¿Tiene un código? Canjéelo aquí"
+    },
+    "subscriptionManagedByApple": "Las suscripciones son administradas por Apple. Puede cancelar en cualquier momento desde la configuración de su dispositivo."
+  },
+  "data": {
+    "deleteLocalData": {
+      "title": "Eliminar datos locales",
+      "description": "Esta aplicación no crea cuentas de usuario ni almacena datos personales en servidores. Puede eliminar todos los datos almacenados en este dispositivo en cualquier momento.",
+      "button": "Eliminar datos locales"
+    }
+  },
+  "about": {
+    "appName": "Faith Explorer",
+    "description": "Explore textos sagrados de las principales religiones del mundo. Compare enseñanzas, busque sabiduría sobre las preguntas de la vida y descubra los hilos comunes de la espiritualidad entre distintas tradiciones.",
+    "madeWithLove": "Hecho con amor para quienes buscan sabiduría",
+    "version": "3.2.1 (Build 23)",
+    "versionLabel": "Versión:",
+    "copyrightLabel": "Derechos de autor:",
+    "copyrightText": "Faith Explorer",
+    "mission": "Nuestra misión",
+    "missionText": "Hacer que la sabiduría sagrada del mundo sea accesible para todos, fomentando la comprensión y el respeto entre todas las tradiciones religiosas.",
+    "whatWeOffer": "Lo que ofrecemos",
+    "features": {
+      "sacredTexts": {
+        "title": "Textos sagrados",
+        "description": "Acceda a pasajes de 9 grandes religiones del mundo"
+      },
+      "comparativeStudy": {
+        "title": "Estudio comparativo",
+        "description": "Compare enseñanzas de diferentes tradiciones"
+      },
+      "contextualUnderstanding": {
+        "title": "Comprensión contextual",
+        "description": "Explicaciones y contexto impulsados por IA"
+      },
+      "respectfulApproach": {
+        "title": "Enfoque respetuoso",
+        "description": "Cada tradición presentada con cuidado y precisión"
+      }
+    },
+    "supportedTraditions": "Tradiciones compatibles",
+    "traditions": [
+      "Cristianismo", "Islam", "Judaísmo", "Hinduismo",
+      "Budismo", "Sijismo", "Taoísmo", "Confucianismo", "Sintoísmo"
+    ],
+    "madeWith": "Hecho con",
+    "forInterfaith": "por la comprensión interreligiosa"
+  },
+  "subscription": {
+    "urgencyBadge": "Especial de Año Nuevo -- 50% de descuento en el plan anual",
+    "title": "Conviértase en patrocinador",
+    "subtitle": "Desbloquee toda la sabiduría de los tiempos",
+    "trustIndicator": "Únase a más de 5,000 buscadores en todo el mundo",
+    "features": {
+      "unlimitedSearches": {
+        "title": "Búsquedas ilimitadas",
+        "description": "Explore tanto como desee"
+      },
+      "unlimitedChat": {
+        "title": "Mensajes de chat ilimitados",
+        "description": "Profundice en cualquier versículo o tema"
+      },
+      "advancedComparisons": {
+        "title": "Comparaciones avanzadas",
+        "description": "Compare hasta 7 religiones a la vez"
+      },
+      "prioritySupport": {
+        "title": "Soporte prioritario",
+        "description": "Obtenga ayuda cuando la necesite"
+      }
+    },
+    "testimonial": {
+      "quote": "Faith Explorer ha profundizado mi comprensión de las escrituras y me ha ayudado a descubrir sabiduría en tradiciones que nunca supe que existían.",
+      "author": "Sarah M., Patrocinadora"
+    },
+    "plans": {
+      "monthlyDefault": "$2.99",
+      "monthSuffix": "/mes",
+      "annualDefault": "$19.99",
+      "yearSuffix": "/año",
+      "annualMonthly": "Solo $1.67/mes",
+      "annualSavings": "Ahorre más de $40 en comparación con el plan mensual",
+      "cancelAnytime": "Cancele en cualquier momento",
+      "bestValue": "Mejor oferta"
+    },
+    "buttons": {
+      "becomePatron": "Conviértase en patrocinador",
+      "restorePurchases": "Restaurar compras",
+      "processing": "Procesando..."
+    },
+    "legalText": {
+      "subscriptionDetailsTitle": "Detalles de la suscripción:",
+      "titleLine": "Suscripción de renovación automática Faith Explorer Pro",
+      "lengthLine": "Mensual (1 mes) o Anual (12 meses)",
+      "priceLineTemplate": "{monthlyPrice}/mes o {annualPrice}/año ($1.67/mes)",
+      "renewalTerms": "El pago se cargará a su cuenta de Apple ID al confirmar la compra. La suscripción se renueva automáticamente a menos que se cancele al menos 24 horas antes del final del período actual. Se le cobrará la renovación dentro de las 24 horas previas al final del período actual. Puede administrar y cancelar sus suscripciones en la configuración de su cuenta en la App Store después de la compra."
+    },
+    "links": {
+      "privacyPolicy": "Política de privacidad",
+      "termsOfUse": "Condiciones de uso (EULA)",
+      "manageSubscription": "Administrar suscripción"
+    }
+  }
+}

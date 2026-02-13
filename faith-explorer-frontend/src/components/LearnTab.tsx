@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Compass, Lock, Check, ChevronRight, PlayCircle, MessageCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { LEARNING_PATHS, type LearningPath } from '../data/learningPaths';
 import { useStore } from '../store/useStore';
 import { PathDetail } from './PathDetail';
@@ -11,9 +12,20 @@ interface LearnTabProps {
 }
 
 export function LearnTab({ onDialogueClick }: LearnTabProps = {}) {
+    const { t } = useTranslation('learn');
+    const { t: tSearch } = useTranslation('search');
     const [view, setView] = useState<LearnView>('browse');
     const [selectedPath, setSelectedPath] = useState<LearningPath | null>(null);
     const { learningProgress, usage } = useStore();
+
+    // Scroll to top when this tab mounts
+    useEffect(() => {
+        requestAnimationFrame(() => {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        });
+    }, []);
 
     const handleSelectPath = (path: LearningPath) => {
         setSelectedPath(path);
@@ -28,6 +40,21 @@ export function LearnTab({ onDialogueClick }: LearnTabProps = {}) {
     if (view === 'path' && selectedPath) {
         return <PathDetail path={selectedPath} onBack={handleBack} />;
     }
+
+    // Map data file IDs (kebab-case) to locale keys (camelCase) where they differ
+    const pathIdToKey: Record<string, string> = {
+        'inner-peace': 'innerPeace',
+        'golden-rule': 'goldenRule',
+    };
+    const getLocaleKey = (id: string) => pathIdToKey[id] || id;
+
+    // Helper to get translated path field
+    const getPathTitle = (path: LearningPath) =>
+        t(`learningPaths.${getLocaleKey(path.id)}.title`, { defaultValue: path.title });
+    const getPathDescription = (path: LearningPath) =>
+        t(`learningPaths.${getLocaleKey(path.id)}.description`, { defaultValue: path.description });
+    const getPathDuration = (path: LearningPath) =>
+        t(`learningPaths.${getLocaleKey(path.id)}.duration`, { defaultValue: path.duration });
 
     // Get active path details
     const activePath = learningProgress.activePath
@@ -44,8 +71,8 @@ export function LearnTab({ onDialogueClick }: LearnTabProps = {}) {
                 <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg mb-3">
                     <Compass className="w-7 h-7 text-white" />
                 </div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">Learning Paths</h1>
-                <p className="text-gray-600 dark:text-gray-400 sepia:text-amber-700 mt-1">Structured journeys through sacred wisdom</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('learnTab.title')}</h1>
+                <p className="text-gray-600 dark:text-gray-400 sepia:text-amber-700 mt-1">{t('learnTab.subtitle')}</p>
             </div>
 
             {/* Active Path Banner */}
@@ -56,8 +83,8 @@ export function LearnTab({ onDialogueClick }: LearnTabProps = {}) {
                 >
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-indigo-100 text-sm font-medium">Continue Your Journey</p>
-                            <h3 className="text-lg font-bold mt-0.5">{activePath.icon} {activePath.title}</h3>
+                            <p className="text-indigo-100 text-sm font-medium">{t('learnTab.continueJourney')}</p>
+                            <h3 className="text-lg font-bold mt-0.5">{activePath.icon} {getPathTitle(activePath)}</h3>
                             <div className="flex items-center gap-2 mt-2">
                                 <div className="flex gap-1">
                                     {activePath.days.map((_, i) => (
@@ -69,7 +96,7 @@ export function LearnTab({ onDialogueClick }: LearnTabProps = {}) {
                                     ))}
                                 </div>
                                 <span className="text-sm text-indigo-100">
-                                    Day {activeProgress.length + 1} of {activePath.days.length}
+                                    {t('learnTab.dayOfTotal', { current: activeProgress.length + 1, total: activePath.days.length })}
                                 </span>
                             </div>
                         </div>
@@ -81,7 +108,7 @@ export function LearnTab({ onDialogueClick }: LearnTabProps = {}) {
             {/* Path Cards */}
             <div className="space-y-3">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900">
-                    {activePath ? 'Other Paths' : 'Choose a Path'}
+                    {activePath ? t('learnTab.otherPaths') : t('learnTab.chooseAPath')}
                 </h2>
 
                 {LEARNING_PATHS.filter(p => p.id !== activePath?.id).map((path) => {
@@ -103,23 +130,23 @@ export function LearnTab({ onDialogueClick }: LearnTabProps = {}) {
                                 <div className="text-3xl">{path.icon}</div>
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2">
-                                        <h3 className="font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{path.title}</h3>
+                                        <h3 className="font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{getPathTitle(path)}</h3>
                                         {isLocked && <Lock className="w-4 h-4 text-gray-400" />}
                                         {isCompleted && <Check className="w-4 h-4 text-green-500" />}
                                     </div>
                                     <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700 mt-0.5 line-clamp-2">
-                                        {path.description}
+                                        {getPathDescription(path)}
                                     </p>
                                     <div className="flex items-center gap-3 mt-2">
-                                        <span className="text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-600">{path.duration}</span>
+                                        <span className="text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-600">{getPathDuration(path)}</span>
                                         {progress.length > 0 && !isCompleted && (
                                             <span className="text-xs text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">
-                                                {progress.length}/{path.days.length} days complete
+                                                {t('learnTab.daysComplete', { completed: progress.length, total: path.days.length })}
                                             </span>
                                         )}
                                         {path.premium && (
                                             <span className="text-xs px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full">
-                                                Premium
+                                                {t('learnTab.premium')}
                                             </span>
                                         )}
                                     </div>
@@ -142,8 +169,8 @@ export function LearnTab({ onDialogueClick }: LearnTabProps = {}) {
                             <MessageCircle className="w-7 h-7" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-lg font-bold text-white mb-1">Chat with Religious Guides</h3>
-                            <p className="text-sm text-indigo-100">Practice respectful dialogue with AI personas from 9 faith traditions</p>
+                            <h3 className="text-lg font-bold text-white mb-1">{tSearch('dialogue.chatWithGuidesTitle')}</h3>
+                            <p className="text-sm text-indigo-100">{tSearch('dialogue.chatWithGuidesDescription')}</p>
                         </div>
                         <ChevronRight className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform" />
                     </div>

@@ -1,5 +1,6 @@
 import { X, BookOpen, GitCompare } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface OnboardingModalProps {
   onClose: () => void;
@@ -7,37 +8,26 @@ interface OnboardingModalProps {
 
 export function OnboardingModal({ onClose }: OnboardingModalProps) {
   const [step, setStep] = useState(0);
+  const { t } = useTranslation('common');
 
   const steps = [
     {
       icon: BookOpen,
-      title: 'Welcome to Faith Explorer',
-      description: 'Explore and compare sacred texts from 9 major world religions. Ask questions and discover wisdom across traditions.',
-      examples: [
-        'What is love?',
-        'What is the meaning of life?',
-        'How should we treat others?',
-      ],
+      title: t('onboarding.step1.title'),
+      description: t('onboarding.step1.description'),
+      examples: t('onboarding.step1.examples', { returnObjects: true }) as string[],
     },
     {
       icon: GitCompare,
-      title: 'Compare Traditions',
-      description: 'Switch to comparison mode to see how different religions approach the same topic. Get detailed comparative analysis.',
-      examples: [
-        'Views on compassion',
-        'Perspectives on suffering',
-        'The golden rule',
-      ],
+      title: t('onboarding.step2.title'),
+      description: t('onboarding.step2.description'),
+      examples: t('onboarding.step2.examples', { returnObjects: true }) as string[],
     },
     {
       icon: BookOpen,
-      title: 'Read Complete Scriptures',
-      description: 'Browse full religious texts like a Bible app. Use the Read tab to study complete books chapter by chapter.',
-      examples: [
-        'Read Genesis',
-        'Browse the Quran',
-        'Study the Bhagavad Gita',
-      ],
+      title: t('onboarding.step3.title'),
+      description: t('onboarding.step3.description'),
+      examples: t('onboarding.step3.examples', { returnObjects: true }) as string[],
     },
   ];
 
@@ -63,7 +53,7 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
         </div>
 
         <div className="bg-sand-100 dark:bg-stone-800/50 rounded-xl p-5 mb-8 border border-sand-200 dark:border-stone-700">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-bronze-700 dark:text-bronze-400 mb-3">Try asking:</h3>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-bronze-700 dark:text-bronze-400 mb-3">{t('onboarding.tryAsking')}</h3>
           <div className="space-y-2">
             {currentStep.examples.map((example, idx) => (
               <div key={idx} className="bg-white dark:bg-stone-800 rounded-lg px-4 py-3 text-sm text-stone-700 dark:text-stone-300 shadow-sm border border-sand-100 dark:border-stone-700 font-medium">
@@ -91,13 +81,13 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
                   onClick={onClose}
                   className="px-4 py-2 text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200 font-medium transition-colors"
                 >
-                  Skip
+                  {t('buttons.skip')}
                 </button>
                 <button
                   onClick={() => setStep(step + 1)}
                   className="px-6 py-2 bg-bronze-600 text-white rounded-lg hover:bg-bronze-700 font-medium transition-colors shadow-md shadow-bronze-900/10"
                 >
-                  Next
+                  {t('buttons.next')}
                 </button>
               </>
             ) : (
@@ -105,7 +95,7 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
                 onClick={onClose}
                 className="px-6 py-2 bg-bronze-600 text-white rounded-lg hover:bg-bronze-700 font-medium transition-colors shadow-md shadow-bronze-900/10"
               >
-                Get Started
+                {t('buttons.getStarted')}
               </button>
             )}
           </div>

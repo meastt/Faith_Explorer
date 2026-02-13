@@ -1,0 +1,213 @@
+{
+  "personas": {
+    "title": "Conversa con Guías Religiosos",
+    "subtitle": "Practica el diálogo respetuoso con personajes de IA de 9 tradiciones religiosas",
+    "moreCount": "+6 más"
+  },
+  "searchBar": {
+    "placeholder": "Haz una pregunta sobre los textos (ej., '¿Por qué sufrimos?')",
+    "freeSearchesRemaining": "Búsquedas gratuitas restantes",
+    "descriptorLabel": "BASADO EN ESCRITURAS . MULTIRELIGIOSO . COMPARATIVO"
+  },
+  "religionSelector": {
+    "singlePath": "Un solo camino",
+    "comparePerspectives": "Comparar perspectivas",
+    "comingSoon": "Próximamente"
+  },
+  "topicExplorer": {
+    "title": "Temas comunes",
+    "topics": [
+      "Amor", "Esperanza", "Sufrimiento", "Perdón",
+      "Paz", "Justicia", "Familia", "Propósito",
+      "Gratitud", "Temor", "Sabiduría", "Muerte"
+    ]
+  },
+  "dailyWisdom": {
+    "title": "Sabiduría del día",
+    "seekingWisdom": "Buscando sabiduría...",
+    "fromReligion": "De {religion}",
+    "enhancedInsight": "Perspectiva ampliada",
+    "deepDiveWithAI": "Exploración profunda con IA",
+    "unlockDeepDive": "Desbloquear exploración profunda (Premium)",
+    "personalizedIntro": "Basado en tu interés reciente en {topics}, la sabiduría de hoy explora {query}",
+    "wisdomQueries": [
+      "¿Qué trae paz interior?",
+      "¿Cómo debemos tratar a los demás?",
+      "¿Qué es la verdadera sabiduría?",
+      "¿Cómo encontramos sentido?",
+      "¿Cuál es el camino hacia la iluminación?",
+      "¿Cómo debemos enfrentar los desafíos?",
+      "¿Qué es la compasión?",
+      "¿Cómo cultivamos la gratitud?"
+    ]
+  },
+  "searchResults": {
+    "title": "Resultados de búsqueda",
+    "versesFoundIn": "{count} {versePlural} encontrados en {name}",
+    "verse": "versículo",
+    "verses": "versículos",
+    "noResultsTitle": "No se encontraron resultados",
+    "noResultsDescription": "Intenta con otras palabras clave o frases para descubrir versículos relevantes",
+    "sourcePassages": "Pasajes de origen ({count})",
+    "showMoreVerses": "Mostrar {count} versículos más",
+    "academicAnalysis": "Análisis académico",
+    "scholarlyInterpretation": "Interpretación académica basada en {name}",
+    "comparisonTitle": "Resultados comparativos",
+    "exploringPerspectives": "Explorando perspectivas de {count} tradiciones",
+    "comparativeAnalysis": "Análisis comparativo",
+    "synthesisAcrossTraditions": "Síntesis entre tradiciones",
+    "visualizeCommonGround": "Visualizar puntos en común",
+    "individualPerspectives": "Perspectivas individuales",
+    "comparativeAnalysisError": "No se pudo generar el análisis comparativo. Los resultados individuales se muestran a continuación.",
+    "resultsFound": "{count} {resultPlural} encontrados",
+    "result": "resultado",
+    "results": "resultados",
+    "perspective": "Perspectiva",
+    "basedOn": "Basado en {name}",
+    "noResultsInReligion": "No se encontraron resultados en {name}",
+    "morePassages": "+ {count} pasajes más en {name}",
+    "scriptureAnalysis": "Análisis de escrituras"
+  },
+  "commonGround": {
+    "title": "Puntos en común",
+    "subtitle": "Análisis interreligioso de Venn",
+    "synthesizing": "Sintetizando perspectivas...",
+    "shared": "Compartido",
+    "sharedValues": "Valores compartidos",
+    "uniqueTo": "Único de {religion}"
+  },
+  "dialogue": {
+    "selectPartnerTitle": "Selecciona un compañero de práctica",
+    "selectPartnerDescription": "Elige un guía para practicar el diálogo respetuoso.",
+    "discussTopicTitle": "¿Qué te gustaría discutir?",
+    "discussTopicDescription": "Elige un tema para practicar el diálogo respetuoso.",
+    "onlineStatus": "En línea . Modo de práctica",
+    "replyPlaceholder": "Responder a {name}...",
+    "chatWithGuidesTitle": "Conversa con guías religiosos",
+    "chatWithGuidesDescription": "Practica el diálogo respetuoso con personajes de IA de 9 tradiciones religiosas",
+    "backToLearningPaths": "Volver a rutas de aprendizaje",
+    "greetings": {
+      "meetAndGreet": "¡Hola! Soy {name}. Es un placer conocerte. Siempre me alegra compartir sobre mi fe y aprender de los demás. ¿Qué te trae por aquí hoy?",
+      "dietaryPractices": "¡Shalom! Soy {name}. Entiendo que tienes curiosidad sobre cómo la fe influye en lo que comemos. Es un tema significativo: la comida nos conecta con la tradición de muchas maneras. ¿Qué te gustaría saber?",
+      "prayerAndWorship": "¡La paz sea contigo! Soy {name}. La oración y la adoración son fundamentales en mi vida diaria. Con gusto compartiré cómo me conecto con lo divino. ¿Qué aspecto te interesa más?",
+      "charityAndGiving": "¡Bienvenido! Soy {name}. La generosidad y el cuidado de los demás es un pilar de mi fe. Hay mucha sabiduría en nuestras tradiciones sobre el dar. ¿Qué te atrae de este tema?",
+      "lifesChallenges": "Hola, amigo. Soy {name}. Los desafíos de la vida son algo que todas las tradiciones religiosas han abordado profundamente. Es un honor que quieras explorar esto conmigo. ¿Por dónde empezamos?",
+      "default": "¡Hola! Soy {name}. Espero con interés nuestra conversación sobre {scenario}. ¿Qué te gustaría discutir?"
+    },
+    "personas": [
+      {
+        "id": "muslim",
+        "name": "Hermano Ahmed",
+        "faith": "Islam",
+        "traits": "Cálido, enfocado en la comunidad, valora la hospitalidad"
+      },
+      {
+        "id": "christian",
+        "name": "Rev. Sarah",
+        "faith": "Cristianismo",
+        "traits": "De mentalidad teológica, amable, cautivadora"
+      },
+      {
+        "id": "jewish",
+        "name": "Rabino Cohen",
+        "faith": "Judaísmo",
+        "traits": "Analítico, fomenta las preguntas, sabio"
+      },
+      {
+        "id": "buddhist",
+        "name": "Monje Tenzin",
+        "faith": "Budismo",
+        "traits": "Sereno, consciente, directo pero amable"
+      },
+      {
+        "id": "hindu",
+        "name": "Pandit Sharma",
+        "faith": "Hinduismo",
+        "traits": "Espiritual, filosófico, abraza la diversidad"
+      },
+      {
+        "id": "sikh",
+        "name": "Bhai Harpreet",
+        "faith": "Sijismo",
+        "traits": "Humilde, orientado al servicio, valora la igualdad"
+      },
+      {
+        "id": "taoist",
+        "name": "Maestro Chen",
+        "faith": "Taoísmo",
+        "traits": "Pacífico, naturalista, habla con paradojas"
+      },
+      {
+        "id": "confucian",
+        "name": "Maestro Wei",
+        "faith": "Confucianismo",
+        "traits": "Erudito, enfatiza la virtud y las relaciones"
+      },
+      {
+        "id": "shinto",
+        "name": "Kannushi Tanaka",
+        "faith": "Sintoísmo",
+        "traits": "Reverente de la naturaleza, ceremonial, armonioso"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "introduction",
+        "title": "Presentación",
+        "description": "Preséntate y aprende sobre su camino de fe",
+        "icon": "wave"
+      },
+      {
+        "id": "dietary-rules",
+        "title": "Prácticas alimentarias",
+        "description": "Pregunta sobre costumbres alimentarias, ayuno y leyes dietéticas",
+        "icon": "food"
+      },
+      {
+        "id": "prayer-habits",
+        "title": "Oración y adoración",
+        "description": "Conversa sobre rutinas de oración y prácticas de adoración",
+        "icon": "prayer"
+      },
+      {
+        "id": "charity",
+        "title": "Caridad y generosidad",
+        "description": "Explora el papel de la generosidad y la ayuda al prójimo",
+        "icon": "heart"
+      },
+      {
+        "id": "suffering",
+        "title": "Desafíos de la vida",
+        "description": "Conversa sobre perspectivas del sufrimiento y las dificultades",
+        "icon": "growth"
+      }
+    ]
+  },
+  "verseCard": {
+    "contextAndInformation": "Contexto e información",
+    "source": "Fuente:",
+    "reference": "Referencia:",
+    "contextTip": "Consejo: Haz clic en 'Discutir' para preguntar sobre el contexto circundante...",
+    "wisdomMode": "Modo sabiduría"
+  },
+  "chatDrawer": {
+    "askAboutVerse": "Pregunta sobre este versículo",
+    "chatHelperText": "Puedo ayudarte a explicar el significado, el contexto y la importancia de este pasaje. ¿Qué te gustaría saber?",
+    "messagesRemaining": "{count} mensajes restantes",
+    "chatPlaceholder": "Haz una pregunta sobre este versículo..."
+  },
+  "scriptureReader": {
+    "selectBook": "Seleccionar libro",
+    "chapterAbbrev": "Cap.",
+    "noVersesForChapter": "No se encontraron versículos para este capítulo",
+    "dailyWisdomReference": "Sabiduría del día: {query}"
+  },
+  "app": {
+    "religionLabels": {
+      "islam": "Islam",
+      "christianity": "Cristianismo",
+      "judaism": "Judaísmo",
+      "moreCount": "+6 más"
+    }
+  }
+}

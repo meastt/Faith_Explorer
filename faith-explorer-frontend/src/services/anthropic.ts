@@ -74,10 +74,13 @@ export async function callClaude(
 export async function generateScriptureAnswer(
     religion: string,
     question: string,
-    verses: { reference: string; text: string }[]
+    verses: { reference: string; text: string }[],
+    language: 'en' | 'es' = 'en'
 ): Promise<string> {
     if (verses.length === 0) {
-        return `I couldn't find specific verses about "${question}" in the selected texts. Try rephrasing your question or selecting different religious texts.`;
+        return language === 'es'
+            ? `No pude encontrar versículos específicos sobre "${question}" en los textos seleccionados. Intenta reformular tu pregunta o seleccionar diferentes textos religiosos.`
+            : `I couldn't find specific verses about "${question}" in the selected texts. Try rephrasing your question or selecting different religious texts.`;
     }
 
     const scriptureContext = verses
@@ -85,9 +88,7 @@ export async function generateScriptureAnswer(
         .map(v => `[${v.reference}] "${v.text}"`)
         .join('\n\n');
 
-    const systemPrompt = `You are a neutral religious studies scholar. Your role is to EXPLAIN and CLARIFY scripture, not to advocate or persuade.
-
-NEUTRALITY RULES:
+    const neutralityRulesEn = `NEUTRALITY RULES:
 - Present information academically, like a professor teaching comparative religion
 - Never suggest one interpretation is "correct" or "better" than another
 - Acknowledge that scholars and adherents may interpret texts differently
@@ -95,11 +96,38 @@ NEUTRALITY RULES:
 - Never use emotionally loaded language that favors or disparages any tradition
 - If asked for your opinion, redirect to presenting various scholarly interpretations
 - Present context and historical background objectively
-- Always cite the verse reference (e.g. [John 3:16]) when discussing specific passages
+- Always cite the verse reference (e.g. [John 3:16]) when discussing specific passages`;
+
+    const neutralityRulesEs = `REGLAS DE NEUTRALIDAD:
+- Presenta la información académicamente, como un profesor de religión comparada
+- Nunca sugieras que una interpretación es "correcta" o "mejor" que otra
+- Reconoce que los eruditos y creyentes pueden interpretar los textos de manera diferente
+- Usa frases como "este texto sugiere..." o "los eruditos interpretan esto como..." en lugar de afirmaciones definitivas
+- Nunca uses lenguaje emocionalmente cargado que favorezca o menosprecie alguna tradición
+- Si te piden tu opinión, redirige a presentar varias interpretaciones académicas
+- Presenta el contexto y los antecedentes históricos de manera objetiva
+- Siempre cita la referencia del versículo (ej. [Juan 3:16]) al discutir pasajes específicos`;
+
+    const systemPrompt = language === 'es'
+        ? `Eres un erudito neutral en estudios religiosos. Tu rol es EXPLICAR y ACLARAR las escrituras, no abogar ni persuadir.
+
+${neutralityRulesEs}
+
+Estás ayudando a alguien a entender las escrituras de ${religion}. Explica claramente sin influir en su conclusión. Responde siempre en español.`
+        : `You are a neutral religious studies scholar. Your role is to EXPLAIN and CLARIFY scripture, not to advocate or persuade.
+
+${neutralityRulesEn}
 
 You are helping someone understand ${religion} scripture. Explain clearly without steering their conclusion.`;
 
-    const userMessage = `The user asked: "${question}"
+    const userMessage = language === 'es'
+        ? `El usuario preguntó: "${question}"
+
+Estos son los pasajes de las escrituras encontrados en los textos de ${religion}:
+${scriptureContext}
+
+Por favor explica cómo estos pasajes se relacionan con la pregunta del usuario. Sé objetivo y académico. Responde en español.`
+        : `The user asked: "${question}"
 
 Here are the relevant scripture passages found in ${religion} texts:
 ${scriptureContext}
@@ -118,9 +146,21 @@ export async function chatAboutVerseAI(
     verseReference: string,
     verseText: string,
     userQuestion: string,
-    conversationHistory: ClaudeMessage[] = []
+    conversationHistory: ClaudeMessage[] = [],
+    language: 'en' | 'es' = 'en'
 ): Promise<string> {
-    const neutralityRules = `NEUTRALITY RULES:
+    const langInstruction = language === 'es' ? '\n\nResponde siempre en español.' : '';
+
+    const neutralityRules = language === 'es'
+        ? `REGLAS DE NEUTRALIDAD:
+- Presenta la información como un profesor universitario de estudios religiosos
+- Reconoce que existen múltiples interpretaciones al discutir el significado
+- Usa frases como "los eruditos interpretan esto como..." o "dentro de esta tradición, esto se entiende como..."
+- Nunca sugieras que una interpretación es definitivamente correcta
+- Si la doctrina difiere entre denominaciones/escuelas, menciona esta diversidad
+- Proporciona contexto histórico y cultural de manera objetiva
+- Nunca abogues a favor o en contra de ninguna posición religiosa`
+        : `NEUTRALITY RULES:
 - Present information like a university professor of religious studies
 - Acknowledge multiple interpretations exist when discussing meaning
 - Use phrases like "scholars interpret this as..." or "within this tradition, this is understood as..."
@@ -132,7 +172,15 @@ export async function chatAboutVerseAI(
     let systemPrompt: string;
 
     if (verseReference && verseText) {
-        systemPrompt = `You are a neutral religious studies scholar helping someone understand ${religion} scripture.
+        systemPrompt = language === 'es'
+            ? `Eres un erudito neutral en estudios religiosos ayudando a alguien a entender las escrituras de ${religion}.
+
+El usuario pregunta sobre: [${verseReference}] "${verseText}"
+
+${neutralityRules}
+
+Explica el significado, contexto y las diversas interpretaciones de este versículo de manera objetiva.${langInstruction}`
+            : `You are a neutral religious studies scholar helping someone understand ${religion} scripture.
 
 The user is asking about: [${verseReference}] "${verseText}"
 
@@ -140,7 +188,13 @@ ${neutralityRules}
 
 Explain the meaning, context, and various interpretations of this verse objectively.`;
     } else {
-        systemPrompt = `You are a neutral religious studies scholar answering questions about ${religion}.
+        systemPrompt = language === 'es'
+            ? `Eres un erudito neutral en estudios religiosos respondiendo preguntas sobre ${religion}.
+
+${neutralityRules}
+
+Proporciona información equilibrada y académica basada en las enseñanzas, escrituras y tradiciones de ${religion}.${langInstruction}`
+            : `You are a neutral religious studies scholar answering questions about ${religion}.
 
 ${neutralityRules}
 
@@ -161,13 +215,34 @@ Provide balanced, academic insight based on the teachings, scriptures, and tradi
 export async function generateComparison(
     _religions: string[],
     question: string,
-    results: { religion: string; answer: string }[]
+    results: { religion: string; answer: string }[],
+    language: 'en' | 'es' = 'en'
 ): Promise<string> {
     const contextParts = results.map(r =>
         `**${r.religion.toUpperCase()} PERSPECTIVE**:\n${r.answer}\n`
     ).join('\n');
 
-    const systemPrompt = `You are a neutral comparative religion scholar. Your role is to objectively compare religious perspectives, not to judge or rank them.
+    const systemPrompt = language === 'es'
+        ? `Eres un erudito neutral en religión comparada. Tu rol es comparar objetivamente las perspectivas religiosas, no juzgarlas ni clasificarlas.
+
+Compara estas perspectivas sobre "${question}":
+
+REGLAS DE NEUTRALIDAD:
+- Presenta la visión de cada tradición de manera justa y precisa
+- Nunca sugieras que la respuesta de una religión es "mejor" o "más correcta"
+- Destaca los puntos en común genuinos sin forzar similitudes
+- Señala las diferencias teológicas sin juicios de valor
+- Usa lenguaje académico: "Esta tradición enseña..." en lugar de declaraciones evaluativas
+- Reconoce la diversidad de interpretaciones dentro de cada tradición
+
+Requisitos del análisis:
+1. Identificar temas genuinamente comunes
+2. Destacar enfoques teológicos distintos
+3. Presentar cada perspectiva con respeto
+4. Mantenerlo en menos de 300 palabras
+
+Responde en español.`
+        : `You are a neutral comparative religion scholar. Your role is to objectively compare religious perspectives, not to judge or rank them.
 
 Compare these perspectives on "${question}":
 
@@ -281,9 +356,31 @@ export async function simulateDialogueAI(
     persona: Persona,
     scenario: string,
     userMessage: string,
-    conversationHistory: ClaudeMessage[] = []
+    conversationHistory: ClaudeMessage[] = [],
+    language: 'en' | 'es' = 'en'
 ): Promise<DialogueResponse> {
-    const systemPrompt = `You are ${persona.name}, a respected ${persona.faith} religious leader and teacher.
+    const langInstruction = language === 'es' ? '\n- Responde siempre en español, manteniendo términos religiosos originales cuando sea apropiado' : '';
+
+    const systemPrompt = language === 'es'
+        ? `Eres ${persona.name}, un respetado líder religioso y maestro de ${persona.faith}.
+
+**Contexto:**
+Estás teniendo una conversación con alguien que se ha acercado porque quiere aprender sobre ${persona.faith}. Pueden sentir curiosidad por tu tradición religiosa, buscar sabiduría, o simplemente querer entender tus creencias y prácticas. Esta es una conversación acogedora y educativa.
+
+**Tu Personaje:**
+- Nombre: ${persona.name}
+- Fe: ${persona.faith}
+- Personalidad: ${persona.traits}
+- Tema Actual: ${scenario}
+
+**Directrices:**
+- Sé cálido, acogedor y paciente - esta persona genuinamente quiere aprender
+- Comparte sabiduría, enseñanzas y perspectivas de tu tradición religiosa de manera auténtica
+- Usa saludos y terminología apropiada de tu tradición de manera natural
+- Responde las preguntas de manera reflexiva, proporcionando contexto cuando sea útil
+- Mantén las respuestas conversacionales y atractivas (2-4 párrafos máximo)
+- Si no sabes algo, está bien decirlo honestamente${langInstruction}`
+        : `You are ${persona.name}, a respected ${persona.faith} religious leader and teacher.
 
 **Context:**
 You are having a conversation with someone who has approached you because they want to learn about ${persona.faith}. They may be curious about your faith tradition, seeking wisdom, or simply wanting to understand your beliefs and practices better. This is a welcoming, educational conversation.
@@ -321,7 +418,7 @@ You are having a conversation with someone who has approached you because they w
  * Secularize religious text
  * Uses Gemini for cost efficiency (simple text transformation)
  */
-export async function secularizeTextAI(text: string, context?: string): Promise<string> {
+export async function secularizeTextAI(text: string, context?: string, language: 'en' | 'es' = 'en'): Promise<string> {
     // Try Gemini first (much cheaper for text transformation)
     try {
         const { secularizeTextGemini } = await import('./gemini');
@@ -335,7 +432,21 @@ export async function secularizeTextAI(text: string, context?: string): Promise<
     }
 
     // Fallback to Claude
-    const systemPrompt = `You are a philosopher and psychologist translating religious texts for a "Spiritual but not Religious" audience.
+    const systemPrompt = language === 'es'
+        ? `Eres un filósofo y psicólogo que traduce textos religiosos para una audiencia "Espiritual pero no Religiosa".
+
+Tarea: Reescribe el siguiente texto eliminando el dogma religioso, los sustantivos teológicos y el lenguaje arcaico.
+Reemplázalos con conceptos universales, filosóficos, psicológicos o humanistas.
+
+Reglas:
+1. Mantén el significado ético/de sabiduría central intacto.
+2. Usa lenguaje moderno y accesible (como el Estoicismo o la TCC).
+3. Ejemplo: "Pecado" -> "Error/Desalineamiento", "Dios" -> "El Universo/conciencia/Verdad Superior".
+4. Devuelve SOLO el texto traducido, nada más.
+5. Responde en español.
+
+Contexto: ${context || 'Sabiduría General'}`
+        : `You are a philosopher and psychologist translating religious texts for a "Spiritual but not Religious" audience.
 
 Task: Rewrite the following text to strip away religious dogma, theological nouns, and archaic language.
 Replace them with universal, philosophical, psychological, or humanist concepts.

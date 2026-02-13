@@ -5,6 +5,7 @@ import { chatAboutVerse } from '../services/api';
 import { RELIGIONS } from '../types';
 import { formatAIResponse } from '../utils/markdown';
 import { SubscriptionModal } from './SubscriptionModal';
+import { useTranslation } from 'react-i18next';
 
 export function ChatDrawer() {
   const { activeVerseChat, setActiveVerseChat, addChatMessage, incrementChatUsage, usage, setPremium } = useStore();
@@ -12,6 +13,8 @@ export function ChatDrawer() {
   const [isLoading, setIsLoading] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation('search');
+  const { t: tCommon } = useTranslation('common');
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -51,7 +54,7 @@ export function ChatDrawer() {
       console.error('Chat error:', error);
       addChatMessage({
         role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again.',
+        content: tCommon('errors.chatError'),
       });
     } finally {
       setIsLoading(false);
@@ -80,7 +83,7 @@ export function ChatDrawer() {
             backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
             backgroundSize: '32px 32px'
           }}></div>
-          
+
           <div className="relative flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
@@ -108,10 +111,10 @@ export function ChatDrawer() {
                 <Sparkles className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               </div>
               <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">
-                Ask About This Verse
+                {t('chatDrawer.askAboutVerse')}
               </h4>
               <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700 max-w-sm">
-                I can help explain the meaning, context, and significance of this passage. What would you like to know?
+                {t('chatDrawer.chatHelperText')}
               </p>
             </div>
           )}
@@ -176,7 +179,7 @@ export function ChatDrawer() {
         <div className="border-t border-gray-200 dark:border-gray-700 sepia:border-amber-200 bg-white dark:bg-gray-800 sepia:bg-amber-50 p-4 sm:p-6">
           {!usage.isPremium && (
             <div className="mb-3 text-xs text-gray-600 dark:text-gray-400 sepia:text-amber-700 font-medium">
-              {usage.chatLimit - usage.chatMessagesUsed} messages remaining
+              {t('chatDrawer.messagesRemaining', { count: usage.chatLimit - usage.chatMessagesUsed })}
             </div>
           )}
           <div className="flex gap-3">
@@ -185,7 +188,7 @@ export function ChatDrawer() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-              placeholder="Ask a question about this verse..."
+              placeholder={t('chatDrawer.chatPlaceholder')}
               className="flex-1 px-4 py-3 bg-sage-50 dark:bg-gray-700 sepia:bg-amber-100 border-2 border-transparent rounded-xl focus:bg-white dark:focus:bg-gray-600 sepia:focus:bg-amber-50 focus:border-primary-500 focus:ring-4 focus:ring-primary-50 text-sm placeholder-sage-400 dark:placeholder-gray-400 sepia:placeholder-amber-600 text-sage-900 dark:text-gray-100 sepia:text-amber-900 transition-all duration-200"
               disabled={isLoading}
             />

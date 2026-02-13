@@ -1,5 +1,6 @@
-import { X, Settings as SettingsIcon, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette, Trash2, RefreshCw, Info, Heart, Award, Bell } from 'lucide-react';
+import { X, Shield, HelpCircle, Mail, ExternalLink, ChevronRight, Moon, Sun, Monitor, Type, Palette, Trash2, RefreshCw, Info, Heart, Award, Bell, Globe } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStore } from '../store/useStore';
 import { Badges } from './Badges';
 import { notificationService } from '../services/notifications';
@@ -10,44 +11,36 @@ interface SettingsProps {
 }
 
 export function Settings({ onClose }: SettingsProps) {
-  const { readingPreferences, setReadingPreferences, resetUsage, notificationPreferences, setNotificationPreferences } = useStore();
-  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'badges' | 'notifications' | 'support' | 'legal' | 'data' | 'purchases' | 'about'>('main');
+  const { t } = useTranslation('settings');
+  const { t: tc } = useTranslation('common');
+  const { readingPreferences, setReadingPreferences, resetUsage, notificationPreferences, setNotificationPreferences, language, setLanguage } = useStore();
+  const [activeSection, setActiveSection] = useState<'main' | 'appearance' | 'badges' | 'notifications' | 'support' | 'legal' | 'data' | 'purchases' | 'about' | 'language'>('main');
   const [permissionGranted, setPermissionGranted] = useState<boolean | null>(null);
 
   const clearLocalData = () => {
     try {
-      // Clear zustand persisted store and app-specific local storage keys
       localStorage.removeItem('faith-explorer-storage');
       localStorage.removeItem('faithExplorer_appVersion');
       localStorage.removeItem('faithExplorer_hasSeenOnboarding');
       localStorage.removeItem('faithExplorer_premium');
       localStorage.removeItem('faithExplorer_usage');
       resetUsage();
-      showToast('All local data has been deleted from this device.');
+      showToast(tc('toast.localDataDeleted'));
     } catch (e) {
-      showToast('Failed to delete local data.', 'error');
+      showToast(tc('toast.localDataDeleteFailed'), 'error');
     }
   };
 
   const handleThemeChange = (theme: 'light' | 'dark' | 'sepia') => {
-    setReadingPreferences({
-      ...readingPreferences,
-      theme,
-    });
+    setReadingPreferences({ ...readingPreferences, theme });
   };
 
   const handleFontFamilyChange = (fontFamily: 'sans' | 'serif' | 'dyslexic') => {
-    setReadingPreferences({
-      ...readingPreferences,
-      fontFamily,
-    });
+    setReadingPreferences({ ...readingPreferences, fontFamily });
   };
 
   const handleFontSizeChange = (fontSize: number) => {
-    setReadingPreferences({
-      ...readingPreferences,
-      fontSize,
-    });
+    setReadingPreferences({ ...readingPreferences, fontSize });
   };
 
   const openExternalLink = (url: string) => {
@@ -55,74 +48,100 @@ export function Settings({ onClose }: SettingsProps) {
   };
 
   const MainSettings = () => (
-    <div className="space-y-4">
+    <div className="space-y-1.5">
+      <button
+        onClick={() => setActiveSection('language')}
+        className="w-full flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+      >
+        <Globe className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
+        <span className="flex-1 text-left font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-sm">{t('language.title')}</span>
+        <span className="text-xs text-indigo-600 dark:text-indigo-400 font-medium">
+          {language === 'en' ? 'English' : 'Español'}
+        </span>
+        <ChevronRight className="w-4 h-4 text-gray-500" />
+      </button>
+
       <button
         onClick={() => setActiveSection('appearance')}
-        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+        className="w-full flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
       >
         <Palette className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-        <div className="flex-1 text-left">
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Appearance</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Customize your reading experience</p>
-        </div>
+        <span className="flex-1 text-left font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-sm">{t('settings.sections.appearance.title')}</span>
         <ChevronRight className="w-4 h-4 text-gray-500" />
       </button>
 
       <button
         onClick={() => setActiveSection('badges')}
-        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+        className="w-full flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
       >
         <Award className="w-5 h-5 text-amber-600 dark:text-amber-400 sepia:text-amber-700" />
-        <div className="flex-1 text-left">
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Achievement Badges</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">View your unlocked achievements</p>
-        </div>
+        <span className="flex-1 text-left font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-sm">{t('settings.sections.badges.title')}</span>
         <ChevronRight className="w-4 h-4 text-gray-500" />
       </button>
 
       <button
         onClick={() => setActiveSection('notifications')}
-        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+        className="w-full flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
       >
         <Bell className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-        <div className="flex-1 text-left">
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Notifications</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Daily wisdom & streak reminders</p>
-        </div>
+        <span className="flex-1 text-left font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-sm">{t('settings.sections.notifications.title')}</span>
         <ChevronRight className="w-4 h-4 text-gray-500" />
       </button>
 
       <button
         onClick={() => setActiveSection('legal')}
-        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+        className="w-full flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
       >
         <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-        <div className="flex-1 text-left">
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Privacy & Terms</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">View our privacy policy and terms</p>
-        </div>
+        <span className="flex-1 text-left font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-sm">{t('settings.sections.privacyAndTerms.title')}</span>
         <ChevronRight className="w-4 h-4 text-gray-500" />
       </button>
 
       <button
         onClick={() => setActiveSection('support')}
-        className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+        className="w-full flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
       >
         <HelpCircle className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-        <div className="flex-1 text-left">
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Support</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Get help and contact us</p>
-        </div>
+        <span className="flex-1 text-left font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-sm">{t('settings.sections.support.title')}</span>
         <ChevronRight className="w-4 h-4 text-gray-500" />
       </button>
     </div>
   );
 
+  const LanguageSettings = () => (
+    <div className="space-y-4">
+      <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700 mb-4">
+        {t('language.selectDescription')}
+      </p>
+      <div className="grid grid-cols-2 gap-3">
+        <button
+          onClick={() => setLanguage('en')}
+          className={`p-4 rounded-lg border-2 transition-all text-center ${language === 'en'
+            ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
+            : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
+            }`}
+        >
+          <span className="text-2xl block mb-2">🇺🇸</span>
+          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">English</span>
+        </button>
+        <button
+          onClick={() => setLanguage('es')}
+          className={`p-4 rounded-lg border-2 transition-all text-center ${language === 'es'
+            ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 sepia:bg-amber-100'
+            : 'border-gray-200 dark:border-gray-600 sepia:border-amber-300 hover:border-gray-300 dark:hover:border-gray-500 sepia:hover:border-amber-400'
+            }`}
+        >
+          <span className="text-2xl block mb-2">🇪🇸</span>
+          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Español</span>
+        </button>
+      </div>
+    </div>
+  );
+
   const AppearanceSettings = () => (
     <div className="space-y-6">
-      {/* Theme Selection */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-3">Theme</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-3">{t('appearance.theme.title')}</h3>
         <div className="grid grid-cols-3 gap-3">
           <button
             onClick={() => handleThemeChange('light')}
@@ -132,7 +151,7 @@ export function Settings({ onClose }: SettingsProps) {
               }`}
           >
             <Sun className="w-6 h-6 mx-auto mb-2 text-yellow-500" />
-            <span className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Light</span>
+            <span className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('appearance.theme.light')}</span>
           </button>
           <button
             onClick={() => handleThemeChange('dark')}
@@ -142,7 +161,7 @@ export function Settings({ onClose }: SettingsProps) {
               }`}
           >
             <Moon className="w-6 h-6 mx-auto mb-2 text-blue-500" />
-            <span className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Dark</span>
+            <span className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('appearance.theme.dark')}</span>
           </button>
           <button
             onClick={() => handleThemeChange('sepia')}
@@ -152,19 +171,18 @@ export function Settings({ onClose }: SettingsProps) {
               }`}
           >
             <Monitor className="w-6 h-6 mx-auto mb-2 text-amber-500" />
-            <span className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Sepia</span>
+            <span className="text-sm font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('appearance.theme.sepia')}</span>
           </button>
         </div>
       </div>
 
-      {/* Font Family */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-3">Font Family</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-3">{t('appearance.fontFamily.title')}</h3>
         <div className="grid grid-cols-3 gap-3">
           {[
-            { id: 'sans', label: 'Sans', icon: Type },
-            { id: 'serif', label: 'Serif', icon: Type },
-            { id: 'dyslexic', label: 'Dyslexic', icon: Type },
+            { id: 'sans', label: t('appearance.fontFamily.sans'), icon: Type },
+            { id: 'serif', label: t('appearance.fontFamily.serif'), icon: Type },
+            { id: 'dyslexic', label: t('appearance.fontFamily.dyslexic'), icon: Type },
           ].map(({ id, label, icon: Icon }) => (
             <button
               key={id}
@@ -181,11 +199,10 @@ export function Settings({ onClose }: SettingsProps) {
         </div>
       </div>
 
-      {/* Font Size */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-3">Font Size</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-3">{t('appearance.fontSize.title')}</h3>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Small</span>
+          <span className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('appearance.fontSize.small')}</span>
           <input
             type="range"
             min="12"
@@ -194,7 +211,7 @@ export function Settings({ onClose }: SettingsProps) {
             onChange={(e) => handleFontSizeChange(Number(e.target.value))}
             className="flex-1 h-2 bg-gray-200 dark:bg-gray-600 sepia:bg-amber-300 rounded-lg appearance-none cursor-pointer"
           />
-          <span className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Large</span>
+          <span className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('appearance.fontSize.large')}</span>
         </div>
         <div className="text-center mt-2">
           <span className="text-sm text-gray-500 dark:text-gray-500 sepia:text-amber-600">{readingPreferences.fontSize}px</span>
@@ -203,7 +220,6 @@ export function Settings({ onClose }: SettingsProps) {
     </div>
   );
 
-  // Check notification permission on mount
   useEffect(() => {
     notificationService.getPermissionStatus().then(status => {
       setPermissionGranted(status.granted);
@@ -212,14 +228,11 @@ export function Settings({ onClose }: SettingsProps) {
 
   const handleDailyWisdomToggle = async (enabled: boolean) => {
     if (enabled && permissionGranted === false) {
-      // Request permission first
       const permission = await notificationService.requestPermission();
       setPermissionGranted(permission.granted);
       if (!permission.granted) return;
     }
-
     setNotificationPreferences({ dailyWisdomEnabled: enabled });
-
     if (enabled) {
       await notificationService.scheduleDailyWisdom(notificationPreferences.dailyWisdomTime);
     } else {
@@ -240,9 +253,7 @@ export function Settings({ onClose }: SettingsProps) {
       setPermissionGranted(permission.granted);
       if (!permission.granted) return;
     }
-
     setNotificationPreferences({ streakRemindersEnabled: enabled });
-
     if (!enabled) {
       await notificationService.cancelStreakReminder();
     }
@@ -250,37 +261,31 @@ export function Settings({ onClose }: SettingsProps) {
 
   const NotificationsSettings = () => (
     <div className="space-y-6">
-      {/* Permission Status */}
       {permissionGranted === false && (
         <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 sepia:bg-amber-100 rounded-lg">
           <p className="text-sm text-yellow-800 dark:text-yellow-200 sepia:text-amber-800">
-            Notifications are disabled. Enable a notification option below to request permission.
+            {t('notifications.permissionDisabled')}
           </p>
         </div>
       )}
 
-      {/* Daily Wisdom Reminder */}
       <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Daily Wisdom Reminder</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Receive daily inspiration from sacred texts</p>
+            <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('notifications.dailyWisdom.title')}</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('notifications.dailyWisdom.description')}</p>
           </div>
           <button
             onClick={() => handleDailyWisdomToggle(!notificationPreferences.dailyWisdomEnabled)}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${notificationPreferences.dailyWisdomEnabled ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-gray-600'
-              }`}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${notificationPreferences.dailyWisdomEnabled ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-gray-600'}`}
           >
-            <span
-              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${notificationPreferences.dailyWisdomEnabled ? 'translate-x-6' : 'translate-x-1'
-                }`}
-            />
+            <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${notificationPreferences.dailyWisdomEnabled ? 'translate-x-6' : 'translate-x-1'}`} />
           </button>
         </div>
 
         {notificationPreferences.dailyWisdomEnabled && (
           <div className="flex items-center gap-3 pt-2 border-t border-gray-200 dark:border-gray-600 sepia:border-amber-300">
-            <label className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">Remind me at:</label>
+            <label className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">{t('notifications.dailyWisdom.timeLabel')}</label>
             <input
               type="time"
               value={notificationPreferences.dailyWisdomTime}
@@ -291,33 +296,27 @@ export function Settings({ onClose }: SettingsProps) {
         )}
       </div>
 
-      {/* Streak Protection Reminders */}
       <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Streak Protection</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Get reminded before losing your streak</p>
+            <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('notifications.streakProtection.title')}</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('notifications.streakProtection.description')}</p>
           </div>
           <button
             onClick={() => handleStreakRemindersToggle(!notificationPreferences.streakRemindersEnabled)}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${notificationPreferences.streakRemindersEnabled ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-gray-600'
-              }`}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${notificationPreferences.streakRemindersEnabled ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-gray-600'}`}
           >
-            <span
-              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${notificationPreferences.streakRemindersEnabled ? 'translate-x-6' : 'translate-x-1'
-                }`}
-            />
+            <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${notificationPreferences.streakRemindersEnabled ? 'translate-x-6' : 'translate-x-1'}`} />
           </button>
         </div>
         <p className="text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-600 mt-2">
-          Only notifies you in the evening if you haven't opened the app that day.
+          {t('notifications.streakProtection.note')}
         </p>
       </div>
 
-      {/* Info */}
       <div className="p-4 bg-blue-50 dark:bg-blue-900/20 sepia:bg-amber-100 rounded-lg">
         <p className="text-sm text-blue-800 dark:text-blue-200 sepia:text-amber-800">
-          We respect your time. You'll receive at most one notification per day, and only when it's helpful.
+          {t('notifications.respectNote')}
         </p>
       </div>
     </div>
@@ -328,14 +327,14 @@ export function Settings({ onClose }: SettingsProps) {
       <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
         <Mail className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
         <div className="flex-1">
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Contact Support</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Get help with any issues</p>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('support.contactSupport.title')}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('support.contactSupport.description')}</p>
         </div>
         <button
           onClick={() => openExternalLink('mailto:mike@faithexplorer.app')}
           className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1"
         >
-          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">Email</span>
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">{tc('buttons.email')}</span>
           <ExternalLink className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
         </button>
       </div>
@@ -343,23 +342,22 @@ export function Settings({ onClose }: SettingsProps) {
       <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
         <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
         <div className="flex-1">
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Privacy Policy</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">How we protect your data</p>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('support.privacyPolicy.title')}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('support.privacyPolicy.description')}</p>
         </div>
         <button
           onClick={() => openExternalLink('https://faithexplorer.app/privacy')}
           className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1"
         >
-          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">View</span>
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">{tc('buttons.view')}</span>
           <ExternalLink className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
         </button>
       </div>
 
       <div className="p-4 bg-blue-50 dark:bg-blue-900/20 sepia:bg-amber-100 rounded-lg">
-        <h4 className="font-medium text-blue-900 dark:text-blue-100 sepia:text-amber-900 mb-2">Need Help?</h4>
+        <h4 className="font-medium text-blue-900 dark:text-blue-100 sepia:text-amber-900 mb-2">{t('support.needHelp.title')}</h4>
         <p className="text-sm text-blue-800 dark:text-blue-200 sepia:text-amber-800">
-          If you're experiencing any issues or have questions about Faith Explorer,
-          please don't hesitate to reach out to our support team.
+          {t('support.needHelp.description')}
         </p>
       </div>
     </div>
@@ -369,21 +367,21 @@ export function Settings({ onClose }: SettingsProps) {
     <div className="space-y-4">
       <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
         <div>
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Privacy Policy</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">How we protect your data</p>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('legal.privacyPolicy.title')}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('legal.privacyPolicy.description')}</p>
         </div>
         <button onClick={() => openExternalLink('https://faithexplorer.app/privacy')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
-          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">View</span>
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">{tc('buttons.view')}</span>
           <ExternalLink className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
         </button>
       </div>
       <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
         <div>
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Terms of Use</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Read our terms</p>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('legal.termsOfUse.title')}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('legal.termsOfUse.description')}</p>
         </div>
         <button onClick={() => openExternalLink('https://faithexplorer.app/terms/')} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
-          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">View</span>
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">{tc('buttons.view')}</span>
           <ExternalLink className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
         </button>
       </div>
@@ -394,49 +392,49 @@ export function Settings({ onClose }: SettingsProps) {
     <div className="space-y-4">
       <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
         <div>
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Manage Subscription</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Open iOS Subscriptions</p>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('purchases.manageSubscription.title')}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('purchases.manageSubscription.description')}</p>
         </div>
         <a href="itms-apps://apps.apple.com/account/subscriptions" className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
-          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">Open</span>
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">{tc('buttons.open')}</span>
           <ExternalLink className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
         </a>
       </div>
       <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg">
         <div>
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Restore Purchases</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Re-activate previous purchases</p>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('purchases.restorePurchases.title')}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('purchases.restorePurchases.description')}</p>
         </div>
         <button onClick={() => window.dispatchEvent(new CustomEvent('fe_restore_purchases'))} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
-          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">Restore</span>
+          <span className="text-sm text-indigo-600 dark:text-indigo-400 sepia:text-amber-700">{tc('buttons.restore')}</span>
           <RefreshCw className="w-3 h-3 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
         </button>
       </div>
       <div className="flex items-center justify-between p-3 bg-gradient-to-r from-gold-50 to-bronze-50 dark:from-gold-900/10 dark:to-bronze-900/10 sepia:bg-amber-100 rounded-lg border border-gold-200 dark:border-gold-900/30">
         <div>
-          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Redeem Promo Code</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Have a code? Redeem it here</p>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('purchases.redeemPromoCode.title')}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('purchases.redeemPromoCode.description')}</p>
         </div>
         <a href="https://apps.apple.com/redeem" className="p-1 hover:bg-gold-100 dark:hover:bg-gold-900/20 sepia:hover:bg-amber-200 rounded flex items-center gap-1">
-          <span className="text-sm text-bronze-600 dark:text-bronze-400 sepia:text-amber-700 font-medium">Redeem</span>
+          <span className="text-sm text-bronze-600 dark:text-bronze-400 sepia:text-amber-700 font-medium">{tc('buttons.redeem')}</span>
           <ExternalLink className="w-3 h-3 text-bronze-600 dark:text-bronze-400 sepia:text-amber-700" />
         </a>
       </div>
-      <p className="text-xs text-gray-500">Subscriptions are managed by Apple. You can cancel anytime from your device settings.</p>
+      <p className="text-xs text-gray-500">{t('purchases.subscriptionManagedByApple')}</p>
     </div>
   );
 
   const DataSettings = () => (
     <div className="space-y-4">
       <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 sepia:bg-amber-100 rounded-lg">
-        <h4 className="font-medium text-yellow-900 dark:text-yellow-100 sepia:text-amber-900 mb-1">Delete Local Data</h4>
+        <h4 className="font-medium text-yellow-900 dark:text-yellow-100 sepia:text-amber-900 mb-1">{t('data.deleteLocalData.title')}</h4>
         <p className="text-sm text-yellow-800 dark:text-yellow-200 sepia:text-amber-800">
-          This app does not create user accounts or store personal data on servers. You can delete all data stored on this device at any time.
+          {t('data.deleteLocalData.description')}
         </p>
       </div>
       <button onClick={clearLocalData} className="w-full flex items-center justify-center gap-2 p-3 bg-red-600 hover:bg-red-700 text-white rounded-lg">
         <Trash2 className="w-4 h-4" />
-        Delete Local Data
+        {t('data.deleteLocalData.button')}
       </button>
     </div>
   );
@@ -444,22 +442,22 @@ export function Settings({ onClose }: SettingsProps) {
   const AboutSettings = () => (
     <div className="space-y-4">
       <div className="p-4 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 sepia:from-amber-100 sepia:to-amber-200 rounded-lg">
-        <h4 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">Faith Explorer</h4>
+        <h4 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">{t('about.appName')}</h4>
         <p className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800 mb-3">
-          Explore sacred texts from major world religions. Compare teachings, search for wisdom on life's questions, and discover the common threads of spirituality across faiths.
+          {t('about.description')}
         </p>
         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">
           <Heart className="w-4 h-4 text-pink-500 fill-current" />
-          <span>Made with love for seekers of wisdom</span>
+          <span>{t('about.madeWithLove')}</span>
         </div>
       </div>
 
       <div className="p-4 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg space-y-2">
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
-          <strong>Version:</strong> 3.2.1 (Build 23)
+          <strong>{t('about.versionLabel')}</strong> {t('about.version')}
         </div>
         <div className="text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
-          <strong>Copyright:</strong> © {new Date().getFullYear()} Faith Explorer
+          <strong>{t('about.copyrightLabel')}</strong> © {new Date().getFullYear()} {t('about.copyrightText')}
         </div>
       </div>
 
@@ -468,118 +466,85 @@ export function Settings({ onClose }: SettingsProps) {
           onClick={() => openExternalLink('https://faithexplorer.app/privacy')}
           className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
         >
-          <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">Privacy Policy</span>
+          <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">{tc('footer.privacyPolicy')}</span>
           <ExternalLink className="w-4 h-4 text-gray-500" />
         </button>
         <button
           onClick={() => openExternalLink('https://faithexplorer.app/terms/')}
           className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
         >
-          <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">Terms of Service</span>
+          <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">{tc('footer.termsOfService')}</span>
           <ExternalLink className="w-4 h-4 text-gray-500" />
         </button>
         <button
           onClick={() => window.location.href = 'mailto:mike@faithexplorer.app'}
           className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
         >
-          <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">Contact Support</span>
+          <span className="text-gray-900 dark:text-gray-100 sepia:text-amber-900">{tc('footer.contactSupport')}</span>
           <Mail className="w-4 h-4 text-gray-500" />
         </button>
       </div>
     </div>
   );
 
+
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
-                <SettingsIcon className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">Settings</h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">
-                  {activeSection === 'main' && 'Customize your experience'}
-                  {activeSection === 'appearance' && 'Appearance settings'}
-                  {activeSection === 'badges' && 'Your achievements'}
-                  {activeSection === 'notifications' && 'Notification settings'}
-                  {activeSection === 'support' && 'Help & support'}
-                </p>
-              </div>
-            </div>
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="bg-white dark:bg-gray-800 sepia:bg-amber-50 rounded-t-2xl sm:rounded-2xl shadow-2xl max-w-md w-full max-h-[85vh] overflow-y-auto sm:mx-4" onClick={e => e.stopPropagation()}>
+        <div className="p-4">
+          <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               {activeSection !== 'main' && (
                 <button
                   onClick={() => setActiveSection('main')}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 sepia:hover:bg-amber-200 rounded-lg transition-colors"
+                  className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 >
                   <ChevronRight className="w-4 h-4 text-gray-500 rotate-180" />
                 </button>
               )}
-              <button
-                onClick={onClose}
-                className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 sepia:hover:bg-amber-200 transition-colors"
-              >
-                <X className="w-5 h-5 text-gray-500" />
-              </button>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{t('settings.title')}</h2>
             </div>
+            <button
+              onClick={onClose}
+              className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <X className="w-4 h-4 text-gray-500" />
+            </button>
           </div>
 
-          {/* Content */}
           {activeSection === 'main' && (
             <>
               <MainSettings />
-              <div className="mt-6 space-y-3">
-                <button
-                  onClick={() => setActiveSection('legal')}
-                  className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
-                >
-                  <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-                  <div className="flex-1 text-left">
-                    <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Legal</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Privacy Policy and Terms of Use</p>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-gray-500" />
-                </button>
+              <div className="mt-2 space-y-1.5">
+
                 <button
                   onClick={() => setActiveSection('purchases')}
-                  className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+                  className="w-full flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                 >
                   <RefreshCw className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-                  <div className="flex-1 text-left">
-                    <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Purchases</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Manage or restore subscriptions</p>
-                  </div>
+                  <span className="flex-1 text-left font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-sm">{t('settings.sections.purchases.title')}</span>
                   <ChevronRight className="w-4 h-4 text-gray-500" />
                 </button>
                 <button
                   onClick={() => setActiveSection('data')}
-                  className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+                  className="w-full flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                 >
                   <Trash2 className="w-5 h-5 text-red-600" />
-                  <div className="flex-1 text-left">
-                    <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">Data</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Delete all local data on this device</p>
-                  </div>
+                  <span className="flex-1 text-left font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-sm">{t('settings.sections.data.title')}</span>
                   <ChevronRight className="w-4 h-4 text-gray-500" />
                 </button>
                 <button
                   onClick={() => setActiveSection('about')}
-                  className="w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 sepia:hover:bg-amber-200 transition-colors"
+                  className="w-full flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                 >
                   <Info className="w-5 h-5 text-indigo-600 dark:text-indigo-400 sepia:text-amber-700" />
-                  <div className="flex-1 text-left">
-                    <h3 className="font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900">About</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">App info, version, and credits</p>
-                  </div>
+                  <span className="flex-1 text-left font-medium text-gray-900 dark:text-gray-100 sepia:text-amber-900 text-sm">{t('settings.sections.about.title')}</span>
                   <ChevronRight className="w-4 h-4 text-gray-500" />
                 </button>
               </div>
             </>
           )}
+          {activeSection === 'language' && <LanguageSettings />}
           {activeSection === 'appearance' && <AppearanceSettings />}
           {activeSection === 'badges' && <Badges />}
           {activeSection === 'notifications' && <NotificationsSettings />}

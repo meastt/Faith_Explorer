@@ -1,0 +1,208 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "read": "Leer",
+    "saved": "Guardado",
+    "learn": "Aprender",
+    "settings": "Configuración"
+  },
+  "buttons": {
+    "save": "Guardar",
+    "saved": "Guardado",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "delete": "Eliminar",
+    "confirm": "¿Confirmar?",
+    "share": "Compartir",
+    "discuss": "Comentar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "skip": "Omitir",
+    "getStarted": "Comenzar",
+    "export": "Exportar",
+    "create": "Crear",
+    "done": "Listo",
+    "new": "Nuevo",
+    "edit": "Editar",
+    "note": "Nota",
+    "folder": "Carpeta",
+    "highlight": "Resaltar",
+    "previous": "Anterior",
+    "tryAgain": "Reintentar",
+    "goBack": "Volver",
+    "view": "Ver",
+    "open": "Abrir",
+    "email": "Correo",
+    "restore": "Restaurar",
+    "redeem": "Canjear",
+    "wisdom": "Sabiduría",
+    "context": "Contexto",
+    "addTag": "Agregar etiqueta"
+  },
+  "brand": {
+    "appName": "Faith Explorer",
+    "tagline": "Sabiduría de los tiempos",
+    "logoLetter": "F"
+  },
+  "usage": {
+    "premium": "Premium",
+    "upgrade": "Mejorar plan",
+    "leftSuffix": "restantes",
+    "freeSearches": "búsquedas gratuitas",
+    "freeSearchesRemaining": "Búsquedas gratuitas restantes",
+    "searchLimitReached": "Ha alcanzado el límite de búsquedas gratuitas.",
+    "messagesRemaining": "mensajes restantes",
+    "selectAtLeastOne": "Seleccione al menos un texto religioso para buscar."
+  },
+  "toast": {
+    "verseCopied": "Versículo copiado al portapapeles.",
+    "verseRemoved": "Versículo eliminado de su colección.",
+    "verseSaved": "Versículo guardado en su biblioteca.",
+    "comparisonSaved": "Comparación guardada en su biblioteca.",
+    "analysisCopied": "Análisis copiado al portapapeles.",
+    "insightCopied": "Reflexión copiada al portapapeles.",
+    "analysisSaved": "Análisis guardado en su biblioteca.",
+    "folderDeleted": "Carpeta eliminada. Los versículos se movieron a \"Sin carpeta\".",
+    "localDataDeleted": "Todos los datos locales han sido eliminados de este dispositivo.",
+    "localDataDeleteFailed": "No se pudieron eliminar los datos locales.",
+    "searchFailed": "La búsqueda falló. Intente de nuevo.",
+    "chatFeatureComingSoon": "La función de chat estará disponible pronto. Comente versículos específicos haciendo clic en \"Comentar\" a continuación."
+  },
+  "errors": {
+    "chatError": "Lo sentimos, ocurrió un error. Intente de nuevo.",
+    "dialogueError": "Lo sentimos, no se pudo responder. Verifique su conexión e intente de nuevo.",
+    "commonGroundError": "No se pudo analizar el terreno común. Intente de nuevo.",
+    "searchFailed": "La búsqueda falló. Verifique su conexión e intente de nuevo.",
+    "failedToLoadOfferings": "No se pudieron cargar las opciones de suscripción. Verifique su conexión a internet e intente de nuevo.",
+    "noPackagesFound": "No se encontró ningún paquete de suscripción. Contacte a soporte.",
+    "purchaseCancelled": "Compra cancelada",
+    "purchaseFailed": "No se pudo procesar la suscripción. Intente de nuevo.",
+    "restoreFailed": "No se pudieron restaurar las compras. Intente de nuevo.",
+    "noRestorePurchases": "No se encontraron compras anteriores para restaurar.",
+    "failedToLoadScripture": "No se pudo cargar la escritura",
+    "checkConnection": "Verifique su conexión e intente de nuevo.",
+    "apiKeyNotConfigured": "La clave de API de Anthropic no está configurada. Configure VITE_ANTHROPIC_API_KEY en su archivo .env.",
+    "noVersesFound": "No se encontraron versículos específicos sobre \"{query}\" en los textos seleccionados. Intente reformular su pregunta o seleccionar otros textos religiosos."
+  },
+  "loading": {
+    "searchingTexts": "Buscando en textos sagrados...",
+    "loadingScripture": "Cargando escritura...",
+    "synthesizing": "Sintetizando perspectivas...",
+    "seekingWisdom": "Buscando sabiduría...",
+    "processing": "Procesando...",
+    "unlocking": "Desbloqueando..."
+  },
+  "footer": {
+    "privacyPolicy": "Política de privacidad",
+    "termsOfService": "Términos de servicio",
+    "contactSupport": "Contactar soporte",
+    "copyright": "Faith Explorer",
+    "madeWith": "Hecho con",
+    "forSeekers": "para quienes buscan sabiduría"
+  },
+  "onboarding": {
+    "step1": {
+      "title": "Bienvenido a Faith Explorer",
+      "description": "Explore y compare textos sagrados de 9 grandes religiones del mundo. Haga preguntas y descubra sabiduría a través de las tradiciones.",
+      "examples": [
+        "¿Qué es el amor?",
+        "¿Cuál es el sentido de la vida?",
+        "¿Cómo debemos tratar a los demás?"
+      ]
+    },
+    "step2": {
+      "title": "Compare tradiciones",
+      "description": "Cambie al modo de comparación para ver cómo diferentes religiones abordan el mismo tema. Obtenga un análisis comparativo detallado.",
+      "examples": [
+        "Perspectivas sobre la compasión",
+        "Perspectivas sobre el sufrimiento",
+        "La regla de oro"
+      ]
+    },
+    "step3": {
+      "title": "Lea las escrituras completas",
+      "description": "Navegue textos religiosos completos como en una aplicación bíblica. Use la pestaña Leer para estudiar libros completos capítulo por capítulo.",
+      "examples": [
+        "Leer el Génesis",
+        "Explorar el Corán",
+        "Estudiar el Bhagavad Gita"
+      ]
+    },
+    "tryAsking": "Pruebe preguntar:"
+  },
+  "emailOptIn": {
+    "title": "Manténgase inspirado",
+    "subtitle": "Reciba sabiduría semanal y novedades de la aplicación",
+    "bonusBadge": "+5 búsquedas adicionales gratis",
+    "placeholder": "su@correo.com",
+    "submitButton": "Desbloquear búsquedas adicionales",
+    "maybeLater": "Quizás después",
+    "privacyNote": "Respetamos su privacidad. Cancele la suscripción en cualquier momento."
+  },
+  "reviewPrompt": {
+    "title": "Ilumine el camino para otros",
+    "body": "Acaba de guardar reflexiones que resonaron con usted. Ayude a otros buscadores a descubrir estas mismas enseñanzas compartiendo su experiencia con Faith Explorer.",
+    "subtitle": "Su reseña ayuda a exploradores espirituales de todo el mundo a encontrar este recurso interreligioso.",
+    "leaveReview": "Dejar una reseña",
+    "maybeLater": "Quizás después"
+  },
+  "streakFreeze": {
+    "title": "¡Congelación de racha disponible!",
+    "description": "No participó ayer, pero puede usar su congelación de racha mensual (beneficio Premium) para mantener su racha de {count} días.",
+    "useFreeze": "Usar congelación",
+    "freezesAvailable": "Tiene {count} congelación{plural} disponible(s) este mes"
+  },
+  "gating": {
+    "title": "Desbloquee toda la sabiduría",
+    "description": "Ha utilizado todas sus búsquedas gratuitas. La aplicación puede responder su pregunta. Actualice a Premium para ver los resultados completos y continuar su camino espiritual.",
+    "upgradeToPremium": "Actualizar a Premium"
+  },
+  "scripture": {
+    "descriptorLabel": "CON RESPALDO ESCRITURAL . MULTIRELIGIOSO . COMPARATIVO"
+  },
+  "religionNames": {
+    "christianity": "Cristianismo",
+    "islam": "Islam",
+    "judaism": "Judaísmo",
+    "hinduism": "Hinduismo",
+    "buddhism": "Budismo",
+    "sikhism": "Sijismo",
+    "taoism": "Taoísmo",
+    "confucianism": "Confucianismo",
+    "shinto": "Sintoísmo"
+  },
+  "subsetNames": {
+    "kjv": "Versión King James",
+    "catholic": "Biblia Católica",
+    "orthodox": "Biblia Ortodoxa",
+    "mormon": "Libro de Mormón",
+    "doctrine-covenants": "Doctrina y Convenios",
+    "quran-sahih": "Corán (Sahih)",
+    "hadith-bukhari": "Hadiz (Bujari)",
+    "hadith-muslim": "Hadiz (Muslim)",
+    "torah": "Torá",
+    "talmud": "Talmud Babilónico",
+    "bhagavad-gita": "Bhagavad Gita",
+    "vedas": "Vedas",
+    "upanishads": "Upanishads",
+    "ramayana": "Ramayana",
+    "dhammapada": "Dhammapada",
+    "sutras": "Sutras Mahayana",
+    "vinaya": "Vinaya Pitaka",
+    "abhidharma": "Abhidharma",
+    "guru-granth-sahib": "Guru Granth Sahib",
+    "dasam-granth": "Dasam Granth",
+    "janam-sakhis": "Janam Sakhis",
+    "tao-te-ching": "Tao Te Ching",
+    "zhuangzi": "Chuang Tzu (Zhuangzi)",
+    "i-ching": "I Ching",
+    "daozang": "Daozang",
+    "analects": "Analectas",
+    "mengzi": "Mengzi",
+    "xunzi": "Xunzi",
+    "five-classics": "Cinco Clásicos",
+    "kojiki": "Kojiki",
+    "nihon-shoki": "Nihon Shoki",
+    "norito": "Norito"
+  }
+}

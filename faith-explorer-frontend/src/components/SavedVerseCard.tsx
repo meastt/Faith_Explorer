@@ -1,5 +1,6 @@
 import { MessageCircle, Share2, Trash2, Edit3, ChevronDown, ChevronUp, Calendar, Folder as FolderIcon, Tag, Plus, X as XIcon, Highlighter } from 'lucide-react';
 import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { SavedVerse, Highlight } from '../types';
 import { useStore } from '../store/useStore';
 import { shareVerse, copyToClipboard, formatDate } from '../utils/helpers';
@@ -13,6 +14,7 @@ interface SavedVerseCardProps {
 }
 
 export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardProps) {
+  const { t } = useTranslation('library');
   const { updateVerseNotes, deleteVerse, setActiveVerseChat, incrementShareCount, folders, moveVerseToFolder, addTagToVerse, removeTagFromVerse, addHighlightToVerse, removeHighlightFromVerse } = useStore();
   const [isEditing, setIsEditing] = useState(false);
   const [editNotes, setEditNotes] = useState(verse.notes);
@@ -33,7 +35,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
     try {
       await copyToClipboard(shareText);
       incrementShareCount();
-      showToast('Verse copied to clipboard!');
+      showToast(t('toast.verseCopied', { ns: 'common' }));
     } catch (error) {
       console.error('Failed to copy:', error);
     }
@@ -55,7 +57,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
     e.stopPropagation();
     if (confirmingDelete) {
       deleteVerse(verse.id);
-      showToast('Verse removed from your collection.');
+      showToast(t('toast.verseRemoved', { ns: 'common' }));
     } else {
       setConfirmingDelete(true);
       setTimeout(() => setConfirmingDelete(false), 3000);
@@ -170,7 +172,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
               handleRemoveHighlight(highlight.id, e);
             }
           }}
-          title={isHighlighting ? "Click to remove highlight" : ""}
+          title={isHighlighting ? t('savedVerseCard.highlighting.clickToRemove') : ""}
         >
           {verse.text.slice(highlight.start, highlight.end)}
         </mark>
@@ -275,7 +277,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
             <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
               <Highlighter className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
-                Select text to highlight
+                {t('savedVerseCard.highlighting.selectText')}
               </span>
               <div className="flex gap-1 ml-auto">
                 {(['yellow', 'green', 'blue', 'red'] as const).map((c) => (
@@ -285,7 +287,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                     className={`w-6 h-6 rounded-full border-2 transition-transform ${selectedHighlightColor === c ? 'border-gray-700 dark:border-gray-300 scale-110' : 'border-gray-300 dark:border-gray-600'
                       }`}
                     style={{ backgroundColor: highlightColorMap[c] }}
-                    title={`${c} highlight`}
+                    title={t('savedVerseCard.highlighting.colorTitle', { color: c })}
                   />
                 ))}
               </div>
@@ -296,7 +298,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                 }}
                 className="ml-2 text-xs font-medium text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
               >
-                Done
+                {t('savedVerseCard.actions.done')}
               </button>
             </div>
           )}
@@ -345,7 +347,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                     }
                   }}
                   onBlur={handleAddTag}
-                  placeholder="Tag name..."
+                  placeholder={t('savedVerseCard.tags.placeholder')}
                   autoFocus
                   className="w-32 px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-blue-300 dark:border-blue-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -359,7 +361,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                 className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <Plus className="w-3 h-3" />
-                Add tag
+                {t('savedVerseCard.actions.addTag')}
               </button>
             )}
           </div>
@@ -371,7 +373,7 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                 <textarea
                   value={editNotes}
                   onChange={(e) => setEditNotes(e.target.value)}
-                  placeholder="Add your personal notes and reflections..."
+                  placeholder={t('savedVerseCard.notes.placeholder')}
                   className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 sepia:bg-amber-100 border border-gray-200 dark:border-gray-600 sepia:border-amber-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm text-gray-900 dark:text-gray-100 sepia:text-amber-900 resize-none"
                   rows={3}
                   autoFocus
@@ -381,13 +383,13 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
                     onClick={handleSaveNotes}
                     className="px-3 py-1.5 text-xs font-semibold bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                   >
-                    Save
+                    {t('savedVerseCard.actions.save')}
                   </button>
                   <button
                     onClick={() => setIsEditing(false)}
                     className="px-3 py-1.5 text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                   >
-                    Cancel
+                    {t('savedVerseCard.actions.cancel')}
                   </button>
                 </div>
               </div>
@@ -407,10 +409,10 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
         <button
           onClick={handleChat}
           className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-primary-600 dark:text-primary-400 sepia:text-amber-700 hover:text-primary-700 dark:hover:text-primary-300 sepia:hover:text-amber-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
-          title="Discuss this verse"
+          title={t('savedVerseCard.actions.discussVerse')}
         >
           <MessageCircle className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Discuss</span>
+          <span className="hidden sm:inline">{t('savedVerseCard.actions.discuss')}</span>
         </button>
 
         {/* Folder Menu */}
@@ -421,10 +423,10 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
               setShowFolderMenu(!showFolderMenu);
             }}
             className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
-            title="Move to folder"
+            title={t('savedVerseCard.actions.moveToFolder')}
           >
             <FolderIcon className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Folder</span>
+            <span className="hidden sm:inline">{t('savedVerseCard.actions.folder')}</span>
           </button>
 
           {showFolderMenu && (
@@ -435,14 +437,14 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
               />
               <div className="absolute bottom-full left-0 mb-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-20 py-1 max-h-64 overflow-y-auto">
                 <div className="px-2 py-1 text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  Move to folder
+                  {t('savedVerseCard.folderMenu.title')}
                 </div>
                 <button
                   onClick={() => handleMoveToFolder(null)}
                   className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${!verse.folderId ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'
                     }`}
                 >
-                  Unfiled
+                  {t('savedLibrary.collections.unfiled')}
                 </button>
                 {folders.map(folder => (
                   <button
@@ -469,27 +471,27 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
             ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
             : 'text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100'
             }`}
-          title="Highlight text"
+          title={t('savedVerseCard.actions.highlightText')}
         >
           <Highlighter className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Highlight</span>
+          <span className="hidden sm:inline">{t('savedVerseCard.actions.highlight')}</span>
         </button>
 
         <button
           onClick={handleEditClick}
           className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
-          title="Add or edit notes"
+          title={t('savedVerseCard.actions.addOrEditNotes')}
         >
           <Edit3 className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">{verse.notes ? 'Edit' : 'Note'}</span>
+          <span className="hidden sm:inline">{verse.notes ? t('savedVerseCard.actions.edit') : t('savedVerseCard.actions.note')}</span>
         </button>
         <button
           onClick={handleShare}
           className="flex items-center gap-1 px-2 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
-          title="Share verse"
+          title={t('savedVerseCard.actions.shareVerse')}
         >
           <Share2 className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Share</span>
+          <span className="hidden sm:inline">{t('savedVerseCard.actions.share')}</span>
         </button>
         <button
           onClick={handleDelete}
@@ -497,10 +499,10 @@ export function SavedVerseCard({ verse, isExpanded, onToggle }: SavedVerseCardPr
             ? 'bg-red-600 text-white hover:bg-red-700'
             : 'text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20'
           }`}
-          title={confirmingDelete ? 'Click again to confirm' : 'Delete verse'}
+          title={confirmingDelete ? t('savedVerseCard.actions.confirm') : t('savedVerseCard.actions.delete')}
         >
           <Trash2 className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">{confirmingDelete ? 'Confirm?' : 'Delete'}</span>
+          <span className="hidden sm:inline">{confirmingDelete ? t('savedVerseCard.actions.confirm') : t('savedVerseCard.actions.delete')}</span>
         </button>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { Search as SearchIcon, Sparkles, ArrowLeft, MessageCircle, BookmarkPlus, Share2, ChevronDown, Lock, Star } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Religion, Verse, ReligionSubsetId } from '../types';
 import { CompactVerseCard } from './CompactVerseCard';
 import { useStore } from '../store/useStore';
@@ -25,6 +26,8 @@ interface SearchResultsProps {
 }
 
 export function SearchResults({ results, isLoading, comparativeAnalysis, comparativeAnalysisError, onBack, isGated = false, onUpgrade }: SearchResultsProps) {
+  const { t } = useTranslation('search');
+  const { t: tCommon } = useTranslation('common');
   const { setActiveVerseChat, viewMode, saveComparison, incrementShareCount, saveVerse } = useStore();
   const [expandedVerseId, setExpandedVerseId] = useState<string | null>(null);
   const [showAllVerses, setShowAllVerses] = useState(false);
@@ -58,7 +61,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
         savedAt: Date.now(),
         notes: comparativeAnalysis,
       });
-      showToast('Comparison saved to your library!');
+      showToast(tCommon('toast.comparisonSaved'));
     }
   };
 
@@ -72,7 +75,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
         const formattedText = shareComparison(comparativeAnalysis, religions);
         await copyToClipboard(formattedText);
         incrementShareCount();
-        showToast('Analysis copied to clipboard!');
+        showToast(tCommon('toast.analysisCopied'));
       } catch (error) {
         console.error('Failed to copy:', error);
       }
@@ -85,7 +88,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
       const formattedText = shareInsight(text, religionInfo?.name);
       await copyToClipboard(formattedText);
       incrementShareCount();
-      showToast('Insight copied to clipboard!');
+      showToast(tCommon('toast.insightCopied'));
     } catch (error) {
       console.error('Failed to copy:', error);
     }
@@ -93,7 +96,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
 
   const handleChatWithInsight = (insightText: string, religion: Religion) => {
     setActiveVerseChat({
-      verseReference: 'Scripture Analysis',
+      verseReference: t('searchResults.scriptureAnalysis'),
       verseText: insightText,
       religion,
       messages: [],
@@ -123,7 +126,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
       tags: ['Analysis'],
       highlights: [],
     });
-    showToast('Analysis saved to your library!');
+    showToast(tCommon('toast.analysisSaved'));
   };
 
   if (isLoading) {
@@ -142,7 +145,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
             borderRadius: '50%'
           }}></div>
         </div>
-        <p className="mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-indigo-400 sepia:from-amber-700 sepia:to-amber-600 font-medium">Searching sacred texts...</p>
+        <p className="mt-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-indigo-400 sepia:from-amber-700 sepia:to-amber-600 font-medium">{tCommon('loading.searchingTexts')}</p>
       </div>
     );
   }
@@ -166,7 +169,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
             className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 sepia:bg-amber-50 text-sage-600 dark:text-sage-400 sepia:text-amber-700 hover:text-sage-700 dark:hover:text-sage-300 sepia:hover:text-amber-800 hover:bg-sage-50 dark:hover:bg-sage-900/20 sepia:hover:bg-amber-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back
+            {tCommon('buttons.back')}
           </button>
         )}
 
@@ -178,23 +181,23 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                 <Lock className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-                Unlock Full Wisdom
+                {tCommon('gating.title')}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                You've used all your free searches! The app <span className="font-semibold">can</span> answer your question. Upgrade to Premium to see the full results and continue your spiritual journey.
+                {tCommon('gating.description')}
               </p>
               <button
                 onClick={onUpgrade}
                 className="w-full py-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mb-3"
               >
                 <Star className="w-5 h-5 fill-current" />
-                Upgrade to Premium
+                {tCommon('gating.upgradeToPremium')}
               </button>
               <button
                 onClick={onBack}
                 className="w-full py-3 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium"
               >
-                Go Back
+                {tCommon('buttons.goBack')}
               </button>
             </div>
           </div>
@@ -203,9 +206,13 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
         <div className={isGated ? 'filter blur-lg pointer-events-none select-none' : ''}>
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">Search Results</h2>
+              <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">{t('searchResults.title')}</h2>
               <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700 mt-1">
-                {verses.length} {verses.length === 1 ? 'verse' : 'verses'} found in {subsetInfo?.name || religionInfo?.name}
+                {t('searchResults.versesFoundIn', {
+                  count: verses.length,
+                  versePlural: verses.length === 1 ? t('searchResults.verse') : t('searchResults.verses'),
+                  name: subsetInfo?.name || religionInfo?.name
+                })}
               </p>
             </div>
           </div>
@@ -216,15 +223,15 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
               <div className="w-20 h-20 bg-sage-100 dark:bg-sage-800 sepia:bg-amber-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <SearchIcon className="w-10 h-10 text-sage-400 dark:text-sage-500 sepia:text-amber-600" />
               </div>
-              <h3 className="text-xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900 mb-2">No Results Found</h3>
+              <h3 className="text-xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900 mb-2">{t('searchResults.noResultsTitle')}</h3>
               <p className="text-sage-600 dark:text-sage-400 sepia:text-amber-700 max-w-md mx-auto">
-                Try different keywords or phrases to discover relevant verses
+                {t('searchResults.noResultsDescription')}
               </p>
             </div>
           ) : (
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-3">
-                Source Passages ({verses.length})
+                {t('searchResults.sourcePassages', { count: verses.length })}
               </h3>
               <div className="space-y-2">
                 {verses.slice(0, showAllVerses ? verses.length : INITIAL_VERSE_COUNT).map((verse, idx) => (
@@ -246,7 +253,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                   className="w-full mt-3 py-3 px-4 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 sepia:from-amber-100 sepia:to-amber-200 text-indigo-700 dark:text-indigo-300 sepia:text-amber-800 font-medium rounded-xl border border-indigo-200 dark:border-indigo-800 sepia:border-amber-300 hover:from-indigo-100 hover:to-purple-100 dark:hover:from-indigo-900/30 dark:hover:to-purple-900/30 sepia:hover:from-amber-200 sepia:hover:to-amber-300 transition-all duration-200 flex items-center justify-center gap-2"
                 >
                   <ChevronDown className="w-4 h-4" />
-                  Show {verses.length - INITIAL_VERSE_COUNT} More Verses
+                  {t('searchResults.showMoreVerses', { count: verses.length - INITIAL_VERSE_COUNT })}
                 </button>
               )}
             </div>
@@ -260,8 +267,8 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-1">Academic Analysis</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Scholarly interpretation based on {subsetInfo?.name || religionInfo?.text}</p>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-1">{t('searchResults.academicAnalysis')}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('searchResults.scholarlyInterpretation', { name: subsetInfo?.name || religionInfo?.text })}</p>
                 </div>
               </div>
               <div
@@ -276,21 +283,21 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                   className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 sepia:text-amber-700 hover:text-primary-700 dark:hover:text-primary-300 sepia:hover:text-amber-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span className="hidden sm:inline">Discuss</span>
+                  <span className="hidden sm:inline">{tCommon('buttons.discuss')}</span>
                 </button>
                 <button
                   onClick={() => handleSaveInsight(answer, religion, subset)}
                   className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                 >
                   <BookmarkPlus className="w-4 h-4" />
-                  <span className="hidden sm:inline">Save</span>
+                  <span className="hidden sm:inline">{tCommon('buttons.save')}</span>
                 </button>
                 <button
                   onClick={() => handleShareInsight(answer, religion)}
                   className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                 >
                   <Share2 className="w-4 h-4" />
-                  <span className="hidden sm:inline">Share</span>
+                  <span className="hidden sm:inline">{tCommon('buttons.share')}</span>
                 </button>
               </div>
             </div>
@@ -310,7 +317,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
           className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 sepia:bg-amber-50 text-sage-600 dark:text-sage-400 sepia:text-amber-700 hover:text-sage-700 dark:hover:text-sage-300 sepia:hover:text-amber-800 hover:bg-sage-50 dark:hover:bg-sage-900/20 sepia:hover:bg-amber-100 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 sepia:border-amber-200 transition-all duration-200 mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back
+          {tCommon('buttons.back')}
         </button>
       )}
 
@@ -322,23 +329,23 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
               <Lock className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-              Unlock Full Wisdom
+              {tCommon('gating.title')}
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              You've used all your free searches! The app <span className="font-semibold">can</span> answer your question. Upgrade to Premium to see the full results and continue your spiritual journey.
+              {tCommon('gating.description')}
             </p>
             <button
               onClick={onUpgrade}
               className="w-full py-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mb-3"
             >
               <Star className="w-5 h-5 fill-current" />
-              Upgrade to Premium
+              {tCommon('gating.upgradeToPremium')}
             </button>
             <button
               onClick={onBack}
               className="w-full py-3 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium"
             >
-              Go Back
+              {tCommon('buttons.goBack')}
             </button>
           </div>
         </div>
@@ -347,9 +354,9 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
       <div className={isGated ? 'filter blur-lg pointer-events-none select-none' : ''}>
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">Comparison Results</h2>
+            <h2 className="text-2xl font-bold text-sage-900 dark:text-sage-100 sepia:text-amber-900">{t('searchResults.comparisonTitle')}</h2>
             <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700 mt-1">
-              Exploring perspectives across {results.length} traditions
+              {t('searchResults.exploringPerspectives', { count: results.length })}
             </p>
           </div>
         </div>
@@ -363,8 +370,8 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-1">Comparative Analysis</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">Synthesis across traditions</p>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-1">{t('searchResults.comparativeAnalysis')}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('searchResults.synthesisAcrossTraditions')}</p>
                 </div>
               </div>
               <div
@@ -379,28 +386,28 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                   className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-md transition-all duration-200 shadow-md hover:shadow-lg"
                 >
                   <Sparkles className="w-3 h-3" />
-                  <span className="hidden sm:inline">Visualize Common Ground</span>
+                  <span className="hidden sm:inline">{t('searchResults.visualizeCommonGround')}</span>
                 </button>
                 <button
-                  onClick={() => showToast('Chat feature coming soon! Discuss specific verses by clicking "Discuss" below.', 'info')}
+                  onClick={() => showToast(tCommon('toast.chatFeatureComingSoon'), 'info')}
                   className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-purple-600 dark:text-purple-400 sepia:text-amber-700 hover:text-purple-700 dark:hover:text-purple-300 sepia:hover:text-amber-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                 >
                   <MessageCircle className="w-3 h-3" />
-                  <span className="hidden sm:inline">Discuss</span>
+                  <span className="hidden sm:inline">{tCommon('buttons.discuss')}</span>
                 </button>
                 <button
                   onClick={handleSaveComparison}
                   className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                 >
                   <BookmarkPlus className="w-3 h-3" />
-                  <span className="hidden sm:inline">Save</span>
+                  <span className="hidden sm:inline">{tCommon('buttons.save')}</span>
                 </button>
                 <button
                   onClick={handleShareComparison}
                   className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                 >
                   <Share2 className="w-3 h-3" />
-                  <span className="hidden sm:inline">Share</span>
+                  <span className="hidden sm:inline">{tCommon('buttons.share')}</span>
                 </button>
               </div>
             </div>
@@ -422,7 +429,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-4 bg-gray-50 dark:bg-gray-900 sepia:bg-amber-50 text-gray-600 dark:text-gray-400 sepia:text-amber-700 font-medium">
-                  Individual Perspectives
+                  {t('searchResults.individualPerspectives')}
                 </span>
               </div>
             </div>
@@ -433,7 +440,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
         {comparativeAnalysisError && !comparativeAnalysis && results.length >= 2 && (
           <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800">
             <p className="text-sm text-amber-800 dark:text-amber-200">
-              Comparative analysis couldn't be generated. Individual results are shown below.
+              {t('searchResults.comparativeAnalysisError')}
             </p>
           </div>
         )}
@@ -459,7 +466,10 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                     {subsetInfo?.name || religionInfo?.name}
                   </h3>
                   <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700">
-                    {verses.length} {verses.length === 1 ? 'result' : 'results'} found
+                    {t('searchResults.resultsFound', {
+                      count: verses.length,
+                      resultPlural: verses.length === 1 ? t('searchResults.result') : t('searchResults.results')
+                    })}
                   </p>
                 </div>
               </div>
@@ -481,8 +491,8 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                       <Sparkles className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{subsetInfo?.name || religionInfo?.name} Perspective</h4>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 sepia:text-amber-700">Based on {subsetInfo?.name || religionInfo?.text}</p>
+                      <h4 className="font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{subsetInfo?.name || religionInfo?.name} {t('searchResults.perspective')}</h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 sepia:text-amber-700">{t('searchResults.basedOn', { name: subsetInfo?.name || religionInfo?.text })}</p>
                     </div>
                   </div>
                   <div
@@ -498,21 +508,21 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                       style={{ color: religionInfo?.color }}
                     >
                       <MessageCircle className="w-4 h-4" />
-                      <span className="hidden sm:inline">Discuss</span>
+                      <span className="hidden sm:inline">{tCommon('buttons.discuss')}</span>
                     </button>
                     <button
                       onClick={() => handleSaveInsight(answer, religion, subset)}
                       className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                     >
                       <BookmarkPlus className="w-4 h-4" />
-                      <span className="hidden sm:inline">Save</span>
+                      <span className="hidden sm:inline">{tCommon('buttons.save')}</span>
                     </button>
                     <button
                       onClick={() => handleShareInsight(answer, religion)}
                       className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 hover:bg-gray-50 dark:hover:bg-gray-700 sepia:hover:bg-amber-100 rounded-md transition-all duration-200"
                     >
                       <Share2 className="w-4 h-4" />
-                      <span className="hidden sm:inline">Share</span>
+                      <span className="hidden sm:inline">{tCommon('buttons.share')}</span>
                     </button>
                   </div>
                 </div>
@@ -522,13 +532,13 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
               {verses.length === 0 ? (
                 <div className="bg-sage-50 dark:bg-sage-800 sepia:bg-amber-100 border border-sage-200 dark:border-sage-700 sepia:border-amber-300 rounded-xl p-6 text-center">
                   <p className="text-sm text-sage-600 dark:text-sage-400 sepia:text-amber-700">
-                    No results found in {religionInfo?.name}
+                    {t('searchResults.noResultsInReligion', { name: religionInfo?.name })}
                   </p>
                 </div>
               ) : (
                 <div>
                   <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 sepia:text-amber-800 mb-2">
-                    Source Passages ({verses.length})
+                    {t('searchResults.sourcePassages', { count: verses.length })}
                   </h4>
                   <div className="space-y-2">
                     {verses.slice(0, 3).map((verse, idx) => (
@@ -544,7 +554,7 @@ export function SearchResults({ results, isLoading, comparativeAnalysis, compara
                   </div>
                   {verses.length > 3 && (
                     <p className="text-xs text-gray-500 dark:text-gray-400 sepia:text-amber-600 mt-2 text-center">
-                      + {verses.length - 3} more passages in {religionInfo?.name}
+                      {t('searchResults.morePassages', { count: verses.length - 3, name: religionInfo?.name })}
                     </p>
                   )}
                 </div>

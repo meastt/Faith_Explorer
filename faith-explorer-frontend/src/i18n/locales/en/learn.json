@@ -1,0 +1,586 @@
+{
+  "backToLearning": "Back to Learning Paths",
+  "learnTab": {
+    "title": "Learning Paths",
+    "subtitle": "Structured journeys through sacred wisdom",
+    "continueJourney": "Continue Your Journey",
+    "dayOfTotal": "Day {current} of {total}",
+    "otherPaths": "Other Paths",
+    "chooseAPath": "Choose a Path",
+    "daysComplete": "{completed}/{total} days complete",
+    "premium": "Premium"
+  },
+  "pathDetail": {
+    "progress": "Progress",
+    "days": "days",
+    "premiumPath": "Premium Path",
+    "premiumUpgrade": "Upgrade to access this learning journey.",
+    "beginJourney": "Begin Journey",
+    "reflection": "Reflection",
+    "journalingPrompt": "Journaling Prompt",
+    "markDayComplete": "Mark Day Complete",
+    "journeyComplete": "Journey Complete!",
+    "journeyCompleteMessage": "You've finished {title}. The wisdom lives on in you."
+  },
+  "learningPaths": {
+    "forgiveness": {
+      "title": "Understanding Forgiveness",
+      "description": "A 7-day journey through the sacred teachings on letting go and healing.",
+      "duration": "7 days",
+      "days": [
+        {
+          "title": "What is Forgiveness?",
+          "verse": {
+            "text": "Be kind to one another, tenderhearted, forgiving one another, as God in Christ forgave you.",
+            "reference": "Ephesians 4:32",
+            "religion": "Christianity"
+          },
+          "reflection": "Forgiveness begins with understanding that it is a gift we give ourselves. Holding onto resentment is like carrying a heavy burden that weighs down our spirit. Today, we explore how forgiveness frees us from the past.",
+          "question": "Is there someone you have been struggling to forgive? What makes it difficult?"
+        },
+        {
+          "title": "Forgiveness as Healing",
+          "verse": {
+            "text": "Holding on to anger is like grasping a hot coal with the intent of throwing it at someone else; you are the one who gets burned.",
+            "reference": "Buddhist Teaching",
+            "religion": "Buddhism"
+          },
+          "reflection": "The Buddha understood that unforgiveness harms us more than anyone else. When we hold onto anger, we poison our own peace. Forgiveness is the antidote that heals our wounded hearts.",
+          "question": "How has holding onto anger affected your peace of mind?"
+        },
+        {
+          "title": "Forgiving Ourselves",
+          "verse": {
+            "text": "Say: O My servants who have transgressed against themselves, do not despair of the mercy of Allah. Indeed, Allah forgives all sins.",
+            "reference": "Quran 39:53",
+            "religion": "Islam"
+          },
+          "reflection": "Often the hardest person to forgive is ourselves. Yet divine mercy is boundless. If the Creator can forgive, surely we can extend that same grace to ourselves.",
+          "question": "What is one thing about yourself you find hard to forgive?"
+        },
+        {
+          "title": "The Process of Letting Go",
+          "verse": {
+            "text": "That which is hateful to you, do not do to your fellow. That is the whole Torah; the rest is the explanation.",
+            "reference": "Talmud, Shabbat 31a",
+            "religion": "Judaism"
+          },
+          "reflection": "Forgiveness asks us to see the humanity in others. When we remember that everyone struggles, everyone fails, everyone hurts, we can begin to soften our hearts.",
+          "question": "Can you recall a time when someone forgave you? How did it feel?"
+        },
+        {
+          "title": "Forgiveness and Justice",
+          "verse": {
+            "text": "The good deed and the evil deed are not alike. Repel the evil deed with one which is better, then lo!, he between whom and you there was enmity shall become as a dear friend.",
+            "reference": "Quran 41:34",
+            "religion": "Islam"
+          },
+          "reflection": "Forgiveness does not mean condoning wrong actions. It means choosing peace over perpetual conflict. We can seek justice while releasing bitterness from our hearts.",
+          "question": "How do you balance forgiveness with the need for accountability?"
+        },
+        {
+          "title": "The Power of Compassion",
+          "verse": {
+            "text": "Hatred does not cease by hatred, but only by love; this is the eternal rule.",
+            "reference": "Dhammapada 1:5",
+            "religion": "Buddhism"
+          },
+          "reflection": "Compassion is the soil from which forgiveness grows. When we cultivate genuine understanding for others' suffering, forgiveness becomes a natural response rather than a forced act.",
+          "question": "How might compassion help you in a difficult relationship?"
+        },
+        {
+          "title": "Living Forgiveness Daily",
+          "verse": {
+            "text": "Bear with each other and forgive one another if any of you has a grievance. Forgive as the Lord forgave you.",
+            "reference": "Colossians 3:13",
+            "religion": "Christianity"
+          },
+          "reflection": "Forgiveness is not a one-time event but a daily practice. As we close this journey, we commit to carrying the lessons of forgiveness into our everyday lives, choosing peace again and again.",
+          "question": "What is one small act of forgiveness you can practice today?"
+        }
+      ]
+    },
+    "innerPeace": {
+      "title": "Finding Inner Peace",
+      "description": "Discover tranquility through ancient wisdom from diverse traditions.",
+      "duration": "7 days",
+      "days": [
+        {
+          "title": "The Nature of Peace",
+          "verse": {
+            "text": "Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid.",
+            "reference": "John 14:27",
+            "religion": "Christianity"
+          },
+          "reflection": "True peace is not the absence of trouble but a deep calm that remains steady amidst life's storms. Today we begin exploring what inner peace truly means.",
+          "question": "What does inner peace look like for you?"
+        },
+        {
+          "title": "Quieting the Mind",
+          "verse": {
+            "text": "To the mind that is still, the whole universe surrenders.",
+            "reference": "Tao Te Ching 16",
+            "religion": "Taoism"
+          },
+          "reflection": "A restless mind cannot find peace. The ancient Taoists understood that stillness is the gateway to clarity. When we slow down, we create space for peace to enter.",
+          "question": "When does your mind feel most restless? What helps calm it?"
+        },
+        {
+          "title": "Accepting What Is",
+          "verse": {
+            "text": "You have the right to work, but never to the fruit of work. You should never engage in action for the sake of reward.",
+            "reference": "Bhagavad Gita 2:47",
+            "religion": "Hinduism"
+          },
+          "reflection": "Much of our anxiety comes from attachment to outcomes. Krishna teaches that peace comes from doing our best while releasing our grip on results.",
+          "question": "What outcome are you currently attached to? What would letting go look like?"
+        },
+        {
+          "title": "Trust in the Divine",
+          "verse": {
+            "text": "Truly, in the remembrance of Allah do hearts find rest.",
+            "reference": "Quran 13:28",
+            "religion": "Islam"
+          },
+          "reflection": "When we remember that we are held by something greater than ourselves, our worries begin to dissolve. Peace comes from trust in divine wisdom.",
+          "question": "How does your faith or spirituality bring you comfort?"
+        },
+        {
+          "title": "Living Simply",
+          "verse": {
+            "text": "Manifest plainness, embrace simplicity, reduce selfishness, have few desires.",
+            "reference": "Tao Te Ching 19",
+            "religion": "Taoism"
+          },
+          "reflection": "Complexity breeds anxiety. The sages teach that simplicity is the path to peace. By reducing our wants, we reduce our worries.",
+          "question": "What could you simplify in your life right now?"
+        },
+        {
+          "title": "Peace with Others",
+          "verse": {
+            "text": "If it is possible, as far as it depends on you, live at peace with everyone.",
+            "reference": "Romans 12:18",
+            "religion": "Christianity"
+          },
+          "reflection": "Inner peace is deeply connected to our relationships. When we cultivate harmony with others, we create space for peace within ourselves.",
+          "question": "Is there a relationship in your life that needs more peace?"
+        },
+        {
+          "title": "Carrying Peace Forward",
+          "verse": {
+            "text": "Peace comes from within. Do not seek it without.",
+            "reference": "Buddhist Teaching",
+            "religion": "Buddhism"
+          },
+          "reflection": "As we conclude this journey, we remember that peace is not found in circumstances but cultivated in our hearts. We carry it with us wherever we go.",
+          "question": "What one practice will you continue to nurture inner peace?"
+        }
+      ]
+    },
+    "goldenRule": {
+      "title": "The Golden Rule Across Faiths",
+      "description": "Explore how every major tradition teaches the ethic of reciprocity.",
+      "duration": "7 days",
+      "days": [
+        {
+          "title": "The Universal Principle",
+          "verse": {
+            "text": "This is the sum of duty: Do naught unto others which would cause you pain if done to you.",
+            "reference": "Mahabharata 5:15:17",
+            "religion": "Hinduism"
+          },
+          "reflection": "Across all cultures and ages, humanity has arrived at the same fundamental truth: treat others as you wish to be treated. This principle is so universal that it appears independently in every major tradition.",
+          "question": "Why do you think this principle appears in so many different traditions?"
+        },
+        {
+          "title": "Confucian Reciprocity",
+          "verse": {
+            "text": "Do not impose on others what you yourself do not desire.",
+            "reference": "Analects 15:23",
+            "religion": "Confucianism"
+          },
+          "reflection": "Confucius called this principle \"shu\" (reciprocity) and said it was the single word that could guide a life. His framing emphasizes restraint: first, do no harm.",
+          "question": "How might you practice \"shu\" today in your interactions?"
+        },
+        {
+          "title": "The Jewish Foundation",
+          "verse": {
+            "text": "That which is hateful to you, do not do to your fellow. That is the whole Torah; the rest is the explanation.",
+            "reference": "Talmud, Shabbat 31a",
+            "religion": "Judaism"
+          },
+          "reflection": "Rabbi Hillel summarized the entire Torah in this single principle. It reminds us that all religious teaching ultimately points toward how we treat one another.",
+          "question": "If this is the foundation, how does it change how you view religious practice?"
+        },
+        {
+          "title": "The Christian Command",
+          "verse": {
+            "text": "So in everything, do to others what you would have them do to you, for this sums up the Law and the Prophets.",
+            "reference": "Matthew 7:12",
+            "religion": "Christianity"
+          },
+          "reflection": "Jesus frames it positively: actively do good to others. This shifts from mere restraint to proactive benevolence.",
+          "question": "What is one way you could actively do good for someone today?"
+        },
+        {
+          "title": "The Islamic Standard",
+          "verse": {
+            "text": "None of you truly believes until he wishes for his brother what he wishes for himself.",
+            "reference": "Hadith, An-Nawawi 13",
+            "religion": "Islam"
+          },
+          "reflection": "In Islam, this principle is tied directly to faith itself. It's not merely ethical advice but a measure of genuine belief.",
+          "question": "How does linking this to faith change its significance for you?"
+        },
+        {
+          "title": "Buddhist Compassion",
+          "verse": {
+            "text": "Hurt not others in ways that you yourself would find hurtful.",
+            "reference": "Udana-Varga 5:18",
+            "religion": "Buddhism"
+          },
+          "reflection": "The Buddhist version focuses on reducing suffering. By recognizing our shared experience of pain, we naturally extend compassion to all beings.",
+          "question": "How does awareness of shared suffering change how you see others?"
+        },
+        {
+          "title": "One Truth, Many Voices",
+          "verse": {
+            "text": "Regard your neighbour's gain as your own gain, and your neighbour's loss as your own loss.",
+            "reference": "Tai Shang Kan Ying Pien",
+            "religion": "Taoism"
+          },
+          "reflection": "As we conclude, we see that humanity's greatest moral insight transcends any single tradition. The Golden Rule is our shared inheritance, calling us to universal compassion.",
+          "question": "How will you carry the Golden Rule into your daily life?"
+        }
+      ]
+    },
+    "suffering": {
+      "title": "Overcoming Suffering",
+      "description": "Ancient wisdom for navigating life's inevitable challenges.",
+      "duration": "7 days",
+      "days": [
+        {
+          "title": "The Reality of Suffering",
+          "verse": {
+            "text": "Life is dukkha (suffering/unsatisfactoriness). This is the First Noble Truth.",
+            "reference": "Dhammapada",
+            "religion": "Buddhism"
+          },
+          "reflection": "The Buddha's first insight was not pessimism but reality: life contains suffering. Acknowledging this truth is the first step toward freedom.",
+          "question": "What suffering are you currently facing?"
+        },
+        {
+          "title": "Suffering Has Purpose",
+          "verse": {
+            "text": "Consider it pure joy when you face trials of many kinds, because you know that the testing of your faith produces perseverance.",
+            "reference": "James 1:2-3",
+            "religion": "Christianity"
+          },
+          "reflection": "Many traditions teach that suffering can be transformative. Our struggles can forge strength, wisdom, and compassion if we approach them rightly.",
+          "question": "Looking back, how has a past difficulty made you stronger?"
+        },
+        {
+          "title": "Finding Meaning in Pain",
+          "verse": {
+            "text": "Verily, with hardship comes ease.",
+            "reference": "Quran 94:5-6",
+            "religion": "Islam"
+          },
+          "reflection": "The Quran repeats this promise twice in succession. Ease follows hardship--not despite it, but often through it. Every difficulty carries within it the seed of relief.",
+          "question": "Can you identify any \"ease\" that has come from recent hardship?"
+        },
+        {
+          "title": "The Path Beyond",
+          "verse": {
+            "text": "There is a path that leads to the end of suffering. This is the Fourth Noble Truth.",
+            "reference": "Buddhist Teaching",
+            "religion": "Buddhism"
+          },
+          "reflection": "The Buddha did not stop at diagnosing suffering--he prescribed a way out. This gives us hope: suffering is real, but it is not the final word.",
+          "question": "What practices help you navigate difficult times?"
+        },
+        {
+          "title": "Equanimity in Turbulence",
+          "verse": {
+            "text": "One who is not disturbed by happiness and distress and is steady in both is certainly eligible for liberation.",
+            "reference": "Bhagavad Gita 2:15",
+            "religion": "Hinduism"
+          },
+          "reflection": "Krishna teaches equanimity: remaining steady whether fortune or misfortune comes. This balance does not mean numbness but stable wisdom.",
+          "question": "How might you cultivate more steadiness in your emotional life?"
+        },
+        {
+          "title": "Community in Suffering",
+          "verse": {
+            "text": "Carry each other's burdens, and in this way you will fulfill the law of Christ.",
+            "reference": "Galatians 6:2",
+            "religion": "Christianity"
+          },
+          "reflection": "We are not meant to suffer alone. Sharing our burdens with others--and carrying theirs--is part of the healing journey.",
+          "question": "Who can you lean on? Who might need your support?"
+        },
+        {
+          "title": "Hope and Resilience",
+          "verse": {
+            "text": "This too shall pass.",
+            "reference": "Persian Sufi Teaching",
+            "religion": "Sufism"
+          },
+          "reflection": "All conditions are impermanent--including suffering. This simple truth reminds us to endure, knowing that change is constant. Brighter days await.",
+          "question": "What gives you hope when times are hard?"
+        }
+      ]
+    },
+    "gratitude": {
+      "title": "Cultivating Gratitude",
+      "description": "Transform your perspective through the ancient practice of thankfulness.",
+      "duration": "7 days",
+      "days": [
+        {
+          "title": "The Power of Thanks",
+          "verse": {
+            "text": "Give thanks in all circumstances; for this is God's will for you in Christ Jesus.",
+            "reference": "1 Thessalonians 5:18",
+            "religion": "Christianity"
+          },
+          "reflection": "Gratitude is not just a feeling but a discipline. It shifts our focus from what we lack to the abundance already present in our lives.",
+          "question": "What are three things you're grateful for right now?"
+        },
+        {
+          "title": "Gratitude Opens Doors",
+          "verse": {
+            "text": "If you are grateful, I will surely increase you in favor.",
+            "reference": "Quran 14:7",
+            "religion": "Islam"
+          },
+          "reflection": "There's a spiritual principle: gratitude multiplies blessings. When we appreciate what we have, we become open to receiving more.",
+          "question": "How might practicing gratitude change what you receive in life?"
+        },
+        {
+          "title": "Contentment",
+          "verse": {
+            "text": "He who knows that enough is enough will always have enough.",
+            "reference": "Tao Te Ching 46",
+            "religion": "Taoism"
+          },
+          "reflection": "Gratitude leads to contentment. When we recognize the sufficiency of what we have, the endless pursuit of \"more\" loses its grip.",
+          "question": "In what area of life might you practice \"enough is enough\"?"
+        },
+        {
+          "title": "Gratitude in Difficulty",
+          "verse": {
+            "text": "Let us be grateful to people who make us happy; they are the charming gardeners who make our souls blossom.",
+            "reference": "Marcel Proust (Buddhist-inspired)",
+            "religion": "Buddhism"
+          },
+          "reflection": "Even in challenging times, there are people and moments that bring light. Gratitude helps us see these gifts.",
+          "question": "Who has been a \"charming gardener\" in your life?"
+        },
+        {
+          "title": "Gratitude as Worship",
+          "verse": {
+            "text": "Enter his gates with thanksgiving and his courts with praise; give thanks to him and praise his name.",
+            "reference": "Psalm 100:4",
+            "religion": "Judaism"
+          },
+          "reflection": "In many traditions, gratitude is a form of worship. It acknowledges the Source of all blessings and connects us to the Sacred.",
+          "question": "How might gratitude deepen your spiritual practice?"
+        },
+        {
+          "title": "Expressing Thanks",
+          "verse": {
+            "text": "One who does not thank people does not thank Allah.",
+            "reference": "Hadith, Abu Dawud",
+            "religion": "Islam"
+          },
+          "reflection": "Gratitude is not complete until it's expressed. Thanking others is a sacred act that honors both the giver and the gift.",
+          "question": "Who deserves your thanks today?"
+        },
+        {
+          "title": "A Life of Gratitude",
+          "verse": {
+            "text": "When you arise in the morning, think of what a precious privilege it is to be alive--to breathe, to think, to enjoy, to love.",
+            "reference": "Marcus Aurelius (Stoic)",
+            "religion": "Stoicism"
+          },
+          "reflection": "As we conclude, we commit to making gratitude a daily practice. Each morning is an invitation to appreciate the gift of another day.",
+          "question": "What morning gratitude practice will you adopt?"
+        }
+      ]
+    }
+  },
+  "goldenThreads": {
+    "sectionTitle": "Golden Thread Paths",
+    "sectionDescription": "Follow a single concept as it weaves through history and tradition.",
+    "theGoldenThread": "The Golden Thread",
+    "passagesThroughHistory": "{{total}} passages through history",
+    "threadContinues": "The golden thread continues...",
+    "threads": {
+      "goldenRule": {
+        "title": "The Golden Rule",
+        "description": "The universal ethic of reciprocity found in every major tradition.",
+        "nodes": [
+          {
+            "era": "3000 BCE ~",
+            "faith": "Hinduism",
+            "title": "The Sum of Duty",
+            "quote": "This is the sum of duty: Do naught unto others which would cause you pain if done to you.",
+            "description": "From the Mahabharata, highlighting that empathy is the root of dharma (duty)."
+          },
+          {
+            "era": "500 BCE",
+            "faith": "Confucianism",
+            "title": "Reciprocity (Shu)",
+            "quote": "Do not impose on others what you yourself do not desire.",
+            "description": "Confucius defines the single word that can guide a life: \"Reciprocity\"."
+          },
+          {
+            "era": "1st Century BCE",
+            "faith": "Judaism",
+            "title": "The Whole Torah",
+            "quote": "That which is hateful to you, do not do to your fellow. That is the whole Torah.",
+            "description": "Rabbi Hillel summation of the entire law while standing on one foot."
+          },
+          {
+            "era": "1st Century CE",
+            "faith": "Christianity",
+            "title": "The Law & Prophets",
+            "quote": "Do to others what you would have them do to you.",
+            "description": "Jesus frames it positively (active benevolence) in the Sermon on the Mount."
+          },
+          {
+            "era": "7th Century CE",
+            "faith": "Islam",
+            "title": "True Belief",
+            "quote": "None of you truly believes until he wishes for his brother what he wishes for himself.",
+            "description": "An-Nawawi's Forty Hadith, linking faith directly to social brotherhood."
+          }
+        ]
+      },
+      "hospitality": {
+        "title": "Sacred Hospitality",
+        "description": "How treating the stranger as divine connects us all.",
+        "nodes": [
+          {
+            "era": "2000 BCE",
+            "faith": "Judaism/Islam",
+            "title": "Abraham's Tent",
+            "quote": "He saw three men standing nearby... and bowed low to the ground.",
+            "description": "Abraham runs to welcome strangers, who turn out to be angels/divine messengers."
+          },
+          {
+            "era": "800 BCE",
+            "faith": "Ancient Greek",
+            "title": "Xenia",
+            "quote": "Do not neglect to show hospitality to strangers.",
+            "description": "The ancient code that Zeus protects strangers (Xenos). Violation invokes divine wrath."
+          },
+          {
+            "era": "Variable",
+            "faith": "Hinduism",
+            "title": "Atithi Devo Bhava",
+            "quote": "The guest is God.",
+            "description": "A Sanskrit mantra from the Taittiriya Upanishad instructing to revere guests as deities."
+          }
+        ]
+      }
+    }
+  },
+  "challenges": {
+    "communityGoal": "Community Goal",
+    "communityCount": "5,230",
+    "communityMessage": "Acts of Faith logged this week.",
+    "communityTarget": "Target: 7,000",
+    "activeChallenges": "Active Challenges",
+    "participants": "participants",
+    "joinChallenge": "Join Challenge",
+    "logActivity": "Log Activity",
+    "challengeCompleted": "Challenge Completed!",
+    "viewJournal": "View Journal ({count} {entryPlural})",
+    "entry": "entry",
+    "entries": "entries",
+    "challengeData": [
+      {
+        "id": "gratitude-week",
+        "title": "Week of Gratitude",
+        "description": "Log one act of thanks daily for 7 days.",
+        "goal": 7,
+        "unit": "days"
+      },
+      {
+        "id": "charity-drive",
+        "title": "Generosity Month",
+        "description": "Give to those in need (time or money).",
+        "goal": 5,
+        "unit": "acts"
+      },
+      {
+        "id": "interfaith-reader",
+        "title": "Bridge Builder",
+        "description": "Read texts from 3 different faiths.",
+        "goal": 3,
+        "unit": "faiths"
+      }
+    ]
+  },
+  "activityLog": {
+    "title": "Log Activity",
+    "progressLabel": "{progress} of {goal} {unit} completed",
+    "whatDidYouDo": "What did you do?",
+    "defaultPlaceholder": "Describe your activity...",
+    "placeholders": {
+      "gratitude-week": "What are you grateful for today?",
+      "charity-drive": "How did you show generosity today?",
+      "interfaith-reader": "What wisdom did you discover?"
+    },
+    "submitButton": "Log This Activity",
+    "completeTitle": "Challenge Complete!",
+    "completeMessage": "Amazing work! You've finished the {title} challenge.",
+    "activityJournal": "Your Activity Journal ({count})"
+  },
+  "badges": {
+    "title": "Achievement Badges",
+    "progressLabel": "{unlocked} of {total} unlocked",
+    "unlockedSection": "Unlocked ({count})",
+    "lockedSection": "Locked ({count})",
+    "unlockedDate": "Unlocked {date}",
+    "badgeData": [
+      {
+        "id": "first-search",
+        "name": "First Search",
+        "description": "Complete your first search",
+        "icon": "search"
+      },
+      {
+        "id": "week-warrior",
+        "name": "Week Warrior",
+        "description": "Maintain a 7-day streak",
+        "icon": "fire"
+      },
+      {
+        "id": "interfaith-explorer",
+        "name": "Interfaith Explorer",
+        "description": "Search across 3 or more religions",
+        "icon": "globe"
+      },
+      {
+        "id": "deep-thinker",
+        "name": "Deep Thinker",
+        "description": "Send 50+ chat messages",
+        "icon": "thought"
+      },
+      {
+        "id": "library-keeper",
+        "name": "Library Keeper",
+        "description": "Save 25 or more verses",
+        "icon": "books"
+      },
+      {
+        "id": "wisdom-seeker",
+        "name": "Wisdom Seeker",
+        "description": "Maintain a 30-day streak",
+        "icon": "star"
+      }
+    ]
+  }
+}

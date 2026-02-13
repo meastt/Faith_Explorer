@@ -1,5 +1,6 @@
 import { Search, Sparkles, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStore } from '../store/useStore';
 import { showToast } from './Toast';
 
@@ -8,6 +9,8 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ onSearch }: SearchBarProps) {
+  const { t } = useTranslation('search');
+  const { t: tCommon } = useTranslation('common');
   const [query, setQuery] = useState('');
   const { isSearching, canSearch, usage } = useStore();
 
@@ -15,7 +18,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
     e.preventDefault();
     if (query.trim() && !isSearching) {
       if (!canSearch()) {
-        showToast('You have reached your free search limit.', 'info');
+        showToast(tCommon('usage.searchLimitReached'), 'info');
         return;
       }
       onSearch(query.trim());
@@ -37,7 +40,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ask a question of the texts (e.g., 'Why do we suffer?')"
+            placeholder={t('searchBar.placeholder')}
             className="flex-1 bg-transparent border-none focus:ring-0 text-stone-800 dark:text-stone-100 sepia:text-amber-900 text-lg placeholder-stone-400 sepia:placeholder-amber-600 font-medium py-3"
             disabled={isSearching}
           />
@@ -60,7 +63,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
         <div className="mt-3 px-1">
           <div className="flex items-center justify-between text-xs mb-1">
             <span className="text-stone-500 dark:text-stone-400 sepia:text-amber-800 font-medium">
-              Free searches remaining
+              {t('searchBar.freeSearchesRemaining')}
             </span>
             <span className="text-bronze-600 dark:text-bronze-400 sepia:text-amber-900 font-bold">
               {Math.max(0, usage.searchLimit - usage.searchesUsed)} / {usage.searchLimit}
@@ -79,7 +82,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
 
       <div className="text-center mt-3">
         <p className="text-xs text-stone-400 dark:text-stone-500 sepia:text-amber-700 font-medium tracking-wide">
-          SCRIPTURE-BACKED • MULTI-FAITH • COMPARATIVE
+          {t('searchBar.descriptorLabel')}
         </p>
       </div>
     </div>

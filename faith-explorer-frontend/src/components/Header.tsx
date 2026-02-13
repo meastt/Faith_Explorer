@@ -1,10 +1,12 @@
 import { Star, Flame } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStore } from '../store/useStore';
 import { SubscriptionModal } from './SubscriptionModal';
 import { revenueCat } from '../services/revenuecat';
 
 export function Header() {
+  const { t } = useTranslation('common');
   const { usage, setPremium, streak, updateStreak, useStreakFreeze, checkAndUnlockBadges } = useStore();
   const { isPremium } = usage;
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
@@ -51,22 +53,22 @@ export function Header() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 bg-sand-50/80 dark:bg-stone-900/80 sepia:bg-amber-100/90 backdrop-blur-md border-b border-sand-200 dark:border-stone-800 sepia:border-amber-400" style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}>
+      <div className="fixed top-0 left-0 right-0 z-50 bg-sand-50/80 dark:bg-stone-900/80 sepia:bg-amber-100/90 backdrop-blur-md border-b border-sand-200 dark:border-stone-800 sepia:border-amber-400" style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 2px)' }}>
         {/* Brand & Actions Header */}
         <header className="max-w-4xl mx-auto px-4 py-0">
-          <div className="flex items-center justify-between h-14">
+          <div className="flex items-center justify-between h-11">
 
             {/* Brand */}
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-bronze-500 text-white rounded-full flex items-center justify-center shadow-glow">
-                <span className="font-serif font-bold text-lg">F</span>
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 bg-bronze-500 text-white rounded-full flex items-center justify-center shadow-glow">
+                <span className="font-serif font-bold text-base">{t('brand.logoLetter')}</span>
               </div>
               <div>
-                <h1 className="font-serif text-xl font-bold text-stone-800 dark:text-stone-100 sepia:text-amber-900 leading-none">
-                  Faith Explorer
+                <h1 className="font-serif text-lg font-bold text-stone-800 dark:text-stone-100 sepia:text-amber-900 leading-none">
+                  {t('brand.appName')}
                 </h1>
-                <p className="text-xs font-medium text-bronze-700 dark:text-bronze-400 sepia:text-amber-800 tracking-widest uppercase mt-0.5">
-                  Wisdom of Ages
+                <p className="text-[9px] font-medium text-bronze-700 dark:text-bronze-400 sepia:text-amber-800 tracking-widest uppercase mt-0.5">
+                  {t('brand.tagline')}
                 </p>
               </div>
             </div>
@@ -77,7 +79,7 @@ export function Header() {
               {!isPremium && (
                 <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sand-100 dark:bg-stone-800 sepia:bg-amber-200 border border-sand-200 dark:border-stone-700 sepia:border-amber-400">
                   <span className="text-xs font-medium text-stone-600 dark:text-stone-400 sepia:text-amber-900">
-                    {Math.max(0, usage.searchLimit - usage.searchesUsed)} free searches
+                    {Math.max(0, usage.searchLimit - usage.searchesUsed)} {t('usage.freeSearches')}
                   </span>
                 </div>
               )}
@@ -104,7 +106,7 @@ export function Header() {
                   }`}
               >
                 <Star className="w-3 h-3 fill-current" />
-                <span className="font-bold tracking-wide">{isPremium ? 'Premium' : 'Upgrade'}</span>
+                <span className="font-bold tracking-wide">{isPremium ? t('usage.premium') : t('usage.upgrade')}</span>
               </button>
             </div>
           </div>
@@ -129,10 +131,10 @@ export function Header() {
                   <Flame className="w-8 h-8 text-bronze-600 dark:text-bronze-400" />
                 </div>
                 <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-2 font-serif">
-                  Streak Freeze Available!
+                  {t('streakFreeze.title')}
                 </h3>
                 <p className="text-sm text-stone-600 dark:text-stone-400 mb-6">
-                  You missed yesterday, but you can use your monthly streak freeze (Premium perk) to keep your {streak.current}-day streak alive!
+                  {t('streakFreeze.description', { count: streak.current })}
                 </p>
 
                 <div className="flex gap-3">
@@ -140,18 +142,18 @@ export function Header() {
                     onClick={() => setShowStreakFreeze(false)}
                     className="flex-1 px-4 py-3 rounded-xl border border-sand-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 font-medium hover:bg-sand-100 dark:hover:bg-stone-700 transition-colors"
                   >
-                    Cancel
+                    {t('buttons.cancel')}
                   </button>
                   <button
                     onClick={applyStreakFreeze}
                     className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-bronze-500 to-gold-500 text-white font-medium hover:from-bronze-600 hover:to-gold-600 transition-all shadow-md hover:shadow-lg"
                   >
-                    Use Freeze
+                    {t('streakFreeze.useFreeze')}
                   </button>
                 </div>
 
                 <p className="text-xs text-stone-500 dark:text-stone-400 mt-4">
-                  You have {streak.freezesAvailable} freeze{streak.freezesAvailable !== 1 ? 's' : ''} available this month
+                  {t('streakFreeze.freezesAvailable', { count: streak.freezesAvailable, plural: streak.freezesAvailable !== 1 ? 's' : '' })}
                 </p>
               </div>
             </div>

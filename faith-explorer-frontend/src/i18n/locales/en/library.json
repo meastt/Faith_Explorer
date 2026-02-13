@@ -1,0 +1,105 @@
+{
+  "savedLibrary": {
+    "emptyState": {
+      "title": "No Saved Verses Yet",
+      "description": "Save meaningful verses while searching to build your personal collection of wisdom"
+    },
+    "header": {
+      "title": "Your Saved Collection",
+      "verseCount": "{filtered} of {total} {versePlural}",
+      "verse": "verse",
+      "verses": "verses"
+    },
+    "export": {
+      "button": "Export",
+      "markdown": "Markdown",
+      "markdownDescription": "Formatted document",
+      "citations": "Citations",
+      "mlaFormat": "MLA Format",
+      "apaFormat": "APA Format",
+      "chicagoFormat": "Chicago Format"
+    },
+    "collections": {
+      "title": "Collections",
+      "newButton": "New",
+      "createNewFolder": "Create New Folder",
+      "folderPlaceholder": "Folder name...",
+      "unfiled": "Unfiled",
+      "all": "All",
+      "clickToConfirmDelete": "Click again to confirm",
+      "deleteFolder": "Delete folder"
+    },
+    "tags": {
+      "title": "Tags",
+      "clearFilters": "Clear filters"
+    },
+    "search": {
+      "placeholder": "Search your saved verses...",
+      "allReligions": "All Religions"
+    },
+    "sort": {
+      "newestFirst": "Newest First",
+      "oldestFirst": "Oldest First",
+      "byReligion": "By Religion",
+      "byReference": "By Reference"
+    },
+    "noResults": {
+      "title": "No verses found",
+      "description": "Try adjusting your search or filter"
+    },
+    "defaultFolders": {
+      "favorites": "Favorites",
+      "toStudy": "To Study",
+      "shared": "Shared"
+    }
+  },
+  "savedVerseCard": {
+    "highlighting": {
+      "selectText": "Select text to highlight",
+      "colorTitle": "{color} highlight",
+      "clickToRemove": "Click to remove highlight"
+    },
+    "tags": {
+      "placeholder": "Tag name..."
+    },
+    "notes": {
+      "placeholder": "Add your personal notes and reflections..."
+    },
+    "folderMenu": {
+      "title": "Move to folder"
+    },
+    "actions": {
+      "discuss": "Discuss",
+      "folder": "Folder",
+      "highlight": "Highlight",
+      "edit": "Edit",
+      "note": "Note",
+      "share": "Share",
+      "delete": "Delete",
+      "confirm": "Confirm?",
+      "save": "Save",
+      "cancel": "Cancel",
+      "done": "Done",
+      "addTag": "Add tag",
+      "addOrEditNotes": "Add or edit notes",
+      "shareVerse": "Share verse",
+      "discussVerse": "Discuss this verse",
+      "highlightText": "Highlight text",
+      "moveToFolder": "Move to folder"
+    }
+  },
+  "libraryStats": {
+    "title": "Your Library Stats",
+    "totalVerses": "Total Verses",
+    "religions": "Religions",
+    "tagsUsed": "Tags Used",
+    "withNotes": "With Notes",
+    "mostExploredTradition": "Most Explored Tradition",
+    "verseSuffix": "verses",
+    "religionDistribution": "Religion Distribution",
+    "topTopics": "Top Topics",
+    "foldersUsed": "Folders Used",
+    "highlights": "Highlights",
+    "avgPerReligion": "Avg per Religion"
+  }
+}

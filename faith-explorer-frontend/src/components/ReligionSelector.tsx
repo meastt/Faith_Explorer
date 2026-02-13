@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { RELIGIONS, type Religion, type ReligionSubsetId } from '../types';
 import { useStore } from '../store/useStore';
 import { SubscriptionModal } from './SubscriptionModal';
+
 
 // Simplified icons for the new aesthetic
 function getReligionSymbol(id: Religion) {
@@ -15,6 +17,8 @@ function getReligionSymbol(id: Religion) {
 }
 
 export function ReligionSelector() {
+  const { t } = useTranslation('search');
+  const { t: tCommon } = useTranslation('common');
   const { viewMode, setViewMode, selectedSubsets, toggleSubset, setSelectedSubsets, usage, setPremium } = useStore();
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
 
@@ -44,7 +48,7 @@ export function ReligionSelector() {
               : 'text-stone-500 hover:text-stone-700 dark:text-stone-400 sepia:text-amber-700 sepia:hover:text-amber-900'
               }`}
           >
-            Single Path
+            {t('religionSelector.singlePath')}
           </button>
           <button
             onClick={() => setViewMode('comparison')}
@@ -53,7 +57,7 @@ export function ReligionSelector() {
               : 'text-stone-500 hover:text-stone-700 dark:text-stone-400 sepia:text-amber-700 sepia:hover:text-amber-900'
               }`}
           >
-            Compare Perspectives
+            {t('religionSelector.comparePerspectives')}
           </button>
         </div>
       </div>
@@ -65,7 +69,7 @@ export function ReligionSelector() {
             <div key={religion.id} className="flex flex-col gap-2">
               {/* Religion Header */}
               <div className="px-2 text-xs font-bold uppercase tracking-widest text-bronze-600 dark:text-bronze-500 sepia:text-amber-800 text-center font-serif">
-                {religion.name}
+                {tCommon(`religionNames.${religion.id}`, { defaultValue: religion.name })}
               </div>
 
               {/* Books/Subsets */}
@@ -102,10 +106,10 @@ export function ReligionSelector() {
 
                       <div className="text-left mt-auto w-full">
                         <span className={`block font-serif font-bold text-sm leading-tight ${isSelected ? 'text-white' : 'text-stone-900 dark:text-stone-100 sepia:text-amber-900'}`}>
-                          {subset.name}
+                          {tCommon(`subsetNames.${subset.id}`, { defaultValue: subset.name })}
                         </span>
                         {isDisabled ? (
-                          <span className="text-[9px] uppercase mt-1.5 block opacity-70 font-medium tracking-wide">Coming Soon</span>
+                          <span className="text-[9px] uppercase mt-1.5 block opacity-70 font-medium tracking-wide">{t('religionSelector.comingSoon')}</span>
                         ) : (
                           <div className={`h-0.5 w-8 mt-2 rounded-full transition-all ${isSelected ? 'bg-white/40' : 'bg-bronze-200 dark:bg-stone-600 group-hover:w-full group-hover:bg-bronze-400'}`} />
                         )}

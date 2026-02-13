@@ -1,0 +1,242 @@
+{
+  "language": {
+    "title": "Language / Idioma",
+    "description": "Choose your language",
+    "selectDescription": "Select your preferred language. The app will update immediately."
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitles": {
+      "main": "Customize your experience",
+      "appearance": "Appearance settings",
+      "badges": "Your achievements",
+      "notifications": "Notification settings",
+      "support": "Help & support"
+    },
+    "sections": {
+      "appearance": {
+        "title": "Appearance",
+        "description": "Customize your reading experience"
+      },
+      "badges": {
+        "title": "Achievement Badges",
+        "description": "View your unlocked achievements"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "description": "Daily wisdom & streak reminders"
+      },
+      "privacyAndTerms": {
+        "title": "Privacy & Terms",
+        "description": "View our privacy policy and terms"
+      },
+      "support": {
+        "title": "Support",
+        "description": "Get help and contact us"
+      },
+      "legal": {
+        "title": "Legal",
+        "description": "Privacy Policy and Terms of Use"
+      },
+      "purchases": {
+        "title": "Purchases",
+        "description": "Manage or restore subscriptions"
+      },
+      "data": {
+        "title": "Data",
+        "description": "Delete all local data on this device"
+      },
+      "about": {
+        "title": "About",
+        "description": "App info, version, and credits"
+      }
+    }
+  },
+  "appearance": {
+    "theme": {
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "sepia": "Sepia"
+    },
+    "fontFamily": {
+      "title": "Font Family",
+      "sans": "Sans",
+      "serif": "Serif",
+      "dyslexic": "Dyslexic"
+    },
+    "fontSize": {
+      "title": "Font Size",
+      "small": "Small",
+      "large": "Large",
+      "pxLabel": "{size}px"
+    }
+  },
+  "readingPreferences": {
+    "title": "Reading Preferences",
+    "reading": "Reading",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "sepia": "Sepia",
+    "fontSizeLabel": "Font Size:",
+    "small": "Small",
+    "large": "Large",
+    "fontStyle": "Font Style",
+    "sansSerif": "Sans Serif (Modern)",
+    "serif": "Serif (Traditional)",
+    "openDyslexic": "OpenDyslexic (Accessible)"
+  },
+  "notifications": {
+    "permissionDisabled": "Notifications are disabled. Enable a notification option below to request permission.",
+    "dailyWisdom": {
+      "title": "Daily Wisdom Reminder",
+      "description": "Receive daily inspiration from sacred texts",
+      "timeLabel": "Remind me at:"
+    },
+    "streakProtection": {
+      "title": "Streak Protection",
+      "description": "Get reminded before losing your streak",
+      "note": "Only notifies you in the evening if you haven't opened the app that day."
+    },
+    "respectNote": "We respect your time. You'll receive at most one notification per day, and only when it's helpful."
+  },
+  "support": {
+    "contactSupport": {
+      "title": "Contact Support",
+      "description": "Get help with any issues"
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "description": "How we protect your data"
+    },
+    "needHelp": {
+      "title": "Need Help?",
+      "description": "If you're experiencing any issues or have questions about Faith Explorer, please don't hesitate to reach out to our support team."
+    }
+  },
+  "legal": {
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "description": "How we protect your data"
+    },
+    "termsOfUse": {
+      "title": "Terms of Use",
+      "description": "Read our terms"
+    }
+  },
+  "purchases": {
+    "manageSubscription": {
+      "title": "Manage Subscription",
+      "description": "Open iOS Subscriptions"
+    },
+    "restorePurchases": {
+      "title": "Restore Purchases",
+      "description": "Re-activate previous purchases"
+    },
+    "redeemPromoCode": {
+      "title": "Redeem Promo Code",
+      "description": "Have a code? Redeem it here"
+    },
+    "subscriptionManagedByApple": "Subscriptions are managed by Apple. You can cancel anytime from your device settings."
+  },
+  "data": {
+    "deleteLocalData": {
+      "title": "Delete Local Data",
+      "description": "This app does not create user accounts or store personal data on servers. You can delete all data stored on this device at any time.",
+      "button": "Delete Local Data"
+    }
+  },
+  "about": {
+    "appName": "Faith Explorer",
+    "description": "Explore sacred texts from major world religions. Compare teachings, search for wisdom on life's questions, and discover the common threads of spirituality across faiths.",
+    "madeWithLove": "Made with love for seekers of wisdom",
+    "version": "3.2.1 (Build 23)",
+    "versionLabel": "Version:",
+    "copyrightLabel": "Copyright:",
+    "copyrightText": "Faith Explorer",
+    "mission": "Our Mission",
+    "missionText": "To make the world's sacred wisdom accessible to everyone, fostering understanding and respect across all faith traditions.",
+    "whatWeOffer": "What We Offer",
+    "features": {
+      "sacredTexts": {
+        "title": "Sacred Texts",
+        "description": "Access passages from 9 major world religions"
+      },
+      "comparativeStudy": {
+        "title": "Comparative Study",
+        "description": "Compare teachings across different traditions"
+      },
+      "contextualUnderstanding": {
+        "title": "Contextual Understanding",
+        "description": "AI-powered explanations and context"
+      },
+      "respectfulApproach": {
+        "title": "Respectful Approach",
+        "description": "Every tradition presented with care and accuracy"
+      }
+    },
+    "supportedTraditions": "Supported Traditions",
+    "traditions": [
+      "Christianity", "Islam", "Judaism", "Hinduism",
+      "Buddhism", "Sikhism", "Taoism", "Confucianism", "Shinto"
+    ],
+    "madeWith": "Made with",
+    "forInterfaith": "for interfaith understanding"
+  },
+  "subscription": {
+    "urgencyBadge": "New Year Special -- 50% Off Annual",
+    "title": "Become a Patron",
+    "subtitle": "Unlock the full wisdom of the ages",
+    "trustIndicator": "Join 5,000+ seekers worldwide",
+    "features": {
+      "unlimitedSearches": {
+        "title": "Unlimited Searches",
+        "description": "Explore as much as you want"
+      },
+      "unlimitedChat": {
+        "title": "Unlimited Chat Messages",
+        "description": "Deep dive into any verse or topic"
+      },
+      "advancedComparisons": {
+        "title": "Advanced Comparisons",
+        "description": "Compare up to 7 religions at once"
+      },
+      "prioritySupport": {
+        "title": "Priority Support",
+        "description": "Get help when you need it"
+      }
+    },
+    "testimonial": {
+      "quote": "Faith Explorer has deepened my understanding of scripture and helped me discover wisdom across traditions I never knew existed.",
+      "author": "Sarah M., Patron"
+    },
+    "plans": {
+      "monthlyDefault": "$2.99",
+      "monthSuffix": "/month",
+      "annualDefault": "$19.99",
+      "yearSuffix": "/year",
+      "annualMonthly": "Just $1.67/month",
+      "annualSavings": "Save over $40 compared to monthly",
+      "cancelAnytime": "Cancel anytime",
+      "bestValue": "Best Value"
+    },
+    "buttons": {
+      "becomePatron": "Become a Patron",
+      "restorePurchases": "Restore Purchases",
+      "processing": "Processing..."
+    },
+    "legalText": {
+      "subscriptionDetailsTitle": "Subscription Details:",
+      "titleLine": "Faith Explorer Pro Auto-Renewable Subscription",
+      "lengthLine": "Monthly (1 month) or Annual (12 months)",
+      "priceLineTemplate": "{monthlyPrice}/month or {annualPrice}/year ($1.67/month)",
+      "renewalTerms": "Payment will be charged to your Apple ID account at confirmation of purchase. Subscription automatically renews unless it is canceled at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and cancel your subscriptions by going to your account settings on the App Store after purchase."
+    },
+    "links": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use (EULA)",
+      "manageSubscription": "Manage Subscription"
+    }
+  }
+}

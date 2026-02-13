@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, Sparkles, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { getCommonGround, type CommonGroundData } from '../services/api';
 import { RELIGIONS, type Religion } from '../types';
 
@@ -12,6 +13,8 @@ interface CommonGroundVisualizerProps {
 }
 
 export function CommonGroundVisualizer({ religions, question, results, onClose }: CommonGroundVisualizerProps) {
+    const { t } = useTranslation('search');
+    const { t: tCommon } = useTranslation('common');
     const [data, setData] = useState<CommonGroundData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -24,7 +27,7 @@ export function CommonGroundVisualizer({ religions, question, results, onClose }
                 const data = await getCommonGround(religions, question, results);
                 setData(data);
             } catch (err) {
-                setError('Failed to analyze common ground. Please try again.');
+                setError(tCommon('errors.commonGroundError'));
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -48,8 +51,8 @@ export function CommonGroundVisualizer({ religions, question, results, onClose }
                             <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                         </div>
                         <div>
-                            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Common Ground</h2>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">Interfaith Venn Analysis</p>
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t('commonGround.title')}</h2>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">{t('commonGround.subtitle')}</p>
                         </div>
                     </div>
                     <button
@@ -66,7 +69,7 @@ export function CommonGroundVisualizer({ religions, question, results, onClose }
                     {loading && (
                         <div className="flex flex-col items-center gap-4">
                             <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-                            <p className="text-gray-500 dark:text-gray-400 animate-pulse">Synthesizing perspectives...</p>
+                            <p className="text-gray-500 dark:text-gray-400 animate-pulse">{t('commonGround.synthesizing')}</p>
                         </div>
                     )}
 
@@ -74,7 +77,7 @@ export function CommonGroundVisualizer({ religions, question, results, onClose }
                         <div className="text-center text-red-500 bg-red-50 dark:bg-red-900/20 p-6 rounded-2xl max-w-md">
                             <AlertCircle className="w-10 h-10 mx-auto mb-3 opacity-80" />
                             <p>{error}</p>
-                            <button onClick={onClose} className="mt-4 px-4 py-2 bg-white dark:bg-gray-800 shadow-sm border rounded-lg text-sm font-medium">Close</button>
+                            <button onClick={onClose} className="mt-4 px-4 py-2 bg-white dark:bg-gray-800 shadow-sm border rounded-lg text-sm font-medium">{tCommon('buttons.close')}</button>
                         </div>
                     )}
 
@@ -135,7 +138,7 @@ export function CommonGroundVisualizer({ religions, question, results, onClose }
                                 ${activeZone === 'Common' ? 'opacity-100 scale-110' : 'opacity-60 hover:opacity-100'}
                             `}>
                                         <div className="bg-white/80 dark:bg-black/40 backdrop-blur-md px-3 py-1 rounded-full shadow-sm">
-                                            <span className="text-xs font-bold tracking-widest uppercase text-gray-800 dark:text-gray-200">Shared</span>
+                                            <span className="text-xs font-bold tracking-widest uppercase text-gray-800 dark:text-gray-200">{t('commonGround.shared')}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -160,7 +163,7 @@ export function CommonGroundVisualizer({ religions, question, results, onClose }
                                                         <Sparkles className="w-5 h-5 text-white" />
                                                     </div>
                                                     <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600 dark:from-indigo-400 dark:to-pink-400">
-                                                        Shared Values
+                                                        {t('commonGround.sharedValues')}
                                                     </h3>
                                                 </div>
                                                 <p className="text-gray-600 dark:text-gray-300 mb-6 italic text-sm border-l-4 border-purple-200 pl-3">
@@ -182,7 +185,7 @@ export function CommonGroundVisualizer({ religions, question, results, onClose }
                                                 <div className="flex items-center gap-2 mb-6">
                                                     <div className="w-3 h-8 rounded-full" style={{ backgroundColor: religionA.color }}></div>
                                                     <h3 className="text-xl font-bold" style={{ color: religionA.color }}>
-                                                        Unique to {religionA.name}
+                                                        {t('commonGround.uniqueTo', { religion: religionA.name })}
                                                     </h3>
                                                 </div>
                                                 <ul className="space-y-3">
@@ -201,7 +204,7 @@ export function CommonGroundVisualizer({ religions, question, results, onClose }
                                                 <div className="flex items-center gap-2 mb-6">
                                                     <div className="w-3 h-8 rounded-full" style={{ backgroundColor: religionB.color }}></div>
                                                     <h3 className="text-xl font-bold" style={{ color: religionB.color }}>
-                                                        Unique to {religionB.name}
+                                                        {t('commonGround.uniqueTo', { religion: religionB.name })}
                                                     </h3>
                                                 </div>
                                                 <ul className="space-y-3">

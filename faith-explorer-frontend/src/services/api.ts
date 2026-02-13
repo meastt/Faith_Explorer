@@ -10,6 +10,7 @@ import {
   type Persona,
   type DialogueResponse
 } from './anthropic';
+import { useStore } from '../store/useStore';
 
 // Re-export types for backward compatibility
 export type { Persona, DialogueResponse };
@@ -29,9 +30,13 @@ export async function searchSubsets(
   question: string,
   _isPremium: boolean = false
 ): Promise<AskResponse> {
+  const language = useStore.getState().language;
+
   if (selectedSubsets.length === 0) {
     return {
-      answer: 'Please select at least one religious text to search.',
+      answer: language === 'es'
+        ? 'Por favor selecciona al menos un texto religioso para buscar.'
+        : 'Please select at least one religious text to search.',
       sources: []
     };
   }
@@ -42,7 +47,9 @@ export async function searchSubsets(
 
     if (localVerses.length === 0) {
       return {
-        answer: `I couldn't find specific verses about "${question}" in the selected texts. Try rephrasing your question or selecting different religious texts.`,
+        answer: language === 'es'
+          ? `No pude encontrar versículos específicos sobre "${question}" en los textos seleccionados. Intenta reformular tu pregunta o seleccionar diferentes textos religiosos.`
+          : `I couldn't find specific verses about "${question}" in the selected texts. Try rephrasing your question or selecting different religious texts.`,
         sources: []
       };
     }
@@ -54,7 +61,7 @@ export async function searchSubsets(
       text: v.text
     }));
 
-    const answer = await generateScriptureAnswer(religion, question, versesForAI);
+    const answer = await generateScriptureAnswer(religion, question, versesForAI, language);
 
     return {
       answer,
@@ -68,14 +75,19 @@ export async function searchSubsets(
       const localVerses = await searchScriptures(selectedSubsets, question);
       if (localVerses.length > 0) {
         const topVerses = localVerses.slice(0, 5);
-        const answer = `Here are ${localVerses.length} relevant verse${localVerses.length > 1 ? 's' : ''} found:\n\n${topVerses.map((v, i) => `${i + 1}. ${v.reference}: "${v.text.substring(0, 100)}${v.text.length > 100 ? '...' : ''}"`).join('\n\n')}`;
+        const prefix = language === 'es'
+          ? `Se encontraron ${localVerses.length} versículo${localVerses.length > 1 ? 's' : ''} relevante${localVerses.length > 1 ? 's' : ''}:`
+          : `Here are ${localVerses.length} relevant verse${localVerses.length > 1 ? 's' : ''} found:`;
+        const answer = `${prefix}\n\n${topVerses.map((v, i) => `${i + 1}. ${v.reference}: "${v.text.substring(0, 100)}${v.text.length > 100 ? '...' : ''}"`).join('\n\n')}`;
         return { answer, sources: localVerses };
       }
     } catch (searchError) {
       console.error('Even local search failed:', searchError);
     }
 
-    throw new Error('Search failed. Please check your connection and try again.');
+    throw new Error(language === 'es'
+      ? 'La búsqueda falló. Por favor verifica tu conexión e intenta de nuevo.'
+      : 'Search failed. Please check your connection and try again.');
   }
 }
 
@@ -112,13 +124,15 @@ export async function chatAboutVerse(
   userQuestion: string,
   conversationHistory: { role: 'user' | 'assistant'; content: string }[] = []
 ): Promise<string> {
+  const language = useStore.getState().language;
   try {
     return await chatAboutVerseAI(
       religion,
       verseReference,
       verseText,
       userQuestion,
-      conversationHistory
+      conversationHistory,
+      language
     );
   } catch (error) {
     console.error('Chat error:', error);
@@ -134,8 +148,9 @@ export async function getComparativeAnalysis(
   question: string,
   results: { religion: Religion; answer: string }[]
 ): Promise<string> {
+  const language = useStore.getState().language;
   try {
-    return await generateComparison(religions, question, results);
+    return await generateComparison(religions, question, results, language);
   } catch (error) {
     console.error('Comparison error:', error);
     throw error;
@@ -174,8 +189,9 @@ export async function simulateDialogue(
   userMessage: string,
   conversationHistory: { role: 'user' | 'assistant'; content: string }[]
 ): Promise<DialogueResponse> {
+  const language = useStore.getState().language;
   try {
-    return await simulateDialogueAI(persona, scenario, userMessage, conversationHistory);
+    return await simulateDialogueAI(persona, scenario, userMessage, conversationHistory, language);
   } catch (error) {
     console.error('Dialogue error:', error);
     throw error;
@@ -186,8 +202,9 @@ export async function simulateDialogue(
  * Secularize religious text
  */
 export async function secularizeText(text: string, context?: string): Promise<string> {
+  const language = useStore.getState().language;
   try {
-    return await secularizeTextAI(text, context);
+    return await secularizeTextAI(text, context, language);
   } catch (error) {
     console.error('Secularization error:', error);
     throw error;

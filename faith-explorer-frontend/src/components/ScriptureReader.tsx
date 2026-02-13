@@ -6,6 +6,7 @@ import type { Religion, Verse } from '../types';
 import { loadScripture } from '../services/search';
 import { shareVerse, copyToClipboard } from '../utils/helpers';
 import { showToast } from './Toast';
+import { useTranslation } from 'react-i18next';
 
 interface ScriptureData {
     religion: string;
@@ -35,6 +36,8 @@ const READABLE_SCRIPTURES = RELIGIONS.flatMap(religion =>
 
 export function ScriptureReader() {
     const { setActiveVerseChat, saveVerse, incrementShareCount } = useStore();
+    const { t } = useTranslation('search');
+    const { t: tCommon } = useTranslation('common');
 
     // State
     const [selectedScripture, setSelectedScripture] = useState(READABLE_SCRIPTURES[0]);
@@ -188,7 +191,7 @@ export function ScriptureReader() {
             tags: [],
             highlights: [],
         });
-        showToast('Verse saved to your library!');
+        showToast(tCommon('toast.verseSaved'));
     };
 
     const handleChatVerse = (verse: Verse) => {
@@ -205,7 +208,7 @@ export function ScriptureReader() {
         try {
             await copyToClipboard(shareText);
             incrementShareCount();
-            showToast('Verse copied to clipboard!');
+            showToast(tCommon('toast.verseCopied'));
         } catch (error) {
             console.error('Failed to copy:', error);
         }
@@ -215,7 +218,7 @@ export function ScriptureReader() {
         return (
             <div className="flex flex-col items-center justify-center py-20">
                 <div className="w-12 h-12 border-4 border-bronze-200 border-t-bronze-600 rounded-full animate-spin" />
-                <p className="mt-4 text-stone-600 dark:text-stone-400 font-medium">Loading scripture...</p>
+                <p className="mt-4 text-stone-600 dark:text-stone-400 font-medium">{tCommon('loading.loadingScripture')}</p>
             </div>
         );
     }
@@ -226,9 +229,9 @@ export function ScriptureReader() {
                 <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center mb-4">
                     <AlertTriangle className="w-8 h-8 text-red-500 dark:text-red-400" />
                 </div>
-                <h3 className="text-lg font-bold text-stone-900 dark:text-stone-100 mb-2">Failed to load scripture</h3>
+                <h3 className="text-lg font-bold text-stone-900 dark:text-stone-100 mb-2">{tCommon('errors.failedToLoadScripture')}</h3>
                 <p className="text-sm text-stone-600 dark:text-stone-400 mb-4 text-center max-w-sm">
-                    Please check your connection and try again.
+                    {tCommon('errors.checkConnection')}
                 </p>
                 <button
                     onClick={() => {
@@ -253,7 +256,7 @@ export function ScriptureReader() {
                     className="flex items-center gap-2 px-5 py-2.5 bg-bronze-500 text-white rounded-xl hover:bg-bronze-600 transition-colors font-medium"
                 >
                     <RefreshCw className="w-4 h-4" />
-                    Try Again
+                    {tCommon('buttons.tryAgain')}
                 </button>
             </div>
         );
@@ -329,14 +332,14 @@ export function ScriptureReader() {
                     >
                         <Book className="w-4 h-4 text-bronze-600 dark:text-bronze-400" />
                         <span className="font-medium text-stone-900 dark:text-stone-100 truncate">
-                            {selectedBook || 'Select Book'}
+                            {selectedBook || t('scriptureReader.selectBook')}
                         </span>
                         <ChevronDown className={`w-4 h-4 text-stone-400 ml-auto ${showBookSelector ? 'rotate-180' : ''}`} />
                     </button>
 
                     {/* Chapter Selector */}
                     <div className="flex items-center gap-1">
-                        <span className="text-sm font-medium text-stone-600 dark:text-stone-400">Ch.</span>
+                        <span className="text-sm font-medium text-stone-600 dark:text-stone-400">{t('scriptureReader.chapterAbbrev')}</span>
                         <select
                             value={selectedChapter}
                             onChange={(e) => setSelectedChapter(Number(e.target.value))}
@@ -380,7 +383,7 @@ export function ScriptureReader() {
                     className="flex items-center gap-1 px-4 py-2 bg-white dark:bg-stone-800 rounded-xl shadow-soft border border-sand-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-sand-50 dark:hover:bg-stone-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                     <ChevronLeft className="w-4 h-4" />
-                    <span className="text-sm font-medium">Previous</span>
+                    <span className="text-sm font-medium">{tCommon('buttons.previous')}</span>
                 </button>
 
                 <div className="text-center">
@@ -388,7 +391,7 @@ export function ScriptureReader() {
                         {selectedBook} {selectedChapter}
                     </p>
                     <p className="text-xs text-stone-500 dark:text-stone-400">
-                        {currentVerses.length} verses
+                        {currentVerses.length} {currentVerses.length === 1 ? t('searchResults.verse') : t('searchResults.verses')}
                     </p>
                 </div>
 
@@ -397,7 +400,7 @@ export function ScriptureReader() {
                     disabled={books.findIndex(b => b.name === selectedBook) === books.length - 1 && chapters.indexOf(selectedChapter) === chapters.length - 1}
                     className="flex items-center gap-1 px-4 py-2 bg-white dark:bg-stone-800 rounded-xl shadow-soft border border-sand-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-sand-50 dark:hover:bg-stone-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
-                    <span className="text-sm font-medium">Next</span>
+                    <span className="text-sm font-medium">{tCommon('buttons.next')}</span>
                     <ChevronRight className="w-4 h-4" />
                 </button>
             </div>
@@ -407,7 +410,7 @@ export function ScriptureReader() {
                 {currentVerses.length === 0 ? (
                     <div className="p-8 text-center">
                         <Book className="w-12 h-12 mx-auto text-stone-300 dark:text-stone-600 mb-3" />
-                        <p className="text-stone-600 dark:text-stone-400">No verses found for this chapter</p>
+                        <p className="text-stone-600 dark:text-stone-400">{t('scriptureReader.noVersesForChapter')}</p>
                     </div>
                 ) : (
                     currentVerses.map((verse, idx) => {
@@ -442,21 +445,21 @@ export function ScriptureReader() {
                                             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-bronze-600 dark:hover:text-bronze-400 hover:bg-bronze-50 dark:hover:bg-bronze-900/20 rounded-lg transition-colors"
                                         >
                                             <Bookmark className="w-3.5 h-3.5" />
-                                            Save
+                                            {tCommon('buttons.save')}
                                         </button>
                                         <button
                                             onClick={() => handleChatVerse(verse)}
                                             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-bronze-600 dark:hover:text-bronze-400 hover:bg-bronze-50 dark:hover:bg-bronze-900/20 rounded-lg transition-colors"
                                         >
                                             <MessageCircle className="w-3.5 h-3.5" />
-                                            Discuss
+                                            {tCommon('buttons.discuss')}
                                         </button>
                                         <button
                                             onClick={() => handleShareVerse(verse)}
                                             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-bronze-600 dark:hover:text-bronze-400 hover:bg-bronze-50 dark:hover:bg-bronze-900/20 rounded-lg transition-colors"
                                         >
                                             <Share2 className="w-3.5 h-3.5" />
-                                            Share
+                                            {tCommon('buttons.share')}
                                         </button>
                                     </div>
                                 )}

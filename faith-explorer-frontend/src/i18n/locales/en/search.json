@@ -1,0 +1,213 @@
+{
+  "personas": {
+    "title": "Chat with Religious Guides",
+    "subtitle": "Practice respectful dialogue with AI personas from 9 faith traditions",
+    "moreCount": "+6 more"
+  },
+  "searchBar": {
+    "placeholder": "Ask a question of the texts (e.g., 'Why do we suffer?')",
+    "freeSearchesRemaining": "Free searches remaining",
+    "descriptorLabel": "SCRIPTURE-BACKED . MULTI-FAITH . COMPARATIVE"
+  },
+  "religionSelector": {
+    "singlePath": "Single Path",
+    "comparePerspectives": "Compare Perspectives",
+    "comingSoon": "Coming Soon"
+  },
+  "topicExplorer": {
+    "title": "Common Themes",
+    "topics": [
+      "Love", "Hope", "Suffering", "Forgiveness",
+      "Peace", "Justice", "Family", "Purpose",
+      "Gratitude", "Fear", "Wisdom", "Death"
+    ]
+  },
+  "dailyWisdom": {
+    "title": "Daily Wisdom",
+    "seekingWisdom": "Seeking wisdom...",
+    "fromReligion": "From {religion}",
+    "enhancedInsight": "Enhanced Insight",
+    "deepDiveWithAI": "Deep Dive with AI",
+    "unlockDeepDive": "Unlock Deep Dive (Premium)",
+    "personalizedIntro": "Based on your recent interest in {topics}, today's wisdom explores {query}",
+    "wisdomQueries": [
+      "What brings inner peace?",
+      "How should we treat others?",
+      "What is true wisdom?",
+      "How do we find meaning?",
+      "What is the path to enlightenment?",
+      "How should we face challenges?",
+      "What is compassion?",
+      "How do we cultivate gratitude?"
+    ]
+  },
+  "searchResults": {
+    "title": "Search Results",
+    "versesFoundIn": "{count} {versePlural} found in {name}",
+    "verse": "verse",
+    "verses": "verses",
+    "noResultsTitle": "No Results Found",
+    "noResultsDescription": "Try different keywords or phrases to discover relevant verses",
+    "sourcePassages": "Source Passages ({count})",
+    "showMoreVerses": "Show {count} More Verses",
+    "academicAnalysis": "Academic Analysis",
+    "scholarlyInterpretation": "Scholarly interpretation based on {name}",
+    "comparisonTitle": "Comparison Results",
+    "exploringPerspectives": "Exploring perspectives across {count} traditions",
+    "comparativeAnalysis": "Comparative Analysis",
+    "synthesisAcrossTraditions": "Synthesis across traditions",
+    "visualizeCommonGround": "Visualize Common Ground",
+    "individualPerspectives": "Individual Perspectives",
+    "comparativeAnalysisError": "Comparative analysis couldn't be generated. Individual results are shown below.",
+    "resultsFound": "{count} {resultPlural} found",
+    "result": "result",
+    "results": "results",
+    "perspective": "Perspective",
+    "basedOn": "Based on {name}",
+    "noResultsInReligion": "No results found in {name}",
+    "morePassages": "+ {count} more passages in {name}",
+    "scriptureAnalysis": "Scripture Analysis"
+  },
+  "commonGround": {
+    "title": "Common Ground",
+    "subtitle": "Interfaith Venn Analysis",
+    "synthesizing": "Synthesizing perspectives...",
+    "shared": "Shared",
+    "sharedValues": "Shared Values",
+    "uniqueTo": "Unique to {religion}"
+  },
+  "dialogue": {
+    "selectPartnerTitle": "Select a Practice Partner",
+    "selectPartnerDescription": "Choose a guide to practice respectful dialogue with.",
+    "discussTopicTitle": "What would you like to discuss?",
+    "discussTopicDescription": "Choose a topic to practice respectful dialogue.",
+    "onlineStatus": "Online . Practice Mode",
+    "replyPlaceholder": "Reply to {name}...",
+    "chatWithGuidesTitle": "Chat with Religious Guides",
+    "chatWithGuidesDescription": "Practice respectful dialogue with AI personas from 9 faith traditions",
+    "backToLearningPaths": "Back to Learning Paths",
+    "greetings": {
+      "meetAndGreet": "Hello! I'm {name}. It's wonderful to meet you. I'm always happy to share about my faith and learn about others. What brings you here today?",
+      "dietaryPractices": "Shalom! I'm {name}. I understand you're curious about how faith influences what we eat? It's a meaningful topic - food connects us to tradition in so many ways. What would you like to know?",
+      "prayerAndWorship": "Peace be upon you! I'm {name}. Prayer and worship are central to my daily life. I'd be glad to share how I connect with the divine. What aspect interests you most?",
+      "charityAndGiving": "Welcome! I'm {name}. Generosity and caring for others is a cornerstone of my faith. There's so much wisdom in our traditions about giving. What draws you to this topic?",
+      "lifesChallenges": "Hello, friend. I'm {name}. Life's challenges are something every faith tradition has grappled with deeply. I'm honored you'd want to explore this with me. Where shall we begin?",
+      "default": "Hello! I'm {name}. I'm looking forward to our conversation about {scenario}. What would you like to discuss?"
+    },
+    "personas": [
+      {
+        "id": "muslim",
+        "name": "Brother Ahmed",
+        "faith": "Islam",
+        "traits": "Warm, community-focused, values hospitality"
+      },
+      {
+        "id": "christian",
+        "name": "Rev. Sarah",
+        "faith": "Christianity",
+        "traits": "Theologically minded, gentle, engaging"
+      },
+      {
+        "id": "jewish",
+        "name": "Rabbi Cohen",
+        "faith": "Judaism",
+        "traits": "Analytical, encourages questions, wise"
+      },
+      {
+        "id": "buddhist",
+        "name": "Monk Tenzin",
+        "faith": "Buddhism",
+        "traits": "Calm, mindful, direct but kind"
+      },
+      {
+        "id": "hindu",
+        "name": "Pandit Sharma",
+        "faith": "Hinduism",
+        "traits": "Spiritual, philosophical, embraces diversity"
+      },
+      {
+        "id": "sikh",
+        "name": "Bhai Harpreet",
+        "faith": "Sikhism",
+        "traits": "Humble, service-oriented, values equality"
+      },
+      {
+        "id": "taoist",
+        "name": "Master Chen",
+        "faith": "Taoism",
+        "traits": "Peaceful, naturalistic, speaks in paradoxes"
+      },
+      {
+        "id": "confucian",
+        "name": "Teacher Wei",
+        "faith": "Confucianism",
+        "traits": "Scholarly, emphasizes virtue and relationships"
+      },
+      {
+        "id": "shinto",
+        "name": "Kannushi Tanaka",
+        "faith": "Shinto",
+        "traits": "Reverent of nature, ceremonial, harmonious"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "introduction",
+        "title": "Meet & Greet",
+        "description": "Introduce yourself and learn about their faith journey",
+        "icon": "wave"
+      },
+      {
+        "id": "dietary-rules",
+        "title": "Dietary Practices",
+        "description": "Ask about food customs, fasting, and dietary laws",
+        "icon": "food"
+      },
+      {
+        "id": "prayer-habits",
+        "title": "Prayer & Worship",
+        "description": "Discuss prayer routines and worship practices",
+        "icon": "prayer"
+      },
+      {
+        "id": "charity",
+        "title": "Charity & Giving",
+        "description": "Explore the role of generosity and helping others",
+        "icon": "heart"
+      },
+      {
+        "id": "suffering",
+        "title": "Life's Challenges",
+        "description": "Discuss perspectives on suffering and hardship",
+        "icon": "growth"
+      }
+    ]
+  },
+  "verseCard": {
+    "contextAndInformation": "Context & Information",
+    "source": "Source:",
+    "reference": "Reference:",
+    "contextTip": "Tip: Click 'Discuss' to ask about the surrounding context...",
+    "wisdomMode": "Wisdom Mode"
+  },
+  "chatDrawer": {
+    "askAboutVerse": "Ask About This Verse",
+    "chatHelperText": "I can help explain the meaning, context, and significance of this passage. What would you like to know?",
+    "messagesRemaining": "{count} messages remaining",
+    "chatPlaceholder": "Ask a question about this verse..."
+  },
+  "scriptureReader": {
+    "selectBook": "Select Book",
+    "chapterAbbrev": "Ch.",
+    "noVersesForChapter": "No verses found for this chapter",
+    "dailyWisdomReference": "Daily Wisdom: {query}"
+  },
+  "app": {
+    "religionLabels": {
+      "islam": "Islam",
+      "christianity": "Christianity",
+      "judaism": "Judaism",
+      "moreCount": "+6 more"
+    }
+  }
+}

@@ -1,150 +1,82 @@
-import { Map, PlayCircle } from 'lucide-react';
-import { useState } from 'react';
-import { ThreadView, type ThreadData } from './ThreadView';
+import { useTranslation } from 'react-i18next';
 
-// Curated "Golden Thread" Data
-const GOLDEN_THREADS: ThreadData[] = [
-  {
-    id: 'golden-rule',
-    title: 'The Golden Rule',
-    description: 'The universal ethic of reciprocity found in every major tradition.',
-    nodes: [
-      {
-        id: 'hindu-mahabharata',
-        era: '3000 BCE ~',
-        faith: 'Hinduism',
-        title: 'The Sum of Duty',
-        quote: 'This is the sum of duty: Do naught unto others which would cause you pain if done to you.',
-        description: 'From the Mahabharata, highlighting that empathy is the root of dharma (duty).',
-        color: '#f97316' // Orange
-      },
-      {
-        id: 'confucius',
-        era: '500 BCE',
-        faith: 'Confucianism',
-        title: 'Reciprocity (Shu)',
-        quote: 'Do not impose on others what you yourself do not desire.',
-        description: 'Confucius defines the single word that can guide a life: "Reciprocity".',
-        color: '#ef4444' // Red
-      },
-      {
-        id: 'hillel',
-        era: '1st Century BCE',
-        faith: 'Judaism',
-        title: 'The Whole Torah',
-        quote: 'That which is hateful to you, do not do to your fellow. That is the whole Torah.',
-        description: 'Rabbi Hillel summation of the entire law while standing on one foot.',
-        color: '#3b82f6' // Blue
-      },
-      {
-        id: 'jesus',
-        era: '1st Century CE',
-        faith: 'Christianity',
-        title: 'The Law & Prophets',
-        quote: 'Do to others what you would have them do to you.',
-        description: 'Jesus frames it positively (active benevolence) in the Sermon on the Mount.',
-        color: '#8b5cf6' // Violet
-      },
-      {
-        id: 'islam',
-        era: '7th Century CE',
-        faith: 'Islam',
-        title: 'True Belief',
-        quote: 'None of you truly believes until he wishes for his brother what he wishes for himself.',
-        description: 'An-Nawawi\'s Forty Hadith, linking faith directly to social brotherhood.',
-        color: '#10b981' // Emerald
-      }
-    ]
-  },
-  {
-    id: 'hospitality',
-    title: 'Sacred Hospitality',
-    description: 'How treating the stranger as divine connects us all.',
-    nodes: [
-      {
-        id: 'abraham',
-        era: '2000 BCE',
-        faith: 'Judaism/Islam',
-        title: 'Abraham\'s Tent',
-        quote: 'He saw three men standing nearby... and bowed low to the ground.',
-        description: 'Abraham runs to welcome strangers, who turn out to be angels/divine messengers.',
-        color: '#d97706' // Amber
-      },
-      {
-        id: 'greek',
-        era: '800 BCE',
-        faith: 'Ancient Greek',
-        title: 'Xenia',
-        quote: 'Do not neglect to show hospitality to strangers.',
-        description: 'The ancient code that Zeus protects strangers (Xenos). Violation invokes divine wrath.',
-        color: '#0ea5e9' // Sky
-      },
-      {
-        id: 'hindu-atithi',
-        era: 'Variable',
-        faith: 'Hinduism',
-        title: 'Atithi Devo Bhava',
-        quote: 'The guest is God.',
-        description: 'A Sanskrit mantra from the Taittiriya Upanishad instructing to revere guests as deities.',
-        color: '#f97316'
-      }
-    ]
-  }
-];
+interface ThreadNode {
+  era: string;
+  faith: string;
+  title: string;
+  quote: string;
+  description: string;
+}
 
+interface GoldenThread {
+  id: string;
+  title: string;
+  description: string;
+  nodes: ThreadNode[];
+}
 
+const GOLDEN_THREAD_IDS = ['goldenRule', 'hospitality'] as const;
 
 export function LearningPaths() {
-  const [activeThread, setActiveThread] = useState<ThreadData | null>(null);
+  const { t } = useTranslation('learn');
 
-  if (activeThread) {
-    return <ThreadView thread={activeThread} onBack={() => setActiveThread(null)} />;
-  }
+  // Build threads from i18n data
+  const threads: GoldenThread[] = GOLDEN_THREAD_IDS.map(id => {
+    const nodes = t(`goldenThreads.threads.${id}.nodes`, { returnObjects: true }) as ThreadNode[];
+    return {
+      id,
+      title: t(`goldenThreads.threads.${id}.title`),
+      description: t(`goldenThreads.threads.${id}.description`),
+      nodes: Array.isArray(nodes) ? nodes : [],
+    };
+  });
 
   return (
-    <div className="bg-sand-50 dark:bg-stone-800/50 sepia:bg-amber-100 rounded-2xl border border-sand-200 dark:border-stone-700 sepia:border-amber-300 p-5 h-full relative overflow-hidden">
-      <div className="flex items-center gap-2 mb-4">
-        <Map className="w-5 h-5 text-bronze-600 dark:text-bronze-400 sepia:text-amber-800" />
-        <h3 className="text-sm font-bold text-stone-900 dark:text-stone-100 sepia:text-amber-900 uppercase tracking-wide">
-          Golden Thread Paths
-        </h3>
+    <div className="bg-white dark:bg-stone-800 sepia:bg-amber-50 rounded-2xl border border-sand-200 dark:border-stone-700 sepia:border-amber-300 p-4 shadow-sm">
+      {/* Section Header */}
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-6 h-6 bg-gradient-to-br from-gold-400 to-bronze-500 rounded-full flex items-center justify-center">
+          <span className="text-white text-xs">✦</span>
+        </div>
+        <div>
+          <h3 className="text-sm font-bold text-stone-900 dark:text-stone-100 sepia:text-amber-900 uppercase tracking-wide">
+            {t('goldenThreads.sectionTitle')}
+          </h3>
+          <p className="text-xs text-stone-500 dark:text-stone-400 sepia:text-amber-700">
+            {t('goldenThreads.sectionDescription')}
+          </p>
+        </div>
       </div>
 
-      <div className="space-y-4">
-        <p className="text-sm text-stone-600 dark:text-stone-400 sepia:text-amber-800">
-          Follow a single concept as it weaves through history and tradition.
-        </p>
-
-        {GOLDEN_THREADS.map((thread) => (
-          <button
+      {/* Thread Preview Cards */}
+      <div className="space-y-2">
+        {threads.map((thread) => (
+          <div
             key={thread.id}
-            onClick={() => setActiveThread(thread)}
-            className="w-full text-left group relative overflow-hidden bg-white dark:bg-stone-800 sepia:bg-amber-50 border border-sand-200 dark:border-stone-600 sepia:border-amber-300 hover:border-bronze-400 dark:hover:border-bronze-500 sepia:hover:border-amber-500 rounded-xl p-4 shadow-sm transition-all hover:shadow-md"
+            className="group relative p-3 rounded-xl border border-sand-200 dark:border-stone-600 sepia:border-amber-300 hover:border-gold-300 dark:hover:border-gold-700 sepia:hover:border-amber-400 transition-all duration-300 cursor-pointer hover:shadow-md bg-gradient-to-r from-transparent to-gold-50/30 dark:to-gold-900/10 sepia:to-amber-100/50"
           >
-            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amber-300 to-amber-600 opacity-60 group-hover:opacity-100 transition-opacity"></div>
+            <div className="flex items-start gap-3">
+              {/* Timeline indicator */}
+              <div className="flex flex-col items-center gap-1 mt-1">
+                <div className="w-2 h-2 rounded-full bg-gold-400 dark:bg-gold-500" />
+                <div className="w-0.5 h-8 bg-gradient-to-b from-gold-300 to-gold-100 dark:from-gold-600 dark:to-gold-900" />
+              </div>
 
-            <div className="pl-3">
-              <div className="flex justify-between items-center mb-1">
+              <div className="flex-1 min-w-0">
                 <h4 className="font-serif font-bold text-lg text-stone-900 dark:text-stone-100 sepia:text-amber-900 group-hover:text-bronze-700 dark:group-hover:text-bronze-300 sepia:group-hover:text-amber-700 transition-colors">
                   {thread.title}
                 </h4>
-                <PlayCircle className="w-5 h-5 text-stone-300 sepia:text-amber-400 group-hover:text-bronze-500 sepia:group-hover:text-amber-700 transition-colors" />
-              </div>
-              <p className="text-sm text-stone-500 dark:text-stone-400 sepia:text-amber-700 leading-snug pr-4">
-                {thread.description}
-              </p>
-
-              <div className="flex gap-1 mt-3">
-                {thread.nodes.map((node, i) => (
-                  <div
-                    key={i}
-                    className="w-6 h-1.5 rounded-full"
-                    style={{ backgroundColor: node.color, opacity: 0.6 }}
-                  />
-                ))}
+                <p className="text-sm text-stone-500 dark:text-stone-400 sepia:text-amber-700 leading-snug pr-4">
+                  {thread.description}
+                </p>
+                <div className="flex items-center gap-1.5 mt-2">
+                  <span className="text-xs text-gold-600 dark:text-gold-400 sepia:text-amber-700 font-medium">
+                    {t('goldenThreads.passagesThroughHistory', { total: thread.nodes.length })}
+                  </span>
+                </div>
               </div>
             </div>
-          </button>
+          </div>
         ))}
       </div>
     </div>

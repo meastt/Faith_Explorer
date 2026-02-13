@@ -1,5 +1,6 @@
 import { MessageCircle, BookmarkPlus, Share2, BookmarkCheck, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Verse, Religion } from '../types';
 import { useStore } from '../store/useStore';
 import { generateId, shareVerse, copyToClipboard, getReligionColor } from '../utils/helpers';
@@ -14,6 +15,7 @@ interface VerseCardProps {
 }
 
 export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
+  const { t } = useTranslation('search');
   const { saveVerse, savedVerses, incrementSaveCount, incrementShareCount } = useStore();
   const isSaved = savedVerses.some((v) => v.reference === verse.reference && v.text === verse.text);
   const [showContext, setShowContext] = useState(false);
@@ -41,7 +43,7 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
     try {
       await copyToClipboard(shareText);
       incrementShareCount();
-      showToast('Verse copied to clipboard!');
+      showToast(t('toast.verseCopied', { ns: 'common' }));
     } catch (error) {
       console.error('Failed to copy:', error);
     }
@@ -78,13 +80,13 @@ export function VerseCard({ verse, religion, onChatClick }: VerseCardProps) {
           <div className="flex items-start gap-2 mb-3">
             <BookOpen className={`${ICON_SIZES.SM} text-gray-500 dark:text-gray-400 sepia:text-amber-600 mt-0.5`} />
             <div className="flex-1">
-              <h5 className="text-sm font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">Context & Information</h5>
+              <h5 className="text-sm font-semibold text-gray-900 dark:text-gray-100 sepia:text-amber-900 mb-2">{t('verseCard.contextAndInformation')}</h5>
               <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300 sepia:text-amber-800">
                 <div>
-                  <span className="font-medium">Source:</span> {religionInfo?.text}
+                  <span className="font-medium">{t('verseCard.source')}</span> {religionInfo?.text}
                 </div>
                 <div>
-                  <span className="font-medium">Reference:</span> {verse.reference}
+                  <span className="font-medium">{t('verseCard.reference')}</span> {verse.reference}
                 </div>
                 {verse.reference.includes(':') && (
                   <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/30 sepia:bg-amber-100 rounded border border-blue-100 dark:border-blue-800 sepia:border-amber-300">

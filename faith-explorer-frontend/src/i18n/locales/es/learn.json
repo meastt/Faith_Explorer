@@ -1,0 +1,586 @@
+{
+  "backToLearning": "Volver a Rutas de Aprendizaje",
+  "learnTab": {
+    "title": "Rutas de Aprendizaje",
+    "subtitle": "Recorridos guiados a través de la sabiduría sagrada",
+    "continueJourney": "Continúa tu camino",
+    "dayOfTotal": "Día {current} de {total}",
+    "otherPaths": "Otras rutas",
+    "chooseAPath": "Elige una ruta",
+    "daysComplete": "{completed}/{total} días completados",
+    "premium": "Premium"
+  },
+  "pathDetail": {
+    "progress": "Progreso",
+    "days": "días",
+    "premiumPath": "Ruta Premium",
+    "premiumUpgrade": "Actualiza tu plan para acceder a este camino de aprendizaje.",
+    "beginJourney": "Comenzar el camino",
+    "reflection": "Reflexión",
+    "journalingPrompt": "Tema para el diario",
+    "markDayComplete": "Marcar día como completado",
+    "journeyComplete": "¡Camino completado!",
+    "journeyCompleteMessage": "Has terminado {title}. La sabiduría permanece en ti."
+  },
+  "learningPaths": {
+    "forgiveness": {
+      "title": "Comprendiendo el perdón",
+      "description": "Un camino de 7 días a través de las enseñanzas sagradas sobre soltar y sanar.",
+      "duration": "7 días",
+      "days": [
+        {
+          "title": "¿Qué es el perdón?",
+          "verse": {
+            "text": "Be kind to one another, tenderhearted, forgiving one another, as God in Christ forgave you.",
+            "reference": "Ephesians 4:32",
+            "religion": "Christianity"
+          },
+          "reflection": "El perdón comienza con la comprensión de que es un regalo que nos hacemos a nosotros mismos. Aferrarse al resentimiento es como cargar un peso que oprime nuestro espíritu. Hoy exploramos cómo el perdón nos libera del pasado.",
+          "question": "¿Hay alguien a quien te ha costado perdonar? ¿Qué lo hace difícil?"
+        },
+        {
+          "title": "El perdón como sanación",
+          "verse": {
+            "text": "Holding on to anger is like grasping a hot coal with the intent of throwing it at someone else; you are the one who gets burned.",
+            "reference": "Buddhist Teaching",
+            "religion": "Buddhism"
+          },
+          "reflection": "El Buda comprendió que la falta de perdón nos daña más que a nadie. Cuando nos aferramos a la ira, envenenamos nuestra propia paz. El perdón es el antídoto que sana nuestros corazones heridos.",
+          "question": "¿Cómo ha afectado tu paz interior el aferrarte a la ira?"
+        },
+        {
+          "title": "Perdonarnos a nosotros mismos",
+          "verse": {
+            "text": "Say: O My servants who have transgressed against themselves, do not despair of the mercy of Allah. Indeed, Allah forgives all sins.",
+            "reference": "Quran 39:53",
+            "religion": "Islam"
+          },
+          "reflection": "A menudo, la persona más difícil de perdonar somos nosotros mismos. Sin embargo, la misericordia divina es infinita. Si el Creador puede perdonar, sin duda podemos extender esa misma gracia hacia nosotros mismos.",
+          "question": "¿Qué es algo de ti mismo que te resulta difícil perdonar?"
+        },
+        {
+          "title": "El proceso de soltar",
+          "verse": {
+            "text": "That which is hateful to you, do not do to your fellow. That is the whole Torah; the rest is the explanation.",
+            "reference": "Talmud, Shabbat 31a",
+            "religion": "Judaism"
+          },
+          "reflection": "El perdón nos pide ver la humanidad en los demás. Cuando recordamos que todos luchan, todos fallan, todos sufren, podemos comenzar a ablandar nuestros corazones.",
+          "question": "¿Recuerdas alguna vez en que alguien te perdonó? ¿Cómo te hizo sentir?"
+        },
+        {
+          "title": "Perdón y justicia",
+          "verse": {
+            "text": "The good deed and the evil deed are not alike. Repel the evil deed with one which is better, then lo!, he between whom and you there was enmity shall become as a dear friend.",
+            "reference": "Quran 41:34",
+            "religion": "Islam"
+          },
+          "reflection": "Perdonar no significa justificar las malas acciones. Significa elegir la paz en lugar del conflicto perpetuo. Podemos buscar justicia mientras liberamos la amargura de nuestros corazones.",
+          "question": "¿Cómo equilibras el perdón con la necesidad de responsabilidad?"
+        },
+        {
+          "title": "El poder de la compasión",
+          "verse": {
+            "text": "Hatred does not cease by hatred, but only by love; this is the eternal rule.",
+            "reference": "Dhammapada 1:5",
+            "religion": "Buddhism"
+          },
+          "reflection": "La compasión es el suelo donde crece el perdón. Cuando cultivamos una comprensión genuina del sufrimiento ajeno, el perdón se convierte en una respuesta natural en lugar de un acto forzado.",
+          "question": "¿Cómo podría la compasión ayudarte en una relación difícil?"
+        },
+        {
+          "title": "Vivir el perdón cada día",
+          "verse": {
+            "text": "Bear with each other and forgive one another if any of you has a grievance. Forgive as the Lord forgave you.",
+            "reference": "Colossians 3:13",
+            "religion": "Christianity"
+          },
+          "reflection": "El perdón no es un evento único sino una práctica diaria. Al cerrar este camino, nos comprometemos a llevar las lecciones del perdón a nuestra vida cotidiana, eligiendo la paz una y otra vez.",
+          "question": "¿Cuál es un pequeño acto de perdón que puedes practicar hoy?"
+        }
+      ]
+    },
+    "innerPeace": {
+      "title": "Encontrando la paz interior",
+      "description": "Descubre la tranquilidad a través de la sabiduría ancestral de diversas tradiciones.",
+      "duration": "7 días",
+      "days": [
+        {
+          "title": "La naturaleza de la paz",
+          "verse": {
+            "text": "Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid.",
+            "reference": "John 14:27",
+            "religion": "Christianity"
+          },
+          "reflection": "La verdadera paz no es la ausencia de problemas sino una calma profunda que permanece firme en medio de las tormentas de la vida. Hoy comenzamos a explorar qué significa realmente la paz interior.",
+          "question": "¿Cómo se ve la paz interior para ti?"
+        },
+        {
+          "title": "Aquietar la mente",
+          "verse": {
+            "text": "To the mind that is still, the whole universe surrenders.",
+            "reference": "Tao Te Ching 16",
+            "religion": "Taoism"
+          },
+          "reflection": "Una mente inquieta no puede encontrar paz. Los antiguos taoístas comprendieron que la quietud es la puerta hacia la claridad. Cuando desaceleramos, creamos espacio para que la paz entre.",
+          "question": "¿Cuándo sientes tu mente más inquieta? ¿Qué te ayuda a calmarla?"
+        },
+        {
+          "title": "Aceptar lo que es",
+          "verse": {
+            "text": "You have the right to work, but never to the fruit of work. You should never engage in action for the sake of reward.",
+            "reference": "Bhagavad Gita 2:47",
+            "religion": "Hinduism"
+          },
+          "reflection": "Gran parte de nuestra ansiedad proviene del apego a los resultados. Krishna enseña que la paz llega cuando hacemos lo mejor que podemos mientras soltamos la necesidad de controlar los resultados.",
+          "question": "¿A qué resultado estás apegado actualmente? ¿Cómo sería soltar ese apego?"
+        },
+        {
+          "title": "Confianza en lo divino",
+          "verse": {
+            "text": "Truly, in the remembrance of Allah do hearts find rest.",
+            "reference": "Quran 13:28",
+            "religion": "Islam"
+          },
+          "reflection": "Cuando recordamos que algo más grande que nosotros nos sostiene, nuestras preocupaciones comienzan a disolverse. La paz proviene de la confianza en la sabiduría divina.",
+          "question": "¿Cómo te brinda consuelo tu fe o espiritualidad?"
+        },
+        {
+          "title": "Vivir con sencillez",
+          "verse": {
+            "text": "Manifest plainness, embrace simplicity, reduce selfishness, have few desires.",
+            "reference": "Tao Te Ching 19",
+            "religion": "Taoism"
+          },
+          "reflection": "La complejidad genera ansiedad. Los sabios enseñan que la sencillez es el camino hacia la paz. Al reducir nuestros deseos, reducimos nuestras preocupaciones.",
+          "question": "¿Qué podrías simplificar en tu vida ahora mismo?"
+        },
+        {
+          "title": "Paz con los demás",
+          "verse": {
+            "text": "If it is possible, as far as it depends on you, live at peace with everyone.",
+            "reference": "Romans 12:18",
+            "religion": "Christianity"
+          },
+          "reflection": "La paz interior está profundamente conectada con nuestras relaciones. Cuando cultivamos la armonía con los demás, creamos espacio para la paz dentro de nosotros mismos.",
+          "question": "¿Hay alguna relación en tu vida que necesite más paz?"
+        },
+        {
+          "title": "Llevar la paz adelante",
+          "verse": {
+            "text": "Peace comes from within. Do not seek it without.",
+            "reference": "Buddhist Teaching",
+            "religion": "Buddhism"
+          },
+          "reflection": "Al concluir este camino, recordamos que la paz no se encuentra en las circunstancias sino que se cultiva en nuestros corazones. La llevamos con nosotros a donde quiera que vayamos.",
+          "question": "¿Qué práctica continuarás para nutrir la paz interior?"
+        }
+      ]
+    },
+    "goldenRule": {
+      "title": "La Regla de Oro a través de las religiones",
+      "description": "Explora cómo cada gran tradición enseña la ética de la reciprocidad.",
+      "duration": "7 días",
+      "days": [
+        {
+          "title": "El principio universal",
+          "verse": {
+            "text": "This is the sum of duty: Do naught unto others which would cause you pain if done to you.",
+            "reference": "Mahabharata 5:15:17",
+            "religion": "Hinduism"
+          },
+          "reflection": "A través de todas las culturas y épocas, la humanidad ha llegado a la misma verdad fundamental: trata a los demás como deseas ser tratado. Este principio es tan universal que aparece de forma independiente en cada gran tradición.",
+          "question": "¿Por qué crees que este principio aparece en tantas tradiciones diferentes?"
+        },
+        {
+          "title": "La reciprocidad confuciana",
+          "verse": {
+            "text": "Do not impose on others what you yourself do not desire.",
+            "reference": "Analects 15:23",
+            "religion": "Confucianism"
+          },
+          "reflection": "Confucio llamó a este principio \"shu\" (reciprocidad) y dijo que era la única palabra que podía guiar una vida. Su formulación enfatiza la moderación: ante todo, no hagas daño.",
+          "question": "¿Cómo podrías practicar \"shu\" hoy en tus interacciones?"
+        },
+        {
+          "title": "El fundamento judío",
+          "verse": {
+            "text": "That which is hateful to you, do not do to your fellow. That is the whole Torah; the rest is the explanation.",
+            "reference": "Talmud, Shabbat 31a",
+            "religion": "Judaism"
+          },
+          "reflection": "El rabino Hillel resumió toda la Torá en este único principio. Nos recuerda que toda enseñanza religiosa apunta en última instancia a cómo tratamos a los demás.",
+          "question": "Si este es el fundamento, ¿cómo cambia tu perspectiva de la práctica religiosa?"
+        },
+        {
+          "title": "El mandamiento cristiano",
+          "verse": {
+            "text": "So in everything, do to others what you would have them do to you, for this sums up the Law and the Prophets.",
+            "reference": "Matthew 7:12",
+            "religion": "Christianity"
+          },
+          "reflection": "Jesús lo formula de manera positiva: haz activamente el bien a los demás. Esto pasa de la simple moderación a la benevolencia proactiva.",
+          "question": "¿De qué manera podrías hacer activamente el bien a alguien hoy?"
+        },
+        {
+          "title": "El principio islámico",
+          "verse": {
+            "text": "None of you truly believes until he wishes for his brother what he wishes for himself.",
+            "reference": "Hadith, An-Nawawi 13",
+            "religion": "Islam"
+          },
+          "reflection": "En el islam, este principio está directamente vinculado a la fe misma. No es simplemente un consejo ético sino una medida de la creencia genuina.",
+          "question": "¿Cómo cambia para ti el significado de este principio al vincularlo con la fe?"
+        },
+        {
+          "title": "La compasión budista",
+          "verse": {
+            "text": "Hurt not others in ways that you yourself would find hurtful.",
+            "reference": "Udana-Varga 5:18",
+            "religion": "Buddhism"
+          },
+          "reflection": "La versión budista se centra en reducir el sufrimiento. Al reconocer nuestra experiencia compartida del dolor, naturalmente extendemos compasión a todos los seres.",
+          "question": "¿Cómo cambia tu forma de ver a los demás la conciencia del sufrimiento compartido?"
+        },
+        {
+          "title": "Una verdad, muchas voces",
+          "verse": {
+            "text": "Regard your neighbour's gain as your own gain, and your neighbour's loss as your own loss.",
+            "reference": "Tai Shang Kan Ying Pien",
+            "religion": "Taoism"
+          },
+          "reflection": "Al concluir, vemos que la mayor percepción moral de la humanidad trasciende cualquier tradición individual. La Regla de Oro es nuestra herencia compartida, que nos llama a la compasión universal.",
+          "question": "¿Cómo llevarás la Regla de Oro a tu vida diaria?"
+        }
+      ]
+    },
+    "suffering": {
+      "title": "Superando el sufrimiento",
+      "description": "Sabiduría ancestral para afrontar los desafíos inevitables de la vida.",
+      "duration": "7 días",
+      "days": [
+        {
+          "title": "La realidad del sufrimiento",
+          "verse": {
+            "text": "Life is dukkha (suffering/unsatisfactoriness). This is the First Noble Truth.",
+            "reference": "Dhammapada",
+            "religion": "Buddhism"
+          },
+          "reflection": "La primera percepción del Buda no fue pesimismo sino realidad: la vida contiene sufrimiento. Reconocer esta verdad es el primer paso hacia la liberación.",
+          "question": "¿Qué sufrimiento estás enfrentando actualmente?"
+        },
+        {
+          "title": "El sufrimiento tiene un propósito",
+          "verse": {
+            "text": "Consider it pure joy when you face trials of many kinds, because you know that the testing of your faith produces perseverance.",
+            "reference": "James 1:2-3",
+            "religion": "Christianity"
+          },
+          "reflection": "Muchas tradiciones enseñan que el sufrimiento puede ser transformador. Nuestras luchas pueden forjar fortaleza, sabiduría y compasión si las abordamos de la manera correcta.",
+          "question": "Mirando hacia atrás, ¿cómo te ha fortalecido una dificultad pasada?"
+        },
+        {
+          "title": "Encontrar sentido en el dolor",
+          "verse": {
+            "text": "Verily, with hardship comes ease.",
+            "reference": "Quran 94:5-6",
+            "religion": "Islam"
+          },
+          "reflection": "El Corán repite esta promesa dos veces seguidas. El alivio sigue a la adversidad, no a pesar de ella, sino a menudo a través de ella. Cada dificultad lleva dentro la semilla del alivio.",
+          "question": "¿Puedes identificar algún \"alivio\" que haya surgido de una adversidad reciente?"
+        },
+        {
+          "title": "El camino más allá",
+          "verse": {
+            "text": "There is a path that leads to the end of suffering. This is the Fourth Noble Truth.",
+            "reference": "Buddhist Teaching",
+            "religion": "Buddhism"
+          },
+          "reflection": "El Buda no se detuvo en diagnosticar el sufrimiento: prescribió una salida. Esto nos da esperanza: el sufrimiento es real, pero no es la última palabra.",
+          "question": "¿Qué prácticas te ayudan a atravesar los momentos difíciles?"
+        },
+        {
+          "title": "Ecuanimidad en la turbulencia",
+          "verse": {
+            "text": "One who is not disturbed by happiness and distress and is steady in both is certainly eligible for liberation.",
+            "reference": "Bhagavad Gita 2:15",
+            "religion": "Hinduism"
+          },
+          "reflection": "Krishna enseña la ecuanimidad: mantenerse firme tanto en la buena como en la mala fortuna. Este equilibrio no significa insensibilidad sino sabiduría estable.",
+          "question": "¿Cómo podrías cultivar más firmeza en tu vida emocional?"
+        },
+        {
+          "title": "Comunidad en el sufrimiento",
+          "verse": {
+            "text": "Carry each other's burdens, and in this way you will fulfill the law of Christ.",
+            "reference": "Galatians 6:2",
+            "religion": "Christianity"
+          },
+          "reflection": "No estamos destinados a sufrir solos. Compartir nuestras cargas con otros, y llevar las suyas, es parte del camino de sanación.",
+          "question": "¿En quién puedes apoyarte? ¿Quién podría necesitar tu apoyo?"
+        },
+        {
+          "title": "Esperanza y resiliencia",
+          "verse": {
+            "text": "This too shall pass.",
+            "reference": "Persian Sufi Teaching",
+            "religion": "Sufism"
+          },
+          "reflection": "Todas las condiciones son impermanentes, incluido el sufrimiento. Esta simple verdad nos recuerda que debemos perseverar, sabiendo que el cambio es constante. Días mejores nos esperan.",
+          "question": "¿Qué te da esperanza cuando los tiempos son difíciles?"
+        }
+      ]
+    },
+    "gratitude": {
+      "title": "Cultivando la gratitud",
+      "description": "Transforma tu perspectiva a través de la antigua práctica del agradecimiento.",
+      "duration": "7 días",
+      "days": [
+        {
+          "title": "El poder del agradecimiento",
+          "verse": {
+            "text": "Give thanks in all circumstances; for this is God's will for you in Christ Jesus.",
+            "reference": "1 Thessalonians 5:18",
+            "religion": "Christianity"
+          },
+          "reflection": "La gratitud no es solo un sentimiento sino una disciplina. Cambia nuestro enfoque de lo que nos falta a la abundancia que ya está presente en nuestras vidas.",
+          "question": "¿Cuáles son tres cosas por las que estás agradecido ahora mismo?"
+        },
+        {
+          "title": "La gratitud abre puertas",
+          "verse": {
+            "text": "If you are grateful, I will surely increase you in favor.",
+            "reference": "Quran 14:7",
+            "religion": "Islam"
+          },
+          "reflection": "Hay un principio espiritual: la gratitud multiplica las bendiciones. Cuando apreciamos lo que tenemos, nos abrimos a recibir más.",
+          "question": "¿Cómo podría la práctica de la gratitud cambiar lo que recibes en la vida?"
+        },
+        {
+          "title": "Contentamiento",
+          "verse": {
+            "text": "He who knows that enough is enough will always have enough.",
+            "reference": "Tao Te Ching 46",
+            "religion": "Taoism"
+          },
+          "reflection": "La gratitud conduce al contentamiento. Cuando reconocemos la suficiencia de lo que tenemos, la búsqueda interminable de \"más\" pierde su poder.",
+          "question": "¿En qué área de tu vida podrías practicar el \"es suficiente\"?"
+        },
+        {
+          "title": "Gratitud en la dificultad",
+          "verse": {
+            "text": "Let us be grateful to people who make us happy; they are the charming gardeners who make our souls blossom.",
+            "reference": "Marcel Proust (Buddhist-inspired)",
+            "religion": "Buddhism"
+          },
+          "reflection": "Incluso en tiempos difíciles, hay personas y momentos que traen luz. La gratitud nos ayuda a ver estos regalos.",
+          "question": "¿Quién ha sido un \"encantador jardinero\" en tu vida?"
+        },
+        {
+          "title": "La gratitud como adoración",
+          "verse": {
+            "text": "Enter his gates with thanksgiving and his courts with praise; give thanks to him and praise his name.",
+            "reference": "Psalm 100:4",
+            "religion": "Judaism"
+          },
+          "reflection": "En muchas tradiciones, la gratitud es una forma de adoración. Reconoce la Fuente de todas las bendiciones y nos conecta con lo Sagrado.",
+          "question": "¿Cómo podría la gratitud profundizar tu práctica espiritual?"
+        },
+        {
+          "title": "Expresar el agradecimiento",
+          "verse": {
+            "text": "One who does not thank people does not thank Allah.",
+            "reference": "Hadith, Abu Dawud",
+            "religion": "Islam"
+          },
+          "reflection": "La gratitud no está completa hasta que se expresa. Agradecer a los demás es un acto sagrado que honra tanto al que da como al regalo.",
+          "question": "¿Quién merece tu agradecimiento hoy?"
+        },
+        {
+          "title": "Una vida de gratitud",
+          "verse": {
+            "text": "When you arise in the morning, think of what a precious privilege it is to be alive--to breathe, to think, to enjoy, to love.",
+            "reference": "Marcus Aurelius (Stoic)",
+            "religion": "Stoicism"
+          },
+          "reflection": "Al concluir, nos comprometemos a hacer de la gratitud una práctica diaria. Cada mañana es una invitación a apreciar el regalo de un nuevo día.",
+          "question": "¿Qué práctica de gratitud matutina adoptarás?"
+        }
+      ]
+    }
+  },
+  "goldenThreads": {
+    "sectionTitle": "Rutas del Hilo Dorado",
+    "sectionDescription": "Sigue un solo concepto mientras se entrelaza a través de la historia y la tradición.",
+    "theGoldenThread": "El Hilo Dorado",
+    "passagesThroughHistory": "{{total}} pasajes a través de la historia",
+    "threadContinues": "El hilo dorado continúa...",
+    "threads": {
+      "goldenRule": {
+        "title": "La Regla de Oro",
+        "description": "La ética universal de la reciprocidad presente en cada gran tradición.",
+        "nodes": [
+          {
+            "era": "3000 BCE ~",
+            "faith": "Hinduism",
+            "title": "La suma del deber",
+            "quote": "This is the sum of duty: Do naught unto others which would cause you pain if done to you.",
+            "description": "Del Mahabharata, destacando que la empatía es la raíz del dharma (deber)."
+          },
+          {
+            "era": "500 BCE",
+            "faith": "Confucianism",
+            "title": "Reciprocidad (Shu)",
+            "quote": "Do not impose on others what you yourself do not desire.",
+            "description": "Confucio define la única palabra que puede guiar una vida: \"Reciprocidad\"."
+          },
+          {
+            "era": "1st Century BCE",
+            "faith": "Judaism",
+            "title": "Toda la Torá",
+            "quote": "That which is hateful to you, do not do to your fellow. That is the whole Torah.",
+            "description": "El resumen del rabino Hillel de toda la ley, mientras se sostenía sobre un pie."
+          },
+          {
+            "era": "1st Century CE",
+            "faith": "Christianity",
+            "title": "La Ley y los Profetas",
+            "quote": "Do to others what you would have them do to you.",
+            "description": "Jesús lo formula de manera positiva (benevolencia activa) en el Sermón del Monte."
+          },
+          {
+            "era": "7th Century CE",
+            "faith": "Islam",
+            "title": "La verdadera fe",
+            "quote": "None of you truly believes until he wishes for his brother what he wishes for himself.",
+            "description": "Los Cuarenta Hadices de An-Nawawi, vinculando la fe directamente con la hermandad social."
+          }
+        ]
+      },
+      "hospitality": {
+        "title": "La hospitalidad sagrada",
+        "description": "Cómo tratar al extranjero como algo divino nos conecta a todos.",
+        "nodes": [
+          {
+            "era": "2000 BCE",
+            "faith": "Judaism/Islam",
+            "title": "La tienda de Abraham",
+            "quote": "He saw three men standing nearby... and bowed low to the ground.",
+            "description": "Abraham corre a dar la bienvenida a extranjeros, quienes resultan ser ángeles/mensajeros divinos."
+          },
+          {
+            "era": "800 BCE",
+            "faith": "Ancient Greek",
+            "title": "Xenia",
+            "quote": "Do not neglect to show hospitality to strangers.",
+            "description": "El antiguo código que Zeus protege a los extranjeros (Xenos). Su violación invoca la ira divina."
+          },
+          {
+            "era": "Variable",
+            "faith": "Hinduism",
+            "title": "Atithi Devo Bhava",
+            "quote": "The guest is God.",
+            "description": "Un mantra sánscrito de la Taittiriya Upanishad que instruye a venerar a los huéspedes como deidades."
+          }
+        ]
+      }
+    }
+  },
+  "challenges": {
+    "communityGoal": "Meta de la comunidad",
+    "communityCount": "5,230",
+    "communityMessage": "Actos de fe registrados esta semana.",
+    "communityTarget": "Meta: 7,000",
+    "activeChallenges": "Desafíos activos",
+    "participants": "participantes",
+    "joinChallenge": "Unirse al desafío",
+    "logActivity": "Registrar actividad",
+    "challengeCompleted": "¡Desafío completado!",
+    "viewJournal": "Ver diario ({count} {entryPlural})",
+    "entry": "entrada",
+    "entries": "entradas",
+    "challengeData": [
+      {
+        "id": "gratitude-week",
+        "title": "Semana de gratitud",
+        "description": "Registra un acto de agradecimiento diario durante 7 días.",
+        "goal": 7,
+        "unit": "días"
+      },
+      {
+        "id": "charity-drive",
+        "title": "Mes de la generosidad",
+        "description": "Da a quienes lo necesitan (tiempo o dinero).",
+        "goal": 5,
+        "unit": "actos"
+      },
+      {
+        "id": "interfaith-reader",
+        "title": "Constructor de puentes",
+        "description": "Lee textos de 3 religiones diferentes.",
+        "goal": 3,
+        "unit": "religiones"
+      }
+    ]
+  },
+  "activityLog": {
+    "title": "Registrar actividad",
+    "progressLabel": "{progress} de {goal} {unit} completados",
+    "whatDidYouDo": "¿Qué hiciste?",
+    "defaultPlaceholder": "Describe tu actividad...",
+    "placeholders": {
+      "gratitude-week": "¿Por qué estás agradecido hoy?",
+      "charity-drive": "¿Cómo mostraste generosidad hoy?",
+      "interfaith-reader": "¿Qué sabiduría descubriste?"
+    },
+    "submitButton": "Registrar esta actividad",
+    "completeTitle": "¡Desafío completado!",
+    "completeMessage": "¡Excelente trabajo! Has terminado el desafío {title}.",
+    "activityJournal": "Tu diario de actividades ({count})"
+  },
+  "badges": {
+    "title": "Insignias de logros",
+    "progressLabel": "{unlocked} de {total} desbloqueadas",
+    "unlockedSection": "Desbloqueadas ({count})",
+    "lockedSection": "Bloqueadas ({count})",
+    "unlockedDate": "Desbloqueada el {date}",
+    "badgeData": [
+      {
+        "id": "first-search",
+        "name": "Primera búsqueda",
+        "description": "Completa tu primera búsqueda",
+        "icon": "search"
+      },
+      {
+        "id": "week-warrior",
+        "name": "Guerrero semanal",
+        "description": "Mantén una racha de 7 días",
+        "icon": "fire"
+      },
+      {
+        "id": "interfaith-explorer",
+        "name": "Explorador interreligioso",
+        "description": "Busca en 3 o más religiones",
+        "icon": "globe"
+      },
+      {
+        "id": "deep-thinker",
+        "name": "Pensador profundo",
+        "description": "Envía más de 50 mensajes en el chat",
+        "icon": "thought"
+      },
+      {
+        "id": "library-keeper",
+        "name": "Guardián de la biblioteca",
+        "description": "Guarda 25 o más versículos",
+        "icon": "books"
+      },
+      {
+        "id": "wisdom-seeker",
+        "name": "Buscador de sabiduría",
+        "description": "Mantén una racha de 30 días",
+        "icon": "star"
+      }
+    ]
+  }
+}

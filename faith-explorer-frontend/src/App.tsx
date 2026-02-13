@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Header } from './components/Header';
 import { ReligionSelector } from './components/ReligionSelector';
 import { SearchBar } from './components/SearchBar';
@@ -34,6 +35,7 @@ export interface SearchResultWithAnswer {
 }
 
 function App() {
+  const { t } = useTranslation('common');
   const [activeTab, setActiveTab] = useState<Tab>('search');
   const { viewMode, selectedSubsets, setIsSearching, clearSelectedSubsets, shouldShowReviewPrompt, reviewPrompt, checkAndUnlockBadges, incrementSessionCount, shouldShowEmailOptIn } = useStore();
   const [searchResults, setSearchResults] = useState<SearchResultWithAnswer[]>([]);
@@ -47,6 +49,23 @@ function App() {
   const [isGatedResult, setIsGatedResult] = useState(false);
   const [comparativeAnalysisError, setComparativeAnalysisError] = useState(false);
   const [showPersonas, setShowPersonas] = useState(false);
+
+  // Reset scroll position when switching to DialogueSimulator
+  useEffect(() => {
+    if (showPersonas && activeTab === 'learn') {
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        const scrollableContainers = document.querySelectorAll('[class*="overflow"], main, [role="main"]');
+        scrollableContainers.forEach(container => {
+          if (container instanceof HTMLElement && container.scrollTop > 0) {
+            container.scrollTop = 0;
+          }
+        });
+      });
+    }
+  }, [showPersonas, activeTab]);
 
   // Initialize scriptures on app start
   useEffect(() => {
@@ -88,7 +107,7 @@ function App() {
 
   // Check app version and clear cache if needed
   useEffect(() => {
-    const currentVersion = '3.2-23'; // version-build
+    const currentVersion = '3.2-24'; // version-build
     const storedVersion = localStorage.getItem('faithExplorer_appVersion');
 
     if (storedVersion !== currentVersion) {
@@ -179,7 +198,7 @@ function App() {
 
     try {
       if (selectedSubsets.length === 0) {
-        showToast('Please select at least one religious text to search.', 'info');
+        showToast(t('usage.selectAtLeastOne'), 'info');
         return;
       }
 
@@ -241,7 +260,7 @@ function App() {
       }
     } catch (error) {
       console.error('Search error:', error);
-      showToast('Search failed. Please try again.', 'error');
+      showToast(t('toast.searchFailed'), 'error');
       // Don't increment usage on failure
     } finally {
       setIsLoading(false);
@@ -303,7 +322,7 @@ function App() {
     >
       {!(activeTab === 'learn' && showPersonas) && <Header />}
 
-      <main className={`flex-1 max-w-4xl mx-auto w-full px-4 pb-28 ${!(activeTab === 'learn' && showPersonas) ? 'pt-28' : 'pt-[calc(env(safe-area-inset-top)+1rem)]'}`}>
+      <main className={`flex-1 max-w-4xl mx-auto w-full px-4 pb-28 ${!(activeTab === 'learn' && showPersonas) ? 'pt-[120px]' : 'pt-[calc(env(safe-area-inset-top)+1rem)]'}`}>
         {/* Content */}
         {activeTab === 'search' && (
           <div className="space-y-4">
@@ -327,25 +346,25 @@ function App() {
                     setActiveTab('learn');
                     setShowPersonas(true);
                   }}
-                  className="w-full p-5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl text-left text-white shadow-lg hover:shadow-xl transition-all group relative overflow-hidden"
+                  className="w-full p-5 bg-gradient-to-br from-stone-700 via-stone-800 to-stone-900 rounded-2xl text-left text-white shadow-lg hover:shadow-xl transition-all group relative overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-600/20 to-transparent"></div>
                   <div className="relative flex items-center gap-4">
-                    <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center text-3xl backdrop-blur-sm">
+                    <div className="w-14 h-14 bg-white/15 rounded-xl flex items-center justify-center text-2xl backdrop-blur-sm flex-shrink-0">
                       💬
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-white mb-1">Chat with Religious Guides</h3>
-                      <p className="text-sm text-indigo-100">Practice respectful dialogue with AI personas from 9 faith traditions</p>
-                      <div className="flex items-center gap-2 mt-2">
-                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">Islam</span>
-                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">Christianity</span>
-                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">Judaism</span>
-                        <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">+6 more</span>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-bold text-white mb-1">{t('personas.title', { ns: 'search' })}</h3>
+                      <p className="text-sm text-stone-300">{t('personas.subtitle', { ns: 'search' })}</p>
+                      <div className="flex items-center gap-2 mt-2 flex-wrap">
+                        <span className="text-xs bg-white/15 px-2 py-0.5 rounded-full backdrop-blur-sm">{t('religionNames.islam', { ns: 'common' })}</span>
+                        <span className="text-xs bg-white/15 px-2 py-0.5 rounded-full backdrop-blur-sm">{t('religionNames.christianity', { ns: 'common' })}</span>
+                        <span className="text-xs bg-white/15 px-2 py-0.5 rounded-full backdrop-blur-sm">{t('religionNames.judaism', { ns: 'common' })}</span>
+                        <span className="text-xs bg-white/15 px-2 py-0.5 rounded-full backdrop-blur-sm">{t('app.religionLabels.moreCount', { ns: 'search' })}</span>
                       </div>
                     </div>
-                    <div className="text-white group-hover:translate-x-1 transition-transform">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="text-white/70 group-hover:translate-x-1 transition-transform flex-shrink-0">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
@@ -379,7 +398,7 @@ function App() {
                   onClick={() => setShowPersonas(false)}
                   className="mb-4 flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:underline"
                 >
-                  ← Back to Learning Paths
+                  ← {t('backToLearning', { ns: 'learn' })}
                 </button>
                 <DialogueSimulator />
               </div>

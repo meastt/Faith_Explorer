@@ -1,7 +1,9 @@
 import { Heart, ExternalLink } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation('common');
 
   const openExternalLink = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -25,32 +27,32 @@ export function Footer() {
               onClick={() => openExternalLink('https://faithexplorer.app/privacy')}
               className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors"
             >
-              <span>Privacy Policy</span>
+              <span>{t('footer.privacyPolicy')}</span>
               <ExternalLink className="w-3 h-3" />
             </button>
             <button
               onClick={() => openExternalLink('https://faithexplorer.app/terms/')}
               className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors"
             >
-              <span>Terms of Service</span>
+              <span>{t('footer.termsOfService')}</span>
               <ExternalLink className="w-3 h-3" />
             </button>
             <button
               onClick={() => window.location.href = 'mailto:mike@faithexplorer.app'}
               className="text-white/90 hover:text-white transition-colors"
             >
-              Contact Support
+              {t('footer.contactSupport')}
             </button>
           </div>
 
           {/* Copyright */}
           <div className="flex flex-col sm:flex-row items-center gap-2 text-sm text-white/80">
-            <p>© {currentYear} Faith Explorer</p>
-            <span className="hidden sm:inline">•</span>
+            <p>&copy; {currentYear} {t('footer.copyright')}</p>
+            <span className="hidden sm:inline">&bull;</span>
             <div className="flex items-center gap-1.5">
-              <span>Made with</span>
+              <span>{t('footer.madeWith')}</span>
               <Heart className="w-3.5 h-3.5 text-pink-300 fill-current" />
-              <span>for seekers of wisdom</span>
+              <span>{t('footer.forSeekers')}</span>
             </div>
           </div>
         </div>

@@ -10,68 +10,57 @@ interface BottomNavProps {
 
 export function BottomNav({ activeTab, onTabChange, onSettingsClick }: BottomNavProps) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 sepia:bg-amber-50 border-t border-gray-200 dark:border-gray-700 sepia:border-amber-200 pb-[env(safe-area-inset-bottom,0px)] z-40">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 sepia:bg-amber-50 border-t border-gray-200 dark:border-gray-700 sepia:border-amber-200 z-50" style={{ paddingBottom: 'env(safe-area-inset-bottom, 4px)' }}>
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-around h-12 py-1">
-          {/* Home / Search Tab */}
+        <div className="flex items-stretch justify-around">
           <button
             onClick={() => onTabChange('search')}
-            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'search'
+            className={`flex items-center justify-center flex-1 min-h-[44px] py-2 transition-colors active:opacity-70 ${activeTab === 'search'
               ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
-              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
+              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600'
               }`}
           >
             <Home className="w-6 h-6" />
-            <span className="text-[10px] font-medium leading-none">Home</span>
           </button>
 
-          {/* Read Tab */}
           <button
             onClick={() => onTabChange('read')}
-            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'read'
+            className={`flex items-center justify-center flex-1 min-h-[44px] py-2 transition-colors active:opacity-70 ${activeTab === 'read'
               ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
-              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
+              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600'
               }`}
           >
             <BookOpen className="w-6 h-6" />
-            <span className="text-[10px] font-medium leading-none">Read</span>
           </button>
 
-          {/* Saved Tab */}
           <button
             onClick={() => onTabChange('saved')}
-            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'saved'
+            className={`flex items-center justify-center flex-1 min-h-[44px] py-2 transition-colors active:opacity-70 ${activeTab === 'saved'
               ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
-              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
+              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600'
               }`}
           >
             <Bookmark className="w-6 h-6" />
-            <span className="text-[10px] font-medium leading-none">Saved</span>
           </button>
 
-          {/* Learn Tab (formerly Practice) */}
           <button
             onClick={() => onTabChange('learn')}
-            className={`flex flex-col items-center justify-center flex-1 gap-1 transition-colors ${activeTab === 'learn'
+            className={`flex items-center justify-center flex-1 min-h-[44px] py-2 transition-colors active:opacity-70 ${activeTab === 'learn'
               ? 'text-indigo-600 dark:text-indigo-400 sepia:text-amber-700'
-              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800'
+              : 'text-gray-500 dark:text-gray-400 sepia:text-amber-600'
               }`}
           >
             <Compass className="w-6 h-6" />
-            <span className="text-[10px] font-medium leading-none">Learn</span>
           </button>
 
-          {/* Settings Button */}
           <button
             onClick={onSettingsClick}
-            className="flex flex-col items-center justify-center flex-1 gap-1 text-gray-500 dark:text-gray-400 sepia:text-amber-600 hover:text-gray-700 dark:hover:text-gray-300 sepia:hover:text-amber-800 transition-colors"
+            className="flex items-center justify-center flex-1 min-h-[44px] py-2 text-gray-500 dark:text-gray-400 sepia:text-amber-600 transition-colors active:opacity-70"
           >
             <Settings className="w-6 h-6" />
-            <span className="text-[10px] font-medium leading-none">Settings</span>
           </button>
         </div>
       </div>
     </nav>
   );
 }
-

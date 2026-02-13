@@ -1,18 +1,16 @@
 import { Sparkles, RefreshCw, ChevronDown, ChevronUp, Quote, MessageCircle, Lock } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { searchReligion } from '../services/api';
 import { RELIGIONS, type Religion } from '../types';
 import { formatAIResponse } from '../utils/markdown';
 import { useStore } from '../store/useStore';
 import { SubscriptionModal } from './SubscriptionModal';
 
-const WISDOM_QUERIES = [
-  'What brings inner peace?', 'How should we treat others?', 'What is true wisdom?',
-  'How do we find meaning?', 'What is the path to enlightenment?', 'How should we face challenges?',
-  'What is compassion?', 'How do we cultivate gratitude?',
-];
-
 export function DailyWisdom() {
+  const { t } = useTranslation('search');
+  const wisdomQueries = t('dailyWisdom.wisdomQueries', { returnObjects: true }) as string[];
+
   const [wisdom, setWisdom] = useState<{ answer: string; religion: Religion; query: string; personalizedIntro?: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -23,9 +21,9 @@ export function DailyWisdom() {
     setIsLoading(true);
     try {
       const today = new Date().toDateString();
-      const queryIndex = today.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % WISDOM_QUERIES.length;
+      const queryIndex = today.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % wisdomQueries.length;
       const religionIndex = today.length % RELIGIONS.filter(r => r.coverage === 'full').length;
-      const query = WISDOM_QUERIES[queryIndex];
+      const query = wisdomQueries[queryIndex];
       const fullCoverageReligions = RELIGIONS.filter(r => r.coverage === 'full');
       const religion = fullCoverageReligions[religionIndex].id;
 
@@ -38,7 +36,7 @@ export function DailyWisdom() {
         const topTopics = getTopRecentTopics(2);
         if (topTopics.length > 0) {
           const topics = topTopics.join(' and ');
-          personalizedIntro = `Based on your recent interest in ${topics}, today's wisdom explores ${query.toLowerCase()}`;
+          personalizedIntro = t('dailyWisdom.personalizedIntro', { topics, query: query.toLowerCase() });
         }
       }
 
@@ -114,9 +112,9 @@ export function DailyWisdom() {
             <Sparkles className="w-5 h-5 text-bronze-500" />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-bronze-600 dark:text-bronze-400">Daily Wisdom</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-bronze-600 dark:text-bronze-400">{t('dailyWisdom.title')}</h3>
             <p className="text-base font-serif font-medium text-stone-900 dark:text-stone-100 truncate">
-              {wisdom ? wisdom.query : 'Seeking wisdom...'}
+              {wisdom ? wisdom.query : t('dailyWisdom.seekingWisdom')}
             </p>
           </div>
         </div>
@@ -170,11 +168,11 @@ export function DailyWisdom() {
 
               <div className="flex items-center justify-between mb-3">
                 <p className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wide">
-                  From {religionInfo?.name}
+                  {t('dailyWisdom.fromReligion', { religion: religionInfo?.name })}
                 </p>
                 {usage.isPremium && (
                   <span className="text-xs px-2 py-1 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 text-amber-800 dark:text-amber-300 rounded-full border border-amber-300 dark:border-amber-700 font-medium">
-                    Enhanced Insight
+                    {t('dailyWisdom.enhancedInsight')}
                   </span>
                 )}
               </div>
@@ -195,12 +193,12 @@ export function DailyWisdom() {
                   {usage.isPremium ? (
                     <>
                       <MessageCircle className="w-4 h-4" />
-                      <span>Deep Dive with AI</span>
+                      <span>{t('dailyWisdom.deepDiveWithAI')}</span>
                     </>
                   ) : (
                     <>
                       <Lock className="w-4 h-4" />
-                      <span>Unlock Deep Dive (Premium)</span>
+                      <span>{t('dailyWisdom.unlockDeepDive')}</span>
                     </>
                   )}
                 </button>

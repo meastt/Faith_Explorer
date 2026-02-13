@@ -1,6 +1,7 @@
 import { X, Mail, Gift, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useStore } from '../store/useStore';
+import { useTranslation } from 'react-i18next';
 
 interface EmailOptInModalProps {
     onClose: () => void;
@@ -10,6 +11,7 @@ export function EmailOptInModal({ onClose }: EmailOptInModalProps) {
     const [email, setEmailInput] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { setEmail, dismissEmailOptIn } = useStore();
+    const { t } = useTranslation('common');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -48,10 +50,10 @@ export function EmailOptInModal({ onClose }: EmailOptInModalProps) {
                         <Sparkles className="w-7 h-7 text-white" />
                     </div>
                     <h2 className="text-2xl font-serif font-bold text-stone-900 dark:text-stone-100 mb-1">
-                        Stay Inspired
+                        {t('emailOptIn.title')}
                     </h2>
                     <p className="text-sm text-stone-600 dark:text-stone-400">
-                        Get weekly wisdom & app updates
+                        {t('emailOptIn.subtitle')}
                     </p>
                 </div>
 
@@ -59,7 +61,7 @@ export function EmailOptInModal({ onClose }: EmailOptInModalProps) {
                 <div className="flex items-center justify-center gap-2 mb-5 py-2.5 px-4 bg-gradient-to-r from-gold-100 to-bronze-100 dark:from-gold-900/20 dark:to-bronze-900/20 rounded-xl border border-gold-200 dark:border-gold-800">
                     <Gift className="w-5 h-5 text-bronze-600 dark:text-bronze-400" />
                     <span className="text-sm font-bold text-bronze-700 dark:text-bronze-300">
-                        +5 Bonus Searches Free!
+                        {t('emailOptIn.bonusBadge')}
                     </span>
                 </div>
 
@@ -71,7 +73,7 @@ export function EmailOptInModal({ onClose }: EmailOptInModalProps) {
                             type="email"
                             value={email}
                             onChange={(e) => setEmailInput(e.target.value)}
-                            placeholder="your@email.com"
+                            placeholder={t('emailOptIn.placeholder')}
                             className="w-full pl-10 pr-4 py-3 rounded-xl border border-sand-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-all"
                             autoComplete="email"
                             autoFocus
@@ -86,12 +88,12 @@ export function EmailOptInModal({ onClose }: EmailOptInModalProps) {
                         {isSubmitting ? (
                             <>
                                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                Unlocking...
+                                {t('loading.unlocking')}
                             </>
                         ) : (
                             <>
                                 <Gift className="w-4 h-4" />
-                                Unlock Bonus Searches
+                                {t('emailOptIn.submitButton')}
                             </>
                         )}
                     </button>
@@ -102,12 +104,12 @@ export function EmailOptInModal({ onClose }: EmailOptInModalProps) {
                     onClick={handleDismiss}
                     className="w-full mt-3 py-2 text-sm text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200 transition-colors"
                 >
-                    Maybe Later
+                    {t('emailOptIn.maybeLater')}
                 </button>
 
                 {/* Privacy Note */}
                 <p className="mt-4 text-xs text-center text-stone-400 dark:text-stone-500">
-                    We respect your privacy. Unsubscribe anytime.
+                    {t('emailOptIn.privacyNote')}
                 </p>
             </div>
         </div>

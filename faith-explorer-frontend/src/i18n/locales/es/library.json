@@ -1,0 +1,105 @@
+{
+  "savedLibrary": {
+    "emptyState": {
+      "title": "Aún no hay versículos guardados",
+      "description": "Guarde versículos significativos mientras busca para crear su colección personal de sabiduría"
+    },
+    "header": {
+      "title": "Su colección guardada",
+      "verseCount": "{filtered} de {total} {versePlural}",
+      "verse": "versículo",
+      "verses": "versículos"
+    },
+    "export": {
+      "button": "Exportar",
+      "markdown": "Markdown",
+      "markdownDescription": "Documento con formato",
+      "citations": "Citas",
+      "mlaFormat": "Formato MLA",
+      "apaFormat": "Formato APA",
+      "chicagoFormat": "Formato Chicago"
+    },
+    "collections": {
+      "title": "Colecciones",
+      "newButton": "Nueva",
+      "createNewFolder": "Crear nueva carpeta",
+      "folderPlaceholder": "Nombre de la carpeta...",
+      "unfiled": "Sin clasificar",
+      "all": "Todas",
+      "clickToConfirmDelete": "Presione de nuevo para confirmar",
+      "deleteFolder": "Eliminar carpeta"
+    },
+    "tags": {
+      "title": "Etiquetas",
+      "clearFilters": "Borrar filtros"
+    },
+    "search": {
+      "placeholder": "Buscar en sus versículos guardados...",
+      "allReligions": "Todas las religiones"
+    },
+    "sort": {
+      "newestFirst": "Más recientes primero",
+      "oldestFirst": "Más antiguos primero",
+      "byReligion": "Por religión",
+      "byReference": "Por referencia"
+    },
+    "noResults": {
+      "title": "No se encontraron versículos",
+      "description": "Intente ajustar su búsqueda o filtro"
+    },
+    "defaultFolders": {
+      "favorites": "Favoritos",
+      "toStudy": "Para estudiar",
+      "shared": "Compartidos"
+    }
+  },
+  "savedVerseCard": {
+    "highlighting": {
+      "selectText": "Seleccione texto para resaltar",
+      "colorTitle": "Resaltado en {color}",
+      "clickToRemove": "Presione para eliminar el resaltado"
+    },
+    "tags": {
+      "placeholder": "Nombre de la etiqueta..."
+    },
+    "notes": {
+      "placeholder": "Agregue sus notas y reflexiones personales..."
+    },
+    "folderMenu": {
+      "title": "Mover a carpeta"
+    },
+    "actions": {
+      "discuss": "Comentar",
+      "folder": "Carpeta",
+      "highlight": "Resaltar",
+      "edit": "Editar",
+      "note": "Nota",
+      "share": "Compartir",
+      "delete": "Eliminar",
+      "confirm": "¿Confirmar?",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "done": "Listo",
+      "addTag": "Agregar etiqueta",
+      "addOrEditNotes": "Agregar o editar notas",
+      "shareVerse": "Compartir versículo",
+      "discussVerse": "Comentar este versículo",
+      "highlightText": "Resaltar texto",
+      "moveToFolder": "Mover a carpeta"
+    }
+  },
+  "libraryStats": {
+    "title": "Estadísticas de su biblioteca",
+    "totalVerses": "Total de versículos",
+    "religions": "Religiones",
+    "tagsUsed": "Etiquetas utilizadas",
+    "withNotes": "Con notas",
+    "mostExploredTradition": "Tradición más explorada",
+    "verseSuffix": "versículos",
+    "religionDistribution": "Distribución por religión",
+    "topTopics": "Temas principales",
+    "foldersUsed": "Carpetas utilizadas",
+    "highlights": "Resaltados",
+    "avgPerReligion": "Promedio por religión"
+  }
+}

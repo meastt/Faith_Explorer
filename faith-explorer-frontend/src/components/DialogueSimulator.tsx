@@ -1,9 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, ArrowLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { simulateDialogue, type Persona } from '../services/api';
 import { PersonaSelector } from './PersonaSelector';
 
 export function DialogueSimulator() {
+    const { t } = useTranslation('search');
+    const { t: tCommon } = useTranslation('common');
     const [activePersona, setActivePersona] = useState<Persona | null>(null);
     const [activeScenario, setActiveScenario] = useState<string | null>(null);
     const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([]);
@@ -11,15 +14,55 @@ export function DialogueSimulator() {
     const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
+    // Reset scroll position when component mounts or when persona/scenario resets
+    useEffect(() => {
+        // Use requestAnimationFrame to ensure DOM is ready
+        requestAnimationFrame(() => {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            // Also reset any scrollable containers
+            const scrollableContainers = document.querySelectorAll('[class*="overflow"], main, [role="main"]');
+            scrollableContainers.forEach(container => {
+                if (container instanceof HTMLElement && container.scrollTop > 0) {
+                    container.scrollTop = 0;
+                }
+            });
+        });
+    }, [activePersona, activeScenario]);
+
     const getInitialGreeting = (persona: Persona, scenario: string): string => {
-        const greetings: Record<string, string> = {
-            "Meet & Greet": `Hello! I'm ${persona.name}. It's wonderful to meet you. I'm always happy to share about my faith and learn about others. What brings you here today?`,
-            "Dietary Practices": `Shalom! I'm ${persona.name}. I understand you're curious about how faith influences what we eat? It's a meaningful topic - food connects us to tradition in so many ways. What would you like to know?`,
-            "Prayer & Worship": `Peace be upon you! I'm ${persona.name}. Prayer and worship are central to my daily life. I'd be glad to share how I connect with the divine. What aspect interests you most?`,
-            "Charity & Giving": `Welcome! I'm ${persona.name}. Generosity and caring for others is a cornerstone of my faith. There's so much wisdom in our traditions about giving. What draws you to this topic?`,
-            "Life's Challenges": `Hello, friend. I'm ${persona.name}. Life's challenges are something every faith tradition has grappled with deeply. I'm honored you'd want to explore this with me. Where shall we begin?`,
+        // Map scenario IDs to greeting keys
+        const idToGreetingKey: Record<string, string> = {
+            'introduction': 'dialogue.greetings.meetAndGreet',
+            'dietary-rules': 'dialogue.greetings.dietaryPractices',
+            'prayer-habits': 'dialogue.greetings.prayerAndWorship',
+            'charity': 'dialogue.greetings.charityAndGiving',
+            'suffering': 'dialogue.greetings.lifesChallenges',
         };
-        return greetings[scenario] || `Hello! I'm ${persona.name}. I'm looking forward to our conversation about ${scenario.toLowerCase()}. What would you like to discuss?`;
+
+        // The scenario param is the translated title; find the matching scenario ID
+        const translatedScenarios = t('dialogue.scenarios', { returnObjects: true }) as { id: string; title: string }[];
+        let scenarioId = '';
+        if (Array.isArray(translatedScenarios)) {
+            const match = translatedScenarios.find(s => s.title === scenario);
+            if (match) scenarioId = match.id;
+        }
+
+        const key = idToGreetingKey[scenarioId];
+        if (key) {
+            const translated = t(key, { name: persona.name });
+            if (translated !== key && !translated.includes('{name}')) {
+                return translated;
+            }
+        }
+
+        // Fallback to default greeting
+        const defaultGreeting = t('dialogue.greetings.default', { name: persona.name, scenario: scenario.toLowerCase() });
+        if (defaultGreeting !== 'dialogue.greetings.default' && !defaultGreeting.includes('{name}')) {
+            return defaultGreeting;
+        }
+        return `Hello! I'm ${persona.name}. I'm looking forward to our conversation about ${scenario.toLowerCase()}. What would you like to discuss?`;
     };
 
     const handleStart = (persona: Persona, scenario: string) => {
@@ -43,7 +86,7 @@ export function DialogueSimulator() {
             setMessages([...newHistory, { role: 'assistant', content: result.reply }]);
         } catch (e) {
             console.error(e);
-            setMessages([...newHistory, { role: 'assistant', content: "I'm sorry, I couldn't respond. Please check your connection and try again." }]);
+            setMessages([...newHistory, { role: 'assistant', content: tCommon('errors.dialogueError') }]);
         } finally {
             setIsLoading(false);
         }
@@ -81,7 +124,7 @@ export function DialogueSimulator() {
                         <h3 className="font-bold text-gray-900 dark:text-gray-100 sepia:text-amber-900">{activePersona.name}</h3>
                         <p className="text-xs text-green-600 dark:text-green-400 sepia:text-amber-700 font-medium flex items-center gap-1">
                             <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                            Online • Practice Mode
+                            {t('dialogue.onlineStatus')}
                         </p>
                     </div>
                 </div>
@@ -135,7 +178,14 @@ export function DialogueSimulator() {
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                                placeholder={`Reply to ${activePersona.name}...`}
+                                placeholder={(() => {
+                                    const translated = t('dialogue.replyPlaceholder', { name: activePersona.name });
+                                    // Fallback if translation returns placeholder
+                                    if (translated === 'dialogue.replyPlaceholder' || translated.includes('{name}')) {
+                                        return `Reply to ${activePersona.name}...`;
+                                    }
+                                    return translated;
+                                })()}
                                 disabled={isLoading}
                                 className="flex-1 bg-gray-100 dark:bg-gray-700 sepia:bg-amber-100 border-0 sepia:border sepia:border-amber-300 rounded-xl px-4 focus:ring-2 focus:ring-blue-500 sepia:focus:ring-amber-500 dark:text-white sepia:text-amber-900 sepia:placeholder-amber-600"
                             />

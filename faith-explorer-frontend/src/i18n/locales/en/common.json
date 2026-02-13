@@ -1,0 +1,208 @@
+{
+  "nav": {
+    "home": "Home",
+    "read": "Read",
+    "saved": "Saved",
+    "learn": "Learn",
+    "settings": "Settings"
+  },
+  "buttons": {
+    "save": "Save",
+    "saved": "Saved",
+    "cancel": "Cancel",
+    "close": "Close",
+    "delete": "Delete",
+    "confirm": "Confirm?",
+    "share": "Share",
+    "discuss": "Discuss",
+    "back": "Back",
+    "next": "Next",
+    "skip": "Skip",
+    "getStarted": "Get Started",
+    "export": "Export",
+    "create": "Create",
+    "done": "Done",
+    "new": "New",
+    "edit": "Edit",
+    "note": "Note",
+    "folder": "Folder",
+    "highlight": "Highlight",
+    "previous": "Previous",
+    "tryAgain": "Try Again",
+    "goBack": "Go Back",
+    "view": "View",
+    "open": "Open",
+    "email": "Email",
+    "restore": "Restore",
+    "redeem": "Redeem",
+    "wisdom": "Wisdom",
+    "context": "Context",
+    "addTag": "Add tag"
+  },
+  "brand": {
+    "appName": "Faith Explorer",
+    "tagline": "Wisdom of Ages",
+    "logoLetter": "F"
+  },
+  "usage": {
+    "premium": "Premium",
+    "upgrade": "Upgrade",
+    "leftSuffix": "left",
+    "freeSearches": "free searches",
+    "freeSearchesRemaining": "Free searches remaining",
+    "searchLimitReached": "You have reached your free search limit.",
+    "messagesRemaining": "messages remaining",
+    "selectAtLeastOne": "Please select at least one religious text to search."
+  },
+  "toast": {
+    "verseCopied": "Verse copied to clipboard!",
+    "verseRemoved": "Verse removed from your collection.",
+    "verseSaved": "Verse saved to your library!",
+    "comparisonSaved": "Comparison saved to your library!",
+    "analysisCopied": "Analysis copied to clipboard!",
+    "insightCopied": "Insight copied to clipboard!",
+    "analysisSaved": "Analysis saved to your library!",
+    "folderDeleted": "Folder deleted. Verses moved to \"Unfiled\".",
+    "localDataDeleted": "All local data has been deleted from this device.",
+    "localDataDeleteFailed": "Failed to delete local data.",
+    "searchFailed": "Search failed. Please try again.",
+    "chatFeatureComingSoon": "Chat feature coming soon! Discuss specific verses by clicking \"Discuss\" below."
+  },
+  "errors": {
+    "chatError": "Sorry, I encountered an error. Please try again.",
+    "dialogueError": "I'm sorry, I couldn't respond. Please check your connection and try again.",
+    "commonGroundError": "Failed to analyze common ground. Please try again.",
+    "searchFailed": "Search failed. Please check your connection and try again.",
+    "failedToLoadOfferings": "Failed to load subscription options. Please check your internet connection and try again.",
+    "noPackagesFound": "No subscription package found. Please contact support.",
+    "purchaseCancelled": "Purchase cancelled",
+    "purchaseFailed": "Failed to process subscription. Please try again.",
+    "restoreFailed": "Failed to restore purchases. Please try again.",
+    "noRestorePurchases": "No previous purchases found to restore.",
+    "failedToLoadScripture": "Failed to load scripture",
+    "checkConnection": "Please check your connection and try again.",
+    "apiKeyNotConfigured": "Anthropic API key not configured. Please set VITE_ANTHROPIC_API_KEY in your .env file.",
+    "noVersesFound": "I couldn't find specific verses about \"{query}\" in the selected texts. Try rephrasing your question or selecting different religious texts."
+  },
+  "loading": {
+    "searchingTexts": "Searching sacred texts...",
+    "loadingScripture": "Loading scripture...",
+    "synthesizing": "Synthesizing perspectives...",
+    "seekingWisdom": "Seeking wisdom...",
+    "processing": "Processing...",
+    "unlocking": "Unlocking..."
+  },
+  "footer": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "contactSupport": "Contact Support",
+    "copyright": "Faith Explorer",
+    "madeWith": "Made with",
+    "forSeekers": "for seekers of wisdom"
+  },
+  "onboarding": {
+    "step1": {
+      "title": "Welcome to Faith Explorer",
+      "description": "Explore and compare sacred texts from 9 major world religions. Ask questions and discover wisdom across traditions.",
+      "examples": [
+        "What is love?",
+        "What is the meaning of life?",
+        "How should we treat others?"
+      ]
+    },
+    "step2": {
+      "title": "Compare Traditions",
+      "description": "Switch to comparison mode to see how different religions approach the same topic. Get detailed comparative analysis.",
+      "examples": [
+        "Views on compassion",
+        "Perspectives on suffering",
+        "The golden rule"
+      ]
+    },
+    "step3": {
+      "title": "Read Complete Scriptures",
+      "description": "Browse full religious texts like a Bible app. Use the Read tab to study complete books chapter by chapter.",
+      "examples": [
+        "Read Genesis",
+        "Browse the Quran",
+        "Study the Bhagavad Gita"
+      ]
+    },
+    "tryAsking": "Try asking:"
+  },
+  "emailOptIn": {
+    "title": "Stay Inspired",
+    "subtitle": "Get weekly wisdom & app updates",
+    "bonusBadge": "+5 Bonus Searches Free!",
+    "placeholder": "your@email.com",
+    "submitButton": "Unlock Bonus Searches",
+    "maybeLater": "Maybe Later",
+    "privacyNote": "We respect your privacy. Unsubscribe anytime."
+  },
+  "reviewPrompt": {
+    "title": "Light the Path for Others",
+    "body": "You just saved insights that resonated with you. Help other seekers discover these same teachings by sharing your experience with Faith Explorer.",
+    "subtitle": "Your review helps spiritual explorers worldwide find this interfaith resource.",
+    "leaveReview": "Leave a Review",
+    "maybeLater": "Maybe Later"
+  },
+  "streakFreeze": {
+    "title": "Streak Freeze Available!",
+    "description": "You missed yesterday, but you can use your monthly streak freeze (Premium perk) to keep your {count}-day streak alive!",
+    "useFreeze": "Use Freeze",
+    "freezesAvailable": "You have {count} freeze{plural} available this month"
+  },
+  "gating": {
+    "title": "Unlock Full Wisdom",
+    "description": "You've used all your free searches! The app can answer your question. Upgrade to Premium to see the full results and continue your spiritual journey.",
+    "upgradeToPremium": "Upgrade to Premium"
+  },
+  "scripture": {
+    "descriptorLabel": "SCRIPTURE-BACKED . MULTI-FAITH . COMPARATIVE"
+  },
+  "religionNames": {
+    "christianity": "Christianity",
+    "islam": "Islam",
+    "judaism": "Judaism",
+    "hinduism": "Hinduism",
+    "buddhism": "Buddhism",
+    "sikhism": "Sikhism",
+    "taoism": "Taoism",
+    "confucianism": "Confucianism",
+    "shinto": "Shinto"
+  },
+  "subsetNames": {
+    "kjv": "King James Version",
+    "catholic": "Catholic Bible",
+    "orthodox": "Orthodox Bible",
+    "mormon": "Book of Mormon",
+    "doctrine-covenants": "Doctrine & Covenants",
+    "quran-sahih": "Quran (Sahih)",
+    "hadith-bukhari": "Hadith (Bukhari)",
+    "hadith-muslim": "Hadith (Muslim)",
+    "torah": "Torah",
+    "talmud": "Babylonian Talmud",
+    "bhagavad-gita": "Bhagavad Gita",
+    "vedas": "Vedas",
+    "upanishads": "Upanishads",
+    "ramayana": "Ramayana",
+    "dhammapada": "Dhammapada",
+    "sutras": "Mahayana Sutras",
+    "vinaya": "Vinaya Pitaka",
+    "abhidharma": "Abhidharma",
+    "guru-granth-sahib": "Guru Granth Sahib",
+    "dasam-granth": "Dasam Granth",
+    "janam-sakhis": "Janam Sakhis",
+    "tao-te-ching": "Tao Te Ching",
+    "zhuangzi": "Chuang Tzu (Zhuangzi)",
+    "i-ching": "I Ching",
+    "daozang": "Daozang",
+    "analects": "Analects",
+    "mengzi": "Mengzi",
+    "xunzi": "Xunzi",
+    "five-classics": "Five Classics",
+    "kojiki": "Kojiki",
+    "nihon-shoki": "Nihon Shoki",
+    "norito": "Norito"
+  }
+}
