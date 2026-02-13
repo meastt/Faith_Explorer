@@ -26,7 +26,7 @@ const config: CapacitorConfig = {
       splashImmersive: true
     },
     Purchases: {
-      apiKey: 'your_revenuecat_public_key_here'
+      apiKey: 'appl_mtEbCKhGfJkRSZbPKzOhrajFMzr'
     }
   }
 };
