@@ -1,11 +1,11 @@
 /**
  * Direct Anthropic API client for Faith Explorer
- * Uses Claude Haiku 3.5 for cost-efficient complex theological responses
- * Claude Haiku: $0.80/MTok input, $4.00/MTok output (73% cheaper than Sonnet)
+ * Uses Claude Haiku 4.5 for cost-efficient complex theological responses
+ * Claude Haiku: $1.00/MTok input, $5.00/MTok output (Significantly smarter than 3.5)
  */
 
 const ANTHROPIC_API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY;
-const MODEL = 'claude-3-5-haiku-20241022';
+const MODEL = 'claude-haiku-4-5-20251001';
 
 
 interface ClaudeMessage {

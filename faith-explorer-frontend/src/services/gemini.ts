@@ -2,12 +2,11 @@
  * Google Gemini API client for Faith Explorer
  * Used for cost-efficient operations: search keywords, JSON generation, simple tasks
  * 
- * Model: Gemini 2.5 Flash-Lite ($0.10/MTok input, $0.40/MTok output)
- * ~97% cheaper than Claude Sonnet 4.5
+ * Model: Gemini 3.1 Flash-Lite ($0.25/MTok input, $1.50/MTok output)
  */
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const GEMINI_MODEL = 'gemini-2.5-flash-lite';
+const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
 
 interface GeminiResponse {

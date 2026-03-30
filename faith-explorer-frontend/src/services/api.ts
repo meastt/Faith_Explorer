@@ -9,7 +9,7 @@ import {
   secularizeTextAI,
   type Persona,
   type DialogueResponse
-} from './anthropic';
+} from './openrouter';
 import { useStore } from '../store/useStore';
 
 // Re-export types for backward compatibility
@@ -23,7 +23,7 @@ export interface AskResponse {
 
 /**
  * Search scriptures and get AI-powered answer
- * Now calls Claude directly from the frontend
+ * Now calls Minimax via OpenRouter directly from the frontend
  */
 export async function searchSubsets(
   selectedSubsets: SelectedSubset[],
